@@ -1,0 +1,14 @@
+{
+  "name": "mangalam-jewellers-template",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Static HTML template of the Mangalam Jewellers website.",
+  "scripts": {
+    "build:css": "tailwindcss -i ./src/tailwind.css -o ./assets/css/style.css",
+    "watch:css": "tailwindcss -i ./src/tailwind.css -o ./assets/css/style.css --watch"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.2.1",
+    "tailwindcss": "^4.2.1"
+  }
+}

@@ -1,0 +1,186 @@
+/* Mangalam Jewellers — Tailwind CSS v4 source for assets/css/style.css.
+ * The pages already ship with the compiled stylesheet. Rebuild it only after
+ * adding new Tailwind classes:  npm install  then  npm run build:css
+ */
+@import "tailwindcss" source(none);
+@source "../*.html";
+@source "../assets/js/*.js";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: "Manrope", "DM Sans", sans-serif;
+  --font-serif: "Cormorant Garamond", "Playfair Display", "Noto Serif Gujarati", serif;
+  --font-gujarati: "Noto Serif Gujarati", serif;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-gold: var(--gold);
+  --color-light-gold: var(--light-gold);
+  --color-deep-maroon: var(--deep-maroon);
+  --color-wine: var(--wine);
+  --color-maroon: var(--maroon);
+  --color-ivory: var(--ivory);
+  --color-charcoal: var(--charcoal);
+  --color-beige: var(--beige);
+}
+
+:root {
+  --radius: 0.125rem;
+  --background: oklch(0.98 0.012 85);            /* Warm Ivory #FBF7F0 */
+  --foreground: oklch(0.27 0.015 60);            /* Charcoal #292321 */
+  --card: oklch(0.98 0.012 85);
+  --card-foreground: oklch(0.27 0.015 60);
+  --popover: oklch(0.98 0.012 85);
+  --popover-foreground: oklch(0.27 0.015 60);
+  --primary: oklch(0.53 0.145 22);               /* Maroon #A82E35 */
+  --primary-foreground: oklch(0.98 0.012 85);
+  --secondary: oklch(0.955 0.02 85);             /* Soft Cream #F5EEE2 */
+  --secondary-foreground: oklch(0.38 0.12 15);
+  --muted: oklch(0.955 0.02 85);
+  --muted-foreground: oklch(0.45 0.02 60);
+  --accent: oklch(0.8 0.09 85);                  /* Champagne Gold #D8B36A */
+  --accent-foreground: oklch(0.3 0.11 15);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.98 0.012 85);
+  --border: oklch(0.87 0.035 80);
+  --input: oklch(0.84 0.03 80);
+  --ring: oklch(0.8 0.09 85);
+  --gold: oklch(0.8 0.09 85);                    /* #D8B36A */
+  --light-gold: oklch(0.88 0.07 88);             /* #E8D3A5 */
+  --deep-maroon: oklch(0.38 0.12 15);            /* #6F1E26 */
+  --wine: oklch(0.3 0.11 15);                    /* #4B151B */
+  --maroon: oklch(0.53 0.145 22);                /* #A82E35 */
+  --ivory: oklch(0.98 0.012 85);
+  --charcoal: oklch(0.27 0.015 60);
+  --beige: oklch(0.84 0.03 80);                  /* #D8C8B3 */
+}
+
+@layer base {
+  * { border-color: var(--color-border); }
+  html { scroll-behavior: smooth; }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+  }
+  ::selection { background: var(--gold); color: var(--wine); }
+  button, a { cursor: pointer; }
+  h1, h2, h3 { font-family: var(--font-serif); }
+  img { max-width: 100%; }
+}
+
+/* ---------- Navbar ---------- */
+.nav-link { position: relative; }
+.nav-link::after { content: ""; position: absolute; inset: auto 0 -6px; height: 1px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 300ms ease; }
+.nav-link:hover::after, .nav-link[data-status="active"]::after { transform: scaleX(1); }
+
+/* ---------- Hero ---------- */
+.hero-image { animation: heroZoom 18s ease-out both; will-change: transform; }
+.bg-hero-overlay { background: linear-gradient(90deg, color-mix(in oklab, var(--wine) 82%, transparent) 0%, color-mix(in oklab, var(--wine) 38%, transparent) 48%, color-mix(in oklab, var(--wine) 8%, transparent) 100%); }
+.animate-reveal { opacity: 0; animation: revealUp 900ms cubic-bezier(.2,.7,.2,1) forwards; }
+.scroll-line { width: 40px; height: 1px; background: var(--light-gold); animation: linePulse 2s ease-in-out infinite; }
+
+/* The "Timeless" champagne-gold metallic shimmer */
+.gold-shimmer {
+  background: linear-gradient(110deg, #D8B36A 0%, #F0DDA9 30%, #D8B36A 50%, #B98C45 75%, #D8B36A 100%);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  letter-spacing: 0.03em;
+  animation: goldShimmer 6s ease-in-out infinite;
+  filter: drop-shadow(0 0 14px color-mix(in oklab, var(--gold) 35%, transparent));
+  transition: filter 400ms ease, transform 400ms ease;
+  display: inline-block;
+}
+.gold-shimmer:hover { filter: drop-shadow(0 0 22px color-mix(in oklab, var(--gold) 55%, transparent)) brightness(1.12); transform: scale(1.02); }
+.hero-light { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(105deg, transparent 42%, color-mix(in oklab, #F0DDA9 16%, transparent) 50%, transparent 58%); background-size: 300% 100%; animation: lightSweep 9s ease-in-out infinite; }
+.sparkle { position: absolute; width: 4px; height: 4px; border-radius: 999px; background: color-mix(in oklab, var(--light-gold) 90%, white); opacity: 0; animation: sparkleGlow 7s ease-in-out infinite; box-shadow: 0 0 8px color-mix(in oklab, var(--light-gold) 80%, transparent); }
+
+/* ---------- Sections ---------- */
+.bg-card-overlay { background: linear-gradient(0deg, color-mix(in oklab, var(--wine) 78%, transparent), transparent 62%); }
+.bg-bridal-overlay { background: linear-gradient(90deg, color-mix(in oklab, var(--wine) 70%, transparent), transparent 66%); }
+.image-card img { transition: transform 800ms cubic-bezier(.2,.8,.2,1); }
+.image-card:hover img { transform: scale(1.05); }
+.heritage-pattern { background-image: radial-gradient(circle at 50% 50%, color-mix(in oklab, var(--gold) 14%, transparent) 1.5px, transparent 1.5px); background-size: 26px 26px; }
+.heritage-arch { border: 1px solid color-mix(in oklab, var(--gold) 45%, transparent); border-radius: 999px 999px 0 0; }
+.hotspot { position: absolute; width: 22px; height: 22px; border-radius: 999px; border: 1px solid var(--gold); background: color-mix(in oklab, var(--gold) 30%, transparent); display: grid; place-items: center; cursor: pointer; }
+.hotspot::after { content: ""; width: 6px; height: 6px; border-radius: 999px; background: var(--gold); animation: linePulse 2.2s ease-in-out infinite; }
+.timeline-line { position: absolute; left: 6%; right: 6%; top: 8px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+.craft-ornament { border: 1px solid color-mix(in oklab, var(--gold) 40%, transparent); border-radius: 999px; position: absolute; }
+
+/* ---------- Signature scroll (category carousel only) ---------- */
+.signature-scroll { overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none; }
+.signature-scroll::-webkit-scrollbar { display: none; }
+
+/* ---------- Product cards ---------- */
+.product-card { transition: transform 500ms ease; }
+.product-card:hover { transform: translateY(-4px); }
+
+/* ---------- Loading screen ---------- */
+.loading-line { height: 1px; width: 160px; background: linear-gradient(90deg, transparent, var(--gold), transparent); animation: linePulse 1.4s ease-in-out infinite; }
+.mj-seen #loader { display: none; }
+
+/* ---------- Dialogs, sheets & select menu (static replacement for Radix + tw-animate-css) ---------- */
+.mj-overlay[data-state="open"] { animation: mjFadeIn 150ms ease both; }
+.mj-overlay[data-state="closed"] { animation: mjFadeOut 150ms ease both; }
+.mj-dialog[data-state="open"] { animation: mjDialogIn 200ms ease both; }
+.mj-dialog[data-state="closed"] { animation: mjDialogOut 200ms ease both; }
+.mj-sheet[data-side="left"][data-state="open"] { animation: mjSlideInLeft 500ms cubic-bezier(0.4, 0, 0.2, 1) both; }
+.mj-sheet[data-side="left"][data-state="closed"] { animation: mjSlideOutLeft 300ms cubic-bezier(0.4, 0, 0.2, 1) both; }
+.mj-sheet[data-side="right"][data-state="open"] { animation: mjSlideInRight 500ms cubic-bezier(0.4, 0, 0.2, 1) both; }
+.mj-sheet[data-side="right"][data-state="closed"] { animation: mjSlideOutRight 300ms cubic-bezier(0.4, 0, 0.2, 1) both; }
+.mj-sheet[data-side="bottom"][data-state="open"] { animation: mjSlideInBottom 500ms cubic-bezier(0.4, 0, 0.2, 1) both; }
+.mj-sheet[data-side="bottom"][data-state="closed"] { animation: mjSlideOutBottom 300ms cubic-bezier(0.4, 0, 0.2, 1) both; }
+.mj-select[data-state="open"] { animation: mjSelectIn 150ms ease both; }
+
+@keyframes heroZoom { from { transform: scale(1.08); } to { transform: scale(1); } }
+@keyframes revealUp { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes linePulse { 0%,100% { transform: scaleX(.4); opacity: .5; } 50% { transform: scaleX(1); opacity: 1; } }
+@keyframes goldShimmer { 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+@keyframes lightSweep { 0%,100% { background-position: 120% 0; } 50% { background-position: -20% 0; } }
+@keyframes sparkleGlow { 0%,100% { opacity: 0; transform: scale(.6); } 50% { opacity: .9; transform: scale(1); } }
+@keyframes mjFadeIn { from { opacity: 0; } }
+@keyframes mjFadeOut { to { opacity: 0; } }
+@keyframes mjDialogIn { from { opacity: 0; transform: scale(.95); } }
+@keyframes mjDialogOut { to { opacity: 0; transform: scale(.95); } }
+@keyframes mjSlideInLeft { from { transform: translateX(-100%); } }
+@keyframes mjSlideOutLeft { to { transform: translateX(-100%); } }
+@keyframes mjSlideInRight { from { transform: translateX(100%); } }
+@keyframes mjSlideOutRight { to { transform: translateX(100%); } }
+@keyframes mjSlideInBottom { from { transform: translateY(100%); } }
+@keyframes mjSlideOutBottom { to { transform: translateY(100%); } }
+@keyframes mjSelectIn { from { opacity: 0; transform: translateY(-0.5rem) scale(.95); } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+  html { scroll-behavior: auto; }
+  .gold-shimmer { animation: none; background-position: 50% 50%; }
+  .hero-light, .sparkle { display: none; }
+  .hero-image { animation: none; }
+}
