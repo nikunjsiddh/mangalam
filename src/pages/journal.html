@@ -1,0 +1,20 @@
+    <section class="page-hero">
+      <img class="page-hero__bg" src="assets/images/mangalam-hero.jpg" alt="">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb"><a href="index.html">Home</a><span class="breadcrumb__sep"></span><span aria-current="page">Journal</span></nav>
+        <h1 class="page-hero__title">The <em>Journal</em></h1>
+        <span class="ornament ornament--light" aria-hidden="true"></span>
+        <p class="page-hero__lead">Guides, heritage and inspiration — written by the people who make the jewellery.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">{{journalFeature}}
+        <div class="section-head section-head--split" data-reveal>
+          <h2 class="section-title" style="margin-top:0">Browse by <em>topic</em></h2>
+          <div class="tabs" role="group" aria-label="Filter articles">{{journalChips}}</div>
+        </div>
+        <div class="journal-grid" data-journal-grid>{{journalGrid}}
+        </div>
+      </div>
+    </section>

@@ -1,0 +1,19 @@
+  <!-- Product enquiry -->
+  <div class="modal" data-modal="enquire" hidden>
+    <div class="modal__overlay" data-overlay data-close></div>
+    <div class="modal__panel modal__panel--dialog" data-panel role="dialog" aria-modal="true" aria-labelledby="enquire-title" aria-describedby="enquire-desc" tabindex="-1">
+      <button type="button" class="modal__close" data-close aria-label="Close">{{icon:x}}</button>
+      <p class="eyebrow">Enquire</p>
+      <h2 id="enquire-title" class="modal__title mt-1">About this piece</h2>
+      <p id="enquire-desc" class="modal__desc">Ask about the <strong data-product-name>piece</strong> — sizing, customisation or a private viewing.</p>
+      <form class="form" data-success="Thank you." data-success-text="Your message has been received — our concierge will reply within one business day.">
+        <label class="field"><input class="field__input" required placeholder=" " autocomplete="name"><span class="field__label">Your name</span></label>
+        <div class="form__row">
+          <label class="field"><input class="field__input" type="email" required placeholder=" " autocomplete="email"><span class="field__label">Email address</span></label>
+          <label class="field"><input class="field__input" type="tel" placeholder=" " autocomplete="tel"><span class="field__label">Phone (optional)</span></label>
+        </div>
+        <label class="field"><textarea class="field__input" rows="4" required placeholder=" "></textarea><span class="field__label">Your message</span></label>
+        <button type="submit" class="btn btn--primary btn--block">Send enquiry {{icon:arrow-right}}</button>
+      </form>
+    </div>
+  </div>

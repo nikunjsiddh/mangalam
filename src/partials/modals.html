@@ -1,0 +1,138 @@
+  <!-- Mobile menu -->
+  <div class="modal" data-modal="menu" hidden>
+    <div class="modal__overlay" data-overlay data-close></div>
+    <div class="modal__panel modal__panel--left" data-panel role="dialog" aria-modal="true" aria-label="Menu" tabindex="-1">
+      <button type="button" class="modal__close" data-close aria-label="Close menu">{{icon:x}}</button>
+      <a class="menu__brand" href="index.html" aria-label="Mangalam Jewellers — home"><span class="brand-logo" aria-hidden="true"></span></a>
+      <ul class="menu__nav">
+        <li style="--i:0"><a data-nav="home" href="index.html">Home</a></li>
+        <li style="--i:1"><a data-nav="collections" href="collections.html">Collections</a></li>
+        <li style="--i:2">
+          <button type="button" class="menu__toggle" data-menu-toggle aria-expanded="false" aria-controls="menu-jewellery">Jewellery {{icon:plus}}</button>
+          <ul class="menu__sub" id="menu-jewellery" hidden><li><a href="jewellery.html">All jewellery</a></li>{{menuCats}}</ul>
+        </li>
+        <li style="--i:3"><a data-nav="bridal" href="bridal.html">Bridal</a></li>
+        <li style="--i:4"><a data-nav="about" href="about.html">About Us</a></li>
+        <li style="--i:5"><a data-nav="craftsmanship" href="craftsmanship.html">Craftsmanship</a></li>
+        <li style="--i:6"><a data-nav="journal" href="journal.html">Journal</a></li>
+        <li style="--i:7"><a data-nav="contact" href="contact.html">Contact</a></li>
+      </ul>
+      <div class="menu__foot">
+        <button type="button" class="btn btn--primary btn--block" data-open="appointment">{{icon:calendar}} Book an appointment</button>
+        <div class="menu__contact">
+          <a href="{{phoneHref}}">{{icon:phone}} {{phone}}</a>
+          <a href="mailto:{{email}}">{{icon:mail}} {{email}}</a>
+          <a href="#" data-open="account">{{icon:user-round}} Your account</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Search -->
+  <div class="modal" data-modal="search" hidden>
+    <div class="modal__overlay" data-overlay data-close></div>
+    <div class="modal__panel modal__panel--top" data-panel role="dialog" aria-modal="true" aria-labelledby="search-title" tabindex="-1">
+      <button type="button" class="modal__close" data-close aria-label="Close search">{{icon:x}}</button>
+      <div class="container">
+        <p class="eyebrow" id="search-title">Search Mangalam</p>
+        <div class="search__bar">
+          {{icon:search}}
+          <input id="search-input" class="search__input" data-autofocus type="search" placeholder="What are you looking for?" aria-label="Search jewellery" autocomplete="off">
+        </div>
+        <div class="search__popular">
+          <span>Popular</span>
+          <button type="button" class="chip chip--text" data-search-term="jhumka">Jhumka</button>
+          <button type="button" class="chip chip--text" data-search-term="diamond ring">Diamond ring</button>
+          <button type="button" class="chip chip--text" data-search-term="mangalsutra">Mangalsutra</button>
+          <button type="button" class="chip chip--text" data-search-term="bridal">Bridal</button>
+          <button type="button" class="chip chip--text" data-search-term="bangles">Bangles</button>
+        </div>
+        <div id="search-results" class="search__results" hidden></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Wishlist -->
+  <div class="modal" data-modal="wishlist" hidden>
+    <div class="modal__overlay" data-overlay data-close></div>
+    <div class="modal__panel modal__panel--right" data-panel role="dialog" aria-modal="true" aria-labelledby="wishlist-title" tabindex="-1">
+      <button type="button" class="modal__close" data-close aria-label="Close wishlist">{{icon:x}}</button>
+      <p class="eyebrow">Saved for later</p>
+      <h2 id="wishlist-title" class="modal__title mt-1">Your Wishlist</h2>
+      <ul class="drawer__list" data-wish-list hidden></ul>
+      <div class="drawer__empty" data-wish-empty>
+        <span class="drawer__empty-icon">{{icon:heart}}</span>
+        <p>Nothing saved yet</p>
+        <p>Tap the heart on any piece to keep it here.</p>
+        <a class="btn btn--outline btn--sm mt-1" href="jewellery.html">Explore jewellery</a>
+      </div>
+      <div class="drawer__foot" data-wish-foot hidden>
+        <button type="button" class="btn btn--primary btn--block" data-open="appointment">{{icon:calendar}} Book a private viewing</button>
+        <a class="btn btn--outline btn--block" href="jewellery.html">Continue browsing</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bag -->
+  <div class="modal" data-modal="bag" hidden>
+    <div class="modal__overlay" data-overlay data-close></div>
+    <div class="modal__panel modal__panel--right" data-panel role="dialog" aria-modal="true" aria-labelledby="bag-title" tabindex="-1">
+      <button type="button" class="modal__close" data-close aria-label="Close bag">{{icon:x}}</button>
+      <p class="eyebrow">Kept aside for you</p>
+      <h2 id="bag-title" class="modal__title mt-1">Your Bag</h2>
+      <div class="drawer__empty">
+        <span class="drawer__empty-icon">{{icon:shopping-bag}}</span>
+        <p>Your bag is empty</p>
+        <p>Your next heirloom awaits.</p>
+        <a class="btn btn--primary btn--sm mt-1" href="jewellery.html">View all jewellery</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Account -->
+  <div class="modal" data-modal="account" hidden>
+    <div class="modal__overlay" data-overlay data-close></div>
+    <div class="modal__panel modal__panel--dialog" data-panel role="dialog" aria-modal="true" aria-labelledby="account-title" aria-describedby="account-desc" tabindex="-1">
+      <button type="button" class="modal__close" data-close aria-label="Close">{{icon:x}}</button>
+      <p class="eyebrow">Welcome back</p>
+      <h2 id="account-title" class="modal__title mt-1">Your Mangalam</h2>
+      <p id="account-desc" class="modal__desc">Sign in to follow orders, appointments and saved pieces.</p>
+      <form class="form" data-close-on-submit>
+        <label class="field"><input class="field__input" type="email" required placeholder=" " autocomplete="email"><span class="field__label">Email address</span></label>
+        <label class="field"><input class="field__input" type="password" required placeholder=" " autocomplete="current-password"><span class="field__label">Password</span></label>
+        <button type="submit" class="btn btn--primary btn--block">Sign in</button>
+        <p class="modal__desc center">New to Mangalam? <a href="contact.html" style="text-decoration:underline;text-underline-offset:3px">Talk to our concierge</a></p>
+      </form>
+    </div>
+  </div>
+
+  <!-- Appointment -->
+  <div class="modal" data-modal="appointment" hidden>
+    <div class="modal__overlay" data-overlay data-close></div>
+    <div class="modal__panel modal__panel--dialog" data-panel role="dialog" aria-modal="true" aria-labelledby="appointment-title" aria-describedby="appointment-desc" tabindex="-1">
+      <button type="button" class="modal__close" data-close aria-label="Close">{{icon:x}}</button>
+      <p class="eyebrow">Mangalam House, Surat</p>
+      <h2 id="appointment-title" class="modal__title mt-1">Book a private appointment</h2>
+      <p id="appointment-desc" class="modal__desc">Tell us when you would like to visit. Our concierge will confirm your time.</p>
+      <form class="form" data-success="Request received" data-success-text="Thank you. Our concierge will call you to confirm your appointment within one business day.">
+        <label class="field"><input class="field__input" required placeholder=" " autocomplete="name"><span class="field__label">Your name</span></label>
+        <div class="form__row">
+          <label class="field"><input class="field__input" type="tel" required placeholder=" " autocomplete="tel"><span class="field__label">Phone</span></label>
+          <label class="field"><input class="field__input" type="email" required placeholder=" " autocomplete="email"><span class="field__label">Email address</span></label>
+        </div>
+        <div class="form__row">
+          <label class="field field--static"><input class="field__input" type="date" required><span class="field__label">Preferred date</span></label>
+          <label class="field field--static">
+            <select class="field__input" required>
+              <option>Bridal jewellery</option>
+              <option>Gold jewellery</option>
+              <option>Diamond jewellery</option>
+              <option>Bespoke commission</option>
+            </select>
+            <span class="field__label">I am interested in</span>
+          </label>
+        </div>
+        <button type="submit" class="btn btn--primary btn--block">Request appointment {{icon:arrow-right}}</button>
+      </form>
+    </div>
+  </div>

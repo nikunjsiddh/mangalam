@@ -1,53 +1,61 @@
-# Mangalam Jewellers — HTML template
+# Mangalam Jewellers — website
 
-Static HTML/CSS/JS version of the Lovable project “Remix of Gilded Narrative” (Mangalam Jewellers). Every page, section, image and interaction of the original React site is reproduced as plain HTML.
+Static HTML/CSS/JS website for Mangalam Jewellers, designed around the client's logo (antique gold `#A57E00`) with a midnight-wine and ivory palette.
 
 Open it through XAMPP: **http://localhost/mangalam/**
 
 ## Pages
 
-| File | Original route |
+| File | Contents |
 | --- | --- |
-| `index.html` | `/` — hero, collections, signature pieces, featured, promise, bridal edit, craftsmanship, heritage, closer look, manifesto, testimonials, journal, Instagram |
-| `collections.html` | `/collections` |
-| `jewellery.html` | `/jewellery` (supports `?metal=Gold`, `?metal=Diamond`, `?style=Traditional` …) |
-| `bridal.html`, `rings.html`, `necklaces.html`, `earrings.html`, `bangles.html`, `bracelets.html`, `pendants.html`, `mangalsutra.html` | category pages with filters and sorting |
-| `product.html?slug=…` | `/product/$slug` |
-| `about.html`, `craftsmanship.html` | `/about`, `/craftsmanship` |
-| `journal.html`, `article.html?slug=…` | `/journal`, `/journal/$slug` |
-| `contact.html` | `/contact` |
-| `404.html` | not-found page |
+| `index.html` | Hero with "shop the look" hotspots, promise strip, shop by category, collections, featured pieces (tabs), the Mangalam promise (counters), bridal edit, craftsmanship, heritage, closer look (magnifier), manifesto, testimonials, journal, Instagram, appointment |
+| `collections.html` | The six collections |
+| `jewellery.html` | Full catalogue with filters and sorting (supports `?metal=Gold`, `?metal=Diamond`, `?style=Traditional` …) |
+| `bridal.html`, `rings.html`, `necklaces.html`, `earrings.html`, `bangles.html`, `bracelets.html`, `pendants.html`, `mangalsutra.html` | Category pages |
+| `product.html?slug=…` | Product page: gallery with hover zoom, enquiry, wishlist |
+| `about.html`, `craftsmanship.html` | Story, timeline, values, process |
+| `journal.html`, `article.html?slug=…` | Journal with topic filter, and articles |
+| `contact.html` | Contact details, visit card and message form |
+| `404.html` | Not-found page |
 
-Every page includes the announcement bar, header, footer, newsletter, and the menu, search, wishlist, bag, account and appointment panels.
+Every page shares the announcement bar, header (with the Jewellery mega menu), footer, back-to-top button, and the menu, search, wishlist, bag, account and appointment panels.
 
 ## Files
 
 ```
-assets/css/style.css   compiled stylesheet (Tailwind CSS v4 output, do not edit by hand)
-assets/js/data.js      products, journal articles, testimonials: edit content here
-assets/js/ui.js        icons and button/input class recipes
-assets/js/main.js      behaviour: loader, header, dialogs, search, filters, product & article pages
-assets/images/         hero, craft and product photography + favicon
-src/tailwind.css       stylesheet source (theme colours, fonts, animations)
+assets/css/mangalam.css      the design system — colours, type, components, animations (edit directly)
+assets/js/data.js            products, journal articles, testimonials — edit content here
+assets/js/ui.js              icon set
+assets/js/main.js            behaviour: loader, header, mega menu, dialogs, wishlist, search,
+                             scroll animations, catalogue, product and article pages
+assets/images/brand/         logo files extracted from the client's .ai artwork (full, horizontal,
+                             emblem, wordmark, ornament) + PNG versions and the app icon
+assets/images/               hero, craft and product photography, favicon
+src/build.mjs                generates every .html page
+src/partials/                layout, header, footer and dialogs shared by all pages
+src/pages/                   the main content of each page
 ```
 
 ## Editing
 
-- **Text and layout:** edit the `.html` files directly. The header and footer are repeated in each page.
-- **Products and articles:** edit `assets/js/data.js`. The catalogue, product pages, search and journal update automatically.
-- **New Tailwind classes:** if you add classes that are not already used somewhere, rebuild the CSS:
+The `.html` files in the project root are **generated**. Edit the sources in `src/`, then rebuild (requires Node.js, no install needed):
 
-  ```
-  npm install
-  npm run build:css
-  ```
+```
+npm run build
+```
 
-## Differences from the original
+- **Header, footer, menus, dialogs:** `src/partials/`
+- **Page content:** `src/pages/` (`home.html` is `index.html`; `catalog.html` is used for all category pages)
+- **Phone, email, address, hours, social links:** the `site` object at the top of `src/build.mjs`
+- **Products, articles, testimonials:** `assets/js/data.js` — then rebuild so counts, the hero hotspots and the journal pages update
+- **Colours and fonts:** the tokens at the top of `assets/css/mangalam.css`
 
-Three bugs in the original were fixed:
+The logo is applied with CSS masks (`.brand-logo`, `.brand-emblem`, `.brand-full`, `.ornament`), which gives it the animated metallic gold finish. It needs the site to be served over http(s) — as it is through XAMPP — rather than opened as a local file.
 
-1. Between 1024px and 1279px wide, the original shows neither the navigation links nor the menu button. Here the menu button stays visible until the full navigation appears.
-2. `/journal/<article>` in the original shows the journal list instead of the article. `article.html` shows the article itself.
-3. The newsletter email field in the footer had ivory text on an ivory background. The typed text is now dark.
+## Notes
 
-Forms (newsletter, account, appointment, enquiry, contact) are front-end only, like the original: they show their confirmation state but do not send anything.
+- Forms (newsletter, account, appointment, enquiry, contact) are front-end only: they show a confirmation but do not send anything. Connect them to your mail or CRM service before going live.
+- The wishlist is saved in the visitor's browser (localStorage).
+- Phone number, email, address and social links are placeholders carried over from the original template.
+- The product photographs had thin white borders and slivers of neighbouring images along some edges; these were cropped out.
+- Animations respect the visitor's "reduce motion" setting.

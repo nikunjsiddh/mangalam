@@ -1,0 +1,14 @@
+  <!-- Filters (small screens) -->
+  <div class="modal" data-modal="filters" hidden>
+    <div class="modal__overlay" data-overlay data-close></div>
+    <div class="modal__panel modal__panel--left" data-panel role="dialog" aria-modal="true" aria-labelledby="filters-title" tabindex="-1">
+      <button type="button" class="modal__close" data-close aria-label="Close filters">{{icon:x}}</button>
+      <p class="eyebrow">Refine</p>
+      <h2 id="filters-title" class="modal__title mt-1">Filters</h2>
+      <div class="mt-2" data-filter-panel="mobile"></div>
+      <div class="drawer__foot">
+        <button type="button" class="btn btn--primary btn--block" data-close data-catalog-apply>View pieces</button>
+        <button type="button" class="btn btn--outline btn--block" data-clear-filters>Clear filters</button>
+      </div>
+    </div>
+  </div>

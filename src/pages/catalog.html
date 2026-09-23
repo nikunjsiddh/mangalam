@@ -1,0 +1,37 @@
+    <section class="page-hero">
+      <img class="page-hero__bg" src="{{heroImage}}" alt="">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb"><a href="index.html">Home</a><span class="breadcrumb__sep"></span><a href="jewellery.html">Jewellery</a><span class="breadcrumb__sep"></span><span aria-current="page">{{crumb}}</span></nav>
+        <h1 class="page-hero__title">{{heading}}</h1>
+        <span class="ornament ornament--light" aria-hidden="true"></span>
+        <p class="page-hero__lead">{{lead}}</p>
+      </div>
+    </section>
+
+    <div class="container">
+      <nav class="chips" aria-label="Jewellery categories">{{chips}}</nav>
+    </div>
+
+    <div class="container catalog">
+      <div class="catalog__toolbar">
+        <p class="catalog__count" data-catalog-count aria-live="polite"><strong>{{total}}</strong> pieces</p>
+        <div class="catalog__tools">
+          <button type="button" class="btn-filter" data-open="filters">{{icon:sliders-horizontal}} Filters</button>
+          <div class="select" data-select>
+            <button type="button" class="select__trigger" role="combobox" aria-haspopup="listbox" aria-expanded="false" aria-controls="sort-options" aria-label="Sort products"><span data-select-value>Featured</span>{{icon:chevron-down}}</button>
+            <div class="select__list" id="sort-options" role="listbox" hidden>
+              <div class="select__option" role="option" tabindex="-1" data-value="featured" data-label="Featured" aria-selected="true"><span data-indicator>{{icon:check}}</span>Featured</div>
+              <div class="select__option" role="option" tabindex="-1" data-value="new" data-label="Newest" aria-selected="false"><span data-indicator></span>Newest</div>
+              <div class="select__option" role="option" tabindex="-1" data-value="low" data-label="Price: low to high" aria-selected="false"><span data-indicator></span>Price: low to high</div>
+              <div class="select__option" role="option" tabindex="-1" data-value="high" data-label="Price: high to low" aria-selected="false"><span data-indicator></span>Price: high to low</div>
+            </div>
+          </div>
+        </div>
+        <div class="catalog__active" data-catalog-active></div>
+      </div>
+      <div class="catalog__layout">
+        <aside class="catalog__sidebar" data-filter-panel="desktop" aria-label="Filters"></aside>
+        <!-- Product cards are rendered from assets/js/data.js -->
+        <div data-catalog-results></div>
+      </div>
+    </div>

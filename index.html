@@ -4,616 +4,792 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Mangalam Jewellers — Where Tradition Becomes Timeless</title>
-  <meta name="description" content="Mangalam Jewellers crafts premium Gujarati heritage jewellery — gold, diamond and bridal pieces designed for generations.">
+  <meta name="description" content="Mangalam Jewellers crafts premium Gujarati heritage jewellery — gold, diamond and bridal pieces handcrafted in Surat since 1962.">
   <meta name="author" content="Mangalam Jewellers">
+  <meta name="theme-color" content="#2E0A16">
   <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Mangalam Jewellers">
   <meta property="og:title" content="Mangalam Jewellers — Where Tradition Becomes Timeless">
-  <meta property="og:description" content="Premium Gujarati heritage jewellery — gold, diamond and bridal pieces crafted for generations.">
+  <meta property="og:description" content="Mangalam Jewellers crafts premium Gujarati heritage jewellery — gold, diamond and bridal pieces handcrafted in Surat since 1962.">
+  <meta property="og:image" content="assets/images/brand/mangalam-logo.png">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/images/brand/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&amp;family=Manrope:wght@300;400;500;600;700&amp;family=Noto+Serif+Gujarati:wght@300;400;500&amp;display=swap">
-  <link rel="stylesheet" href="assets/css/style.css">
-  <script>try { if (sessionStorage.getItem("mj-loaded")) document.documentElement.classList.add("mj-seen"); } catch (e) {}</script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&amp;family=Jost:wght@300;400;500;600&amp;family=Noto+Serif+Gujarati:wght@400;500&amp;display=swap">
+  <link rel="stylesheet" href="assets/css/mangalam.css">
+  <script>document.documentElement.classList.add("js"); try { if (sessionStorage.getItem("mj-loaded")) document.documentElement.classList.add("mj-seen"); } catch (e) {}</script>
+  <noscript><style>.header { background: #2E0A16; }</style></noscript>
 </head>
 <body data-page="home">
-<div class="min-h-screen bg-background text-foreground">
-  <!-- Loading screen -->
-  <div id="loader" class="fixed inset-0 z-[70] grid place-items-center bg-background">
-    <div class="text-center">
-      <a href="index.html" aria-label="Mangalam Jewellers home" class="group flex items-center gap-2.5 text-primary"><span class="grid size-9 place-items-center rounded-full border border-gold font-serif text-lg text-gold">M</span><span><strong class="block font-serif text-lg font-medium leading-none tracking-[0.16em]">MANGALAM</strong><small class="mt-1 block text-[7px] tracking-[0.34em] text-gold">JEWELLERS</small></span></a>
-      <div class="loading-line mx-auto mt-6"></div>
+  <!-- Loading screen (first page of a visit) -->
+  <div class="loader" id="loader" aria-hidden="true">
+    <div class="loader__inner">
+      <span class="brand-emblem loader__emblem"></span>
+      <span class="brand-wordmark loader__word"></span>
+      <span class="loader__line"></span>
     </div>
   </div>
 
+  <a class="skip-link" href="#main">Skip to content</a>
   <!-- Announcement bar -->
-  <div class="fixed inset-x-0 top-0 z-50 flex h-8 items-center justify-center bg-primary px-3 text-center text-[8px] tracking-[0.18em] text-primary-foreground sm:text-[10px]">
-    ✦ <span class="mx-2">CRAFTED WITH TRADITION</span><span class="text-gold">•</span><span class="mx-2">DESIGNED FOR GENERATIONS</span> ✦
+  <div class="topbar" role="region" aria-label="Announcements">
+    <div class="topbar__track">
+      <ul class="topbar__list"><li>BIS hallmarked gold</li><li>Handcrafted in Surat since 1962</li><li>Insured delivery across India</li><li>Private bridal consultations</li><li>Crafted with tradition · Designed for generations</li><li>BIS hallmarked gold</li><li>Handcrafted in Surat since 1962</li><li>Insured delivery across India</li><li>Private bridal consultations</li><li>Crafted with tradition · Designed for generations</li></ul>
+      <ul class="topbar__list" aria-hidden="true"><li>BIS hallmarked gold</li><li>Handcrafted in Surat since 1962</li><li>Insured delivery across India</li><li>Private bridal consultations</li><li>Crafted with tradition · Designed for generations</li><li>BIS hallmarked gold</li><li>Handcrafted in Surat since 1962</li><li>Insured delivery across India</li><li>Private bridal consultations</li><li>Crafted with tradition · Designed for generations</li></ul>
+    </div>
   </div>
 
   <!-- Header -->
-  <header id="site-header" data-overlay class="fixed inset-x-0 top-8 z-40 border-b transition-all duration-500 border-primary-foreground/20 bg-transparent text-primary-foreground">
-    <div class="mx-auto flex h-[72px] max-w-[1500px] items-center justify-between gap-2 px-4 lg:px-8">
-      <div class="xl:hidden">
-        <button type="button" class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 disabled:cursor-not-allowed [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover:bg-accent hover:text-accent-foreground h-9 w-9 min-h-11 min-w-11" aria-label="Open menu" data-open="menu"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu" aria-hidden="true"><path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h16"/></svg></button>
+  <header class="header" id="site-header">
+    <div class="container header__bar">
+      <div class="header__left">
+        <button type="button" class="icon-btn header__menu" data-open="menu" aria-label="Open menu"><svg class="icon icon--menu" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16"/><path d="M4 12h10"/><path d="M4 18h16"/></svg></button>
+        <button type="button" class="header__link header__appt" data-open="appointment"><svg class="icon icon--calendar" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/><path d="M8 18h.01"/><path d="M12 18h.01"/><path d="M16 18h.01"/></svg><span>Book an appointment</span></button>
+        <a class="header__link header__phone" href="tel:+912610000000"><svg class="icon icon--phone" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"/></svg><span>+91 261 000 0000</span></a>
       </div>
-      <a href="index.html" aria-label="Mangalam Jewellers home" class="group flex items-center gap-2.5 text-primary-foreground" data-brand><span class="grid size-9 place-items-center rounded-full border border-gold font-serif text-lg text-gold">M</span><span><strong class="block font-serif text-lg font-medium leading-none tracking-[0.16em]">MANGALAM</strong><small class="mt-1 block text-[7px] tracking-[0.34em] text-gold">JEWELLERS</small></span></a>
-      <nav aria-label="Primary" class="hidden items-center gap-5 xl:flex">
-        <a href="index.html" class="nav-link text-[9px] font-semibold uppercase tracking-[0.14em]" data-status="active" aria-current="page">Home</a>
-        <a href="collections.html" class="nav-link text-[9px] font-semibold uppercase tracking-[0.14em]">Collections</a>
-        <a href="jewellery.html" class="nav-link text-[9px] font-semibold uppercase tracking-[0.14em]">Jewellery</a>
-        <a href="bridal.html" class="nav-link text-[9px] font-semibold uppercase tracking-[0.14em]">Bridal</a>
-        <a href="about.html" class="nav-link text-[9px] font-semibold uppercase tracking-[0.14em]">About Us</a>
-        <a href="craftsmanship.html" class="nav-link text-[9px] font-semibold uppercase tracking-[0.14em]">Craftsmanship</a>
-        <a href="journal.html" class="nav-link text-[9px] font-semibold uppercase tracking-[0.14em]">Journal</a>
-      </nav>
-      <div class="flex items-center">
-        <button type="button" class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 disabled:cursor-not-allowed [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover:bg-accent hover:text-accent-foreground h-9 w-9 min-h-11 min-w-11" aria-label="Search jewellery" data-open="search"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg></button>
-        <button type="button" class="items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 disabled:cursor-not-allowed [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover:bg-accent hover:text-accent-foreground h-9 w-9 hidden min-h-11 min-w-11 sm:inline-flex" aria-label="Wishlist" data-open="wishlist"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart" aria-hidden="true"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"/></svg></button>
-        <button type="button" class="items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 disabled:cursor-not-allowed [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover:bg-accent hover:text-accent-foreground h-9 w-9 hidden min-h-11 min-w-11 sm:inline-flex" aria-label="Account" data-open="account"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg></button>
-        <button type="button" class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 disabled:cursor-not-allowed [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover:bg-accent hover:text-accent-foreground h-9 w-9 min-h-11 min-w-11" aria-label="Shopping bag" data-open="bag"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shopping-bag" aria-hidden="true"><path d="M16 10a4 4 0 0 1-8 0"/><path d="M3.103 6.034h17.794"/><path d="M3.4 5.467a2 2 0 0 0-.4 1.2V20a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6.667a2 2 0 0 0-.4-1.2l-2-2.667A2 2 0 0 0 17 2H7a2 2 0 0 0-1.6.8z"/></svg></button>
-        <button type="button" data-open="appointment" data-book class="items-center justify-center gap-2 whitespace-nowrap font-medium cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 disabled:cursor-not-allowed [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 shadow py-2 ml-2 hidden h-10 rounded-none px-4 text-[8px] tracking-[0.13em] md:inline-flex border border-gold bg-transparent text-primary-foreground hover:bg-gold hover:text-wine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar-days" aria-hidden="true"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/><path d="M8 18h.01"/><path d="M12 18h.01"/><path d="M16 18h.01"/></svg> BOOK APPOINTMENT</button>
+      <a class="header__brand" href="index.html" aria-label="Mangalam Jewellers — home"><span class="brand-logo" aria-hidden="true"></span></a>
+      <div class="header__right">
+        <button type="button" class="icon-btn" data-open="search" aria-label="Search jewellery"><svg class="icon icon--search" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg></button>
+        <button type="button" class="icon-btn" data-open="wishlist" aria-label="Wishlist"><svg class="icon icon--heart" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"/></svg><span class="icon-btn__badge" data-wish-count hidden>0</span></button>
+        <button type="button" class="icon-btn hide-sm" data-open="account" aria-label="Account"><svg class="icon icon--user-round" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg></button>
+        <button type="button" class="icon-btn hide-sm" data-open="bag" aria-label="Shopping bag"><svg class="icon icon--shopping-bag" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 10a4 4 0 0 1-8 0"/><path d="M3.103 6.034h17.794"/><path d="M3.4 5.467a2 2 0 0 0-.4 1.2V20a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6.667a2 2 0 0 0-.4-1.2l-2-2.667A2 2 0 0 0 17 2H7a2 2 0 0 0-1.6.8z"/></svg></button>
       </div>
     </div>
+    <nav class="nav" aria-label="Primary">
+      <ul class="container nav__list">
+        <li><a class="nav__link" data-nav="home" aria-current="page" href="index.html">Home</a></li>
+        <li><a class="nav__link" data-nav="collections" href="collections.html">Collections</a></li>
+        <li class="nav__item--mega">
+          <a class="nav__link" data-nav="jewellery" href="jewellery.html" aria-haspopup="true" aria-expanded="false">Jewellery <svg class="icon icon--chevron-down" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
+          <div class="mega">
+            <div class="container mega__inner">
+              <div>
+                <p class="mega__title">Shop by category</p>
+                <ul class="mega__cats">
+                <li><a href="rings.html"><span class="mega__thumb"><img src="assets/images/products/rings.jpg" alt="" loading="lazy" width="800" height="800"></span>Rings</a></li>
+                <li><a href="necklaces.html"><span class="mega__thumb"><img src="assets/images/products/necklaces.jpg" alt="" loading="lazy" width="800" height="800"></span>Necklaces</a></li>
+                <li><a href="earrings.html"><span class="mega__thumb"><img src="assets/images/products/earrings.jpg" alt="" loading="lazy" width="800" height="800"></span>Earrings</a></li>
+                <li><a href="bangles.html"><span class="mega__thumb"><img src="assets/images/products/bangles.jpg" alt="" loading="lazy" width="800" height="800"></span>Bangles</a></li>
+                <li><a href="bracelets.html"><span class="mega__thumb"><img src="assets/images/products/bracelets.jpg" alt="" loading="lazy" width="800" height="800"></span>Bracelets</a></li>
+                <li><a href="pendants.html"><span class="mega__thumb"><img src="assets/images/products/pendants.jpg" alt="" loading="lazy" width="800" height="800"></span>Pendants</a></li>
+                <li><a href="mangalsutra.html"><span class="mega__thumb"><img src="assets/images/products/mangalsutra.jpg" alt="" loading="lazy" width="800" height="800"></span>Mangalsutra</a></li>
+                <li><a href="bridal.html"><span class="mega__thumb"><img src="assets/images/products/bridal.jpg" alt="" loading="lazy" width="800" height="800"></span>Bridal</a></li>
+                </ul>
+              </div>
+              <div>
+                <p class="mega__title">Shop by metal</p>
+                <ul class="mega__links">
+                  <li><a href="jewellery.html?metal=Gold">Gold jewellery</a></li>
+                  <li><a href="jewellery.html?metal=Diamond">Diamond jewellery</a></li>
+                  <li><a href="jewellery.html">All jewellery</a></li>
+                </ul>
+                <p class="mega__title">Shop by style</p>
+                <ul class="mega__links">
+                  <li><a href="jewellery.html?style=Classic">Classic</a></li>
+                  <li><a href="jewellery.html?style=Traditional">Traditional</a></li>
+                  <li><a href="jewellery.html?style=Modern">Modern</a></li>
+                  <li><a href="jewellery.html?style=Bridal">Bridal</a></li>
+                </ul>
+              </div>
+              <a class="mega__feature" href="bridal.html">
+                <img src="assets/images/products/bridal.jpg" alt="" loading="lazy" width="800" height="800">
+                <span class="mega__feature-body">
+                  <span class="eyebrow eyebrow--light">The Bridal Edit</span>
+                  <span class="mega__feature-title">Jewels for your most unforgettable chapter</span>
+                  <span class="link-arrow link-arrow--light">Discover <svg class="icon icon--arrow-right icon--arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+                </span>
+              </a>
+            </div>
+          </div>
+        </li>
+        <li><a class="nav__link" data-nav="bridal" href="bridal.html">Bridal</a></li>
+        <li><a class="nav__link" data-nav="about" href="about.html">About Us</a></li>
+        <li><a class="nav__link" data-nav="craftsmanship" href="craftsmanship.html">Craftsmanship</a></li>
+        <li><a class="nav__link" data-nav="journal" href="journal.html">Journal</a></li>
+        <li><a class="nav__link" data-nav="contact" href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
   </header>
 
-  <main>
-<!-- HERO -->
-    <section class="relative flex h-[100svh] min-h-[640px] items-end overflow-hidden bg-charcoal text-primary-foreground">
-      <img src="assets/images/mangalam-hero.jpg" alt="Mangalam Jewellers bridal campaign" class="hero-image absolute inset-0 size-full object-cover object-[68%_center]">
-      <div class="bg-hero-overlay absolute inset-0"></div>
-      <div class="hero-light"></div>
-      <span class="sparkle" style="top: 22%; left: 18%; animation-delay: 0s"></span>
-      <span class="sparkle" style="top: 34%; left: 78%; animation-delay: 1.2s"></span>
-      <span class="sparkle" style="top: 52%; left: 58%; animation-delay: 2.1s"></span>
-      <span class="sparkle" style="top: 18%; left: 44%; animation-delay: 3s"></span>
-      <span class="sparkle" style="top: 66%; left: 26%; animation-delay: 0.8s"></span>
-      <span class="sparkle" style="top: 44%; left: 88%; animation-delay: 2.6s"></span>
-      <span class="sparkle" style="top: 28%; left: 64%; animation-delay: 1.8s"></span>
-      <span class="sparkle" style="top: 72%; left: 72%; animation-delay: 3.6s"></span>
-      <span class="sparkle" style="top: 38%; left: 34%; animation-delay: 2.9s"></span>
-      <span class="sparkle" style="top: 58%; left: 12%; animation-delay: 1.5s"></span>
-      <div class="relative mx-auto w-full max-w-[1500px] px-6 pb-24 pt-40 lg:px-16">
-        <div class="max-w-3xl">
-          <p class="animate-reveal text-[10px] tracking-[0.3em] text-light-gold" style="animation-delay: 0.15s">THE ART OF TIMELESS ADORNMENT</p>
-          <h1 class="animate-reveal mt-6 font-serif text-6xl font-light leading-[0.95] sm:text-7xl lg:text-[96px]" style="animation-delay: 0.3s">
-            Where Tradition<br>Becomes <span class="gold-shimmer">Timeless</span>.
+
+  <main id="main">
+    <!-- HERO: shop-the-look hotspots sit on the photograph -->
+    <section class="hero" aria-label="Mangalam Jewellers">
+      <div class="hero__media">
+        <div class="hero__frame">
+          <div class="hero__zoom">
+            <img class="hero__img" src="assets/images/mangalam-hero.jpg" alt="A bride in a maroon silk saree wearing Mangalam heritage gold and diamond jewellery" width="1920" height="1280" fetchpriority="high">
+          <div class="hotspot hotspot--desktop" style="--x:68.2%;--y:27.5%" tabindex="0" role="button" aria-expanded="false" aria-label="Shop the look: Bridal Jhumka">
+            <span class="hotspot__card">
+              <img src="assets/images/products/earrings.jpg" alt="" loading="lazy" style="object-position:75% 55%">
+              <span><span class="hotspot__label">Shop the look</span><a class="hotspot__name" href="product.html?slug=bridal-jhumka">Bridal Jhumka</a><span class="hotspot__price">₹ 1,06,250</span></span>
+            </span>
+          </div>
+          <div class="hotspot hotspot--desktop" style="--x:70.4%;--y:60.5%" tabindex="0" role="button" aria-expanded="false" aria-label="Shop the look: Diamond Collar Necklace">
+            <span class="hotspot__card">
+              <img src="assets/images/products/necklaces.jpg" alt="" loading="lazy" style="object-position:65% 45%">
+              <span><span class="hotspot__label">Shop the look</span><a class="hotspot__name" href="product.html?slug=diamond-collar-necklace">Diamond Collar Necklace</a><span class="hotspot__price">₹ 55,500</span></span>
+            </span>
+          </div>
+          <div class="hotspot hotspot--desktop hotspot--flip" style="--x:85.6%;--y:51.5%" tabindex="0" role="button" aria-expanded="false" aria-label="Shop the look: Heritage Gold Bangles">
+            <span class="hotspot__card">
+              <img src="assets/images/products/bangles.jpg" alt="" loading="lazy" style="object-position:center">
+              <span><span class="hotspot__label">Shop the look</span><a class="hotspot__name" href="product.html?slug=heritage-gold-bangles">Heritage Gold Bangles</a><span class="hotspot__price">₹ 47,000</span></span>
+            </span>
+          </div>
+          <div class="hotspot hotspot--desktop hotspot--flip" style="--x:89.2%;--y:81.6%" tabindex="0" role="button" aria-expanded="false" aria-label="Shop the look: Floral Diamond Ring">
+            <span class="hotspot__card">
+              <img src="assets/images/products/rings.jpg" alt="" loading="lazy" style="object-position:60% 70%">
+              <span><span class="hotspot__label">Shop the look</span><a class="hotspot__name" href="product.html?slug=floral-diamond-ring">Floral Diamond Ring</a><span class="hotspot__price">₹ 1,14,750</span></span>
+            </span>
+          </div>
+          </div>
+        </div>
+      </div>
+      <div class="hero__shade"></div>
+      <div class="hero__glow"></div>
+      <div class="sparkles" aria-hidden="true"><span style="top:22%;left:18%;--d:0s"></span><span style="top:34%;left:78%;--d:1.2s"></span><span style="top:52%;left:58%;--d:2.1s"></span><span style="top:18%;left:44%;--d:3s"></span><span style="top:66%;left:26%;--d:0.8s"></span><span style="top:44%;left:88%;--d:2.6s"></span><span style="top:28%;left:64%;--d:1.8s"></span><span style="top:72%;left:72%;--d:3.6s"></span><span style="top:38%;left:34%;--d:2.9s"></span><span style="top:58%;left:12%;--d:1.5s"></span><span style="top:14%;left:30%;--d:4.2s"></span><span style="top:80%;left:50%;--d:5s"></span></div>
+      <div class="container hero__inner">
+        <div class="hero__content">
+          <p class="eyebrow eyebrow--light" data-hero style="--i:0">The art of timeless adornment</p>
+          <h1 class="hero__title">
+            <span class="line"><span style="--i:1">Where Tradition</span></span>
+            <span class="line"><span style="--i:2">Becomes <em class="text-metal">Timeless.</em></span></span>
           </h1>
-          <p class="animate-reveal mt-7 max-w-md text-sm font-light leading-7 text-primary-foreground/85 sm:text-base" style="animation-delay: 0.45s">
-            Jewellery crafted with heritage, refined for the moments that become your legacy.
-          </p>
-          <div class="animate-reveal mt-9 flex flex-col gap-4 sm:flex-row sm:items-center" style="animation-delay: 0.6s">
-            <a href="collections.html" class="inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 disabled:cursor-not-allowed [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 shadow py-2 h-12 rounded-none border border-light-gold bg-transparent px-7 text-[10px] tracking-[0.18em] text-primary-foreground hover:bg-gold hover:text-wine">EXPLORE COLLECTION</a>
-            <a href="about.html" class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md font-medium cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 disabled:cursor-not-allowed [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 underline-offset-4 hover:underline py-2 h-12 px-0 text-[10px] tracking-[0.18em] text-primary-foreground">DISCOVER OUR STORY <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right size-3" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+          <p class="hero__lead" data-hero style="--i:3">Jewellery crafted with heritage in our Surat atelier, refined for the moments that become your legacy.</p>
+          <div class="hero__actions" data-hero style="--i:4">
+            <a class="btn btn--gold" href="collections.html">Explore collections <svg class="icon icon--arrow-right icon--arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+            <button type="button" class="btn btn--glass" data-open="appointment"><svg class="icon icon--calendar" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/><path d="M8 18h.01"/><path d="M12 18h.01"/><path d="M16 18h.01"/></svg> Book a private visit</button>
           </div>
+          <ul class="hero__stats" data-hero style="--i:5">
+            <li><strong>1962</strong><span>Established in Surat</span></li>
+            <li><strong>3</strong><span>Generations of karigars</span></li>
+            <li><strong>BIS</strong><span>Hallmarked gold</span></li>
+          </ul>
         </div>
       </div>
-      <div class="absolute bottom-8 right-6 hidden items-center gap-4 text-[9px] tracking-[0.25em] text-primary-foreground/80 lg:flex">
-        <span>SCROLL</span><span class="scroll-line"></span>
-      </div>
-      <div class="absolute right-5 top-1/2 hidden -translate-y-1/2 rotate-90 text-[9px] tracking-[0.35em] text-primary-foreground/70 lg:block">EST. 1962 · SURAT</div>
+      <p class="hero__side" aria-hidden="true">Est. 1962 · Surat · Gujarat</p>
+      <a class="hero__scroll" href="#discover" aria-label="Scroll to discover"><span>Scroll</span><i></i></a>
     </section>
 
-    <!-- SIGNATURE COLLECTIONS -->
-    <section class="mx-auto max-w-[1500px] px-4 py-24 lg:px-8">
-      <div class="mb-14 text-center">
-        <p class="text-[9px] tracking-[0.28em] text-gold">CURATED FOR EVERY CELEBRATION</p>
-        <h2 class="mt-4 font-serif text-5xl font-normal sm:text-6xl">Collections With Character</h2>
-        <p class="mx-auto mt-4 max-w-xl text-sm leading-7 text-muted-foreground">Discover jewellery designed to mark life's most beautiful moments.</p>
-      </div>
-      <div class="grid auto-rows-[260px] gap-3 md:grid-cols-4 md:auto-rows-[300px]">
-        <a href="bridal.html" class="image-card group relative block overflow-hidden bg-charcoal md:col-span-2 md:row-span-2">
-          <img src="assets/images/products/bridal.jpg" alt="Bridal collection" loading="lazy" class="size-full object-cover">
-          <div class="bg-card-overlay absolute inset-0"></div>
-          <div class="absolute inset-x-0 bottom-0 p-6 text-primary-foreground">
-            <p class="text-[9px] tracking-[0.2em] text-light-gold">Sets for the unforgettable day</p>
-            <h3 class="mt-2 font-serif text-3xl font-normal">Bridal</h3>
-            <span class="mt-3 block h-px w-10 bg-gold transition-all duration-500 group-hover:w-24"></span>
-          </div>
-        </a>
-        <a href="jewellery.html?metal=Gold" class="image-card group relative block overflow-hidden bg-charcoal">
-          <img src="assets/images/products/necklaces.jpg" alt="Gold collection" loading="lazy" class="size-full object-cover">
-          <div class="bg-card-overlay absolute inset-0"></div>
-          <div class="absolute inset-x-0 bottom-0 p-6 text-primary-foreground">
-            <p class="text-[9px] tracking-[0.2em] text-light-gold">The warmth of 22K tradition</p>
-            <h3 class="mt-2 font-serif text-3xl font-normal">Gold</h3>
-            <span class="mt-3 block h-px w-10 bg-gold transition-all duration-500 group-hover:w-24"></span>
-          </div>
-        </a>
-        <a href="jewellery.html?metal=Diamond" class="image-card group relative block overflow-hidden bg-charcoal">
-          <img src="assets/images/products/rings.jpg" alt="Diamond collection" loading="lazy" class="size-full object-cover">
-          <div class="bg-card-overlay absolute inset-0"></div>
-          <div class="absolute inset-x-0 bottom-0 p-6 text-primary-foreground">
-            <p class="text-[9px] tracking-[0.2em] text-light-gold">Light, held forever</p>
-            <h3 class="mt-2 font-serif text-3xl font-normal">Diamond</h3>
-            <span class="mt-3 block h-px w-10 bg-gold transition-all duration-500 group-hover:w-24"></span>
-          </div>
-        </a>
-        <a href="jewellery.html?style=Traditional" class="image-card group relative block overflow-hidden bg-charcoal md:col-span-2">
-          <img src="assets/images/products/bangles.jpg" alt="Heritage collection" loading="lazy" class="size-full object-cover">
-          <div class="bg-card-overlay absolute inset-0"></div>
-          <div class="absolute inset-x-0 bottom-0 p-6 text-primary-foreground">
-            <p class="text-[9px] tracking-[0.2em] text-light-gold">Motifs passed through generations</p>
-            <h3 class="mt-2 font-serif text-3xl font-normal">Heritage</h3>
-            <span class="mt-3 block h-px w-10 bg-gold transition-all duration-500 group-hover:w-24"></span>
-          </div>
-        </a>
-        <a href="jewellery.html?style=Modern" class="image-card group relative block overflow-hidden bg-charcoal">
-          <img src="assets/images/products/earrings.jpg" alt="Everyday collection" loading="lazy" class="size-full object-cover">
-          <div class="bg-card-overlay absolute inset-0"></div>
-          <div class="absolute inset-x-0 bottom-0 p-6 text-primary-foreground">
-            <p class="text-[9px] tracking-[0.2em] text-light-gold">Quietly extraordinary</p>
-            <h3 class="mt-2 font-serif text-3xl font-normal">Everyday</h3>
-            <span class="mt-3 block h-px w-10 bg-gold transition-all duration-500 group-hover:w-24"></span>
-          </div>
-        </a>
-        <a href="jewellery.html?style=Classic" class="image-card group relative block overflow-hidden bg-charcoal">
-          <img src="assets/images/products/necklaces.jpg" alt="Statement collection" loading="lazy" class="size-full object-cover">
-          <div class="bg-card-overlay absolute inset-0"></div>
-          <div class="absolute inset-x-0 bottom-0 p-6 text-primary-foreground">
-            <p class="text-[9px] tracking-[0.2em] text-light-gold">Jewels that begin conversations</p>
-            <h3 class="mt-2 font-serif text-3xl font-normal">Statement</h3>
-            <span class="mt-3 block h-px w-10 bg-gold transition-all duration-500 group-hover:w-24"></span>
-          </div>
-        </a>
-      </div>
+    <!-- TRUST -->
+    <section class="trust" id="discover" aria-label="Our promise">
+      <ul class="container trust__list" data-stagger>
+        <li class="trust__item" data-reveal><span class="trust__icon"><svg class="icon icon--shield-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg></span><div><strong>BIS Hallmarked</strong><span>Certified 22K &amp; 18K purity</span></div></li>
+        <li class="trust__item" data-reveal><span class="trust__icon"><svg class="icon icon--sparkles" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/><path d="M20 3v4"/><path d="M22 5h-4"/><path d="M4 17v2"/><path d="M5 18H3"/></svg></span><div><strong>Made by Hand</strong><span>By master karigars in Surat</span></div></li>
+        <li class="trust__item" data-reveal><span class="trust__icon"><svg class="icon icon--truck" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></svg></span><div><strong>Insured Delivery</strong><span>Safely shipped across India</span></div></li>
+        <li class="trust__item" data-reveal><span class="trust__icon"><svg class="icon icon--calendar" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/><path d="M8 18h.01"/><path d="M12 18h.01"/><path d="M16 18h.01"/></svg></span><div><strong>Private Consultations</strong><span>Bridal &amp; bespoke, by appointment</span></div></li>
+      </ul>
     </section>
 
-    <!-- FIND YOUR SIGNATURE PIECE -->
-    <section class="border-y border-border bg-secondary py-24">
-      <div class="mx-auto max-w-[1500px] px-4 lg:px-8">
-        <div class="mb-12 text-center">
-          <p class="text-[9px] tracking-[0.28em] text-gold">EVERY STORY HAS A JEWEL</p>
-          <h2 class="mt-4 font-serif text-5xl font-normal">Find Your Signature Piece</h2>
-        </div>
-        <div class="signature-scroll -mx-4 flex snap-x gap-5 px-4 pb-2">
-          <a href="rings.html" class="group w-[190px] shrink-0 snap-start text-center sm:w-[230px]">
-            <div class="mx-auto aspect-[4/5] overflow-hidden rounded-[50%] border border-gold/50 bg-background p-3 transition duration-500 group-hover:border-gold">
-              <img src="assets/images/products/rings.jpg" alt="rings collection" loading="lazy" class="size-full rounded-[50%] object-cover transition duration-700 group-hover:scale-105 group-hover:rotate-1">
-            </div>
-            <h3 class="mt-5 font-serif text-2xl font-normal capitalize">rings</h3>
-            <span class="mt-2 inline-flex items-center gap-1 text-[9px] tracking-[0.2em] text-muted-foreground transition group-hover:text-gold">EXPLORE <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right size-3" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
-          </a>
-          <a href="necklaces.html" class="group w-[190px] shrink-0 snap-start text-center sm:w-[230px]">
-            <div class="mx-auto aspect-[4/5] overflow-hidden rounded-[50%] border border-gold/50 bg-background p-3 transition duration-500 group-hover:border-gold">
-              <img src="assets/images/products/necklaces.jpg" alt="necklaces collection" loading="lazy" class="size-full rounded-[50%] object-cover transition duration-700 group-hover:scale-105 group-hover:rotate-1">
-            </div>
-            <h3 class="mt-5 font-serif text-2xl font-normal capitalize">necklaces</h3>
-            <span class="mt-2 inline-flex items-center gap-1 text-[9px] tracking-[0.2em] text-muted-foreground transition group-hover:text-gold">EXPLORE <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right size-3" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
-          </a>
-          <a href="earrings.html" class="group w-[190px] shrink-0 snap-start text-center sm:w-[230px]">
-            <div class="mx-auto aspect-[4/5] overflow-hidden rounded-[50%] border border-gold/50 bg-background p-3 transition duration-500 group-hover:border-gold">
-              <img src="assets/images/products/earrings.jpg" alt="earrings collection" loading="lazy" class="size-full rounded-[50%] object-cover transition duration-700 group-hover:scale-105 group-hover:rotate-1">
-            </div>
-            <h3 class="mt-5 font-serif text-2xl font-normal capitalize">earrings</h3>
-            <span class="mt-2 inline-flex items-center gap-1 text-[9px] tracking-[0.2em] text-muted-foreground transition group-hover:text-gold">EXPLORE <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right size-3" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
-          </a>
-          <a href="bangles.html" class="group w-[190px] shrink-0 snap-start text-center sm:w-[230px]">
-            <div class="mx-auto aspect-[4/5] overflow-hidden rounded-[50%] border border-gold/50 bg-background p-3 transition duration-500 group-hover:border-gold">
-              <img src="assets/images/products/bangles.jpg" alt="bangles collection" loading="lazy" class="size-full rounded-[50%] object-cover transition duration-700 group-hover:scale-105 group-hover:rotate-1">
-            </div>
-            <h3 class="mt-5 font-serif text-2xl font-normal capitalize">bangles</h3>
-            <span class="mt-2 inline-flex items-center gap-1 text-[9px] tracking-[0.2em] text-muted-foreground transition group-hover:text-gold">EXPLORE <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right size-3" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
-          </a>
-          <a href="bracelets.html" class="group w-[190px] shrink-0 snap-start text-center sm:w-[230px]">
-            <div class="mx-auto aspect-[4/5] overflow-hidden rounded-[50%] border border-gold/50 bg-background p-3 transition duration-500 group-hover:border-gold">
-              <img src="assets/images/products/rings.jpg" alt="bracelets collection" loading="lazy" class="size-full rounded-[50%] object-cover transition duration-700 group-hover:scale-105 group-hover:rotate-1">
-            </div>
-            <h3 class="mt-5 font-serif text-2xl font-normal capitalize">bracelets</h3>
-            <span class="mt-2 inline-flex items-center gap-1 text-[9px] tracking-[0.2em] text-muted-foreground transition group-hover:text-gold">EXPLORE <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right size-3" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
-          </a>
-          <a href="pendants.html" class="group w-[190px] shrink-0 snap-start text-center sm:w-[230px]">
-            <div class="mx-auto aspect-[4/5] overflow-hidden rounded-[50%] border border-gold/50 bg-background p-3 transition duration-500 group-hover:border-gold">
-              <img src="assets/images/products/necklaces.jpg" alt="pendants collection" loading="lazy" class="size-full rounded-[50%] object-cover transition duration-700 group-hover:scale-105 group-hover:rotate-1">
-            </div>
-            <h3 class="mt-5 font-serif text-2xl font-normal capitalize">pendants</h3>
-            <span class="mt-2 inline-flex items-center gap-1 text-[9px] tracking-[0.2em] text-muted-foreground transition group-hover:text-gold">EXPLORE <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right size-3" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
-          </a>
-          <a href="mangalsutra.html" class="group w-[190px] shrink-0 snap-start text-center sm:w-[230px]">
-            <div class="mx-auto aspect-[4/5] overflow-hidden rounded-[50%] border border-gold/50 bg-background p-3 transition duration-500 group-hover:border-gold">
-              <img src="assets/images/products/earrings.jpg" alt="mangalsutra collection" loading="lazy" class="size-full rounded-[50%] object-cover transition duration-700 group-hover:scale-105 group-hover:rotate-1">
-            </div>
-            <h3 class="mt-5 font-serif text-2xl font-normal capitalize">mangalsutra</h3>
-            <span class="mt-2 inline-flex items-center gap-1 text-[9px] tracking-[0.2em] text-muted-foreground transition group-hover:text-gold">EXPLORE <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right size-3" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
-          </a>
-          <a href="bridal.html" class="group w-[190px] shrink-0 snap-start text-center sm:w-[230px]">
-            <div class="mx-auto aspect-[4/5] overflow-hidden rounded-[50%] border border-gold/50 bg-background p-3 transition duration-500 group-hover:border-gold">
-              <img src="assets/images/products/bridal.jpg" alt="bridal collection" loading="lazy" class="size-full rounded-[50%] object-cover transition duration-700 group-hover:scale-105 group-hover:rotate-1">
-            </div>
-            <h3 class="mt-5 font-serif text-2xl font-normal capitalize">bridal</h3>
-            <span class="mt-2 inline-flex items-center gap-1 text-[9px] tracking-[0.2em] text-muted-foreground transition group-hover:text-gold">EXPLORE <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right size-3" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
-          </a>
+    <!-- SHOP BY CATEGORY -->
+    <section class="section section--pearl" aria-labelledby="cat-title">
+      <div class="container">
+        <header class="section-head" data-reveal>
+          <p class="eyebrow eyebrow--center">Every story has a jewel</p>
+          <h2 class="section-title" id="cat-title">Shop by <em>Category</em></h2>
+          <span class="ornament" aria-hidden="true"></span>
+        </header>
+        <div class="cat-rail" data-stagger="0.07">
+      <a class="cat-arch" href="rings.html" data-reveal>
+        <span class="cat-arch__frame"><span class="cat-arch__img"><img src="assets/images/products/rings.jpg" alt="" loading="lazy" width="800" height="800"></span></span>
+        <span class="cat-arch__name">Rings</span>
+        <span class="cat-arch__count">8 designs</span>
+      </a>
+      <a class="cat-arch" href="necklaces.html" data-reveal>
+        <span class="cat-arch__frame"><span class="cat-arch__img"><img src="assets/images/products/necklaces.jpg" alt="" loading="lazy" width="800" height="800"></span></span>
+        <span class="cat-arch__name">Necklaces</span>
+        <span class="cat-arch__count">6 designs</span>
+      </a>
+      <a class="cat-arch" href="earrings.html" data-reveal>
+        <span class="cat-arch__frame"><span class="cat-arch__img"><img src="assets/images/products/earrings.jpg" alt="" loading="lazy" width="800" height="800"></span></span>
+        <span class="cat-arch__name">Earrings</span>
+        <span class="cat-arch__count">6 designs</span>
+      </a>
+      <a class="cat-arch" href="bangles.html" data-reveal>
+        <span class="cat-arch__frame"><span class="cat-arch__img"><img src="assets/images/products/bangles.jpg" alt="" loading="lazy" width="800" height="800"></span></span>
+        <span class="cat-arch__name">Bangles</span>
+        <span class="cat-arch__count">5 designs</span>
+      </a>
+      <a class="cat-arch" href="bracelets.html" data-reveal>
+        <span class="cat-arch__frame"><span class="cat-arch__img"><img src="assets/images/products/bracelets.jpg" alt="" loading="lazy" width="800" height="800"></span></span>
+        <span class="cat-arch__name">Bracelets</span>
+        <span class="cat-arch__count">5 designs</span>
+      </a>
+      <a class="cat-arch" href="pendants.html" data-reveal>
+        <span class="cat-arch__frame"><span class="cat-arch__img"><img src="assets/images/products/pendants.jpg" alt="" loading="lazy" width="800" height="800"></span></span>
+        <span class="cat-arch__name">Pendants</span>
+        <span class="cat-arch__count">4 designs</span>
+      </a>
+      <a class="cat-arch" href="mangalsutra.html" data-reveal>
+        <span class="cat-arch__frame"><span class="cat-arch__img"><img src="assets/images/products/mangalsutra.jpg" alt="" loading="lazy" width="800" height="800"></span></span>
+        <span class="cat-arch__name">Mangalsutra</span>
+        <span class="cat-arch__count">4 designs</span>
+      </a>
+      <a class="cat-arch" href="bridal.html" data-reveal>
+        <span class="cat-arch__frame"><span class="cat-arch__img"><img src="assets/images/products/bridal.jpg" alt="" loading="lazy" width="800" height="800"></span></span>
+        <span class="cat-arch__name">Bridal</span>
+        <span class="cat-arch__count">8 designs</span>
+      </a>
         </div>
       </div>
     </section>
 
-    <!-- FEATURED -->
-    <section class="mx-auto max-w-[1500px] px-4 py-24 lg:px-8">
-      <div class="mb-12 flex flex-wrap items-end justify-between gap-4">
-        <div>
-          <p class="text-[9px] tracking-[0.28em] text-gold">HANDPICKED BY OUR KARIGARS</p>
-          <h2 class="mt-4 font-serif text-5xl font-normal sm:text-6xl">Pieces Worth Remembering</h2>
+    <!-- COLLECTIONS -->
+    <section class="section" aria-labelledby="coll-title">
+      <div class="container">
+        <header class="section-head section-head--split" data-reveal>
+          <div>
+            <p class="eyebrow">Curated for every celebration</p>
+            <h2 class="section-title" id="coll-title">Collections with <em>character</em></h2>
+          </div>
+          <div>
+            <p class="section-lead">Six families of jewels, each with its own character — every one designed to mark life's most beautiful moments.</p>
+            <a class="link-arrow mt-1" href="collections.html">All collections <svg class="icon icon--arrow-right icon--arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+          </div>
+        </header>
+        <div class="bento" data-stagger="0.08">
+      <a class="bento__item" href="bridal.html" data-reveal="zoom">
+        <img src="assets/images/products/bridal.jpg" alt="" loading="lazy" style="object-position:center">
+        <span class="bento__tag">8 pieces</span>
+        <span class="bento__body"><span class="bento__kicker">Sets for the unforgettable day</span><span class="bento__title">Bridal</span><span class="bento__cta">Explore <svg class="icon icon--arrow-right icon--arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span>
+      </a>
+      <a class="bento__item" href="jewellery.html?metal=Gold" data-reveal="zoom">
+        <img src="assets/images/products/necklaces.jpg" alt="" loading="lazy" style="object-position:center">
+        <span class="bento__tag">37 pieces</span>
+        <span class="bento__body"><span class="bento__kicker">The warmth of 22K tradition</span><span class="bento__title">Gold</span><span class="bento__cta">Explore <svg class="icon icon--arrow-right icon--arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span>
+      </a>
+      <a class="bento__item" href="jewellery.html?metal=Diamond" data-reveal="zoom">
+        <img src="assets/images/products/rings.jpg" alt="" loading="lazy" style="object-position:center">
+        <span class="bento__tag">9 pieces</span>
+        <span class="bento__body"><span class="bento__kicker">Light, held forever</span><span class="bento__title">Diamond</span><span class="bento__cta">Explore <svg class="icon icon--arrow-right icon--arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span>
+      </a>
+      <a class="bento__item" href="jewellery.html?style=Traditional" data-reveal="zoom">
+        <img src="assets/images/products/bangles.jpg" alt="" loading="lazy" style="object-position:center">
+        <span class="bento__tag">15 pieces</span>
+        <span class="bento__body"><span class="bento__kicker">Motifs passed through generations</span><span class="bento__title">Heritage</span><span class="bento__cta">Explore <svg class="icon icon--arrow-right icon--arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span>
+      </a>
+      <a class="bento__item" href="jewellery.html?style=Modern" data-reveal="zoom">
+        <img src="assets/images/products/pendants.jpg" alt="" loading="lazy" style="object-position:50% 62%">
+        <span class="bento__tag">5 pieces</span>
+        <span class="bento__body"><span class="bento__kicker">Quietly extraordinary</span><span class="bento__title">Everyday</span><span class="bento__cta">Explore <svg class="icon icon--arrow-right icon--arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span>
+      </a>
+      <a class="bento__item" href="jewellery.html?style=Classic" data-reveal="zoom">
+        <img src="assets/images/products/bracelets.jpg" alt="" loading="lazy" style="object-position:50% 45%">
+        <span class="bento__tag">16 pieces</span>
+        <span class="bento__body"><span class="bento__kicker">Jewels that begin conversations</span><span class="bento__title">Statement</span><span class="bento__cta">Explore <svg class="icon icon--arrow-right icon--arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span>
+      </a>
         </div>
-        <a href="jewellery.html" class="inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 disabled:cursor-not-allowed [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border bg-background shadow-sm hover:text-accent-foreground h-9 px-4 py-2 rounded-none border-gold text-[9px] tracking-[0.18em] hover:bg-secondary">VIEW ALL JEWELLERY</a>
       </div>
-      <!-- Product cards are rendered from assets/js/data.js -->
-      <div id="featured-grid" class="grid grid-cols-2 gap-x-3 gap-y-10 md:grid-cols-3 xl:grid-cols-4"></div>
     </section>
 
-    <!-- MAROON EDITORIAL -->
-    <section class="relative overflow-hidden bg-maroon py-24 text-primary-foreground lg:py-32">
-      <div class="mx-auto grid max-w-[1400px] items-center gap-10 px-5 lg:grid-cols-[1.1fr_0.9fr] lg:px-12">
-        <div>
-          <p class="text-[9px] tracking-[0.28em] text-light-gold">THE MANGALAM PROMISE</p>
-          <h2 class="mt-6 font-serif text-5xl font-normal leading-[1.02] sm:text-6xl lg:text-7xl">For Moments That<br>Become Memories.</h2>
-          <p class="mt-7 max-w-md text-sm font-light leading-7 text-primary-foreground/80">From the first sketch to the final polish, every Mangalam jewel is made the way celebrations deserve — slowly, honestly, and entirely by hand.</p>
-          <a href="craftsmanship.html" class="inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 disabled:cursor-not-allowed [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 shadow py-2 h-12 rounded-none border border-light-gold bg-transparent px-7 text-[10px] tracking-[0.18em] text-primary-foreground hover:bg-gold hover:text-wine mt-9">OUR CRAFTSMANSHIP <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right size-3" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+    <!-- FEATURED PIECES -->
+    <section class="section section--pearl" aria-labelledby="feat-title">
+      <div class="container">
+        <header class="section-head section-head--split" data-reveal>
+          <div>
+            <p class="eyebrow">Handpicked by our karigars</p>
+            <h2 class="section-title" id="feat-title">Pieces worth <em>remembering</em></h2>
+          </div>
+          <div class="tabs" role="tablist" aria-label="Featured pieces">
+            <button type="button" class="tabs__btn" role="tab" aria-selected="true" aria-controls="featured-grid" data-tab="all">Signature</button>
+            <button type="button" class="tabs__btn" role="tab" aria-selected="false" aria-controls="featured-grid" data-tab="gold" tabindex="-1">Gold</button>
+            <button type="button" class="tabs__btn" role="tab" aria-selected="false" aria-controls="featured-grid" data-tab="diamond" tabindex="-1">Diamond</button>
+            <button type="button" class="tabs__btn" role="tab" aria-selected="false" aria-controls="featured-grid" data-tab="bridal" tabindex="-1">Bridal</button>
+            <button type="button" class="tabs__btn" role="tab" aria-selected="false" aria-controls="featured-grid" data-tab="new" tabindex="-1">New in</button>
+          </div>
+        </header>
+        <!-- Product cards are rendered from assets/js/data.js -->
+        <div class="product-grid" id="featured-grid" role="tabpanel" data-featured></div>
+        <div class="section-foot"><a class="btn btn--outline" href="jewellery.html">View all jewellery <svg class="icon icon--arrow-right icon--arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a></div>
+      </div>
+    </section>
+
+    <!-- THE MANGALAM PROMISE -->
+    <section class="section promise" aria-labelledby="promise-title">
+      <span class="brand-emblem promise__watermark" aria-hidden="true"></span>
+      <div class="container promise__grid">
+        <div class="promise__media" data-reveal="left">
+          <div class="arch-frame"><img src="assets/images/products/necklaces.jpg" alt="Temple gold necklace with pearl drops on maroon velvet" loading="lazy" width="800" height="800" data-parallax="0.1"></div>
+          <div class="seal" aria-hidden="true">
+            <svg class="seal__ring" viewBox="0 0 150 150"><defs><path id="seal-path" d="M75,75 m-58,0 a58,58 0 1,1 116,0 a58,58 0 1,1 -116,0"/></defs><text><textPath href="#seal-path" textLength="358" lengthAdjust="spacing">Handcrafted • Since 1962 • Surat •</textPath></text></svg>
+            <span class="seal__core"><span class="brand-emblem"></span></span>
+          </div>
         </div>
-        <div class="relative">
-          <img src="assets/images/products/necklaces.jpg" alt="Royal heritage necklace" loading="lazy" class="aspect-[4/5] w-full max-w-md object-cover lg:translate-x-10 lg:shadow-[0_30px_80px_rgba(0,0,0,0.35)]">
-          <div class="craft-ornament -right-2 -top-8 hidden size-40 lg:block"></div>
+        <div class="promise__content" data-reveal="right">
+          <p class="eyebrow eyebrow--light">The Mangalam promise</p>
+          <h2 class="section-title section-title--light" id="promise-title">For moments that become <em>memories.</em></h2>
+          <p class="section-lead section-lead--light">From the first sketch to the final polish, every Mangalam jewel is made the way celebrations deserve — slowly, honestly, and entirely by hand.</p>
+          <dl class="stats">
+            <div><dt>Years of heritage</dt><dd><span data-count="64">64</span></dd></div>
+            <div><dt>Generations of karigars</dt><dd><span data-count="3">3</span></dd></div>
+            <div><dt>Hours in a bridal set</dt><dd><span data-count="200">200</span><small>+</small></dd></div>
+            <div><dt>BIS hallmarked gold</dt><dd><span data-count="100">100</span><small>%</small></dd></div>
+          </dl>
+          <a class="btn btn--gold" href="craftsmanship.html">Our craftsmanship <svg class="icon icon--arrow-right icon--arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
         </div>
       </div>
     </section>
 
-    <!-- BRIDAL EDIT -->
-    <section class="mx-auto max-w-[1500px] px-4 py-24 lg:px-8">
-      <div class="mb-12 text-center">
-        <p class="text-[9px] tracking-[0.28em] text-gold">FOR THE BRIDE</p>
-        <h2 class="mt-4 font-serif text-5xl font-normal sm:text-6xl">The Bridal Edit</h2>
-        <p class="mx-auto mt-4 max-w-xl text-sm leading-7 text-muted-foreground">Jewellery as unforgettable as the moment itself.</p>
-      </div>
-      <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-        <a href="bridal.html" class="image-card group relative block aspect-[3/4] overflow-hidden bg-charcoal">
-          <img src="assets/images/products/necklaces.jpg" alt="Bridal Necklaces" loading="lazy" class="size-full object-cover">
-          <div class="bg-bridal-overlay absolute inset-0"></div>
-          <div class="absolute inset-0 flex flex-col items-center justify-end pb-8 text-primary-foreground">
-            <h3 class="font-serif text-2xl font-normal">Bridal Necklaces</h3>
-            <span class="mt-3 h-px w-12 bg-gold transition-all duration-500 group-hover:w-20"></span>
-          </div>
-        </a>
-        <a href="bridal.html" class="image-card group relative block aspect-[3/4] overflow-hidden bg-charcoal">
-          <img src="assets/images/products/earrings.jpg" alt="Bridal Earrings" loading="lazy" class="size-full object-cover">
-          <div class="bg-bridal-overlay absolute inset-0"></div>
-          <div class="absolute inset-0 flex flex-col items-center justify-end pb-8 text-primary-foreground">
-            <h3 class="font-serif text-2xl font-normal">Bridal Earrings</h3>
-            <span class="mt-3 h-px w-12 bg-gold transition-all duration-500 group-hover:w-20"></span>
-          </div>
-        </a>
-        <a href="bridal.html" class="image-card group relative block aspect-[3/4] overflow-hidden bg-charcoal">
-          <img src="assets/images/products/bangles.jpg" alt="Bridal Bangles" loading="lazy" class="size-full object-cover">
-          <div class="bg-bridal-overlay absolute inset-0"></div>
-          <div class="absolute inset-0 flex flex-col items-center justify-end pb-8 text-primary-foreground">
-            <h3 class="font-serif text-2xl font-normal">Bridal Bangles</h3>
-            <span class="mt-3 h-px w-12 bg-gold transition-all duration-500 group-hover:w-20"></span>
-          </div>
-        </a>
-        <a href="bridal.html" class="image-card group relative block aspect-[3/4] overflow-hidden bg-charcoal">
-          <img src="assets/images/products/bridal.jpg" alt="Bridal Sets" loading="lazy" class="size-full object-cover">
-          <div class="bg-bridal-overlay absolute inset-0"></div>
-          <div class="absolute inset-0 flex flex-col items-center justify-end pb-8 text-primary-foreground">
-            <h3 class="font-serif text-2xl font-normal">Bridal Sets</h3>
-            <span class="mt-3 h-px w-12 bg-gold transition-all duration-500 group-hover:w-20"></span>
-          </div>
-        </a>
+    <!-- THE BRIDAL EDIT -->
+    <section class="section" aria-labelledby="bridal-title">
+      <div class="container">
+        <header class="section-head" data-reveal>
+          <p class="eyebrow eyebrow--center">For the bride</p>
+          <h2 class="section-title" id="bridal-title">The Bridal <em>Edit</em></h2>
+          <p class="section-lead">Jewellery as unforgettable as the moment itself — composed as one harmonious whole, from rani haar to maang tikka.</p>
+          <span class="ornament" aria-hidden="true"></span>
+        </header>
+        <div class="panels" data-reveal>
+          <a class="panel is-active" href="bridal.html">
+            <img src="assets/images/products/bridal.jpg" alt="" loading="lazy">
+            <span class="panel__num">01</span>
+            <span class="panel__label">Bridal Sets</span>
+            <span class="panel__body"><span class="panel__title">Bridal Sets</span><span class="panel__text">Necklace, jhumkas and bangles composed together — heirloom weight with modern grace.</span><span class="panel__cta">Explore the edit <svg class="icon icon--arrow-right icon--arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span>
+          </a>
+          <a class="panel" href="bridal.html">
+            <img src="assets/images/products/necklaces.jpg" alt="" loading="lazy">
+            <span class="panel__num">02</span>
+            <span class="panel__label">Necklaces</span>
+            <span class="panel__body"><span class="panel__title">Bridal Necklaces</span><span class="panel__text">Rani haars, polki chokers and temple necklaces with pearl drops.</span><span class="panel__cta">Explore <svg class="icon icon--arrow-right icon--arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span>
+          </a>
+          <a class="panel" href="bridal.html">
+            <img src="assets/images/products/earrings.jpg" alt="" loading="lazy">
+            <span class="panel__num">03</span>
+            <span class="panel__label">Earrings</span>
+            <span class="panel__body"><span class="panel__title">Bridal Earrings</span><span class="panel__text">Jhumkas and chandbalis designed to frame every expression.</span><span class="panel__cta">Explore <svg class="icon icon--arrow-right icon--arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span>
+          </a>
+          <a class="panel" href="bridal.html">
+            <img src="assets/images/products/bangles.jpg" alt="" loading="lazy">
+            <span class="panel__num">04</span>
+            <span class="panel__label">Bangles</span>
+            <span class="panel__body"><span class="panel__title">Bridal Bangles</span><span class="panel__text">Kadas and bangle sets that carry the rhythm of celebration.</span><span class="panel__cta">Explore <svg class="icon icon--arrow-right icon--arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span>
+          </a>
+        </div>
       </div>
     </section>
 
     <!-- CRAFTSMANSHIP -->
-    <section class="border-y border-border bg-secondary py-24">
-      <div class="mx-auto max-w-[1400px] px-5 lg:px-12">
-        <div class="grid items-center gap-14 lg:grid-cols-2">
-          <img src="assets/images/mangalam-craft.jpg" alt="Mangalam artisan hand-finishing gold jewellery" loading="lazy" class="aspect-[4/5] w-full object-cover">
-          <div>
-            <p class="text-[9px] tracking-[0.28em] text-gold">MADE BY HAND, SINCE 1962</p>
-            <h2 class="mt-4 font-serif text-5xl font-normal sm:text-6xl">The Art Behind Every Piece</h2>
-            <div class="relative mt-12 space-y-10">
-              <div class="flex gap-6 border-b border-border pb-8 last:border-0">
-                <span class="font-serif text-4xl font-light text-gold">01</span>
-                <div><h3 class="text-[11px] tracking-[0.25em]">DESIGN</h3><p class="mt-3 max-w-md text-sm leading-6 text-muted-foreground">Every jewel begins as a drawing — inspired by Gujarati motifs, refined for the woman who will wear it.</p></div>
-              </div>
-              <div class="flex gap-6 border-b border-border pb-8 last:border-0">
-                <span class="font-serif text-4xl font-light text-gold">02</span>
-                <div><h3 class="text-[11px] tracking-[0.25em]">CRAFT</h3><p class="mt-3 max-w-md text-sm leading-6 text-muted-foreground">Master karigars shape, set and engrave entirely by hand, exactly as their fathers taught them.</p></div>
-              </div>
-              <div class="flex gap-6 border-b border-border pb-8 last:border-0">
-                <span class="font-serif text-4xl font-light text-gold">03</span>
-                <div><h3 class="text-[11px] tracking-[0.25em]">FINISH</h3><p class="mt-3 max-w-md text-sm leading-6 text-muted-foreground">A final polish, a hallmark, and one last inspection beneath the lamp — only then does it become Mangalam.</p></div>
-              </div>
-            </div>
-          </div>
+    <section class="section section--pearl" aria-labelledby="craft-title">
+      <div class="container craft__grid">
+        <div class="craft__media" data-reveal="left">
+          <div class="craft__main"><img src="assets/images/mangalam-craft.jpg" alt="A Mangalam master karigar hand-finishing a gold pendant" loading="lazy" width="1600" height="1200" data-parallax="0.08"></div>
+          <div class="craft__small"><img src="assets/images/products/bridal.jpg" alt="" loading="lazy"></div>
+          <div class="craft__since"><span>Since</span><strong>1962</strong></div>
+        </div>
+        <div data-reveal="right">
+          <p class="eyebrow">Made by hand, since 1962</p>
+          <h2 class="section-title" id="craft-title">The art behind <em>every piece</em></h2>
+          <ol class="steps" data-steps>
+            <li class="step"><span class="step__num">01</span><div><h3>Design</h3><p>Every jewel begins as a drawing — inspired by Gujarati motifs, refined for the woman who will wear it.</p></div></li>
+            <li class="step"><span class="step__num">02</span><div><h3>Craft</h3><p>Master karigars shape, set and engrave entirely by hand, exactly as their fathers taught them.</p></div></li>
+            <li class="step"><span class="step__num">03</span><div><h3>Finish</h3><p>A final polish, a hallmark, and one last inspection beneath the lamp — only then does it become Mangalam.</p></div></li>
+          </ol>
+          <a class="link-arrow" href="craftsmanship.html">Discover our atelier <svg class="icon icon--arrow-right icon--arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
         </div>
       </div>
     </section>
 
     <!-- GUJARATI HERITAGE -->
-    <section class="relative overflow-hidden bg-deep-maroon px-5 py-24 text-center text-primary-foreground lg:py-32">
-      <div class="heritage-pattern absolute inset-0 opacity-60" aria-hidden="true"></div>
-      <div class="relative mx-auto max-w-3xl">
-        <p class="font-serif text-3xl text-light-gold" lang="gu">મંગલમ</p>
-        <h2 class="mt-6 font-serif text-6xl font-normal sm:text-7xl">Rooted in Tradition.</h2>
-        <p class="mx-auto mt-7 max-w-xl text-sm font-light leading-7 text-primary-foreground/80">
-          Inspired by generations of Indian craftsmanship, Gujarati culture and the enduring beauty of jewellery.
-        </p>
-        <a href="about.html" class="inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 disabled:cursor-not-allowed [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 shadow py-2 h-12 rounded-none border border-light-gold bg-transparent px-7 text-[10px] tracking-[0.18em] text-primary-foreground hover:bg-gold hover:text-wine mt-9">OUR HERITAGE <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right size-3" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+    <section class="heritage" aria-labelledby="heritage-title">
+      <div class="heritage__arch heritage__arch--l" aria-hidden="true"><img src="assets/images/products/bangles.jpg" alt="" loading="lazy"></div>
+      <div class="heritage__arch heritage__arch--r" aria-hidden="true"><img src="assets/images/products/earrings.jpg" alt="" loading="lazy"></div>
+      <div class="container heritage__inner" data-reveal>
+        <span class="heritage__gu gu text-metal" lang="gu">મંગલમ</span>
+        <h2 class="heritage__title" id="heritage-title">Rooted in <em>Tradition.</em></h2>
+        <p class="section-lead section-lead--light">Inspired by generations of Indian craftsmanship, Gujarati culture and the enduring beauty of jewellery. The paisley, the peacock, the flowering vine — hand-carved memories, passed from master to apprentice.</p>
+        <a class="btn btn--light" href="about.html">Our heritage <svg class="icon icon--arrow-right icon--arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
       </div>
     </section>
 
     <!-- A CLOSER LOOK -->
-    <section class="mx-auto max-w-[1400px] px-5 py-24 lg:px-12">
-      <div class="grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
-        <div class="group relative aspect-[4/3] overflow-hidden bg-secondary">
-          <img src="assets/images/products/necklaces.jpg" alt="Close detail of gold necklace craftsmanship" loading="lazy" class="size-full object-cover transition duration-700 group-hover:scale-[1.06]">
-          <div class="hotspot left-[30%] top-[42%]" aria-label="Hand-finished detailing" tabindex="0"><span class="pointer-events-none absolute left-7 top-0 whitespace-nowrap border border-gold bg-background px-3 py-1.5 text-[8px] tracking-[0.16em] text-foreground opacity-0 transition group-hover:opacity-100">✦ Hand-finished detailing</span></div>
-          <div class="hotspot left-[62%] top-[58%]" aria-label="Intricate craftsmanship" tabindex="0"><span class="pointer-events-none absolute left-7 top-0 whitespace-nowrap border border-gold bg-background px-3 py-1.5 text-[8px] tracking-[0.16em] text-foreground opacity-0 transition group-hover:opacity-100">✦ Intricate craftsmanship</span></div>
-          <div class="hotspot left-[48%] top-[28%]" aria-label="Signature gold work" tabindex="0"><span class="pointer-events-none absolute left-7 top-0 whitespace-nowrap border border-gold bg-background px-3 py-1.5 text-[8px] tracking-[0.16em] text-foreground opacity-0 transition group-hover:opacity-100">✦ Signature gold work</span></div>
+    <section class="section" aria-labelledby="closer-title">
+      <div class="container closer__grid">
+        <div class="closer__stage" data-loupe data-reveal="mask">
+          <img src="assets/images/products/necklaces.jpg" alt="Close detail of a temple gold necklace with pearl drops" loading="lazy" width="800" height="800">
+          <span class="loupe" aria-hidden="true"></span>
+          <span class="closer__hint"><svg class="icon icon--zoom-in" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" x2="16.65" y1="21" y2="16.65"/><line x1="11" x2="11" y1="8" y2="14"/><line x1="8" x2="14" y1="11" y2="11"/></svg> Hover to look closer</span>
         </div>
-        <div>
-          <p class="text-[9px] tracking-[0.28em] text-gold">A CLOSER LOOK</p>
-          <h2 class="mt-4 font-serif text-5xl font-normal sm:text-6xl">Beauty in Every Detail</h2>
-          <p class="mt-7 max-w-md text-sm leading-7 text-muted-foreground">Look closely at a Mangalam jewel and you will find the artist's hand — every bead of gold, every mirrored facet, every hidden flourish placed with intention.</p>
-          <p class="mt-4 font-serif text-xl">₹ 4,87,500 <span class="ml-2 align-middle text-xs text-muted-foreground">Royal Heritage Necklace</span></p>
-          <a href="necklaces.html" class="inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 disabled:cursor-not-allowed [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border bg-background shadow-sm hover:text-accent-foreground h-9 px-4 py-2 mt-8 rounded-none border-gold text-[10px] tracking-[0.18em] hover:bg-secondary">VIEW THE PIECE <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-right size-3" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a>
+        <div data-reveal="right">
+          <p class="eyebrow">A closer look</p>
+          <h2 class="section-title" id="closer-title">Beauty in <em>every detail</em></h2>
+          <p class="section-lead">Look closely at a Mangalam jewel and you will find the artist's hand — every bead of gold, every mirrored facet, every hidden flourish placed with intention.</p>
+          <ul class="closer__notes">
+            <li>Hand-finished detailing on every motif</li>
+            <li>Stone-by-stone setting by master karigars</li>
+            <li>Hand-drawn gold wire and pearl drops</li>
+          </ul>
+          <p class="closer__price">₹ 41,750<span>Temple Gold Necklace</span></p>
+          <a class="btn btn--primary mt-2" href="product.html?slug=temple-gold-necklace">View the piece <svg class="icon icon--arrow-up-right icon--arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a>
         </div>
       </div>
     </section>
 
     <!-- MANIFESTO -->
-    <section class="px-5 py-24 text-center lg:py-36">
-      <h2 class="mx-auto max-w-4xl font-serif text-5xl font-light leading-[1.1] sm:text-7xl">
-        Some Jewellery Is Worn.<br>Some Jewellery Is <span class="gold-shimmer">Remembered</span>.
-      </h2>
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker__track"><ul class="ticker__list"><li>Gold</li><li>Diamond</li><li>Polki</li><li>Kundan</li><li>Temple</li><li>Bridal</li><li>Heritage</li><li>Gold</li><li>Diamond</li><li>Polki</li><li>Kundan</li><li>Temple</li><li>Bridal</li><li>Heritage</li></ul><ul class="ticker__list"><li>Gold</li><li>Diamond</li><li>Polki</li><li>Kundan</li><li>Temple</li><li>Bridal</li><li>Heritage</li><li>Gold</li><li>Diamond</li><li>Polki</li><li>Kundan</li><li>Temple</li><li>Bridal</li><li>Heritage</li></ul></div>
+    </div>
+    <section class="manifesto" aria-label="Our belief">
+      <div class="container" data-reveal>
+        <span class="brand-emblem" aria-hidden="true"></span>
+        <p class="manifesto__text">Some jewellery is worn.<br>Some jewellery is <em class="text-metal text-metal--deep">remembered.</em></p>
+      </div>
     </section>
 
     <!-- TESTIMONIALS -->
-    <section class="bg-secondary px-5 py-24">
-      <div class="mx-auto max-w-3xl text-center">
-        <p class="text-[9px] tracking-[0.28em] text-gold">OUR FAMILIES, IN THEIR WORDS</p>
-        <h2 class="mt-4 font-serif text-5xl font-normal">Stories That Shine</h2>
-        <div class="mt-12 border border-gold/40 bg-background px-6 py-12 sm:px-14" data-testimonials>
-          <span aria-hidden="true" class="font-serif text-7xl leading-none text-gold">“</span>
-          <blockquote class="mt-2 font-serif text-2xl font-light italic leading-relaxed sm:text-3xl" data-t-quote>My bridal set felt like it had been in our family for generations — every guest asked about it, and I will treasure it forever.</blockquote>
-          <div class="mx-auto mt-8 h-px w-14 bg-gold"></div>
-          <p class="mt-5 text-[10px] tracking-[0.2em]" data-t-who>Aanya Desai</p>
-          <p class="mt-1 text-[9px] tracking-[0.16em] text-muted-foreground" data-t-occasion>WEDDING, SURAT</p>
-          <div class="mt-8 flex justify-center gap-2">
-            <button type="button" aria-label="Show testimonial 1" data-t-dot="0" class="h-1.5 w-1.5 rounded-full transition bg-gold"></button>
-            <button type="button" aria-label="Show testimonial 2" data-t-dot="1" class="h-1.5 w-1.5 rounded-full transition bg-border"></button>
-            <button type="button" aria-label="Show testimonial 3" data-t-dot="2" class="h-1.5 w-1.5 rounded-full transition bg-border"></button>
+    <section class="section section--pearl" aria-labelledby="t-title">
+      <div class="container testimonials__grid">
+        <div data-reveal="left">
+          <p class="eyebrow">Our families, in their words</p>
+          <h2 class="section-title" id="t-title">Stories that <em>shine</em></h2>
+          <p class="section-lead">Families across Gujarat have trusted Mangalam with their most meaningful moments — weddings, anniversaries and every celebration in between.</p>
+          <div class="testimonials__nav">
+            <button type="button" class="round-btn" data-prev aria-label="Previous story"><svg class="icon icon--arrow-left icon--arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg></button>
+            <button type="button" class="round-btn" data-next aria-label="Next story"><svg class="icon icon--arrow-right icon--arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></button>
+            <div class="dots"><button type="button" data-dot aria-label="Show story 1" aria-current="true"></button><button type="button" data-dot aria-label="Show story 2" aria-current="false"></button><button type="button" data-dot aria-label="Show story 3" aria-current="false"></button></div>
           </div>
+        </div>
+        <div class="tslider" data-tslider data-reveal="right" aria-roledescription="carousel" aria-label="Customer stories">
+      <figure class="tslide is-active" aria-hidden="false">
+        <div class="tslide__mark" aria-hidden="true">&ldquo;</div>
+        <blockquote>My bridal set felt like it had been in our family for generations — every guest asked about it, and I will treasure it forever.</blockquote>
+        <figcaption><span class="tslide__avatar" aria-hidden="true">AD</span><span><span class="tslide__who">Aanya Desai</span><span class="tslide__occasion">Wedding, Surat</span></span></figcaption>
+      </figure>
+      <figure class="tslide" aria-hidden="true">
+        <div class="tslide__mark" aria-hidden="true">&ldquo;</div>
+        <blockquote>The mangalsutra Mangalam designed for us is exactly what I hoped for — tradition honoured, but unmistakably mine.</blockquote>
+        <figcaption><span class="tslide__avatar" aria-hidden="true">PP</span><span><span class="tslide__who">Priya Patel</span><span class="tslide__occasion">Anniversary, Ahmedabad</span></span></figcaption>
+      </figure>
+      <figure class="tslide" aria-hidden="true">
+        <div class="tslide__mark" aria-hidden="true">&ldquo;</div>
+        <blockquote>Three generations of my family buy from Mangalam. The gold, the honesty, the warmth — nothing has changed.</blockquote>
+        <figcaption><span class="tslide__avatar" aria-hidden="true">MS</span><span><span class="tslide__who">Meera Shah</span><span class="tslide__occasion">Loyal customer, Vadodara</span></span></figcaption>
+      </figure>
         </div>
       </div>
     </section>
 
-    <!-- JOURNAL PREVIEW -->
-    <section class="mx-auto max-w-[1500px] px-4 py-24 lg:px-8">
-      <div class="mb-12 flex flex-wrap items-end justify-between gap-4">
-        <div>
-          <p class="text-[9px] tracking-[0.28em] text-gold">NOTES FROM THE ATELIER</p>
-          <h2 class="mt-4 font-serif text-5xl font-normal">From Our Journal</h2>
-        </div>
-        <a href="journal.html" class="inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 disabled:cursor-not-allowed [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border bg-background shadow-sm hover:text-accent-foreground h-9 px-4 py-2 rounded-none border-gold text-[9px] tracking-[0.18em] hover:bg-secondary">ALL ARTICLES</a>
+    <!-- JOURNAL -->
+    <section class="section" aria-labelledby="j-title">
+      <div class="container">
+        <header class="section-head section-head--split" data-reveal>
+          <div>
+            <p class="eyebrow">Notes from the atelier</p>
+            <h2 class="section-title" id="j-title">From our <em>journal</em></h2>
+          </div>
+          <a class="btn btn--outline" href="journal.html">All articles <svg class="icon icon--arrow-right icon--arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+        </header>
+        <div class="journal-mag">
+      <a class="jcard" href="article.html?slug=art-of-bridal-jewellery" data-reveal="left">
+        <div class="jcard__media"><img src="assets/images/products/bridal.jpg" alt="" loading="lazy" style="object-position:center"><span class="jcard__cat">Bridal</span></div>
+        <p class="jcard__meta">September 2026 · 6 min read</p>
+        <h3 class="jcard__title">The Art of Bridal Jewellery</h3>
+        <p class="jcard__excerpt">A bridal set is never one jewel — it is a composition. Here is how our karigars balance heirloom weight with modern grace.</p>
+        <span class="link-arrow">Read the story <svg class="icon icon--arrow-right icon--arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+      </a>
+      <div class="journal-mag__side" data-stagger>
+        <a class="jcard jcard--row" href="article.html?slug=understanding-gold-purity" data-reveal="right">
+          <div class="jcard__media"><img src="assets/images/products/necklaces.jpg" alt="" loading="lazy" style="object-position:center"></div>
+          <div><p class="jcard__meta">Guide · 4 min read</p><h3 class="jcard__title">Understanding Gold Purity</h3></div>
+        </a>
+        <a class="jcard jcard--row" href="article.html?slug=gujarati-jewellery-heritage" data-reveal="right">
+          <div class="jcard__media"><img src="assets/images/mangalam-craft.jpg" alt="" loading="lazy" style="object-position:center"></div>
+          <div><p class="jcard__meta">Heritage · 7 min read</p><h3 class="jcard__title">Gujarati Jewellery Heritage</h3></div>
+        </a>
+        <a class="jcard jcard--row" href="article.html?slug=choosing-your-signature-piece" data-reveal="right">
+          <div class="jcard__media"><img src="assets/images/mangalam-hero.jpg" alt="" loading="lazy" style="object-position:center"></div>
+          <div><p class="jcard__meta">Style · 5 min read</p><h3 class="jcard__title">Choosing Your Signature Piece</h3></div>
+        </a>
       </div>
-      <!-- Articles are rendered from assets/js/data.js -->
-      <div id="journal-preview" class="grid gap-10 md:grid-cols-3"></div>
+        </div>
+      </div>
     </section>
 
     <!-- INSTAGRAM -->
-    <section class="bg-secondary px-4 py-24 lg:px-8">
-      <div class="mx-auto max-w-[1500px]">
-        <div class="mb-12 text-center">
-          <p class="text-[9px] tracking-[0.28em] text-gold">@MANGALAMJEWELLERS</p>
-          <h2 class="mt-4 font-serif text-5xl font-normal">Follow the Sparkle</h2>
-        </div>
-        <div class="grid grid-cols-2 gap-2 md:grid-cols-4 lg:grid-cols-6">
-          <a href="https://instagram.com" target="_blank" rel="noreferrer" class="image-card group relative block aspect-square overflow-hidden bg-charcoal" aria-label="Mangalam Jewellers on Instagram">
-            <img src="assets/images/mangalam-hero.jpg" alt="Mangalam Jewellers Instagram" loading="lazy" class="size-full object-cover">
-            <div class="absolute inset-0 grid place-items-center bg-maroon/0 transition duration-500 group-hover:bg-maroon/50">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-instagram text-gold opacity-0 transition duration-500 group-hover:opacity-100" aria-hidden="true"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
-            </div>
-          </a>
-          <a href="https://instagram.com" target="_blank" rel="noreferrer" class="image-card group relative block aspect-square overflow-hidden bg-charcoal" aria-label="Mangalam Jewellers on Instagram">
-            <img src="assets/images/products/bridal.jpg" alt="Mangalam Jewellers Instagram" loading="lazy" class="size-full object-cover">
-            <div class="absolute inset-0 grid place-items-center bg-maroon/0 transition duration-500 group-hover:bg-maroon/50">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-instagram text-gold opacity-0 transition duration-500 group-hover:opacity-100" aria-hidden="true"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
-            </div>
-          </a>
-          <a href="https://instagram.com" target="_blank" rel="noreferrer" class="image-card group relative block aspect-square overflow-hidden bg-charcoal" aria-label="Mangalam Jewellers on Instagram">
-            <img src="assets/images/products/bangles.jpg" alt="Mangalam Jewellers Instagram" loading="lazy" class="size-full object-cover">
-            <div class="absolute inset-0 grid place-items-center bg-maroon/0 transition duration-500 group-hover:bg-maroon/50">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-instagram text-gold opacity-0 transition duration-500 group-hover:opacity-100" aria-hidden="true"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
-            </div>
-          </a>
-          <a href="https://instagram.com" target="_blank" rel="noreferrer" class="image-card group relative block aspect-square overflow-hidden bg-charcoal" aria-label="Mangalam Jewellers on Instagram">
-            <img src="assets/images/products/necklaces.jpg" alt="Mangalam Jewellers Instagram" loading="lazy" class="size-full object-cover">
-            <div class="absolute inset-0 grid place-items-center bg-maroon/0 transition duration-500 group-hover:bg-maroon/50">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-instagram text-gold opacity-0 transition duration-500 group-hover:opacity-100" aria-hidden="true"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
-            </div>
-          </a>
-          <a href="https://instagram.com" target="_blank" rel="noreferrer" class="image-card group relative block aspect-square overflow-hidden bg-charcoal" aria-label="Mangalam Jewellers on Instagram">
-            <img src="assets/images/mangalam-craft.jpg" alt="Mangalam Jewellers Instagram" loading="lazy" class="size-full object-cover">
-            <div class="absolute inset-0 grid place-items-center bg-maroon/0 transition duration-500 group-hover:bg-maroon/50">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-instagram text-gold opacity-0 transition duration-500 group-hover:opacity-100" aria-hidden="true"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
-            </div>
-          </a>
-          <a href="https://instagram.com" target="_blank" rel="noreferrer" class="image-card group relative block aspect-square overflow-hidden bg-charcoal" aria-label="Mangalam Jewellers on Instagram">
-            <img src="assets/images/products/earrings.jpg" alt="Mangalam Jewellers Instagram" loading="lazy" class="size-full object-cover">
-            <div class="absolute inset-0 grid place-items-center bg-maroon/0 transition duration-500 group-hover:bg-maroon/50">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-instagram text-gold opacity-0 transition duration-500 group-hover:opacity-100" aria-hidden="true"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
-            </div>
-          </a>
+    <section class="section section--pearl" aria-labelledby="ig-title">
+      <div class="container">
+        <header class="section-head" data-reveal>
+          <p class="eyebrow eyebrow--center">@mangalamjewellers</p>
+          <h2 class="section-title" id="ig-title">Follow the <em>sparkle</em></h2>
+          <span class="ornament" aria-hidden="true"></span>
+        </header>
+        <div class="insta" data-stagger="0.06">
+      <a class="insta__item" href="https://instagram.com" target="_blank" rel="noopener" aria-label="Mangalam Jewellers on Instagram" data-reveal>
+        <img src="assets/images/mangalam-hero.jpg" alt="" loading="lazy"><svg class="icon icon--instagram" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+      </a>
+      <a class="insta__item" href="https://instagram.com" target="_blank" rel="noopener" aria-label="Mangalam Jewellers on Instagram" data-reveal>
+        <img src="assets/images/products/bridal.jpg" alt="" loading="lazy"><svg class="icon icon--instagram" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+      </a>
+      <a class="insta__item" href="https://instagram.com" target="_blank" rel="noopener" aria-label="Mangalam Jewellers on Instagram" data-reveal>
+        <img src="assets/images/products/bangles.jpg" alt="" loading="lazy"><svg class="icon icon--instagram" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+      </a>
+      <a class="insta__item" href="https://instagram.com" target="_blank" rel="noopener" aria-label="Mangalam Jewellers on Instagram" data-reveal>
+        <img src="assets/images/products/necklaces.jpg" alt="" loading="lazy"><svg class="icon icon--instagram" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+      </a>
+      <a class="insta__item" href="https://instagram.com" target="_blank" rel="noopener" aria-label="Mangalam Jewellers on Instagram" data-reveal>
+        <img src="assets/images/mangalam-craft.jpg" alt="" loading="lazy"><svg class="icon icon--instagram" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+      </a>
+      <a class="insta__item" href="https://instagram.com" target="_blank" rel="noopener" aria-label="Mangalam Jewellers on Instagram" data-reveal>
+        <img src="assets/images/products/earrings.jpg" alt="" loading="lazy"><svg class="icon icon--instagram" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+      </a>
         </div>
       </div>
     </section>
-  </main>
 
-  <!-- Newsletter -->
-  <section class="bg-deep-maroon px-5 py-20 text-center text-primary-foreground">
-    <p class="text-[9px] tracking-[0.25em] text-gold">PRIVATE NOTES FROM THE HOUSE</p>
-    <h2 class="mt-4 font-serif text-5xl font-normal">Stay Close to the Craft</h2>
-    <form class="mx-auto mt-8 flex max-w-xl" data-newsletter>
-      <input type="email" required placeholder="Enter your email" aria-label="Email for newsletter" class="flex w-full border px-3 py-1 text-base shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm h-12 rounded-none border-primary bg-background text-foreground">
-      <button type="submit" class="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 disabled:cursor-not-allowed [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 shadow px-4 py-2 h-12 rounded-none bg-gold text-wine hover:bg-light-gold">SUBSCRIBE</button>
-    </form>
-  </section>
-
-  <!-- Footer -->
-  <footer class="bg-wine px-5 py-16 text-primary-foreground">
-    <div class="mx-auto max-w-[1400px]">
-      <div class="grid gap-10 border-b border-gold/30 pb-12 md:grid-cols-[1.4fr_repeat(4,1fr)]">
-        <div>
-          <a href="index.html" aria-label="Mangalam Jewellers home" class="group flex items-center gap-2.5 text-primary-foreground"><span class="grid size-9 place-items-center rounded-full border border-gold font-serif text-lg text-gold">M</span><span><strong class="block font-serif text-lg font-medium leading-none tracking-[0.16em]">MANGALAM</strong><small class="mt-1 block text-[7px] tracking-[0.34em] text-gold">JEWELLERS</small></span></a>
-          <p class="mt-5 max-w-xs text-xs leading-6 text-primary-foreground/70">Jewellery crafted with heritage, refined for the moments that become your legacy.</p>
-          <p class="mt-6 text-xs leading-6 text-primary-foreground/70">Mangalam House, Ring Road,<br>Surat, Gujarat 395002<br>+91 261 000 0000</p>
-        </div>
-        <div>
-          <p class="text-[9px] tracking-[0.18em] text-gold">COLLECTIONS</p>
-          <div class="mt-4 space-y-3">
-            <a href="bridal.html" class="block text-xs text-primary-foreground/70 transition hover:text-gold">Bridal</a>
-            <a href="collections.html" class="block text-xs text-primary-foreground/70 transition hover:text-gold">Collections</a>
-            <a href="jewellery.html" class="block text-xs text-primary-foreground/70 transition hover:text-gold">All Jewellery</a>
+    <!-- VISIT / APPOINTMENT -->
+    <section class="cta-band" aria-labelledby="visit-title">
+      <img class="cta-band__img" src="assets/images/mangalam-craft.jpg" alt="" loading="lazy">
+      <div class="container cta-band__inner">
+        <div class="cta-band__content" data-reveal="right">
+          <p class="eyebrow eyebrow--light">Visit Mangalam House</p>
+          <h2 class="section-title section-title--light" id="visit-title">A private consultation, <em>made for you.</em></h2>
+          <p class="section-lead section-lead--light">Try pieces slowly, in good light, without pressure. Private consultations are recommended for bridal selections and bespoke commissions.</p>
+          <div class="cta-band__actions">
+            <button type="button" class="btn btn--gold" data-open="appointment"><svg class="icon icon--calendar" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/><path d="M8 18h.01"/><path d="M12 18h.01"/><path d="M16 18h.01"/></svg> Book an appointment</button>
+            <a class="btn btn--light" href="contact.html">Get directions <svg class="icon icon--arrow-right icon--arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
           </div>
-        </div>
-        <div>
-          <p class="text-[9px] tracking-[0.18em] text-gold">JEWELLERY</p>
-          <div class="mt-4 space-y-3">
-            <a href="rings.html" class="block text-xs text-primary-foreground/70 transition hover:text-gold">Rings</a>
-            <a href="necklaces.html" class="block text-xs text-primary-foreground/70 transition hover:text-gold">Necklaces</a>
-            <a href="earrings.html" class="block text-xs text-primary-foreground/70 transition hover:text-gold">Earrings</a>
-            <a href="bangles.html" class="block text-xs text-primary-foreground/70 transition hover:text-gold">Bangles</a>
-          </div>
-        </div>
-        <div>
-          <p class="text-[9px] tracking-[0.18em] text-gold">MANGALAM</p>
-          <div class="mt-4 space-y-3">
-            <a href="about.html" class="block text-xs text-primary-foreground/70 transition hover:text-gold">About Us</a>
-            <a href="craftsmanship.html" class="block text-xs text-primary-foreground/70 transition hover:text-gold">Craftsmanship</a>
-            <a href="journal.html" class="block text-xs text-primary-foreground/70 transition hover:text-gold">Journal</a>
-          </div>
-        </div>
-        <div>
-          <p class="text-[9px] tracking-[0.18em] text-gold">CUSTOMER CARE</p>
-          <div class="mt-4 space-y-3">
-            <a href="contact.html" class="block text-xs text-primary-foreground/70 transition hover:text-gold">Contact</a>
-            <a href="contact.html" class="block text-xs text-primary-foreground/70 transition hover:text-gold">Shipping</a>
-            <a href="contact.html" class="block text-xs text-primary-foreground/70 transition hover:text-gold">Returns</a>
-          </div>
+          <div class="cta-band__hours"><span><svg class="icon icon--map-pin" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg> Ring Road, Surat</span><span><svg class="icon icon--clock" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> Mon – Sat · 10:30 AM – 8:30 PM</span></div>
         </div>
       </div>
-      <div class="flex flex-wrap items-center justify-between gap-3 pt-6 text-[9px] tracking-[0.14em] text-primary-foreground/60">
-        <span>© 2026 MANGALAM JEWELLERS</span>
-        <span>PRIVACY POLICY · TERMS &amp; CONDITIONS · SHIPPING · RETURNS</span>
-        <span>FOLLOW US — INSTAGRAM · PINTEREST</span>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <span class="brand-wordmark footer__mark" aria-hidden="true"></span>
+    <div class="container">
+      <div class="newsletter">
+        <div data-reveal="left">
+          <p class="eyebrow eyebrow--light">Private notes from the house</p>
+          <h2>Stay close to <em>the craft</em></h2>
+        </div>
+        <div data-reveal="right">
+          <form class="newsletter__form" data-newsletter>
+            <label class="sr-only" for="newsletter-email">Email address</label>
+            <input id="newsletter-email" type="email" required placeholder="Your email address" autocomplete="email">
+            <button type="submit">Subscribe <svg class="icon icon--arrow-right icon--arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></button>
+          </form>
+          <p class="newsletter__note" data-newsletter-note>New collections, bridal edits and stories from the atelier — a few times a season.</p>
+        </div>
+      </div>
+
+      <div class="footer__main">
+        <div class="footer__brand">
+          <a href="index.html" aria-label="Mangalam Jewellers — home"><span class="brand-full" aria-hidden="true"></span></a>
+          <p class="footer__about">Jewellery crafted with heritage, refined for the moments that become your legacy. A family atelier in Surat since 1962.</p>
+          <div class="socials">
+            <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Mangalam Jewellers on Instagram"><svg class="icon icon--instagram" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg></a>
+            <a href="https://facebook.com" target="_blank" rel="noopener" aria-label="Mangalam Jewellers on Facebook"><svg class="icon icon--facebook" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+            <a href="https://youtube.com" target="_blank" rel="noopener" aria-label="Mangalam Jewellers on YouTube"><svg class="icon icon--youtube" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><path d="m10 15 5-3-5-3z"/></svg></a>
+          </div>
+        </div>
+        <div>
+          <p class="footer__title">Collections</p>
+          <ul class="footer__links">
+            <li><a href="bridal.html">Bridal</a></li>
+            <li><a href="jewellery.html?metal=Gold">Gold</a></li>
+            <li><a href="jewellery.html?metal=Diamond">Diamond</a></li>
+            <li><a href="collections.html">All collections</a></li>
+            <li><a href="jewellery.html">All jewellery</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="footer__title">Jewellery</p>
+          <ul class="footer__links">
+            <li><a href="rings.html">Rings</a></li>
+            <li><a href="necklaces.html">Necklaces</a></li>
+            <li><a href="earrings.html">Earrings</a></li>
+            <li><a href="bangles.html">Bangles</a></li>
+            <li><a href="bracelets.html">Bracelets</a></li>
+            <li><a href="pendants.html">Pendants</a></li>
+            <li><a href="mangalsutra.html">Mangalsutra</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="footer__title">Mangalam</p>
+          <ul class="footer__links">
+            <li><a href="about.html">About us</a></li>
+            <li><a href="craftsmanship.html">Craftsmanship</a></li>
+            <li><a href="journal.html">Journal</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="contact.html">Shipping &amp; returns</a></li>
+          </ul>
+        </div>
+        <div class="footer__contact-col">
+          <p class="footer__title">Visit us</p>
+          <ul class="footer__contact">
+            <li><svg class="icon icon--map-pin" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg><span>Mangalam House, Ring Road,<br>Surat, Gujarat 395002</span></li>
+            <li><svg class="icon icon--phone" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"/></svg><a href="tel:+912610000000">+91 261 000 0000</a></li>
+            <li><svg class="icon icon--mail" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg><a href="mailto:care@mangalamjewellers.in">care@mangalamjewellers.in</a></li>
+            <li><svg class="icon icon--clock" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span>Mon – Sat · 10:30 AM – 8:30 PM</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer__bottom">
+        <span>&copy; <span data-year>2026</span> Mangalam Jewellers. All rights reserved.</span>
+        <nav class="footer__legal" aria-label="Legal">
+          <a href="contact.html">Privacy policy</a>
+          <a href="contact.html">Terms &amp; conditions</a>
+          <a href="contact.html">Shipping</a>
+          <a href="contact.html">Returns</a>
+        </nav>
       </div>
     </div>
   </footer>
 
-  <!-- Mobile menu -->
-<div data-modal="menu" hidden>
-  <div data-overlay data-close class="mj-overlay fixed inset-0 z-50 bg-black/80"></div>
-  <div data-panel data-side="left" role="dialog" aria-modal="true" aria-labelledby="menu-title" aria-describedby="menu-desc" tabindex="-1" class="mj-sheet fixed z-50 gap-4 shadow-lg transition ease-in-out inset-y-0 left-0 h-full border-r sm:max-w-sm w-[90%] bg-background p-7">
-    <button type="button" data-close class="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background cursor-pointer transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x h-4 w-4" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg><span class="sr-only">Close</span></button>
 
-    <h2 id="menu-title" class="text-lg font-semibold text-foreground"><a href="index.html" aria-label="Mangalam Jewellers home" class="group flex items-center gap-2.5 text-primary"><span class="grid size-9 place-items-center rounded-full border border-gold font-serif text-lg text-gold">M</span><span><strong class="block font-serif text-lg font-medium leading-none tracking-[0.16em]">MANGALAM</strong><small class="mt-1 block text-[7px] tracking-[0.34em] text-gold">JEWELLERS</small></span></a></h2>
-    <p id="menu-desc" class="text-sm text-muted-foreground">Fine jewellery rooted in Gujarati heritage.</p>
-    <nav aria-label="Mobile" class="mt-8">
-      <a href="index.html" class="block border-b border-border py-4 font-serif text-2xl">Home</a>
-      <a href="collections.html" class="block border-b border-border py-4 font-serif text-2xl">Collections</a>
-      <a href="jewellery.html" class="block border-b border-border py-4 font-serif text-2xl">Jewellery</a>
-      <a href="bridal.html" class="block border-b border-border py-4 font-serif text-2xl">Bridal</a>
-      <a href="about.html" class="block border-b border-border py-4 font-serif text-2xl">About Us</a>
-      <a href="craftsmanship.html" class="block border-b border-border py-4 font-serif text-2xl">Craftsmanship</a>
-      <a href="journal.html" class="block border-b border-border py-4 font-serif text-2xl">Journal</a>
-    </nav>
-    <button type="button" data-open="appointment" class="inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 disabled:cursor-not-allowed [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-primary text-primary-foreground shadow hover:bg-primary/90 px-4 py-2 mt-7 h-12 w-full rounded-none text-[10px] tracking-[0.16em]">BOOK APPOINTMENT</button>
+  <!-- Mobile menu -->
+  <div class="modal" data-modal="menu" hidden>
+    <div class="modal__overlay" data-overlay data-close></div>
+    <div class="modal__panel modal__panel--left" data-panel role="dialog" aria-modal="true" aria-label="Menu" tabindex="-1">
+      <button type="button" class="modal__close" data-close aria-label="Close menu"><svg class="icon icon--x" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
+      <a class="menu__brand" href="index.html" aria-label="Mangalam Jewellers — home"><span class="brand-logo" aria-hidden="true"></span></a>
+      <ul class="menu__nav">
+        <li style="--i:0"><a data-nav="home" aria-current="page" href="index.html">Home</a></li>
+        <li style="--i:1"><a data-nav="collections" href="collections.html">Collections</a></li>
+        <li style="--i:2">
+          <button type="button" class="menu__toggle" data-menu-toggle aria-expanded="false" aria-controls="menu-jewellery">Jewellery <svg class="icon icon--plus" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5v14"/></svg></button>
+          <ul class="menu__sub" id="menu-jewellery" hidden><li><a href="jewellery.html">All jewellery</a></li><li><a href="rings.html">Rings</a></li><li><a href="necklaces.html">Necklaces</a></li><li><a href="earrings.html">Earrings</a></li><li><a href="bangles.html">Bangles</a></li><li><a href="bracelets.html">Bracelets</a></li><li><a href="pendants.html">Pendants</a></li><li><a href="mangalsutra.html">Mangalsutra</a></li></ul>
+        </li>
+        <li style="--i:3"><a data-nav="bridal" href="bridal.html">Bridal</a></li>
+        <li style="--i:4"><a data-nav="about" href="about.html">About Us</a></li>
+        <li style="--i:5"><a data-nav="craftsmanship" href="craftsmanship.html">Craftsmanship</a></li>
+        <li style="--i:6"><a data-nav="journal" href="journal.html">Journal</a></li>
+        <li style="--i:7"><a data-nav="contact" href="contact.html">Contact</a></li>
+      </ul>
+      <div class="menu__foot">
+        <button type="button" class="btn btn--primary btn--block" data-open="appointment"><svg class="icon icon--calendar" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/><path d="M8 18h.01"/><path d="M12 18h.01"/><path d="M16 18h.01"/></svg> Book an appointment</button>
+        <div class="menu__contact">
+          <a href="tel:+912610000000"><svg class="icon icon--phone" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"/></svg> +91 261 000 0000</a>
+          <a href="mailto:care@mangalamjewellers.in"><svg class="icon icon--mail" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg> care@mangalamjewellers.in</a>
+          <a href="#" data-open="account"><svg class="icon icon--user-round" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg> Your account</a>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
 
   <!-- Search -->
-<div data-modal="search" hidden>
-  <div data-overlay data-close class="mj-overlay fixed inset-0 z-50 bg-black/80"></div>
-  <div data-panel role="dialog" aria-modal="true" aria-labelledby="search-title" aria-describedby="search-desc" tabindex="-1" class="mj-dialog fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border p-6 shadow-lg duration-200 sm:rounded-lg max-h-[85vh] overflow-y-auto rounded-none border-gold/60 bg-background sm:max-w-2xl">
-
-    <h2 id="search-title" class="tracking-tight font-serif text-4xl font-normal">Search Mangalam</h2>
-    <p id="search-desc" class="text-sm text-muted-foreground">Find a jewel across every collection.</p>
-    <div class="flex border-b border-foreground">
-      <input id="search-input" data-autofocus placeholder="Try ring, diamond or bridal" aria-label="Search jewellery" autocomplete="off" class="flex w-full rounded-md border-input bg-transparent px-3 py-1 text-base transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm h-14 border-0 shadow-none focus-visible:ring-0">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search mt-4" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+  <div class="modal" data-modal="search" hidden>
+    <div class="modal__overlay" data-overlay data-close></div>
+    <div class="modal__panel modal__panel--top" data-panel role="dialog" aria-modal="true" aria-labelledby="search-title" tabindex="-1">
+      <button type="button" class="modal__close" data-close aria-label="Close search"><svg class="icon icon--x" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
+      <div class="container">
+        <p class="eyebrow" id="search-title">Search Mangalam</p>
+        <div class="search__bar">
+          <svg class="icon icon--search" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+          <input id="search-input" class="search__input" data-autofocus type="search" placeholder="What are you looking for?" aria-label="Search jewellery" autocomplete="off">
+        </div>
+        <div class="search__popular">
+          <span>Popular</span>
+          <button type="button" class="chip chip--text" data-search-term="jhumka">Jhumka</button>
+          <button type="button" class="chip chip--text" data-search-term="diamond ring">Diamond ring</button>
+          <button type="button" class="chip chip--text" data-search-term="mangalsutra">Mangalsutra</button>
+          <button type="button" class="chip chip--text" data-search-term="bridal">Bridal</button>
+          <button type="button" class="chip chip--text" data-search-term="bangles">Bangles</button>
+        </div>
+        <div id="search-results" class="search__results" hidden></div>
+      </div>
     </div>
-    <div id="search-results" class="mt-4" hidden></div>
-    <button type="button" data-close class="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background cursor-pointer transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x h-4 w-4" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg><span class="sr-only">Close</span></button>
   </div>
-</div>
 
   <!-- Wishlist -->
-<div data-modal="wishlist" hidden>
-  <div data-overlay data-close class="mj-overlay fixed inset-0 z-50 bg-black/80"></div>
-  <div data-panel data-side="right" role="dialog" aria-modal="true" aria-labelledby="wishlist-title" aria-describedby="wishlist-desc" tabindex="-1" class="mj-sheet fixed z-50 gap-4 shadow-lg transition ease-in-out inset-y-0 right-0 h-full border-l sm:max-w-sm w-[90%] bg-background p-7">
-    <button type="button" data-close class="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background cursor-pointer transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x h-4 w-4" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg><span class="sr-only">Close</span></button>
-
-    <h2 id="wishlist-title" class="text-foreground font-serif text-3xl font-normal">Your Wishlist</h2>
-    <p id="wishlist-desc" class="text-sm text-muted-foreground">Pieces you have saved for later.</p>
-    <div class="mt-10 py-16 text-center text-muted-foreground">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart mx-auto" aria-hidden="true"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"/></svg>
-      <p class="mt-4 text-sm">Jewels you love will appear here.</p>
-      <a href="jewellery.html" class="inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 disabled:cursor-not-allowed [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2 mt-6 rounded-none text-[10px] tracking-[0.16em]">EXPLORE JEWELLERY</a>
+  <div class="modal" data-modal="wishlist" hidden>
+    <div class="modal__overlay" data-overlay data-close></div>
+    <div class="modal__panel modal__panel--right" data-panel role="dialog" aria-modal="true" aria-labelledby="wishlist-title" tabindex="-1">
+      <button type="button" class="modal__close" data-close aria-label="Close wishlist"><svg class="icon icon--x" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
+      <p class="eyebrow">Saved for later</p>
+      <h2 id="wishlist-title" class="modal__title mt-1">Your Wishlist</h2>
+      <ul class="drawer__list" data-wish-list hidden></ul>
+      <div class="drawer__empty" data-wish-empty>
+        <span class="drawer__empty-icon"><svg class="icon icon--heart" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"/></svg></span>
+        <p>Nothing saved yet</p>
+        <p>Tap the heart on any piece to keep it here.</p>
+        <a class="btn btn--outline btn--sm mt-1" href="jewellery.html">Explore jewellery</a>
+      </div>
+      <div class="drawer__foot" data-wish-foot hidden>
+        <button type="button" class="btn btn--primary btn--block" data-open="appointment"><svg class="icon icon--calendar" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/><path d="M8 18h.01"/><path d="M12 18h.01"/><path d="M16 18h.01"/></svg> Book a private viewing</button>
+        <a class="btn btn--outline btn--block" href="jewellery.html">Continue browsing</a>
+      </div>
     </div>
   </div>
-</div>
 
   <!-- Bag -->
-<div data-modal="bag" hidden>
-  <div data-overlay data-close class="mj-overlay fixed inset-0 z-50 bg-black/80"></div>
-  <div data-panel data-side="right" role="dialog" aria-modal="true" aria-labelledby="bag-title" aria-describedby="bag-desc" tabindex="-1" class="mj-sheet fixed z-50 gap-4 shadow-lg transition ease-in-out inset-y-0 right-0 h-full border-l sm:max-w-sm w-[90%] bg-background p-7">
-    <button type="button" data-close class="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background cursor-pointer transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x h-4 w-4" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg><span class="sr-only">Close</span></button>
-
-    <h2 id="bag-title" class="text-foreground font-serif text-3xl font-normal">Your Bag</h2>
-    <p id="bag-desc" class="text-sm text-muted-foreground">Pieces kept aside for you.</p>
-    <div class="mt-10 py-16 text-center text-muted-foreground">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shopping-bag mx-auto" aria-hidden="true"><path d="M16 10a4 4 0 0 1-8 0"/><path d="M3.103 6.034h17.794"/><path d="M3.4 5.467a2 2 0 0 0-.4 1.2V20a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6.667a2 2 0 0 0-.4-1.2l-2-2.667A2 2 0 0 0 17 2H7a2 2 0 0 0-1.6.8z"/></svg>
-      <p class="mt-4 text-sm">Your bag is empty — your next heirloom awaits.</p>
-      <a href="jewellery.html" class="inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 disabled:cursor-not-allowed [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 px-4 py-2 mt-6 rounded-none text-[10px] tracking-[0.16em]">VIEW ALL JEWELLERY</a>
+  <div class="modal" data-modal="bag" hidden>
+    <div class="modal__overlay" data-overlay data-close></div>
+    <div class="modal__panel modal__panel--right" data-panel role="dialog" aria-modal="true" aria-labelledby="bag-title" tabindex="-1">
+      <button type="button" class="modal__close" data-close aria-label="Close bag"><svg class="icon icon--x" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
+      <p class="eyebrow">Kept aside for you</p>
+      <h2 id="bag-title" class="modal__title mt-1">Your Bag</h2>
+      <div class="drawer__empty">
+        <span class="drawer__empty-icon"><svg class="icon icon--shopping-bag" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 10a4 4 0 0 1-8 0"/><path d="M3.103 6.034h17.794"/><path d="M3.4 5.467a2 2 0 0 0-.4 1.2V20a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6.667a2 2 0 0 0-.4-1.2l-2-2.667A2 2 0 0 0 17 2H7a2 2 0 0 0-1.6.8z"/></svg></span>
+        <p>Your bag is empty</p>
+        <p>Your next heirloom awaits.</p>
+        <a class="btn btn--primary btn--sm mt-1" href="jewellery.html">View all jewellery</a>
+      </div>
     </div>
   </div>
-</div>
 
   <!-- Account -->
-<div data-modal="account" hidden>
-  <div data-overlay data-close class="mj-overlay fixed inset-0 z-50 bg-black/80"></div>
-  <div data-panel role="dialog" aria-modal="true" aria-labelledby="account-title" aria-describedby="account-desc" tabindex="-1" class="mj-dialog fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border p-6 shadow-lg duration-200 sm:rounded-lg rounded-none border-gold/60 bg-background sm:max-w-md">
-
-    <h2 id="account-title" class="tracking-tight font-serif text-4xl font-normal">Your Mangalam</h2>
-    <p id="account-desc" class="text-sm text-muted-foreground">Sign in to follow orders, appointments and saved pieces.</p>
-    <form class="mt-5 space-y-3" data-close-on-submit>
-      <input type="email" required placeholder="Email address" aria-label="Email address" class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm">
-      <input type="password" required placeholder="Password" aria-label="Password" class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm">
-      <button type="submit" class="inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 disabled:cursor-not-allowed [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-primary text-primary-foreground shadow hover:bg-primary/90 px-4 py-2 h-12 w-full rounded-none text-[10px] tracking-[0.16em]">SIGN IN</button>
-      <p class="text-center text-xs text-muted-foreground">New to Mangalam? <button type="button" class="underline">Create an account</button></p>
-    </form>
-    <button type="button" data-close class="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background cursor-pointer transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x h-4 w-4" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg><span class="sr-only">Close</span></button>
+  <div class="modal" data-modal="account" hidden>
+    <div class="modal__overlay" data-overlay data-close></div>
+    <div class="modal__panel modal__panel--dialog" data-panel role="dialog" aria-modal="true" aria-labelledby="account-title" aria-describedby="account-desc" tabindex="-1">
+      <button type="button" class="modal__close" data-close aria-label="Close"><svg class="icon icon--x" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
+      <p class="eyebrow">Welcome back</p>
+      <h2 id="account-title" class="modal__title mt-1">Your Mangalam</h2>
+      <p id="account-desc" class="modal__desc">Sign in to follow orders, appointments and saved pieces.</p>
+      <form class="form" data-close-on-submit>
+        <label class="field"><input class="field__input" type="email" required placeholder=" " autocomplete="email"><span class="field__label">Email address</span></label>
+        <label class="field"><input class="field__input" type="password" required placeholder=" " autocomplete="current-password"><span class="field__label">Password</span></label>
+        <button type="submit" class="btn btn--primary btn--block">Sign in</button>
+        <p class="modal__desc center">New to Mangalam? <a href="contact.html" style="text-decoration:underline;text-underline-offset:3px">Talk to our concierge</a></p>
+      </form>
+    </div>
   </div>
-</div>
 
   <!-- Appointment -->
-<div data-modal="appointment" hidden>
-  <div data-overlay data-close class="mj-overlay fixed inset-0 z-50 bg-black/80"></div>
-  <div data-panel role="dialog" aria-modal="true" aria-labelledby="appointment-title" aria-describedby="appointment-desc" tabindex="-1" class="mj-dialog fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border p-6 shadow-lg duration-200 sm:rounded-lg rounded-none border-gold/60 bg-background sm:max-w-md">
-
-    <h2 id="appointment-title" class="tracking-tight font-serif text-4xl font-normal">Book a private appointment</h2>
-    <p id="appointment-desc" class="text-sm text-muted-foreground">Tell us when you would like to visit. Our concierge will confirm your time.</p>
-    <form class="mt-4 grid gap-3" data-close-on-submit>
-      <input required placeholder="Your name" aria-label="Your name" class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm">
-      <input required type="email" placeholder="Email address" aria-label="Email address" class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm">
-      <input required type="date" aria-label="Preferred date" class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm">
-      <button type="submit" class="inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 disabled:cursor-not-allowed [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-primary text-primary-foreground shadow hover:bg-primary/90 px-4 py-2 mt-2 h-12 rounded-none text-[10px] tracking-[0.16em]">REQUEST APPOINTMENT</button>
-    </form>
-    <button type="button" data-close class="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background cursor-pointer transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x h-4 w-4" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg><span class="sr-only">Close</span></button>
+  <div class="modal" data-modal="appointment" hidden>
+    <div class="modal__overlay" data-overlay data-close></div>
+    <div class="modal__panel modal__panel--dialog" data-panel role="dialog" aria-modal="true" aria-labelledby="appointment-title" aria-describedby="appointment-desc" tabindex="-1">
+      <button type="button" class="modal__close" data-close aria-label="Close"><svg class="icon icon--x" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
+      <p class="eyebrow">Mangalam House, Surat</p>
+      <h2 id="appointment-title" class="modal__title mt-1">Book a private appointment</h2>
+      <p id="appointment-desc" class="modal__desc">Tell us when you would like to visit. Our concierge will confirm your time.</p>
+      <form class="form" data-success="Request received" data-success-text="Thank you. Our concierge will call you to confirm your appointment within one business day.">
+        <label class="field"><input class="field__input" required placeholder=" " autocomplete="name"><span class="field__label">Your name</span></label>
+        <div class="form__row">
+          <label class="field"><input class="field__input" type="tel" required placeholder=" " autocomplete="tel"><span class="field__label">Phone</span></label>
+          <label class="field"><input class="field__input" type="email" required placeholder=" " autocomplete="email"><span class="field__label">Email address</span></label>
+        </div>
+        <div class="form__row">
+          <label class="field field--static"><input class="field__input" type="date" required><span class="field__label">Preferred date</span></label>
+          <label class="field field--static">
+            <select class="field__input" required>
+              <option>Bridal jewellery</option>
+              <option>Gold jewellery</option>
+              <option>Diamond jewellery</option>
+              <option>Bespoke commission</option>
+            </select>
+            <span class="field__label">I am interested in</span>
+          </label>
+        </div>
+        <button type="submit" class="btn btn--primary btn--block">Request appointment <svg class="icon icon--arrow-right icon--arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></button>
+      </form>
+    </div>
   </div>
-</div>
-</div>
-<script src="assets/js/ui.js"></script>
-<script src="assets/js/data.js"></script>
-<script src="assets/js/main.js"></script>
+
+
+
+  <button type="button" class="to-top" data-to-top aria-label="Back to top">
+    <svg class="to-top__ring" viewBox="0 0 54 54" aria-hidden="true"><circle class="track" cx="27" cy="27" r="24"/><circle class="bar" cx="27" cy="27" r="24"/></svg>
+    <svg class="icon icon--arrow-up icon--arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg>
+  </button>
+
+  <script src="assets/js/ui.js"></script>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/main.js"></script>
 </body>
 </html>

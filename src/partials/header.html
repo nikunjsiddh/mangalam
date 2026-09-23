@@ -1,0 +1,72 @@
+  <!-- Announcement bar -->
+  <div class="topbar" role="region" aria-label="Announcements">
+    <div class="topbar__track">
+      <ul class="topbar__list">{{topbarItems}}</ul>
+      <ul class="topbar__list" aria-hidden="true">{{topbarItems}}</ul>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="header{{headerClass}}" id="site-header">
+    <div class="container header__bar">
+      <div class="header__left">
+        <button type="button" class="icon-btn header__menu" data-open="menu" aria-label="Open menu">{{icon:menu}}</button>
+        <button type="button" class="header__link header__appt" data-open="appointment">{{icon:calendar}}<span>Book an appointment</span></button>
+        <a class="header__link header__phone" href="{{phoneHref}}">{{icon:phone}}<span>{{phone}}</span></a>
+      </div>
+      <a class="header__brand" href="index.html" aria-label="Mangalam Jewellers — home"><span class="brand-logo" aria-hidden="true"></span></a>
+      <div class="header__right">
+        <button type="button" class="icon-btn" data-open="search" aria-label="Search jewellery">{{icon:search}}</button>
+        <button type="button" class="icon-btn" data-open="wishlist" aria-label="Wishlist">{{icon:heart}}<span class="icon-btn__badge" data-wish-count hidden>0</span></button>
+        <button type="button" class="icon-btn hide-sm" data-open="account" aria-label="Account">{{icon:user-round}}</button>
+        <button type="button" class="icon-btn hide-sm" data-open="bag" aria-label="Shopping bag">{{icon:shopping-bag}}</button>
+      </div>
+    </div>
+    <nav class="nav" aria-label="Primary">
+      <ul class="container nav__list">
+        <li><a class="nav__link" data-nav="home" href="index.html">Home</a></li>
+        <li><a class="nav__link" data-nav="collections" href="collections.html">Collections</a></li>
+        <li class="nav__item--mega">
+          <a class="nav__link" data-nav="jewellery" href="jewellery.html" aria-haspopup="true" aria-expanded="false">Jewellery {{icon:chevron-down}}</a>
+          <div class="mega">
+            <div class="container mega__inner">
+              <div>
+                <p class="mega__title">Shop by category</p>
+                <ul class="mega__cats">
+                {{megaCats}}
+                </ul>
+              </div>
+              <div>
+                <p class="mega__title">Shop by metal</p>
+                <ul class="mega__links">
+                  <li><a href="jewellery.html?metal=Gold">Gold jewellery</a></li>
+                  <li><a href="jewellery.html?metal=Diamond">Diamond jewellery</a></li>
+                  <li><a href="jewellery.html">All jewellery</a></li>
+                </ul>
+                <p class="mega__title">Shop by style</p>
+                <ul class="mega__links">
+                  <li><a href="jewellery.html?style=Classic">Classic</a></li>
+                  <li><a href="jewellery.html?style=Traditional">Traditional</a></li>
+                  <li><a href="jewellery.html?style=Modern">Modern</a></li>
+                  <li><a href="jewellery.html?style=Bridal">Bridal</a></li>
+                </ul>
+              </div>
+              <a class="mega__feature" href="bridal.html">
+                <img src="assets/images/products/bridal.jpg" alt="" loading="lazy" width="800" height="800">
+                <span class="mega__feature-body">
+                  <span class="eyebrow eyebrow--light">The Bridal Edit</span>
+                  <span class="mega__feature-title">Jewels for your most unforgettable chapter</span>
+                  <span class="link-arrow link-arrow--light">Discover {{icon:arrow-right}}</span>
+                </span>
+              </a>
+            </div>
+          </div>
+        </li>
+        <li><a class="nav__link" data-nav="bridal" href="bridal.html">Bridal</a></li>
+        <li><a class="nav__link" data-nav="about" href="about.html">About Us</a></li>
+        <li><a class="nav__link" data-nav="craftsmanship" href="craftsmanship.html">Craftsmanship</a></li>
+        <li><a class="nav__link" data-nav="journal" href="journal.html">Journal</a></li>
+        <li><a class="nav__link" data-nav="contact" href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>

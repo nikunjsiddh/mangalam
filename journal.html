@@ -4,238 +4,412 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Journal — Mangalam Jewellers</title>
-  <meta name="description" content="Bridal guides, gold purity explainers and Gujarati jewellery heritage from the Mangalam atelier.">
+  <meta name="description" content="Guides, heritage and inspiration — written by the people who make the jewellery.">
   <meta name="author" content="Mangalam Jewellers">
+  <meta name="theme-color" content="#2E0A16">
   <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Mangalam Jewellers">
   <meta property="og:title" content="Journal — Mangalam Jewellers">
-  <meta property="og:description" content="Stories, guides and heritage from the Mangalam atelier.">
+  <meta property="og:description" content="Guides, heritage and inspiration — written by the people who make the jewellery.">
+  <meta property="og:image" content="assets/images/brand/mangalam-logo.png">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/images/brand/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&amp;family=Manrope:wght@300;400;500;600;700&amp;family=Noto+Serif+Gujarati:wght@300;400;500&amp;display=swap">
-  <link rel="stylesheet" href="assets/css/style.css">
-  <script>try { if (sessionStorage.getItem("mj-loaded")) document.documentElement.classList.add("mj-seen"); } catch (e) {}</script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&amp;family=Jost:wght@300;400;500;600&amp;family=Noto+Serif+Gujarati:wght@400;500&amp;display=swap">
+  <link rel="stylesheet" href="assets/css/mangalam.css">
+  <script>document.documentElement.classList.add("js"); try { if (sessionStorage.getItem("mj-loaded")) document.documentElement.classList.add("mj-seen"); } catch (e) {}</script>
+  <noscript><style>.header { background: #2E0A16; }</style></noscript>
 </head>
 <body data-page="journal">
-<div class="min-h-screen bg-background text-foreground">
-  <!-- Loading screen -->
-  <div id="loader" class="fixed inset-0 z-[70] grid place-items-center bg-background">
-    <div class="text-center">
-      <a href="index.html" aria-label="Mangalam Jewellers home" class="group flex items-center gap-2.5 text-primary"><span class="grid size-9 place-items-center rounded-full border border-gold font-serif text-lg text-gold">M</span><span><strong class="block font-serif text-lg font-medium leading-none tracking-[0.16em]">MANGALAM</strong><small class="mt-1 block text-[7px] tracking-[0.34em] text-gold">JEWELLERS</small></span></a>
-      <div class="loading-line mx-auto mt-6"></div>
+  <!-- Loading screen (first page of a visit) -->
+  <div class="loader" id="loader" aria-hidden="true">
+    <div class="loader__inner">
+      <span class="brand-emblem loader__emblem"></span>
+      <span class="brand-wordmark loader__word"></span>
+      <span class="loader__line"></span>
     </div>
   </div>
 
+  <a class="skip-link" href="#main">Skip to content</a>
   <!-- Announcement bar -->
-  <div class="fixed inset-x-0 top-0 z-50 flex h-8 items-center justify-center bg-primary px-3 text-center text-[8px] tracking-[0.18em] text-primary-foreground sm:text-[10px]">
-    ✦ <span class="mx-2">CRAFTED WITH TRADITION</span><span class="text-gold">•</span><span class="mx-2">DESIGNED FOR GENERATIONS</span> ✦
+  <div class="topbar" role="region" aria-label="Announcements">
+    <div class="topbar__track">
+      <ul class="topbar__list"><li>BIS hallmarked gold</li><li>Handcrafted in Surat since 1962</li><li>Insured delivery across India</li><li>Private bridal consultations</li><li>Crafted with tradition · Designed for generations</li><li>BIS hallmarked gold</li><li>Handcrafted in Surat since 1962</li><li>Insured delivery across India</li><li>Private bridal consultations</li><li>Crafted with tradition · Designed for generations</li></ul>
+      <ul class="topbar__list" aria-hidden="true"><li>BIS hallmarked gold</li><li>Handcrafted in Surat since 1962</li><li>Insured delivery across India</li><li>Private bridal consultations</li><li>Crafted with tradition · Designed for generations</li><li>BIS hallmarked gold</li><li>Handcrafted in Surat since 1962</li><li>Insured delivery across India</li><li>Private bridal consultations</li><li>Crafted with tradition · Designed for generations</li></ul>
+    </div>
   </div>
 
   <!-- Header -->
-  <header id="site-header" class="fixed inset-x-0 top-8 z-40 border-b transition-all duration-500 border-gold/50 bg-background/90 shadow-[0_1px_0_rgba(216,179,106,0.25)] backdrop-blur-xl">
-    <div class="mx-auto flex h-[72px] max-w-[1500px] items-center justify-between gap-2 px-4 lg:px-8">
-      <div class="xl:hidden">
-        <button type="button" class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 disabled:cursor-not-allowed [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover:bg-accent hover:text-accent-foreground h-9 w-9 min-h-11 min-w-11" aria-label="Open menu" data-open="menu"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu" aria-hidden="true"><path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h16"/></svg></button>
+  <header class="header" id="site-header">
+    <div class="container header__bar">
+      <div class="header__left">
+        <button type="button" class="icon-btn header__menu" data-open="menu" aria-label="Open menu"><svg class="icon icon--menu" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16"/><path d="M4 12h10"/><path d="M4 18h16"/></svg></button>
+        <button type="button" class="header__link header__appt" data-open="appointment"><svg class="icon icon--calendar" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/><path d="M8 18h.01"/><path d="M12 18h.01"/><path d="M16 18h.01"/></svg><span>Book an appointment</span></button>
+        <a class="header__link header__phone" href="tel:+912610000000"><svg class="icon icon--phone" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"/></svg><span>+91 261 000 0000</span></a>
       </div>
-      <a href="index.html" aria-label="Mangalam Jewellers home" class="group flex items-center gap-2.5 text-primary" data-brand><span class="grid size-9 place-items-center rounded-full border border-gold font-serif text-lg text-gold">M</span><span><strong class="block font-serif text-lg font-medium leading-none tracking-[0.16em]">MANGALAM</strong><small class="mt-1 block text-[7px] tracking-[0.34em] text-gold">JEWELLERS</small></span></a>
-      <nav aria-label="Primary" class="hidden items-center gap-5 xl:flex">
-        <a href="index.html" class="nav-link text-[9px] font-semibold uppercase tracking-[0.14em]">Home</a>
-        <a href="collections.html" class="nav-link text-[9px] font-semibold uppercase tracking-[0.14em]">Collections</a>
-        <a href="jewellery.html" class="nav-link text-[9px] font-semibold uppercase tracking-[0.14em]">Jewellery</a>
-        <a href="bridal.html" class="nav-link text-[9px] font-semibold uppercase tracking-[0.14em]">Bridal</a>
-        <a href="about.html" class="nav-link text-[9px] font-semibold uppercase tracking-[0.14em]">About Us</a>
-        <a href="craftsmanship.html" class="nav-link text-[9px] font-semibold uppercase tracking-[0.14em]">Craftsmanship</a>
-        <a href="journal.html" class="nav-link text-[9px] font-semibold uppercase tracking-[0.14em]" data-status="active" aria-current="page">Journal</a>
-      </nav>
-      <div class="flex items-center">
-        <button type="button" class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 disabled:cursor-not-allowed [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover:bg-accent hover:text-accent-foreground h-9 w-9 min-h-11 min-w-11" aria-label="Search jewellery" data-open="search"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg></button>
-        <button type="button" class="items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 disabled:cursor-not-allowed [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover:bg-accent hover:text-accent-foreground h-9 w-9 hidden min-h-11 min-w-11 sm:inline-flex" aria-label="Wishlist" data-open="wishlist"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart" aria-hidden="true"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"/></svg></button>
-        <button type="button" class="items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 disabled:cursor-not-allowed [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover:bg-accent hover:text-accent-foreground h-9 w-9 hidden min-h-11 min-w-11 sm:inline-flex" aria-label="Account" data-open="account"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg></button>
-        <button type="button" class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 disabled:cursor-not-allowed [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover:bg-accent hover:text-accent-foreground h-9 w-9 min-h-11 min-w-11" aria-label="Shopping bag" data-open="bag"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shopping-bag" aria-hidden="true"><path d="M16 10a4 4 0 0 1-8 0"/><path d="M3.103 6.034h17.794"/><path d="M3.4 5.467a2 2 0 0 0-.4 1.2V20a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6.667a2 2 0 0 0-.4-1.2l-2-2.667A2 2 0 0 0 17 2H7a2 2 0 0 0-1.6.8z"/></svg></button>
-        <button type="button" data-open="appointment" data-book class="items-center justify-center gap-2 whitespace-nowrap font-medium cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 disabled:cursor-not-allowed [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-primary text-primary-foreground shadow hover:bg-primary/90 py-2 ml-2 hidden h-10 rounded-none px-4 text-[8px] tracking-[0.13em] md:inline-flex"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar-days" aria-hidden="true"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/><path d="M8 18h.01"/><path d="M12 18h.01"/><path d="M16 18h.01"/></svg> BOOK APPOINTMENT</button>
+      <a class="header__brand" href="index.html" aria-label="Mangalam Jewellers — home"><span class="brand-logo" aria-hidden="true"></span></a>
+      <div class="header__right">
+        <button type="button" class="icon-btn" data-open="search" aria-label="Search jewellery"><svg class="icon icon--search" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg></button>
+        <button type="button" class="icon-btn" data-open="wishlist" aria-label="Wishlist"><svg class="icon icon--heart" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"/></svg><span class="icon-btn__badge" data-wish-count hidden>0</span></button>
+        <button type="button" class="icon-btn hide-sm" data-open="account" aria-label="Account"><svg class="icon icon--user-round" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg></button>
+        <button type="button" class="icon-btn hide-sm" data-open="bag" aria-label="Shopping bag"><svg class="icon icon--shopping-bag" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 10a4 4 0 0 1-8 0"/><path d="M3.103 6.034h17.794"/><path d="M3.4 5.467a2 2 0 0 0-.4 1.2V20a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6.667a2 2 0 0 0-.4-1.2l-2-2.667A2 2 0 0 0 17 2H7a2 2 0 0 0-1.6.8z"/></svg></button>
       </div>
     </div>
+    <nav class="nav" aria-label="Primary">
+      <ul class="container nav__list">
+        <li><a class="nav__link" data-nav="home" href="index.html">Home</a></li>
+        <li><a class="nav__link" data-nav="collections" href="collections.html">Collections</a></li>
+        <li class="nav__item--mega">
+          <a class="nav__link" data-nav="jewellery" href="jewellery.html" aria-haspopup="true" aria-expanded="false">Jewellery <svg class="icon icon--chevron-down" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
+          <div class="mega">
+            <div class="container mega__inner">
+              <div>
+                <p class="mega__title">Shop by category</p>
+                <ul class="mega__cats">
+                <li><a href="rings.html"><span class="mega__thumb"><img src="assets/images/products/rings.jpg" alt="" loading="lazy" width="800" height="800"></span>Rings</a></li>
+                <li><a href="necklaces.html"><span class="mega__thumb"><img src="assets/images/products/necklaces.jpg" alt="" loading="lazy" width="800" height="800"></span>Necklaces</a></li>
+                <li><a href="earrings.html"><span class="mega__thumb"><img src="assets/images/products/earrings.jpg" alt="" loading="lazy" width="800" height="800"></span>Earrings</a></li>
+                <li><a href="bangles.html"><span class="mega__thumb"><img src="assets/images/products/bangles.jpg" alt="" loading="lazy" width="800" height="800"></span>Bangles</a></li>
+                <li><a href="bracelets.html"><span class="mega__thumb"><img src="assets/images/products/bracelets.jpg" alt="" loading="lazy" width="800" height="800"></span>Bracelets</a></li>
+                <li><a href="pendants.html"><span class="mega__thumb"><img src="assets/images/products/pendants.jpg" alt="" loading="lazy" width="800" height="800"></span>Pendants</a></li>
+                <li><a href="mangalsutra.html"><span class="mega__thumb"><img src="assets/images/products/mangalsutra.jpg" alt="" loading="lazy" width="800" height="800"></span>Mangalsutra</a></li>
+                <li><a href="bridal.html"><span class="mega__thumb"><img src="assets/images/products/bridal.jpg" alt="" loading="lazy" width="800" height="800"></span>Bridal</a></li>
+                </ul>
+              </div>
+              <div>
+                <p class="mega__title">Shop by metal</p>
+                <ul class="mega__links">
+                  <li><a href="jewellery.html?metal=Gold">Gold jewellery</a></li>
+                  <li><a href="jewellery.html?metal=Diamond">Diamond jewellery</a></li>
+                  <li><a href="jewellery.html">All jewellery</a></li>
+                </ul>
+                <p class="mega__title">Shop by style</p>
+                <ul class="mega__links">
+                  <li><a href="jewellery.html?style=Classic">Classic</a></li>
+                  <li><a href="jewellery.html?style=Traditional">Traditional</a></li>
+                  <li><a href="jewellery.html?style=Modern">Modern</a></li>
+                  <li><a href="jewellery.html?style=Bridal">Bridal</a></li>
+                </ul>
+              </div>
+              <a class="mega__feature" href="bridal.html">
+                <img src="assets/images/products/bridal.jpg" alt="" loading="lazy" width="800" height="800">
+                <span class="mega__feature-body">
+                  <span class="eyebrow eyebrow--light">The Bridal Edit</span>
+                  <span class="mega__feature-title">Jewels for your most unforgettable chapter</span>
+                  <span class="link-arrow link-arrow--light">Discover <svg class="icon icon--arrow-right icon--arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+                </span>
+              </a>
+            </div>
+          </div>
+        </li>
+        <li><a class="nav__link" data-nav="bridal" href="bridal.html">Bridal</a></li>
+        <li><a class="nav__link" data-nav="about" href="about.html">About Us</a></li>
+        <li><a class="nav__link" data-nav="craftsmanship" href="craftsmanship.html">Craftsmanship</a></li>
+        <li><a class="nav__link" data-nav="journal" aria-current="page" href="journal.html">Journal</a></li>
+        <li><a class="nav__link" data-nav="contact" href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
   </header>
 
-  <main>
-<div class="pt-[104px]">
-      <section class="border-b border-border bg-secondary px-5 py-16 text-center">
-        <p class="text-[9px] tracking-[0.24em] text-gold">NOTES FROM THE ATELIER</p>
-        <h1 class="mt-5 font-serif text-6xl font-normal sm:text-7xl">Journal</h1>
-        <p class="mx-auto mt-5 max-w-2xl text-sm leading-7 text-muted-foreground">Guides, heritage and inspiration — written by the people who make the jewellery.</p>
-      </section>
-      <!-- Articles are rendered from assets/js/data.js -->
-      <div id="journal-grid" class="mx-auto grid max-w-[1300px] gap-12 px-5 py-16 md:grid-cols-2 lg:px-8"></div>
-    </div>
-  </main>
 
-  <!-- Newsletter -->
-  <section class="bg-deep-maroon px-5 py-20 text-center text-primary-foreground">
-    <p class="text-[9px] tracking-[0.25em] text-gold">PRIVATE NOTES FROM THE HOUSE</p>
-    <h2 class="mt-4 font-serif text-5xl font-normal">Stay Close to the Craft</h2>
-    <form class="mx-auto mt-8 flex max-w-xl" data-newsletter>
-      <input type="email" required placeholder="Enter your email" aria-label="Email for newsletter" class="flex w-full border px-3 py-1 text-base shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm h-12 rounded-none border-primary bg-background text-foreground">
-      <button type="submit" class="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 disabled:cursor-not-allowed [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 shadow px-4 py-2 h-12 rounded-none bg-gold text-wine hover:bg-light-gold">SUBSCRIBE</button>
-    </form>
-  </section>
+  <main id="main">
+    <section class="page-hero">
+      <img class="page-hero__bg" src="assets/images/mangalam-hero.jpg" alt="">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb"><a href="index.html">Home</a><span class="breadcrumb__sep"></span><span aria-current="page">Journal</span></nav>
+        <h1 class="page-hero__title">The <em>Journal</em></h1>
+        <span class="ornament ornament--light" aria-hidden="true"></span>
+        <p class="page-hero__lead">Guides, heritage and inspiration — written by the people who make the jewellery.</p>
+      </div>
+    </section>
 
-  <!-- Footer -->
-  <footer class="bg-wine px-5 py-16 text-primary-foreground">
-    <div class="mx-auto max-w-[1400px]">
-      <div class="grid gap-10 border-b border-gold/30 pb-12 md:grid-cols-[1.4fr_repeat(4,1fr)]">
+    <section class="section">
+      <div class="container">
+      <a class="jcard feature-post" href="article.html?slug=art-of-bridal-jewellery" data-reveal>
+        <div class="jcard__media"><img src="assets/images/products/bridal.jpg" alt="" style="object-position:center"><span class="jcard__cat">Featured story</span></div>
         <div>
-          <a href="index.html" aria-label="Mangalam Jewellers home" class="group flex items-center gap-2.5 text-primary-foreground"><span class="grid size-9 place-items-center rounded-full border border-gold font-serif text-lg text-gold">M</span><span><strong class="block font-serif text-lg font-medium leading-none tracking-[0.16em]">MANGALAM</strong><small class="mt-1 block text-[7px] tracking-[0.34em] text-gold">JEWELLERS</small></span></a>
-          <p class="mt-5 max-w-xs text-xs leading-6 text-primary-foreground/70">Jewellery crafted with heritage, refined for the moments that become your legacy.</p>
-          <p class="mt-6 text-xs leading-6 text-primary-foreground/70">Mangalam House, Ring Road,<br>Surat, Gujarat 395002<br>+91 261 000 0000</p>
+          <p class="jcard__meta">Bridal · September 2026 · 6 min read</p>
+          <h2 class="jcard__title">The Art of Bridal Jewellery</h2>
+          <p class="jcard__excerpt">A bridal set is never one jewel — it is a composition. Here is how our karigars balance heirloom weight with modern grace.</p>
+          <span class="link-arrow">Read the story <svg class="icon icon--arrow-right icon--arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
         </div>
-        <div>
-          <p class="text-[9px] tracking-[0.18em] text-gold">COLLECTIONS</p>
-          <div class="mt-4 space-y-3">
-            <a href="bridal.html" class="block text-xs text-primary-foreground/70 transition hover:text-gold">Bridal</a>
-            <a href="collections.html" class="block text-xs text-primary-foreground/70 transition hover:text-gold">Collections</a>
-            <a href="jewellery.html" class="block text-xs text-primary-foreground/70 transition hover:text-gold">All Jewellery</a>
-          </div>
+      </a>
+        <div class="section-head section-head--split" data-reveal>
+          <h2 class="section-title" style="margin-top:0">Browse by <em>topic</em></h2>
+          <div class="tabs" role="group" aria-label="Filter articles"><button type="button" class="chip chip--text is-active" data-journal-filter="all" aria-pressed="true">All stories</button><button type="button" class="chip chip--text" data-journal-filter="Bridal" aria-pressed="false">Bridal</button><button type="button" class="chip chip--text" data-journal-filter="Guide" aria-pressed="false">Guide</button><button type="button" class="chip chip--text" data-journal-filter="Heritage" aria-pressed="false">Heritage</button><button type="button" class="chip chip--text" data-journal-filter="Style" aria-pressed="false">Style</button></div>
         </div>
-        <div>
-          <p class="text-[9px] tracking-[0.18em] text-gold">JEWELLERY</p>
-          <div class="mt-4 space-y-3">
-            <a href="rings.html" class="block text-xs text-primary-foreground/70 transition hover:text-gold">Rings</a>
-            <a href="necklaces.html" class="block text-xs text-primary-foreground/70 transition hover:text-gold">Necklaces</a>
-            <a href="earrings.html" class="block text-xs text-primary-foreground/70 transition hover:text-gold">Earrings</a>
-            <a href="bangles.html" class="block text-xs text-primary-foreground/70 transition hover:text-gold">Bangles</a>
-          </div>
-        </div>
-        <div>
-          <p class="text-[9px] tracking-[0.18em] text-gold">MANGALAM</p>
-          <div class="mt-4 space-y-3">
-            <a href="about.html" class="block text-xs text-primary-foreground/70 transition hover:text-gold">About Us</a>
-            <a href="craftsmanship.html" class="block text-xs text-primary-foreground/70 transition hover:text-gold">Craftsmanship</a>
-            <a href="journal.html" class="block text-xs text-primary-foreground/70 transition hover:text-gold">Journal</a>
-          </div>
-        </div>
-        <div>
-          <p class="text-[9px] tracking-[0.18em] text-gold">CUSTOMER CARE</p>
-          <div class="mt-4 space-y-3">
-            <a href="contact.html" class="block text-xs text-primary-foreground/70 transition hover:text-gold">Contact</a>
-            <a href="contact.html" class="block text-xs text-primary-foreground/70 transition hover:text-gold">Shipping</a>
-            <a href="contact.html" class="block text-xs text-primary-foreground/70 transition hover:text-gold">Returns</a>
-          </div>
+        <div class="journal-grid" data-journal-grid>
+      <a class="jcard" href="article.html?slug=understanding-gold-purity" data-cat="Guide" data-reveal>
+        <div class="jcard__media"><img src="assets/images/products/necklaces.jpg" alt="" loading="lazy" style="object-position:center"><span class="jcard__cat">Guide</span></div>
+        <p class="jcard__meta">August 2026 · 4 min read</p>
+        <h2 class="jcard__title">Understanding Gold Purity</h2>
+        <p class="jcard__excerpt">22K or 18K? Karats, hallmarks and what they truly mean for the jewellery you wear every day.</p>
+      </a>
+      <a class="jcard" href="article.html?slug=gujarati-jewellery-heritage" data-cat="Heritage" data-reveal>
+        <div class="jcard__media"><img src="assets/images/mangalam-craft.jpg" alt="" loading="lazy" style="object-position:center"><span class="jcard__cat">Heritage</span></div>
+        <p class="jcard__meta">August 2026 · 7 min read</p>
+        <h2 class="jcard__title">Gujarati Jewellery Heritage</h2>
+        <p class="jcard__excerpt">From patlas to pansets — the motifs, rituals and artistry that shape every Mangalam creation.</p>
+      </a>
+      <a class="jcard" href="article.html?slug=choosing-your-signature-piece" data-cat="Style" data-reveal>
+        <div class="jcard__media"><img src="assets/images/mangalam-hero.jpg" alt="" loading="lazy" style="object-position:center"><span class="jcard__cat">Style</span></div>
+        <p class="jcard__meta">July 2026 · 5 min read</p>
+        <h2 class="jcard__title">Choosing Your Signature Piece</h2>
+        <p class="jcard__excerpt">One jewel that feels like you. Here's how to find it — and why it matters more than a full collection.</p>
+      </a>
+      <a class="jcard" href="article.html?slug=jewellery-care-guide" data-cat="Guide" data-reveal>
+        <div class="jcard__media"><img src="assets/images/products/necklaces.jpg" alt="" loading="lazy" style="object-position:50% 60%"><span class="jcard__cat">Guide</span></div>
+        <p class="jcard__meta">July 2026 · 4 min read</p>
+        <h2 class="jcard__title">Jewellery Care Guide</h2>
+        <p class="jcard__excerpt">Simple rituals to keep gold glowing and diamonds brilliant for the decades to come.</p>
+      </a>
+      <a class="jcard" href="article.html?slug=modern-bridal-trends" data-cat="Bridal" data-reveal>
+        <div class="jcard__media"><img src="assets/images/products/bridal.jpg" alt="" loading="lazy" style="object-position:50% 55%"><span class="jcard__cat">Bridal</span></div>
+        <p class="jcard__meta">June 2026 · 5 min read</p>
+        <h2 class="jcard__title">Modern Bridal Trends</h2>
+        <p class="jcard__excerpt">Lighter sets, convertible necklaces and detachable haars — how today's brides are reimagining tradition.</p>
+      </a>
         </div>
       </div>
-      <div class="flex flex-wrap items-center justify-between gap-3 pt-6 text-[9px] tracking-[0.14em] text-primary-foreground/60">
-        <span>© 2026 MANGALAM JEWELLERS</span>
-        <span>PRIVACY POLICY · TERMS &amp; CONDITIONS · SHIPPING · RETURNS</span>
-        <span>FOLLOW US — INSTAGRAM · PINTEREST</span>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <span class="brand-wordmark footer__mark" aria-hidden="true"></span>
+    <div class="container">
+      <div class="newsletter">
+        <div data-reveal="left">
+          <p class="eyebrow eyebrow--light">Private notes from the house</p>
+          <h2>Stay close to <em>the craft</em></h2>
+        </div>
+        <div data-reveal="right">
+          <form class="newsletter__form" data-newsletter>
+            <label class="sr-only" for="newsletter-email">Email address</label>
+            <input id="newsletter-email" type="email" required placeholder="Your email address" autocomplete="email">
+            <button type="submit">Subscribe <svg class="icon icon--arrow-right icon--arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></button>
+          </form>
+          <p class="newsletter__note" data-newsletter-note>New collections, bridal edits and stories from the atelier — a few times a season.</p>
+        </div>
+      </div>
+
+      <div class="footer__main">
+        <div class="footer__brand">
+          <a href="index.html" aria-label="Mangalam Jewellers — home"><span class="brand-full" aria-hidden="true"></span></a>
+          <p class="footer__about">Jewellery crafted with heritage, refined for the moments that become your legacy. A family atelier in Surat since 1962.</p>
+          <div class="socials">
+            <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Mangalam Jewellers on Instagram"><svg class="icon icon--instagram" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg></a>
+            <a href="https://facebook.com" target="_blank" rel="noopener" aria-label="Mangalam Jewellers on Facebook"><svg class="icon icon--facebook" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+            <a href="https://youtube.com" target="_blank" rel="noopener" aria-label="Mangalam Jewellers on YouTube"><svg class="icon icon--youtube" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><path d="m10 15 5-3-5-3z"/></svg></a>
+          </div>
+        </div>
+        <div>
+          <p class="footer__title">Collections</p>
+          <ul class="footer__links">
+            <li><a href="bridal.html">Bridal</a></li>
+            <li><a href="jewellery.html?metal=Gold">Gold</a></li>
+            <li><a href="jewellery.html?metal=Diamond">Diamond</a></li>
+            <li><a href="collections.html">All collections</a></li>
+            <li><a href="jewellery.html">All jewellery</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="footer__title">Jewellery</p>
+          <ul class="footer__links">
+            <li><a href="rings.html">Rings</a></li>
+            <li><a href="necklaces.html">Necklaces</a></li>
+            <li><a href="earrings.html">Earrings</a></li>
+            <li><a href="bangles.html">Bangles</a></li>
+            <li><a href="bracelets.html">Bracelets</a></li>
+            <li><a href="pendants.html">Pendants</a></li>
+            <li><a href="mangalsutra.html">Mangalsutra</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="footer__title">Mangalam</p>
+          <ul class="footer__links">
+            <li><a href="about.html">About us</a></li>
+            <li><a href="craftsmanship.html">Craftsmanship</a></li>
+            <li><a href="journal.html">Journal</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="contact.html">Shipping &amp; returns</a></li>
+          </ul>
+        </div>
+        <div class="footer__contact-col">
+          <p class="footer__title">Visit us</p>
+          <ul class="footer__contact">
+            <li><svg class="icon icon--map-pin" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg><span>Mangalam House, Ring Road,<br>Surat, Gujarat 395002</span></li>
+            <li><svg class="icon icon--phone" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"/></svg><a href="tel:+912610000000">+91 261 000 0000</a></li>
+            <li><svg class="icon icon--mail" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg><a href="mailto:care@mangalamjewellers.in">care@mangalamjewellers.in</a></li>
+            <li><svg class="icon icon--clock" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span>Mon – Sat · 10:30 AM – 8:30 PM</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer__bottom">
+        <span>&copy; <span data-year>2026</span> Mangalam Jewellers. All rights reserved.</span>
+        <nav class="footer__legal" aria-label="Legal">
+          <a href="contact.html">Privacy policy</a>
+          <a href="contact.html">Terms &amp; conditions</a>
+          <a href="contact.html">Shipping</a>
+          <a href="contact.html">Returns</a>
+        </nav>
       </div>
     </div>
   </footer>
 
-  <!-- Mobile menu -->
-<div data-modal="menu" hidden>
-  <div data-overlay data-close class="mj-overlay fixed inset-0 z-50 bg-black/80"></div>
-  <div data-panel data-side="left" role="dialog" aria-modal="true" aria-labelledby="menu-title" aria-describedby="menu-desc" tabindex="-1" class="mj-sheet fixed z-50 gap-4 shadow-lg transition ease-in-out inset-y-0 left-0 h-full border-r sm:max-w-sm w-[90%] bg-background p-7">
-    <button type="button" data-close class="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background cursor-pointer transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x h-4 w-4" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg><span class="sr-only">Close</span></button>
 
-    <h2 id="menu-title" class="text-lg font-semibold text-foreground"><a href="index.html" aria-label="Mangalam Jewellers home" class="group flex items-center gap-2.5 text-primary"><span class="grid size-9 place-items-center rounded-full border border-gold font-serif text-lg text-gold">M</span><span><strong class="block font-serif text-lg font-medium leading-none tracking-[0.16em]">MANGALAM</strong><small class="mt-1 block text-[7px] tracking-[0.34em] text-gold">JEWELLERS</small></span></a></h2>
-    <p id="menu-desc" class="text-sm text-muted-foreground">Fine jewellery rooted in Gujarati heritage.</p>
-    <nav aria-label="Mobile" class="mt-8">
-      <a href="index.html" class="block border-b border-border py-4 font-serif text-2xl">Home</a>
-      <a href="collections.html" class="block border-b border-border py-4 font-serif text-2xl">Collections</a>
-      <a href="jewellery.html" class="block border-b border-border py-4 font-serif text-2xl">Jewellery</a>
-      <a href="bridal.html" class="block border-b border-border py-4 font-serif text-2xl">Bridal</a>
-      <a href="about.html" class="block border-b border-border py-4 font-serif text-2xl">About Us</a>
-      <a href="craftsmanship.html" class="block border-b border-border py-4 font-serif text-2xl">Craftsmanship</a>
-      <a href="journal.html" class="block border-b border-border py-4 font-serif text-2xl">Journal</a>
-    </nav>
-    <button type="button" data-open="appointment" class="inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 disabled:cursor-not-allowed [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-primary text-primary-foreground shadow hover:bg-primary/90 px-4 py-2 mt-7 h-12 w-full rounded-none text-[10px] tracking-[0.16em]">BOOK APPOINTMENT</button>
+  <!-- Mobile menu -->
+  <div class="modal" data-modal="menu" hidden>
+    <div class="modal__overlay" data-overlay data-close></div>
+    <div class="modal__panel modal__panel--left" data-panel role="dialog" aria-modal="true" aria-label="Menu" tabindex="-1">
+      <button type="button" class="modal__close" data-close aria-label="Close menu"><svg class="icon icon--x" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
+      <a class="menu__brand" href="index.html" aria-label="Mangalam Jewellers — home"><span class="brand-logo" aria-hidden="true"></span></a>
+      <ul class="menu__nav">
+        <li style="--i:0"><a data-nav="home" href="index.html">Home</a></li>
+        <li style="--i:1"><a data-nav="collections" href="collections.html">Collections</a></li>
+        <li style="--i:2">
+          <button type="button" class="menu__toggle" data-menu-toggle aria-expanded="false" aria-controls="menu-jewellery">Jewellery <svg class="icon icon--plus" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5v14"/></svg></button>
+          <ul class="menu__sub" id="menu-jewellery" hidden><li><a href="jewellery.html">All jewellery</a></li><li><a href="rings.html">Rings</a></li><li><a href="necklaces.html">Necklaces</a></li><li><a href="earrings.html">Earrings</a></li><li><a href="bangles.html">Bangles</a></li><li><a href="bracelets.html">Bracelets</a></li><li><a href="pendants.html">Pendants</a></li><li><a href="mangalsutra.html">Mangalsutra</a></li></ul>
+        </li>
+        <li style="--i:3"><a data-nav="bridal" href="bridal.html">Bridal</a></li>
+        <li style="--i:4"><a data-nav="about" href="about.html">About Us</a></li>
+        <li style="--i:5"><a data-nav="craftsmanship" href="craftsmanship.html">Craftsmanship</a></li>
+        <li style="--i:6"><a data-nav="journal" aria-current="page" href="journal.html">Journal</a></li>
+        <li style="--i:7"><a data-nav="contact" href="contact.html">Contact</a></li>
+      </ul>
+      <div class="menu__foot">
+        <button type="button" class="btn btn--primary btn--block" data-open="appointment"><svg class="icon icon--calendar" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/><path d="M8 18h.01"/><path d="M12 18h.01"/><path d="M16 18h.01"/></svg> Book an appointment</button>
+        <div class="menu__contact">
+          <a href="tel:+912610000000"><svg class="icon icon--phone" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"/></svg> +91 261 000 0000</a>
+          <a href="mailto:care@mangalamjewellers.in"><svg class="icon icon--mail" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg> care@mangalamjewellers.in</a>
+          <a href="#" data-open="account"><svg class="icon icon--user-round" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg> Your account</a>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
 
   <!-- Search -->
-<div data-modal="search" hidden>
-  <div data-overlay data-close class="mj-overlay fixed inset-0 z-50 bg-black/80"></div>
-  <div data-panel role="dialog" aria-modal="true" aria-labelledby="search-title" aria-describedby="search-desc" tabindex="-1" class="mj-dialog fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border p-6 shadow-lg duration-200 sm:rounded-lg max-h-[85vh] overflow-y-auto rounded-none border-gold/60 bg-background sm:max-w-2xl">
-
-    <h2 id="search-title" class="tracking-tight font-serif text-4xl font-normal">Search Mangalam</h2>
-    <p id="search-desc" class="text-sm text-muted-foreground">Find a jewel across every collection.</p>
-    <div class="flex border-b border-foreground">
-      <input id="search-input" data-autofocus placeholder="Try ring, diamond or bridal" aria-label="Search jewellery" autocomplete="off" class="flex w-full rounded-md border-input bg-transparent px-3 py-1 text-base transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm h-14 border-0 shadow-none focus-visible:ring-0">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search mt-4" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+  <div class="modal" data-modal="search" hidden>
+    <div class="modal__overlay" data-overlay data-close></div>
+    <div class="modal__panel modal__panel--top" data-panel role="dialog" aria-modal="true" aria-labelledby="search-title" tabindex="-1">
+      <button type="button" class="modal__close" data-close aria-label="Close search"><svg class="icon icon--x" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
+      <div class="container">
+        <p class="eyebrow" id="search-title">Search Mangalam</p>
+        <div class="search__bar">
+          <svg class="icon icon--search" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+          <input id="search-input" class="search__input" data-autofocus type="search" placeholder="What are you looking for?" aria-label="Search jewellery" autocomplete="off">
+        </div>
+        <div class="search__popular">
+          <span>Popular</span>
+          <button type="button" class="chip chip--text" data-search-term="jhumka">Jhumka</button>
+          <button type="button" class="chip chip--text" data-search-term="diamond ring">Diamond ring</button>
+          <button type="button" class="chip chip--text" data-search-term="mangalsutra">Mangalsutra</button>
+          <button type="button" class="chip chip--text" data-search-term="bridal">Bridal</button>
+          <button type="button" class="chip chip--text" data-search-term="bangles">Bangles</button>
+        </div>
+        <div id="search-results" class="search__results" hidden></div>
+      </div>
     </div>
-    <div id="search-results" class="mt-4" hidden></div>
-    <button type="button" data-close class="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background cursor-pointer transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x h-4 w-4" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg><span class="sr-only">Close</span></button>
   </div>
-</div>
 
   <!-- Wishlist -->
-<div data-modal="wishlist" hidden>
-  <div data-overlay data-close class="mj-overlay fixed inset-0 z-50 bg-black/80"></div>
-  <div data-panel data-side="right" role="dialog" aria-modal="true" aria-labelledby="wishlist-title" aria-describedby="wishlist-desc" tabindex="-1" class="mj-sheet fixed z-50 gap-4 shadow-lg transition ease-in-out inset-y-0 right-0 h-full border-l sm:max-w-sm w-[90%] bg-background p-7">
-    <button type="button" data-close class="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background cursor-pointer transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x h-4 w-4" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg><span class="sr-only">Close</span></button>
-
-    <h2 id="wishlist-title" class="text-foreground font-serif text-3xl font-normal">Your Wishlist</h2>
-    <p id="wishlist-desc" class="text-sm text-muted-foreground">Pieces you have saved for later.</p>
-    <div class="mt-10 py-16 text-center text-muted-foreground">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart mx-auto" aria-hidden="true"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"/></svg>
-      <p class="mt-4 text-sm">Jewels you love will appear here.</p>
-      <a href="jewellery.html" class="inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 disabled:cursor-not-allowed [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2 mt-6 rounded-none text-[10px] tracking-[0.16em]">EXPLORE JEWELLERY</a>
+  <div class="modal" data-modal="wishlist" hidden>
+    <div class="modal__overlay" data-overlay data-close></div>
+    <div class="modal__panel modal__panel--right" data-panel role="dialog" aria-modal="true" aria-labelledby="wishlist-title" tabindex="-1">
+      <button type="button" class="modal__close" data-close aria-label="Close wishlist"><svg class="icon icon--x" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
+      <p class="eyebrow">Saved for later</p>
+      <h2 id="wishlist-title" class="modal__title mt-1">Your Wishlist</h2>
+      <ul class="drawer__list" data-wish-list hidden></ul>
+      <div class="drawer__empty" data-wish-empty>
+        <span class="drawer__empty-icon"><svg class="icon icon--heart" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"/></svg></span>
+        <p>Nothing saved yet</p>
+        <p>Tap the heart on any piece to keep it here.</p>
+        <a class="btn btn--outline btn--sm mt-1" href="jewellery.html">Explore jewellery</a>
+      </div>
+      <div class="drawer__foot" data-wish-foot hidden>
+        <button type="button" class="btn btn--primary btn--block" data-open="appointment"><svg class="icon icon--calendar" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/><path d="M8 18h.01"/><path d="M12 18h.01"/><path d="M16 18h.01"/></svg> Book a private viewing</button>
+        <a class="btn btn--outline btn--block" href="jewellery.html">Continue browsing</a>
+      </div>
     </div>
   </div>
-</div>
 
   <!-- Bag -->
-<div data-modal="bag" hidden>
-  <div data-overlay data-close class="mj-overlay fixed inset-0 z-50 bg-black/80"></div>
-  <div data-panel data-side="right" role="dialog" aria-modal="true" aria-labelledby="bag-title" aria-describedby="bag-desc" tabindex="-1" class="mj-sheet fixed z-50 gap-4 shadow-lg transition ease-in-out inset-y-0 right-0 h-full border-l sm:max-w-sm w-[90%] bg-background p-7">
-    <button type="button" data-close class="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background cursor-pointer transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x h-4 w-4" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg><span class="sr-only">Close</span></button>
-
-    <h2 id="bag-title" class="text-foreground font-serif text-3xl font-normal">Your Bag</h2>
-    <p id="bag-desc" class="text-sm text-muted-foreground">Pieces kept aside for you.</p>
-    <div class="mt-10 py-16 text-center text-muted-foreground">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shopping-bag mx-auto" aria-hidden="true"><path d="M16 10a4 4 0 0 1-8 0"/><path d="M3.103 6.034h17.794"/><path d="M3.4 5.467a2 2 0 0 0-.4 1.2V20a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6.667a2 2 0 0 0-.4-1.2l-2-2.667A2 2 0 0 0 17 2H7a2 2 0 0 0-1.6.8z"/></svg>
-      <p class="mt-4 text-sm">Your bag is empty — your next heirloom awaits.</p>
-      <a href="jewellery.html" class="inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 disabled:cursor-not-allowed [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 px-4 py-2 mt-6 rounded-none text-[10px] tracking-[0.16em]">VIEW ALL JEWELLERY</a>
+  <div class="modal" data-modal="bag" hidden>
+    <div class="modal__overlay" data-overlay data-close></div>
+    <div class="modal__panel modal__panel--right" data-panel role="dialog" aria-modal="true" aria-labelledby="bag-title" tabindex="-1">
+      <button type="button" class="modal__close" data-close aria-label="Close bag"><svg class="icon icon--x" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
+      <p class="eyebrow">Kept aside for you</p>
+      <h2 id="bag-title" class="modal__title mt-1">Your Bag</h2>
+      <div class="drawer__empty">
+        <span class="drawer__empty-icon"><svg class="icon icon--shopping-bag" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 10a4 4 0 0 1-8 0"/><path d="M3.103 6.034h17.794"/><path d="M3.4 5.467a2 2 0 0 0-.4 1.2V20a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6.667a2 2 0 0 0-.4-1.2l-2-2.667A2 2 0 0 0 17 2H7a2 2 0 0 0-1.6.8z"/></svg></span>
+        <p>Your bag is empty</p>
+        <p>Your next heirloom awaits.</p>
+        <a class="btn btn--primary btn--sm mt-1" href="jewellery.html">View all jewellery</a>
+      </div>
     </div>
   </div>
-</div>
 
   <!-- Account -->
-<div data-modal="account" hidden>
-  <div data-overlay data-close class="mj-overlay fixed inset-0 z-50 bg-black/80"></div>
-  <div data-panel role="dialog" aria-modal="true" aria-labelledby="account-title" aria-describedby="account-desc" tabindex="-1" class="mj-dialog fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border p-6 shadow-lg duration-200 sm:rounded-lg rounded-none border-gold/60 bg-background sm:max-w-md">
-
-    <h2 id="account-title" class="tracking-tight font-serif text-4xl font-normal">Your Mangalam</h2>
-    <p id="account-desc" class="text-sm text-muted-foreground">Sign in to follow orders, appointments and saved pieces.</p>
-    <form class="mt-5 space-y-3" data-close-on-submit>
-      <input type="email" required placeholder="Email address" aria-label="Email address" class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm">
-      <input type="password" required placeholder="Password" aria-label="Password" class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm">
-      <button type="submit" class="inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 disabled:cursor-not-allowed [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-primary text-primary-foreground shadow hover:bg-primary/90 px-4 py-2 h-12 w-full rounded-none text-[10px] tracking-[0.16em]">SIGN IN</button>
-      <p class="text-center text-xs text-muted-foreground">New to Mangalam? <button type="button" class="underline">Create an account</button></p>
-    </form>
-    <button type="button" data-close class="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background cursor-pointer transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x h-4 w-4" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg><span class="sr-only">Close</span></button>
+  <div class="modal" data-modal="account" hidden>
+    <div class="modal__overlay" data-overlay data-close></div>
+    <div class="modal__panel modal__panel--dialog" data-panel role="dialog" aria-modal="true" aria-labelledby="account-title" aria-describedby="account-desc" tabindex="-1">
+      <button type="button" class="modal__close" data-close aria-label="Close"><svg class="icon icon--x" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
+      <p class="eyebrow">Welcome back</p>
+      <h2 id="account-title" class="modal__title mt-1">Your Mangalam</h2>
+      <p id="account-desc" class="modal__desc">Sign in to follow orders, appointments and saved pieces.</p>
+      <form class="form" data-close-on-submit>
+        <label class="field"><input class="field__input" type="email" required placeholder=" " autocomplete="email"><span class="field__label">Email address</span></label>
+        <label class="field"><input class="field__input" type="password" required placeholder=" " autocomplete="current-password"><span class="field__label">Password</span></label>
+        <button type="submit" class="btn btn--primary btn--block">Sign in</button>
+        <p class="modal__desc center">New to Mangalam? <a href="contact.html" style="text-decoration:underline;text-underline-offset:3px">Talk to our concierge</a></p>
+      </form>
+    </div>
   </div>
-</div>
 
   <!-- Appointment -->
-<div data-modal="appointment" hidden>
-  <div data-overlay data-close class="mj-overlay fixed inset-0 z-50 bg-black/80"></div>
-  <div data-panel role="dialog" aria-modal="true" aria-labelledby="appointment-title" aria-describedby="appointment-desc" tabindex="-1" class="mj-dialog fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border p-6 shadow-lg duration-200 sm:rounded-lg rounded-none border-gold/60 bg-background sm:max-w-md">
-
-    <h2 id="appointment-title" class="tracking-tight font-serif text-4xl font-normal">Book a private appointment</h2>
-    <p id="appointment-desc" class="text-sm text-muted-foreground">Tell us when you would like to visit. Our concierge will confirm your time.</p>
-    <form class="mt-4 grid gap-3" data-close-on-submit>
-      <input required placeholder="Your name" aria-label="Your name" class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm">
-      <input required type="email" placeholder="Email address" aria-label="Email address" class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm">
-      <input required type="date" aria-label="Preferred date" class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm">
-      <button type="submit" class="inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 disabled:cursor-not-allowed [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-primary text-primary-foreground shadow hover:bg-primary/90 px-4 py-2 mt-2 h-12 rounded-none text-[10px] tracking-[0.16em]">REQUEST APPOINTMENT</button>
-    </form>
-    <button type="button" data-close class="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background cursor-pointer transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x h-4 w-4" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg><span class="sr-only">Close</span></button>
+  <div class="modal" data-modal="appointment" hidden>
+    <div class="modal__overlay" data-overlay data-close></div>
+    <div class="modal__panel modal__panel--dialog" data-panel role="dialog" aria-modal="true" aria-labelledby="appointment-title" aria-describedby="appointment-desc" tabindex="-1">
+      <button type="button" class="modal__close" data-close aria-label="Close"><svg class="icon icon--x" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
+      <p class="eyebrow">Mangalam House, Surat</p>
+      <h2 id="appointment-title" class="modal__title mt-1">Book a private appointment</h2>
+      <p id="appointment-desc" class="modal__desc">Tell us when you would like to visit. Our concierge will confirm your time.</p>
+      <form class="form" data-success="Request received" data-success-text="Thank you. Our concierge will call you to confirm your appointment within one business day.">
+        <label class="field"><input class="field__input" required placeholder=" " autocomplete="name"><span class="field__label">Your name</span></label>
+        <div class="form__row">
+          <label class="field"><input class="field__input" type="tel" required placeholder=" " autocomplete="tel"><span class="field__label">Phone</span></label>
+          <label class="field"><input class="field__input" type="email" required placeholder=" " autocomplete="email"><span class="field__label">Email address</span></label>
+        </div>
+        <div class="form__row">
+          <label class="field field--static"><input class="field__input" type="date" required><span class="field__label">Preferred date</span></label>
+          <label class="field field--static">
+            <select class="field__input" required>
+              <option>Bridal jewellery</option>
+              <option>Gold jewellery</option>
+              <option>Diamond jewellery</option>
+              <option>Bespoke commission</option>
+            </select>
+            <span class="field__label">I am interested in</span>
+          </label>
+        </div>
+        <button type="submit" class="btn btn--primary btn--block">Request appointment <svg class="icon icon--arrow-right icon--arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></button>
+      </form>
+    </div>
   </div>
-</div>
-</div>
-<script src="assets/js/ui.js"></script>
-<script src="assets/js/data.js"></script>
-<script src="assets/js/main.js"></script>
+
+
+
+  <button type="button" class="to-top" data-to-top aria-label="Back to top">
+    <svg class="to-top__ring" viewBox="0 0 54 54" aria-hidden="true"><circle class="track" cx="27" cy="27" r="24"/><circle class="bar" cx="27" cy="27" r="24"/></svg>
+    <svg class="icon icon--arrow-up icon--arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg>
+  </button>
+
+  <script src="assets/js/ui.js"></script>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/main.js"></script>
 </body>
 </html>

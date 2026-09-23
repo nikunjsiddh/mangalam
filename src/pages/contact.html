@@ -1,0 +1,61 @@
+    <section class="page-hero page-hero--tall">
+      <img class="page-hero__bg" src="assets/images/mangalam-hero.jpg" alt="" style="object-position: 70% 40%">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb"><a href="index.html">Home</a><span class="breadcrumb__sep"></span><span aria-current="page">Contact</span></nav>
+        <h1 class="page-hero__title">We would love <br>to <em>meet you</em></h1>
+        <span class="ornament ornament--light" aria-hidden="true"></span>
+        <p class="page-hero__lead">Visit the atelier, plan a private consultation, or simply ask us anything about gold, diamonds and design.</p>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:0">
+      <div class="container">
+        <div class="info-cards" data-stagger>
+          <div class="info-card" data-reveal><span class="value__icon">{{icon:map-pin}}</span><h3>Address</h3><p>{{addressHtml}}</p></div>
+          <div class="info-card" data-reveal><span class="value__icon">{{icon:phone}}</span><h3>Phone</h3><a href="{{phoneHref}}">{{phone}}</a></div>
+          <div class="info-card" data-reveal><span class="value__icon">{{icon:mail}}</span><h3>Email</h3><a href="mailto:{{email}}">{{email}}</a></div>
+          <div class="info-card" data-reveal><span class="value__icon">{{icon:clock}}</span><h3>Hours</h3><p>Monday – Saturday<br>10:30 AM – 8:30 PM</p></div>
+        </div>
+
+        <div class="contact__grid" style="margin-top: clamp(64px, 8vw, 110px)">
+          <div class="visit-card" data-reveal="left">
+            <img src="assets/images/mangalam-craft.jpg" alt="Inside the Mangalam atelier in Surat" loading="lazy">
+            <div class="visit-card__body">
+              <p class="eyebrow eyebrow--light">Mangalam House</p>
+              <h2 class="mt-1">Visit the atelier</h2>
+              <p>Private consultations are recommended for bridal selections and bespoke commissions. Our concierge will prepare pieces for you before you arrive.</p>
+              <div class="cta-band__actions" style="margin-top:24px">
+                <button type="button" class="btn btn--gold btn--sm" data-open="appointment">{{icon:calendar}} Book a visit</button>
+                <a class="btn btn--light btn--sm" href="{{mapsUrl}}" target="_blank" rel="noopener">{{icon:map-pin}} Get directions</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-card" data-reveal="right">
+            <p class="eyebrow">Write to us</p>
+            <h2 class="mt-1">Send a message</h2>
+            <p>Our concierge replies within one business day.</p>
+            <form class="form" data-success="Thank you." data-success-text="Your message has been received — our concierge will reply within one business day.">
+              <div class="form__row">
+                <label class="field"><input class="field__input" required placeholder=" " autocomplete="name"><span class="field__label">Your name</span></label>
+                <label class="field"><input class="field__input" type="email" required placeholder=" " autocomplete="email"><span class="field__label">Email address</span></label>
+              </div>
+              <div class="form__row">
+                <label class="field"><input class="field__input" type="tel" placeholder=" " autocomplete="tel"><span class="field__label">Phone (optional)</span></label>
+                <label class="field field--static">
+                  <select class="field__input">
+                    <option>General enquiry</option>
+                    <option>Bridal consultation</option>
+                    <option>Bespoke commission</option>
+                    <option>Care &amp; repairs</option>
+                  </select>
+                  <span class="field__label">Topic</span>
+                </label>
+              </div>
+              <label class="field"><textarea class="field__input" rows="5" required placeholder=" "></textarea><span class="field__label">How can we help?</span></label>
+              <button type="submit" class="btn btn--primary">Send message {{icon:arrow-right}}</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>

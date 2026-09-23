@@ -1,0 +1,292 @@
+    <!-- HERO: shop-the-look hotspots sit on the photograph -->
+    <section class="hero" aria-label="Mangalam Jewellers">
+      <div class="hero__media">
+        <div class="hero__frame">
+          <div class="hero__zoom">
+            <img class="hero__img" src="assets/images/mangalam-hero.jpg" alt="A bride in a maroon silk saree wearing Mangalam heritage gold and diamond jewellery" width="1920" height="1280" fetchpriority="high">
+          {{heroHotspots}}
+          </div>
+        </div>
+      </div>
+      <div class="hero__shade"></div>
+      <div class="hero__glow"></div>
+      <div class="sparkles" aria-hidden="true">{{sparkles}}</div>
+      <div class="container hero__inner">
+        <div class="hero__content">
+          <p class="eyebrow eyebrow--light" data-hero style="--i:0">The art of timeless adornment</p>
+          <h1 class="hero__title">
+            <span class="line"><span style="--i:1">Where Tradition</span></span>
+            <span class="line"><span style="--i:2">Becomes <em class="text-metal">Timeless.</em></span></span>
+          </h1>
+          <p class="hero__lead" data-hero style="--i:3">Jewellery crafted with heritage in our Surat atelier, refined for the moments that become your legacy.</p>
+          <div class="hero__actions" data-hero style="--i:4">
+            <a class="btn btn--gold" href="collections.html">Explore collections {{icon:arrow-right}}</a>
+            <button type="button" class="btn btn--glass" data-open="appointment">{{icon:calendar}} Book a private visit</button>
+          </div>
+          <ul class="hero__stats" data-hero style="--i:5">
+            <li><strong>1962</strong><span>Established in Surat</span></li>
+            <li><strong>3</strong><span>Generations of karigars</span></li>
+            <li><strong>BIS</strong><span>Hallmarked gold</span></li>
+          </ul>
+        </div>
+      </div>
+      <p class="hero__side" aria-hidden="true">Est. 1962 · Surat · Gujarat</p>
+      <a class="hero__scroll" href="#discover" aria-label="Scroll to discover"><span>Scroll</span><i></i></a>
+    </section>
+
+    <!-- TRUST -->
+    <section class="trust" id="discover" aria-label="Our promise">
+      <ul class="container trust__list" data-stagger>
+        <li class="trust__item" data-reveal><span class="trust__icon">{{icon:shield-check}}</span><div><strong>BIS Hallmarked</strong><span>Certified 22K &amp; 18K purity</span></div></li>
+        <li class="trust__item" data-reveal><span class="trust__icon">{{icon:sparkles}}</span><div><strong>Made by Hand</strong><span>By master karigars in Surat</span></div></li>
+        <li class="trust__item" data-reveal><span class="trust__icon">{{icon:truck}}</span><div><strong>Insured Delivery</strong><span>Safely shipped across India</span></div></li>
+        <li class="trust__item" data-reveal><span class="trust__icon">{{icon:calendar}}</span><div><strong>Private Consultations</strong><span>Bridal &amp; bespoke, by appointment</span></div></li>
+      </ul>
+    </section>
+
+    <!-- SHOP BY CATEGORY -->
+    <section class="section section--pearl" aria-labelledby="cat-title">
+      <div class="container">
+        <header class="section-head" data-reveal>
+          <p class="eyebrow eyebrow--center">Every story has a jewel</p>
+          <h2 class="section-title" id="cat-title">Shop by <em>Category</em></h2>
+          <span class="ornament" aria-hidden="true"></span>
+        </header>
+        <div class="cat-rail" data-stagger="0.07">{{categoryArches}}
+        </div>
+      </div>
+    </section>
+
+    <!-- COLLECTIONS -->
+    <section class="section" aria-labelledby="coll-title">
+      <div class="container">
+        <header class="section-head section-head--split" data-reveal>
+          <div>
+            <p class="eyebrow">Curated for every celebration</p>
+            <h2 class="section-title" id="coll-title">Collections with <em>character</em></h2>
+          </div>
+          <div>
+            <p class="section-lead">Six families of jewels, each with its own character — every one designed to mark life's most beautiful moments.</p>
+            <a class="link-arrow mt-1" href="collections.html">All collections {{icon:arrow-right}}</a>
+          </div>
+        </header>
+        <div class="bento" data-stagger="0.08">{{bento}}
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURED PIECES -->
+    <section class="section section--pearl" aria-labelledby="feat-title">
+      <div class="container">
+        <header class="section-head section-head--split" data-reveal>
+          <div>
+            <p class="eyebrow">Handpicked by our karigars</p>
+            <h2 class="section-title" id="feat-title">Pieces worth <em>remembering</em></h2>
+          </div>
+          <div class="tabs" role="tablist" aria-label="Featured pieces">
+            <button type="button" class="tabs__btn" role="tab" aria-selected="true" aria-controls="featured-grid" data-tab="all">Signature</button>
+            <button type="button" class="tabs__btn" role="tab" aria-selected="false" aria-controls="featured-grid" data-tab="gold" tabindex="-1">Gold</button>
+            <button type="button" class="tabs__btn" role="tab" aria-selected="false" aria-controls="featured-grid" data-tab="diamond" tabindex="-1">Diamond</button>
+            <button type="button" class="tabs__btn" role="tab" aria-selected="false" aria-controls="featured-grid" data-tab="bridal" tabindex="-1">Bridal</button>
+            <button type="button" class="tabs__btn" role="tab" aria-selected="false" aria-controls="featured-grid" data-tab="new" tabindex="-1">New in</button>
+          </div>
+        </header>
+        <!-- Product cards are rendered from assets/js/data.js -->
+        <div class="product-grid" id="featured-grid" role="tabpanel" data-featured></div>
+        <div class="section-foot"><a class="btn btn--outline" href="jewellery.html">View all jewellery {{icon:arrow-right}}</a></div>
+      </div>
+    </section>
+
+    <!-- THE MANGALAM PROMISE -->
+    <section class="section promise" aria-labelledby="promise-title">
+      <span class="brand-emblem promise__watermark" aria-hidden="true"></span>
+      <div class="container promise__grid">
+        <div class="promise__media" data-reveal="left">
+          <div class="arch-frame"><img src="assets/images/products/necklaces.jpg" alt="Temple gold necklace with pearl drops on maroon velvet" loading="lazy" width="800" height="800" data-parallax="0.1"></div>
+          <div class="seal" aria-hidden="true">
+            <svg class="seal__ring" viewBox="0 0 150 150"><defs><path id="seal-path" d="M75,75 m-58,0 a58,58 0 1,1 116,0 a58,58 0 1,1 -116,0"/></defs><text><textPath href="#seal-path" textLength="358" lengthAdjust="spacing">Handcrafted • Since 1962 • Surat •</textPath></text></svg>
+            <span class="seal__core"><span class="brand-emblem"></span></span>
+          </div>
+        </div>
+        <div class="promise__content" data-reveal="right">
+          <p class="eyebrow eyebrow--light">The Mangalam promise</p>
+          <h2 class="section-title section-title--light" id="promise-title">For moments that become <em>memories.</em></h2>
+          <p class="section-lead section-lead--light">From the first sketch to the final polish, every Mangalam jewel is made the way celebrations deserve — slowly, honestly, and entirely by hand.</p>
+          <dl class="stats">
+            <div><dt>Years of heritage</dt><dd><span data-count="{{years}}">{{years}}</span></dd></div>
+            <div><dt>Generations of karigars</dt><dd><span data-count="3">3</span></dd></div>
+            <div><dt>Hours in a bridal set</dt><dd><span data-count="200">200</span><small>+</small></dd></div>
+            <div><dt>BIS hallmarked gold</dt><dd><span data-count="100">100</span><small>%</small></dd></div>
+          </dl>
+          <a class="btn btn--gold" href="craftsmanship.html">Our craftsmanship {{icon:arrow-right}}</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- THE BRIDAL EDIT -->
+    <section class="section" aria-labelledby="bridal-title">
+      <div class="container">
+        <header class="section-head" data-reveal>
+          <p class="eyebrow eyebrow--center">For the bride</p>
+          <h2 class="section-title" id="bridal-title">The Bridal <em>Edit</em></h2>
+          <p class="section-lead">Jewellery as unforgettable as the moment itself — composed as one harmonious whole, from rani haar to maang tikka.</p>
+          <span class="ornament" aria-hidden="true"></span>
+        </header>
+        <div class="panels" data-reveal>
+          <a class="panel is-active" href="bridal.html">
+            <img src="assets/images/products/bridal.jpg" alt="" loading="lazy">
+            <span class="panel__num">01</span>
+            <span class="panel__label">Bridal Sets</span>
+            <span class="panel__body"><span class="panel__title">Bridal Sets</span><span class="panel__text">Necklace, jhumkas and bangles composed together — heirloom weight with modern grace.</span><span class="panel__cta">Explore the edit {{icon:arrow-right}}</span></span>
+          </a>
+          <a class="panel" href="bridal.html">
+            <img src="assets/images/products/necklaces.jpg" alt="" loading="lazy">
+            <span class="panel__num">02</span>
+            <span class="panel__label">Necklaces</span>
+            <span class="panel__body"><span class="panel__title">Bridal Necklaces</span><span class="panel__text">Rani haars, polki chokers and temple necklaces with pearl drops.</span><span class="panel__cta">Explore {{icon:arrow-right}}</span></span>
+          </a>
+          <a class="panel" href="bridal.html">
+            <img src="assets/images/products/earrings.jpg" alt="" loading="lazy">
+            <span class="panel__num">03</span>
+            <span class="panel__label">Earrings</span>
+            <span class="panel__body"><span class="panel__title">Bridal Earrings</span><span class="panel__text">Jhumkas and chandbalis designed to frame every expression.</span><span class="panel__cta">Explore {{icon:arrow-right}}</span></span>
+          </a>
+          <a class="panel" href="bridal.html">
+            <img src="assets/images/products/bangles.jpg" alt="" loading="lazy">
+            <span class="panel__num">04</span>
+            <span class="panel__label">Bangles</span>
+            <span class="panel__body"><span class="panel__title">Bridal Bangles</span><span class="panel__text">Kadas and bangle sets that carry the rhythm of celebration.</span><span class="panel__cta">Explore {{icon:arrow-right}}</span></span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CRAFTSMANSHIP -->
+    <section class="section section--pearl" aria-labelledby="craft-title">
+      <div class="container craft__grid">
+        <div class="craft__media" data-reveal="left">
+          <div class="craft__main"><img src="assets/images/mangalam-craft.jpg" alt="A Mangalam master karigar hand-finishing a gold pendant" loading="lazy" width="1600" height="1200" data-parallax="0.08"></div>
+          <div class="craft__small"><img src="assets/images/products/bridal.jpg" alt="" loading="lazy"></div>
+          <div class="craft__since"><span>Since</span><strong>1962</strong></div>
+        </div>
+        <div data-reveal="right">
+          <p class="eyebrow">Made by hand, since 1962</p>
+          <h2 class="section-title" id="craft-title">The art behind <em>every piece</em></h2>
+          <ol class="steps" data-steps>
+            <li class="step"><span class="step__num">01</span><div><h3>Design</h3><p>Every jewel begins as a drawing — inspired by Gujarati motifs, refined for the woman who will wear it.</p></div></li>
+            <li class="step"><span class="step__num">02</span><div><h3>Craft</h3><p>Master karigars shape, set and engrave entirely by hand, exactly as their fathers taught them.</p></div></li>
+            <li class="step"><span class="step__num">03</span><div><h3>Finish</h3><p>A final polish, a hallmark, and one last inspection beneath the lamp — only then does it become Mangalam.</p></div></li>
+          </ol>
+          <a class="link-arrow" href="craftsmanship.html">Discover our atelier {{icon:arrow-right}}</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- GUJARATI HERITAGE -->
+    <section class="heritage" aria-labelledby="heritage-title">
+      <div class="heritage__arch heritage__arch--l" aria-hidden="true"><img src="assets/images/products/bangles.jpg" alt="" loading="lazy"></div>
+      <div class="heritage__arch heritage__arch--r" aria-hidden="true"><img src="assets/images/products/earrings.jpg" alt="" loading="lazy"></div>
+      <div class="container heritage__inner" data-reveal>
+        <span class="heritage__gu gu text-metal" lang="gu">મંગલમ</span>
+        <h2 class="heritage__title" id="heritage-title">Rooted in <em>Tradition.</em></h2>
+        <p class="section-lead section-lead--light">Inspired by generations of Indian craftsmanship, Gujarati culture and the enduring beauty of jewellery. The paisley, the peacock, the flowering vine — hand-carved memories, passed from master to apprentice.</p>
+        <a class="btn btn--light" href="about.html">Our heritage {{icon:arrow-right}}</a>
+      </div>
+    </section>
+
+    <!-- A CLOSER LOOK -->
+    <section class="section" aria-labelledby="closer-title">
+      <div class="container closer__grid">
+        <div class="closer__stage" data-loupe data-reveal="mask">
+          <img src="assets/images/products/necklaces.jpg" alt="Close detail of a temple gold necklace with pearl drops" loading="lazy" width="800" height="800">
+          <span class="loupe" aria-hidden="true"></span>
+          <span class="closer__hint">{{icon:zoom-in}} Hover to look closer</span>
+        </div>
+        <div data-reveal="right">
+          <p class="eyebrow">A closer look</p>
+          <h2 class="section-title" id="closer-title">Beauty in <em>every detail</em></h2>
+          <p class="section-lead">Look closely at a Mangalam jewel and you will find the artist's hand — every bead of gold, every mirrored facet, every hidden flourish placed with intention.</p>
+          <ul class="closer__notes">
+            <li>Hand-finished detailing on every motif</li>
+            <li>Stone-by-stone setting by master karigars</li>
+            <li>Hand-drawn gold wire and pearl drops</li>
+          </ul>
+          <p class="closer__price">{{closerPrice}}<span>{{closerName}}</span></p>
+          <a class="btn btn--primary mt-2" href="product.html?slug={{closerSlug}}">View the piece {{icon:arrow-up-right}}</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- MANIFESTO -->
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker__track"><ul class="ticker__list">{{tickerItems}}{{tickerItems}}</ul><ul class="ticker__list">{{tickerItems}}{{tickerItems}}</ul></div>
+    </div>
+    <section class="manifesto" aria-label="Our belief">
+      <div class="container" data-reveal>
+        <span class="brand-emblem" aria-hidden="true"></span>
+        <p class="manifesto__text">Some jewellery is worn.<br>Some jewellery is <em class="text-metal text-metal--deep">remembered.</em></p>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="section section--pearl" aria-labelledby="t-title">
+      <div class="container testimonials__grid">
+        <div data-reveal="left">
+          <p class="eyebrow">Our families, in their words</p>
+          <h2 class="section-title" id="t-title">Stories that <em>shine</em></h2>
+          <p class="section-lead">Families across Gujarat have trusted Mangalam with their most meaningful moments — weddings, anniversaries and every celebration in between.</p>
+          <div class="testimonials__nav">
+            <button type="button" class="round-btn" data-prev aria-label="Previous story">{{icon:arrow-left}}</button>
+            <button type="button" class="round-btn" data-next aria-label="Next story">{{icon:arrow-right}}</button>
+            <div class="dots">{{testimonialDots}}</div>
+          </div>
+        </div>
+        <div class="tslider" data-tslider data-reveal="right" aria-roledescription="carousel" aria-label="Customer stories">{{testimonialSlides}}
+        </div>
+      </div>
+    </section>
+
+    <!-- JOURNAL -->
+    <section class="section" aria-labelledby="j-title">
+      <div class="container">
+        <header class="section-head section-head--split" data-reveal>
+          <div>
+            <p class="eyebrow">Notes from the atelier</p>
+            <h2 class="section-title" id="j-title">From our <em>journal</em></h2>
+          </div>
+          <a class="btn btn--outline" href="journal.html">All articles {{icon:arrow-right}}</a>
+        </header>
+        <div class="journal-mag">{{journalMag}}
+        </div>
+      </div>
+    </section>
+
+    <!-- INSTAGRAM -->
+    <section class="section section--pearl" aria-labelledby="ig-title">
+      <div class="container">
+        <header class="section-head" data-reveal>
+          <p class="eyebrow eyebrow--center">@mangalamjewellers</p>
+          <h2 class="section-title" id="ig-title">Follow the <em>sparkle</em></h2>
+          <span class="ornament" aria-hidden="true"></span>
+        </header>
+        <div class="insta" data-stagger="0.06">{{instaTiles}}
+        </div>
+      </div>
+    </section>
+
+    <!-- VISIT / APPOINTMENT -->
+    <section class="cta-band" aria-labelledby="visit-title">
+      <img class="cta-band__img" src="assets/images/mangalam-craft.jpg" alt="" loading="lazy">
+      <div class="container cta-band__inner">
+        <div class="cta-band__content" data-reveal="right">
+          <p class="eyebrow eyebrow--light">Visit Mangalam House</p>
+          <h2 class="section-title section-title--light" id="visit-title">A private consultation, <em>made for you.</em></h2>
+          <p class="section-lead section-lead--light">Try pieces slowly, in good light, without pressure. Private consultations are recommended for bridal selections and bespoke commissions.</p>
+          <div class="cta-band__actions">
+            <button type="button" class="btn btn--gold" data-open="appointment">{{icon:calendar}} Book an appointment</button>
+            <a class="btn btn--light" href="contact.html">Get directions {{icon:arrow-right}}</a>
+          </div>
+          <div class="cta-band__hours"><span>{{icon:map-pin}} Ring Road, Surat</span><span>{{icon:clock}} {{hours}}</span></div>
+        </div>
+      </div>
+    </section>

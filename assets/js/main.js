@@ -1,55 +1,151 @@
 /* Mangalam Jewellers — site behaviour.
- * Loading screen, header scroll state, dialogs & sheets, search, wishlist hearts,
- * and the data-driven parts of each page (catalogue, product, journal, article).
+ * Loader, header, mega menu, dialogs & drawers, wishlist (saved in localStorage), search,
+ * scroll animations, and the data-driven pages (catalogue, product, journal, article).
  */
 (function () {
   "use strict";
 
-  var UI = window.MJUI;
   var MJ = window.MJ;
-  var icon = UI.icon, btn = UI.btn;
+  var icon = window.MJUI.icon;
   var products = MJ.products, articles = MJ.articles;
   var formatPrice = MJ.formatPrice, capitalize = MJ.capitalize;
+  var html = document.documentElement;
   var page = document.body.getAttribute("data-page");
   var params = new URLSearchParams(window.location.search);
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
   function $(sel, root) { return (root || document).querySelector(sel); }
   function $$(sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); }
   function esc(v) {
     return String(v).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; });
   }
+  function bySlug(slug) { return products.filter(function (p) { return p.slug === slug; })[0]; }
+  function hash(str) { return str.split("").reduce(function (sum, ch) { return sum + ch.charCodeAt(0); }, 0); }
 
-  /* ---------- Loading screen (first page view of the visit) ---------- */
+  /* ---------- Loader: shown on the first page of a visit ---------- */
   var loader = document.getElementById("loader");
-  if (loader) {
-    if (document.documentElement.classList.contains("mj-seen")) loader.remove();
-    else setTimeout(function () {
-      loader.remove();
-      try { sessionStorage.setItem("mj-loaded", "1"); } catch (e) { /* storage unavailable */ }
-    }, 1100);
+  var loaded = false;
+  function finishLoading() {
+    if (loaded) return;
+    loaded = true;
+    html.classList.add("is-loaded");
+    if (loader) {
+      loader.classList.add("is-done");
+      setTimeout(function () { loader.remove(); }, 900);
+    }
+    try { sessionStorage.setItem("mj-loaded", "1"); } catch (e) { /* storage unavailable */ }
+  }
+  if (loader && !html.classList.contains("mj-seen")) {
+    var started = Date.now();
+    var whenReady = function () { setTimeout(finishLoading, Math.max(0, 1400 - (Date.now() - started))); };
+    if (document.readyState === "complete") whenReady(); else window.addEventListener("load", whenReady);
+    setTimeout(finishLoading, 3000);
+  } else {
+    if (loader) loader.remove();
+    requestAnimationFrame(finishLoading);
   }
 
-  /* ---------- Header: transparent over the home hero, solid once scrolled ---------- */
-  var header = document.getElementById("site-header");
-  if (header && header.hasAttribute("data-overlay")) {
-    var brand = $("[data-brand]", header);
-    var book = $("[data-book]", header);
-    var HEADER_SOLID = ["border-gold/50", "bg-background/90", "shadow-[0_1px_0_rgba(216,179,106,0.25)]", "backdrop-blur-xl"];
-    var HEADER_CLEAR = ["border-primary-foreground/20", "bg-transparent", "text-primary-foreground"];
-    var BOOK_SOLID = ["bg-primary", "hover:bg-primary/90"];
-    var BOOK_CLEAR = ["border", "border-gold", "bg-transparent", "hover:bg-gold", "hover:text-wine"];
-    var swap = function (el, add, remove) { remove.forEach(function (c) { el.classList.remove(c); }); add.forEach(function (c) { el.classList.add(c); }); };
-    var updateHeader = function () {
-      var solid = window.scrollY > 24;
-      swap(header, solid ? HEADER_SOLID : HEADER_CLEAR, solid ? HEADER_CLEAR : HEADER_SOLID);
-      swap(brand, [solid ? "text-primary" : "text-primary-foreground"], [solid ? "text-primary-foreground" : "text-primary"]);
-      swap(book, solid ? BOOK_SOLID : BOOK_CLEAR, solid ? BOOK_CLEAR : BOOK_SOLID);
+  /* ---------- Toast ---------- */
+  var toast = document.createElement("div");
+  toast.className = "toast";
+  toast.setAttribute("role", "status");
+  toast.setAttribute("aria-live", "polite");
+  document.body.appendChild(toast);
+  var toastTimer;
+  function showToast(message) {
+    toast.innerHTML = icon("check") + "<span>" + esc(message) + "</span>";
+    toast.classList.add("is-visible");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { toast.classList.remove("is-visible"); }, 2600);
+  }
+
+  /* ---------- Header state, back-to-top, parallax (one scroll loop) ---------- */
+  var toTop = $("[data-to-top]");
+  var parallax = reduceMotion ? [] : $$("[data-parallax]");
+  var steps = $$("[data-steps]");
+  var ticking = false;
+  function onScroll() {
+    var y = window.scrollY;
+    var vh = window.innerHeight;
+    html.classList.toggle("is-scrolled", y > 60);
+    if (toTop) {
+      var max = document.documentElement.scrollHeight - vh;
+      toTop.classList.toggle("is-visible", y > vh * 0.8);
+      toTop.style.setProperty("--p", max > 0 ? Math.min(1, y / max).toFixed(3) : 0);
+    }
+    parallax.forEach(function (el) {
+      var r = el.parentElement.getBoundingClientRect();
+      if (r.bottom < -100 || r.top > vh + 100) return;
+      // The image is taller than its frame; drift it within that spare height.
+      var speed = parseFloat(el.getAttribute("data-parallax")) || 0.12;
+      var spare = Math.max(0, el.offsetHeight - r.height) / 2;
+      var offset = Math.max(-spare, Math.min(spare, (r.top + r.height / 2 - vh / 2) * speed));
+      el.style.translate = "0 " + (-spare - offset).toFixed(1) + "px";
+    });
+    steps.forEach(function (el) {
+      var r = el.getBoundingClientRect();
+      var p = Math.min(1, Math.max(0, (vh * 0.75 - r.top) / r.height));
+      el.style.setProperty("--progress", p.toFixed(3));
+    });
+    var buy = $(".mobile-buy");
+    if (buy) buy.classList.toggle("is-visible", y > 700);
+    ticking = false;
+  }
+  window.addEventListener("scroll", function () {
+    if (!ticking) { ticking = true; requestAnimationFrame(onScroll); }
+  }, { passive: true });
+  window.addEventListener("resize", onScroll);
+  onScroll();
+  if (toTop) toTop.addEventListener("click", function () { window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" }); });
+
+  /* ---------- Mega menu (hover on desktop, tap-to-open on touch, Esc to close) ---------- */
+  var megaItem = $(".nav__item--mega");
+  if (megaItem) {
+    var megaLink = $(".nav__link", megaItem);
+    var lastPointer = "mouse";
+    var setMega = function (open) {
+      megaLink.setAttribute("aria-expanded", String(open));
+      if (!open) megaItem.classList.remove("is-open");
     };
-    updateHeader();
-    window.addEventListener("scroll", updateHeader, { passive: true });
+    megaItem.addEventListener("mouseenter", function () { megaItem.classList.remove("is-closed"); setMega(true); });
+    megaItem.addEventListener("mouseleave", function () { megaItem.classList.remove("is-closed"); setMega(false); });
+    megaItem.addEventListener("focusin", function () { if (!megaItem.classList.contains("is-closed")) setMega(true); });
+    megaItem.addEventListener("focusout", function (e) {
+      if (!megaItem.contains(e.relatedTarget)) { megaItem.classList.remove("is-closed"); setMega(false); }
+    });
+    megaLink.addEventListener("pointerdown", function (e) { lastPointer = e.pointerType; });
+    megaLink.addEventListener("click", function (e) {
+      if (lastPointer !== "mouse" && !megaItem.classList.contains("is-open")) {
+        e.preventDefault();
+        megaItem.classList.add("is-open");
+        setMega(true);
+      }
+    });
+    megaItem.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") { megaItem.classList.add("is-closed"); setMega(false); megaLink.focus(); }
+      if (e.key === "ArrowDown" && document.activeElement === megaLink) {
+        e.preventDefault();
+        megaItem.classList.remove("is-closed");
+        setMega(true);
+        var first = $(".mega a", megaItem);
+        if (first) first.focus();
+      }
+    });
+    document.addEventListener("pointerdown", function (e) { if (!megaItem.contains(e.target)) setMega(false); });
   }
 
-  /* ---------- Dialogs & sheets ---------- */
+  /* Mobile menu sub-list */
+  $$("[data-menu-toggle]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var sub = document.getElementById(btn.getAttribute("aria-controls"));
+      var open = btn.getAttribute("aria-expanded") !== "true";
+      btn.setAttribute("aria-expanded", String(open));
+      sub.hidden = !open;
+    });
+  });
+
+  /* ---------- Dialogs, drawers & sheets ---------- */
   var stack = [];
   var AUTOFOCUS = "button:not([disabled]), input:not([disabled]):not([type=hidden]), textarea:not([disabled]), select:not([disabled])";
   var TABBABLE = "a[href], " + AUTOFOCUS + ", [tabindex]:not([tabindex='-1'])";
@@ -68,9 +164,8 @@
     panel.setAttribute("data-state", "open");
     stack.push({ modal: modal, trigger: trigger || null });
     modal.dispatchEvent(new CustomEvent("mj:open"));
-    var first = $("[data-autofocus]", modal) || $(AUTOFOCUS, panel) || panel;
+    var first = $("[data-autofocus]", modal) || panel;
     first.focus({ preventScroll: true });
-    if (first.select && first.hasAttribute("data-autofocus")) first.select();
   }
 
   function closeModal(modal, restoreFocus) {
@@ -85,29 +180,23 @@
       if (finished || panel.getAttribute("data-state") !== "closed") return;
       finished = true;
       modal.hidden = true;
-      $$("form", modal).forEach(function (f) { f.reset(); });
       if (!stack.length) { document.body.style.overflow = ""; document.body.style.paddingRight = ""; }
     };
     panel.addEventListener("animationend", function onEnd(e) { if (e.target === panel) { panel.removeEventListener("animationend", onEnd); finish(); } });
-    setTimeout(finish, 400);
+    setTimeout(finish, 450);
     if (restoreFocus !== false && entry.trigger && document.contains(entry.trigger)) entry.trigger.focus({ preventScroll: true });
-  }
-
-  function setWish(el, on) {
-    el.setAttribute("aria-pressed", String(on));
-    if (el.hasAttribute("data-label-on")) el.setAttribute("aria-label", on ? el.getAttribute("data-label-on") : el.getAttribute("data-label-off"));
-    var svg = $("svg", el);
-    if (svg) { svg.classList.toggle("fill-primary", on); svg.classList.toggle("text-primary", on); }
   }
 
   document.addEventListener("click", function (e) {
     var wish = e.target.closest("[data-wish]");
     if (wish) {
       e.preventDefault();
-      e.stopPropagation();
-      var on = wish.getAttribute("aria-pressed") !== "true";
-      var group = wish.getAttribute("data-wish-group");
-      (group ? $$('[data-wish-group="' + group + '"]') : [wish]).forEach(function (el) { setWish(el, on); });
+      toggleWish(wish.getAttribute("data-wish"));
+      return;
+    }
+    var remove = e.target.closest("[data-wish-remove]");
+    if (remove) {
+      toggleWish(remove.getAttribute("data-wish-remove"));
       return;
     }
     var opener = e.target.closest("[data-open]");
@@ -141,101 +230,296 @@
     }
   });
 
-  /* Forms in the account / appointment dialogs close on submit; the newsletter stays put. */
+  /* Forms: each shows its own confirmation; nothing is sent (front-end template). */
+  function successMarkup(title, text) {
+    return '<div class="form-success"><span class="form-success__icon">' + icon("check") + "</span><h3>" + esc(title) + "</h3><p>" + esc(text) + "</p></div>";
+  }
+  $$("form[data-success]").forEach(function (form) {
+    var holder = document.createElement("div");
+    holder.hidden = true;
+    form.after(holder);
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      holder.innerHTML = successMarkup(form.getAttribute("data-success"), form.getAttribute("data-success-text"));
+      form.hidden = true;
+      holder.hidden = false;
+    });
+    var modal = form.closest("[data-modal]");
+    if (modal) modal.addEventListener("mj:open", function () { form.reset(); form.hidden = false; holder.hidden = true; });
+  });
   $$("form[data-close-on-submit]").forEach(function (form) {
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       var modal = form.closest("[data-modal]");
       if (modal) closeModal(modal);
+      form.reset();
     });
   });
   $$("form[data-newsletter]").forEach(function (form) {
-    form.addEventListener("submit", function (e) { e.preventDefault(); });
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var note = $("[data-newsletter-note]", form.parentElement);
+      if (note) { note.textContent = "Thank you — you are on the list for private notes from the house."; note.classList.add("is-success"); }
+      form.reset();
+    });
   });
+  $$("input[type=date]").forEach(function (input) { input.min = new Date().toISOString().slice(0, 10); });
+
+  /* ---------- Wishlist (saved in this browser) ---------- */
+  var WISH_KEY = "mj-wishlist";
+  var wishlist = [];
+  try { wishlist = (JSON.parse(localStorage.getItem(WISH_KEY)) || []).filter(bySlug); } catch (e) { wishlist = []; }
+
+  function toggleWish(slug) {
+    var p = bySlug(slug);
+    if (!p) return;
+    var on = wishlist.indexOf(slug) === -1;
+    wishlist = on ? wishlist.concat(slug) : wishlist.filter(function (s) { return s !== slug; });
+    try { localStorage.setItem(WISH_KEY, JSON.stringify(wishlist)); } catch (e) { /* storage unavailable */ }
+    syncWish();
+    showToast(on ? p.name + " saved to your wishlist" : p.name + " removed from your wishlist");
+  }
+
+  function syncWish() {
+    $$("[data-wish]").forEach(function (btn) {
+      var slug = btn.getAttribute("data-wish");
+      var p = bySlug(slug);
+      var on = wishlist.indexOf(slug) !== -1;
+      btn.setAttribute("aria-pressed", String(on));
+      if (p && !btn.hasAttribute("data-wish-text")) btn.setAttribute("aria-label", (on ? "Remove " : "Save ") + p.name + (on ? " from" : " to") + " wishlist");
+      var text = $("[data-wish-label]", btn);
+      if (text) text.textContent = on ? "Saved to wishlist" : "Add to wishlist";
+    });
+    $$("[data-wish-count]").forEach(function (badge) {
+      badge.textContent = wishlist.length;
+      badge.hidden = !wishlist.length;
+    });
+    var list = $("[data-wish-list]");
+    if (!list) return;
+    $("[data-wish-empty]").hidden = wishlist.length > 0;
+    $("[data-wish-foot]").hidden = !wishlist.length;
+    list.hidden = !wishlist.length;
+    list.innerHTML = wishlist.map(function (slug) {
+      var p = bySlug(slug);
+      var url = "product.html?slug=" + p.slug;
+      return '<li class="drawer__item"><a href="' + url + '"><img src="' + p.image + '" alt="" style="object-position:' + p.imagePosition + '"></a>' +
+        '<div><a class="drawer__name" href="' + url + '">' + esc(p.name) + '</a><p class="drawer__price">' + formatPrice(p.price) + "</p></div>" +
+        '<button type="button" class="drawer__remove" data-wish-remove="' + p.slug + '" aria-label="Remove ' + esc(p.name) + ' from wishlist">' + icon("x") + "</button></li>";
+    }).join("");
+  }
 
   /* ---------- Search ---------- */
   var searchInput = document.getElementById("search-input");
   var searchResults = document.getElementById("search-results");
+  function runSearch() {
+    var words = searchInput.value.trim().toLowerCase().split(/\s+/).filter(Boolean);
+    if (!words.length) { searchResults.hidden = true; searchResults.innerHTML = ""; return; }
+    var results = products.filter(function (p) {
+      var hay = (p.name + " " + p.category + " " + p.metal + " " + p.style + " " + p.collection + " " + p.purity).toLowerCase();
+      return words.every(function (w) { return hay.indexOf(w) !== -1; });
+    }).slice(0, 10);
+    searchResults.hidden = false;
+    searchResults.innerHTML = results.length
+      ? results.map(function (p) {
+        return '<a class="search__result" href="product.html?slug=' + p.slug + '">' +
+          '<img src="' + p.image + '" alt="" style="object-position:' + p.imagePosition + '">' +
+          '<span><span class="search__result-name">' + esc(p.name) + '</span><span class="search__result-meta">' + p.category + " · " + p.metal + "</span></span>" +
+          '<span class="search__result-price">' + formatPrice(p.price) + "</span></a>";
+      }).join("")
+      : '<div class="search__empty"><p>No pieces found</p><p>Try another style — ring, jhumka, diamond or bridal.</p></div>';
+  }
   if (searchInput && searchResults) {
-    searchInput.addEventListener("input", function () {
-      var q = searchInput.value.trim().toLowerCase();
-      if (!q) { searchResults.hidden = true; searchResults.innerHTML = ""; return; }
-      var results = products.filter(function (p) {
-        return (p.name + " " + p.category + " " + p.metal + " " + p.style).toLowerCase().indexOf(q) !== -1;
-      }).slice(0, 8);
-      searchResults.hidden = false;
-      searchResults.innerHTML = results.length
-        ? results.map(function (p) {
-          return '<a href="product.html?slug=' + p.slug + '" class="flex items-center gap-4 border-b border-border py-3">' +
-            '<img src="' + p.image + '" alt="" class="size-16 object-cover" style="object-position: ' + p.imagePosition + '">' +
-            '<span class="font-serif text-lg">' + esc(p.name) + "</span>" +
-            '<span class="ml-auto text-xs capitalize text-muted-foreground">' + p.category + "</span></a>";
-        }).join("")
-        : '<div class="py-10 text-center"><p class="font-serif text-2xl">No pieces found</p>' +
-          '<p class="mt-2 text-sm text-muted-foreground">Try another jewellery style or collection.</p>' +
-          '<a href="jewellery.html" class="' + btn("default", "default", "mt-5 rounded-none text-[10px] tracking-[0.16em]") + '">VIEW ALL JEWELLERY</a></div>';
+    searchInput.addEventListener("input", runSearch);
+    $$("[data-search-term]").forEach(function (chip) {
+      chip.addEventListener("click", function () {
+        searchInput.value = chip.getAttribute("data-search-term");
+        runSearch();
+        searchInput.focus();
+      });
     });
   }
 
-  /* ---------- Shared card templates ---------- */
-  function productCard(p) {
-    // Mirror alternate products so cards that share a category photograph read as distinct compositions.
-    var flip = p.slug.split("").reduce(function (sum, ch) { return sum + ch.charCodeAt(0); }, 0) % 2 === 1;
-    return '<article class="product-card group min-w-0">' +
-      '<a href="product.html?slug=' + p.slug + '" class="block">' +
-        '<div class="relative aspect-[4/5] overflow-hidden border border-transparent bg-secondary transition duration-500 group-hover:-translate-y-1 group-hover:border-gold">' +
-          '<div class="' + (flip ? "size-full -scale-x-100" : "size-full") + '">' +
-            '<img src="' + p.image + '" loading="lazy" width="800" height="800" alt="' + esc(p.name) + '" style="object-position: ' + p.imagePosition + '" class="size-full object-cover transition duration-500 group-hover:scale-[1.03] group-hover:brightness-105">' +
-          "</div>" +
-          '<button type="button" data-wish aria-pressed="false" aria-label="Add ' + esc(p.name) + ' to wishlist" data-label-on="Remove ' + esc(p.name) + ' from wishlist" data-label-off="Add ' + esc(p.name) + ' to wishlist" class="' + btn("ghost", "icon", "absolute right-2 top-2 bg-background/90 transition-opacity duration-500 lg:opacity-0 lg:group-hover:opacity-100") + '">' + icon("heart") + "</button>" +
-          '<span class="absolute inset-x-3 bottom-3 bg-primary px-3 py-3 text-center text-[8px] tracking-[0.18em] text-primary-foreground opacity-0 transition duration-500 group-hover:opacity-100">VIEW DETAILS</span>' +
+  /* ---------- Product card ---------- */
+  var ALT_VIEWS = ["40% 38%", "62% 55%", "50% 30%", "45% 66%"];
+  function wishButton(p, cls) {
+    return '<button type="button" class="' + cls + '" data-wish="' + p.slug + '" aria-pressed="false" aria-label="Save ' + esc(p.name) + ' to wishlist">' + icon("heart") + "</button>";
+  }
+  function productCard(p, i) {
+    var h = hash(p.slug);
+    var url = "product.html?slug=" + p.slug;
+    return '<article class="pcard' + (h % 2 ? " is-flip" : "") + '" style="--i:' + (i || 0) + '">' +
+      '<div class="pcard__visual">' +
+        '<a class="pcard__media" href="' + url + '" tabindex="-1" aria-hidden="true">' +
+          '<img class="pcard__img" src="' + p.image + '" alt="" loading="lazy" width="800" height="800" style="object-position:' + p.imagePosition + '">' +
+          '<img class="pcard__img pcard__img--alt" src="' + p.image + '" alt="" loading="lazy" width="800" height="800" style="object-position:' + ALT_VIEWS[h % ALT_VIEWS.length] + '">' +
+          (p.isNew ? '<span class="pcard__badge">New</span>' : "") +
+        "</a>" +
+        wishButton(p, "pcard__wish") +
+        '<div class="pcard__actions">' +
+          '<a class="pcard__action" href="' + url + '">' + icon("eye") + "View piece</a>" +
+          '<button type="button" class="pcard__action" data-open="appointment">' + icon("calendar") + "Try in store</button>" +
         "</div>" +
-        '<p class="mt-4 text-[8px] uppercase tracking-[0.18em] text-muted-foreground">' + capitalize(p.category) + " · " + p.metal + "</p>" +
-        '<h2 class="mt-1 truncate font-serif text-lg sm:text-xl">' + esc(p.name) + "</h2>" +
-        '<p class="mt-2 text-xs">' + formatPrice(p.price) + "</p>" +
-      "</a></article>";
+      "</div>" +
+      '<div class="pcard__body">' +
+        '<p class="pcard__meta">' + capitalize(p.category) + " · " + p.purity + " " + p.metal + "</p>" +
+        '<h3 class="pcard__name"><a href="' + url + '">' + esc(p.name) + "</a></h3>" +
+        '<p class="pcard__price">' + formatPrice(p.price) + "</p>" +
+      "</div></article>";
+  }
+  function renderCards(el, list) {
+    el.innerHTML = list.map(productCard).join("");
+    syncWish();
   }
 
-  function articleMeta(a, withDate) {
-    return a.category.toUpperCase() + " · " + (withDate ? a.date.toUpperCase() + " · " : "") + a.readTime.toUpperCase();
+  /* ---------- Scroll reveal & counters ---------- */
+  $$("[data-stagger]").forEach(function (group) {
+    var step = parseFloat(group.getAttribute("data-stagger")) || 0.09;
+    $$("[data-reveal]", group).forEach(function (el, i) { el.style.setProperty("--d", (i * step).toFixed(2) + "s"); });
+  });
+  function countUp(el) {
+    var target = parseFloat(el.getAttribute("data-count"));
+    var dur = 1800, start = null;
+    var fmt = function (v) { return Math.round(v).toLocaleString("en-IN"); };
+    if (reduceMotion) { el.textContent = fmt(target); return; }
+    var tick = function (t) {
+      if (!start) start = t;
+      var k = Math.min(1, (t - start) / dur);
+      el.textContent = fmt(target * (1 - Math.pow(1 - k, 3)));
+      if (k < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
   }
+  if ("IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-visible");
+        io.unobserve(entry.target);
+      });
+    }, { threshold: 0.14, rootMargin: "0px 0px -6% 0px" });
+    $$("[data-reveal]").forEach(function (el) { io.observe(el); });
+    var countIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        countUp(entry.target);
+        countIO.unobserve(entry.target);
+      });
+    }, { threshold: 0.6 });
+    $$("[data-count]").forEach(function (el) { countIO.observe(el); });
+  } else {
+    $$("[data-reveal]").forEach(function (el) { el.classList.add("is-visible"); });
+    $$("[data-count]").forEach(countUp);
+  }
+
+  /* ---------- Hotspots (tap to open on touch screens) ---------- */
+  $$(".hotspot").forEach(function (spot) {
+    spot.addEventListener("click", function (e) {
+      if (e.target.closest("a")) return;
+      var open = !spot.classList.contains("is-open");
+      $$(".hotspot.is-open").forEach(function (s) { s.classList.remove("is-open"); s.setAttribute("aria-expanded", "false"); });
+      spot.classList.toggle("is-open", open);
+      spot.setAttribute("aria-expanded", String(open));
+    });
+    spot.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); spot.click(); }
+    });
+  });
+  document.addEventListener("pointerdown", function (e) {
+    if (!e.target.closest(".hotspot")) $$(".hotspot.is-open").forEach(function (s) { s.classList.remove("is-open"); s.setAttribute("aria-expanded", "false"); });
+  });
 
   /* ---------- Home ---------- */
   if (page === "home") {
-    var featuredGrid = document.getElementById("featured-grid");
+    /* Featured pieces with tabs */
+    var featuredGrid = $("[data-featured]");
+    var sets = {
+      all: MJ.featuredSlugs.map(bySlug).filter(Boolean),
+      gold: products.filter(function (p) { return p.metal === "Gold" && p.category !== "bridal"; }).slice(0, 8),
+      diamond: products.filter(function (p) { return p.metal === "Diamond"; }).slice(0, 8),
+      bridal: products.filter(function (p) { return p.category === "bridal"; }).slice(0, 8),
+      new: products.filter(function (p) { return p.isNew; }).slice(0, 8),
+    };
     if (featuredGrid) {
-      featuredGrid.innerHTML = MJ.featuredSlugs
-        .map(function (slug) { return products.filter(function (p) { return p.slug === slug; })[0]; })
-        .filter(Boolean).map(productCard).join("");
-    }
-
-    var journalPreview = document.getElementById("journal-preview");
-    if (journalPreview) {
-      journalPreview.innerHTML = articles.slice(0, 3).map(function (a) {
-        return '<a href="article.html?slug=' + a.slug + '" class="group block">' +
-          '<div class="image-card aspect-[4/3] overflow-hidden bg-secondary"><img src="' + a.image + '" alt="' + esc(a.title) + '" loading="lazy" class="size-full object-cover" style="object-position: ' + a.imagePosition + '"></div>' +
-          '<p class="mt-5 text-[9px] tracking-[0.2em] text-gold">' + articleMeta(a, false) + "</p>" +
-          '<h3 class="mt-2 font-serif text-2xl font-normal">' + esc(a.title) + "</h3>" +
-          '<p class="mt-3 text-sm leading-6 text-muted-foreground">' + esc(a.excerpt) + "</p></a>";
-      }).join("");
-    }
-
-    var quoteBox = $("[data-testimonials]");
-    if (quoteBox) {
-      var dots = $$("[data-t-dot]", quoteBox);
-      dots.forEach(function (dot, i) {
-        dot.addEventListener("click", function () {
-          var t = MJ.testimonials[i] || MJ.testimonials[0];
-          $("[data-t-quote]", quoteBox).textContent = t.quote;
-          $("[data-t-who]", quoteBox).textContent = t.who;
-          $("[data-t-occasion]", quoteBox).textContent = t.occasion.toUpperCase();
-          dots.forEach(function (d, j) { d.classList.toggle("bg-gold", j === i); d.classList.toggle("bg-border", j !== i); });
+      renderCards(featuredGrid, sets.all);
+      var tabs = $$("[data-tab]");
+      var selectTab = function (tab, focus) {
+        tabs.forEach(function (t) {
+          var on = t === tab;
+          t.setAttribute("aria-selected", String(on));
+          t.tabIndex = on ? 0 : -1;
         });
+        if (focus) tab.focus();
+        featuredGrid.classList.add("is-swapping");
+        setTimeout(function () {
+          renderCards(featuredGrid, sets[tab.getAttribute("data-tab")] || sets.all);
+          featuredGrid.classList.remove("is-swapping");
+        }, reduceMotion ? 0 : 320);
+      };
+      tabs.forEach(function (tab, i) {
+        tab.addEventListener("click", function () { if (tab.getAttribute("aria-selected") !== "true") selectTab(tab); });
+        tab.addEventListener("keydown", function (e) {
+          var dir = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
+          if (dir) { e.preventDefault(); selectTab(tabs[(i + dir + tabs.length) % tabs.length], true); }
+        });
+      });
+    }
+
+    /* Bridal panels: hover (desktop) or tap (touch) to expand */
+    var panels = $$(".panel");
+    var activate = function (panel) { panels.forEach(function (p) { p.classList.toggle("is-active", p === panel); }); };
+    panels.forEach(function (panel) {
+      panel.addEventListener("mouseenter", function () { if (canHover) activate(panel); });
+      panel.addEventListener("focus", function () { activate(panel); });
+      panel.addEventListener("click", function (e) {
+        if (!panel.classList.contains("is-active")) { e.preventDefault(); activate(panel); }
+      });
+    });
+
+    /* Loupe on the closer-look image */
+    var stage = $("[data-loupe]");
+    if (stage && canHover) {
+      var lens = $(".loupe", stage);
+      var img = $("img", stage);
+      var Z = 2.6, R = 95;
+      lens.style.backgroundImage = 'url("' + img.getAttribute("src") + '")';
+      stage.addEventListener("mouseenter", function () { stage.classList.add("is-zooming"); });
+      stage.addEventListener("mouseleave", function () { stage.classList.remove("is-zooming"); });
+      stage.addEventListener("mousemove", function (e) {
+        var r = stage.getBoundingClientRect();
+        var x = e.clientX - r.left, y = e.clientY - r.top;
+        lens.style.translate = x + "px " + y + "px";
+        lens.style.backgroundSize = r.width * Z + "px " + r.height * Z + "px";
+        lens.style.backgroundPosition = -(x * Z - R) + "px " + -(y * Z - R) + "px";
       });
     }
   }
 
-  /* ---------- Custom select (Radix-style sort menu) ---------- */
+  /* ---------- Testimonial slider ---------- */
+  $$("[data-tslider]").forEach(function (slider) {
+    var slides = $$(".tslide", slider);
+    var dots = $$("[data-dot]", slider.parentElement);
+    var index = 0, timer = null;
+    var go = function (n) {
+      index = (n + slides.length) % slides.length;
+      slides.forEach(function (s, i) {
+        s.classList.toggle("is-active", i === index);
+        s.setAttribute("aria-hidden", String(i !== index));
+      });
+      dots.forEach(function (d, i) { d.setAttribute("aria-current", String(i === index)); });
+    };
+    var play = function () { if (!reduceMotion) { clearInterval(timer); timer = setInterval(function () { go(index + 1); }, 7000); } };
+    var stop = function () { clearInterval(timer); };
+    dots.forEach(function (d, i) { d.addEventListener("click", function () { go(i); play(); }); });
+    $$("[data-prev]", slider.parentElement).forEach(function (b) { b.addEventListener("click", function () { go(index - 1); play(); }); });
+    $$("[data-next]", slider.parentElement).forEach(function (b) { b.addEventListener("click", function () { go(index + 1); play(); }); });
+    slider.addEventListener("mouseenter", stop);
+    slider.addEventListener("mouseleave", play);
+    slider.addEventListener("focusin", stop);
+    go(0);
+    play();
+  });
+
+  /* ---------- Custom select (sort menu) ---------- */
   function initSelect(root, onChange) {
     var trigger = $("[role=combobox]", root);
     var list = $("[role=listbox]", root);
@@ -244,16 +528,14 @@
     var setOpen = function (value) {
       open = value;
       trigger.setAttribute("aria-expanded", String(value));
-      trigger.setAttribute("data-state", value ? "open" : "closed");
       list.hidden = !value;
-      list.setAttribute("data-state", value ? "open" : "closed");
       if (value) (options.filter(function (o) { return o.getAttribute("aria-selected") === "true"; })[0] || options[0]).focus();
     };
     var choose = function (opt) {
       options.forEach(function (o) {
         var on = o === opt;
         o.setAttribute("aria-selected", String(on));
-        $("[data-indicator]", o).innerHTML = on ? icon("check", "h-4 w-4") : "";
+        $("[data-indicator]", o).innerHTML = on ? icon("check") : "";
       });
       $("[data-select-value]", root).textContent = opt.getAttribute("data-label");
       setOpen(false);
@@ -266,7 +548,6 @@
     });
     options.forEach(function (opt, i) {
       opt.addEventListener("click", function () { choose(opt); });
-      opt.addEventListener("mousemove", function () { if (document.activeElement !== opt) opt.focus({ preventScroll: true }); });
       opt.addEventListener("keydown", function (e) {
         if (e.key === "ArrowDown") { e.preventDefault(); options[Math.min(i + 1, options.length - 1)].focus(); }
         else if (e.key === "ArrowUp") { e.preventDefault(); options[Math.max(i - 1, 0)].focus(); }
@@ -281,6 +562,7 @@
   /* ---------- Catalogue (all jewellery, bridal and category pages) ---------- */
   if (page === "catalog") {
     var category = document.body.getAttribute("data-category") || "";
+    var pool = products.filter(function (p) { return !category || p.category === category; });
     var metalParam = !category && params.get("metal");
     var styleParam = !category && params.get("style");
     var state = {
@@ -289,66 +571,81 @@
       price: "all",
       sort: "featured",
     };
-    var PRICES = [["all", "All prices"], ["under", "Under ₹25,000"], ["mid", "₹25,000–₹50,000"], ["high", "₹50,000+"]];
-
-    var filterGroup = function (title, body) {
-      return '<div class="border-b border-border pb-6"><p class="mb-3 flex items-center justify-between text-[10px] tracking-[0.18em]">' + title + icon("chevron-down", "size-4") + "</p>" + body + "</div>";
+    var PRICES = [["all", "All prices"], ["under", "Under ₹25,000"], ["mid", "₹25,000 – ₹50,000"], ["high", "Above ₹50,000"]];
+    var inPrice = function (p, key) {
+      return key === "all" || (key === "under" && p.price < 25000) || (key === "mid" && p.price >= 25000 && p.price <= 50000) || (key === "high" && p.price > 50000);
     };
-    var checkRow = function (panel, kind, value) {
-      var id = panel + "-f-" + value.toLowerCase();
-      return '<div class="flex min-h-10 items-center gap-3">' +
-        '<button type="button" role="checkbox" id="' + id + '" aria-checked="false" data-state="unchecked" data-filter="' + kind + '" data-value="' + value + '" class="' + UI.checkbox() + '"></button>' +
-        '<label for="' + id + '" class="' + UI.label("font-normal") + '">' + value + "</label></div>";
+
+    var group = function (title, body) {
+      return '<div class="filter-group"><p class="filter-group__title">' + title + "</p>" + body + "</div>";
+    };
+    var checkRow = function (kind, value) {
+      var count = pool.filter(function (p) { return p[kind] === value; }).length;
+      if (!count) return "";
+      return '<label class="check"><input type="checkbox" data-filter="' + kind + '" value="' + value + '"><span class="check__box">' + icon("check") + "</span>" + value + '<span class="check__count">' + count + "</span></label>";
     };
     var panelHTML = function (panel) {
-      return '<div class="mt-6 space-y-8 lg:mt-0 lg:pt-4">' +
-        filterGroup("METAL", ["Gold", "Diamond"].map(function (v) { return checkRow(panel, "metal", v); }).join("")) +
-        filterGroup("PRICE", PRICES.map(function (pr) {
-          return '<label class="flex min-h-10 items-center gap-3 text-sm"><input type="radio" name="price-' + panel + '" value="' + pr[0] + '" data-price class="accent-primary">' + pr[1] + "</label>";
+      return group("Metal", ["Gold", "Diamond"].map(function (v) { return checkRow("metal", v); }).join("")) +
+        group("Price", PRICES.map(function (pr) {
+          return '<label class="check check--radio"><input type="radio" name="price-' + panel + '" value="' + pr[0] + '" data-price><span class="check__box"></span>' + pr[1] + "</label>";
         }).join("")) +
-        filterGroup("STYLE", ["Classic", "Traditional", "Modern", "Bridal"].map(function (v) { return checkRow(panel, "style", v); }).join("")) +
-        "</div>";
+        group("Style", ["Classic", "Traditional", "Modern", "Bridal"].map(function (v) { return checkRow("style", v); }).join(""));
     };
-
     $$("[data-filter-panel]").forEach(function (el) { el.innerHTML = panelHTML(el.getAttribute("data-filter-panel")); });
 
     var filtered = function () {
-      return products.filter(function (p) {
-        return (!category || p.category === category)
-          && (!state.metals.length || state.metals.indexOf(p.metal) !== -1)
+      var list = pool.filter(function (p) {
+        return (!state.metals.length || state.metals.indexOf(p.metal) !== -1)
           && (!state.styles.length || state.styles.indexOf(p.style) !== -1)
-          && (state.price === "all" || (state.price === "under" && p.price < 25000) || (state.price === "mid" && p.price >= 25000 && p.price <= 50000) || (state.price === "high" && p.price > 50000));
-      }).sort(function (a, b) {
+          && inPrice(p, state.price);
+      });
+      return list.slice().sort(function (a, b) {
         return state.sort === "low" ? a.price - b.price : state.sort === "high" ? b.price - a.price : state.sort === "new" ? Number(b.isNew) - Number(a.isNew) : 0;
       });
     };
 
     var results = $("[data-catalog-results]");
+    var active = $("[data-catalog-active]");
     var renderCatalog = function () {
       $$("[data-filter]").forEach(function (box) {
         var list = box.getAttribute("data-filter") === "metal" ? state.metals : state.styles;
-        var on = list.indexOf(box.getAttribute("data-value")) !== -1;
-        box.setAttribute("aria-checked", String(on));
-        box.setAttribute("data-state", on ? "checked" : "unchecked");
-        box.innerHTML = on ? '<span data-state="checked" class="pointer-events-none grid place-content-center text-current">' + icon("check", "h-4 w-4") + "</span>" : "";
+        box.checked = list.indexOf(box.value) !== -1;
       });
       $$("[data-price]").forEach(function (radio) { radio.checked = radio.value === state.price; });
       var shown = filtered();
-      $$("[data-catalog-count]").forEach(function (el) { el.textContent = shown.length + " PIECES"; });
-      $$("[data-catalog-apply]").forEach(function (el) { el.textContent = "VIEW " + shown.length + " PIECES"; });
+      $$("[data-catalog-count]").forEach(function (el) { el.innerHTML = "<strong>" + shown.length + "</strong> " + (shown.length === 1 ? "piece" : "pieces"); });
+      $$("[data-catalog-apply]").forEach(function (el) { el.textContent = "View " + shown.length + " pieces"; });
+
+      var pills = state.metals.map(function (v) { return ["metal", v, v]; })
+        .concat(state.styles.map(function (v) { return ["style", v, v]; }))
+        .concat(state.price !== "all" ? [["price", state.price, PRICES.filter(function (pr) { return pr[0] === state.price; })[0][1]]] : []);
+      active.innerHTML = pills.length
+        ? pills.map(function (p) { return '<button type="button" class="pill" data-unfilter="' + p[0] + '" data-value="' + p[1] + '">' + esc(p[2]) + icon("x") + "</button>"; }).join("") +
+          '<button type="button" class="pill pill--clear" data-clear-filters>Clear all</button>'
+        : "";
+
       results.innerHTML = shown.length
-        ? '<div class="grid grid-cols-2 gap-x-3 gap-y-10 md:grid-cols-3 xl:grid-cols-4">' + shown.map(productCard).join("") + "</div>"
-        : '<div class="py-24 text-center"><p class="font-serif text-3xl">No pieces match these filters</p>' +
-          '<p class="mt-2 text-sm text-muted-foreground">Try widening your selection.</p>' +
-          '<button type="button" data-clear-filters class="' + btn("outline", "default", "mt-6 rounded-none") + '">CLEAR FILTERS</button></div>';
+        ? '<div class="product-grid product-grid--3">' + shown.map(productCard).join("") + "</div>"
+        : '<div class="empty-state"><p class="empty-state__title">No pieces match these filters</p><p>Try widening your selection.</p>' +
+          '<button type="button" class="btn btn--outline" data-clear-filters>Clear filters</button></div>';
+      syncWish();
     };
 
-    document.addEventListener("click", function (e) {
+    document.addEventListener("change", function (e) {
       var box = e.target.closest("[data-filter]");
       if (box) {
         var key = box.getAttribute("data-filter") === "metal" ? "metals" : "styles";
-        var value = box.getAttribute("data-value");
-        state[key] = state[key].indexOf(value) !== -1 ? state[key].filter(function (x) { return x !== value; }) : state[key].concat(value);
+        state[key] = box.checked ? state[key].concat(box.value) : state[key].filter(function (x) { return x !== box.value; });
+        renderCatalog();
+      }
+      if (e.target.matches("[data-price]")) { state.price = e.target.value; renderCatalog(); }
+    });
+    document.addEventListener("click", function (e) {
+      var pill = e.target.closest("[data-unfilter]");
+      if (pill) {
+        var kind = pill.getAttribute("data-unfilter"), value = pill.getAttribute("data-value");
+        if (kind === "price") state.price = "all";
+        else { var k = kind === "metal" ? "metals" : "styles"; state[k] = state[k].filter(function (x) { return x !== value; }); }
         renderCatalog();
         return;
       }
@@ -359,162 +656,182 @@
         renderCatalog();
       }
     });
-    document.addEventListener("change", function (e) {
-      if (e.target.matches("[data-price]")) { state.price = e.target.value; renderCatalog(); }
-    });
 
     var sortSelect = $("[data-select]");
     if (sortSelect) initSelect(sortSelect, function (value) { state.sort = value; renderCatalog(); });
-
     renderCatalog();
   }
 
   /* ---------- Product detail ---------- */
   if (page === "product") {
     var productRoot = document.getElementById("product-root");
-    var slug = params.get("slug") || MJ.featuredSlugs[0];
-    var product = products.filter(function (p) { return p.slug === slug; })[0];
+    var product = bySlug(params.get("slug") || MJ.featuredSlugs[0]);
 
     if (!product) {
-      productRoot.className = "px-5 pb-24 pt-48 text-center";
-      productRoot.innerHTML = '<h1 class="font-serif text-5xl">Piece not found</h1>' +
-        '<p class="mt-3 text-sm text-muted-foreground">This jewel may have found its home already.</p>' +
-        '<a href="jewellery.html" class="' + btn("default", "default", "mt-6 rounded-none text-[10px] tracking-[0.16em]") + '">VIEW ALL JEWELLERY</a>';
+      productRoot.innerHTML = '<div class="container empty-state"><p class="empty-state__title">Piece not found</p><p>This jewel may have found its home already.</p>' +
+        '<a class="btn btn--primary" href="jewellery.html">View all jewellery ' + icon("arrow-right") + "</a></div>";
     } else {
-      var views = [product.imagePosition, "50% 40%", "50% 65%"];
+      document.title = product.name + " — Mangalam Jewellers";
+      var views = [
+        { pos: product.imagePosition, scale: 1 },
+        { pos: "35% 35%", scale: 1.45 },
+        { pos: "62% 62%", scale: 1.8 },
+      ];
       var related = products.filter(function (p) { return p.category === product.category && p.slug !== product.slug; }).slice(0, 4);
-      var THUMB_ON = ["border-gold"];
-      var THUMB_OFF = ["border-transparent", "opacity-70", "hover:opacity-100"];
       var name = esc(product.name);
+      var stone = product.metal === "Diamond" ? "Diamond" : "Gold work";
 
       productRoot.innerHTML =
-        '<nav aria-label="Breadcrumb" class="mx-auto max-w-[1400px] text-[9px] tracking-[0.18em] text-muted-foreground">' +
-          '<a href="index.html" class="hover:text-gold">HOME</a> / <a href="jewellery.html" class="hover:text-gold">JEWELLERY</a> / <a href="' + product.category + '.html" class="hover:text-gold">' + product.category.toUpperCase() + "</a>" +
-        "</nav>" +
-        '<div class="mx-auto mt-8 grid max-w-[1400px] gap-12 lg:grid-cols-[1.05fr_1fr]">' +
-          "<div>" +
-            '<div class="group relative aspect-square overflow-hidden bg-secondary">' +
-              '<img data-main-image src="' + product.image + '" alt="' + name + '" class="size-full object-cover transition-transform duration-700 group-hover:scale-[1.4] group-hover:cursor-zoom-in" style="object-position: ' + views[0] + '">' +
-              '<button type="button" data-wish data-wish-group="product" aria-pressed="false" aria-label="Add to wishlist" data-label-on="Remove from wishlist" data-label-off="Add to wishlist" class="' + btn("ghost", "icon", "absolute right-3 top-3 bg-background/90 lg:opacity-0 lg:group-hover:opacity-100") + '">' + icon("heart") + "</button>" +
-            "</div>" +
-            '<div class="mt-3 flex gap-3 overflow-x-auto pb-1">' +
-              views.map(function (pos, i) {
-                return '<button type="button" data-view="' + i + '" aria-label="View image ' + (i + 1) + '" class="size-20 shrink-0 overflow-hidden border transition ' + (i === 0 ? THUMB_ON : THUMB_OFF).join(" ") + '">' +
-                  '<img src="' + product.image + '" alt="" class="size-full object-cover" style="object-position: ' + pos + '"></button>';
-              }).join("") +
-            "</div>" +
-          "</div>" +
-          '<div class="lg:py-8">' +
-            '<p class="text-[9px] tracking-[0.22em] text-gold">' + product.collection.toUpperCase() + "</p>" +
-            '<h1 class="mt-3 font-serif text-5xl font-normal leading-tight sm:text-6xl">' + name + "</h1>" +
-            '<p class="mt-4 font-serif text-3xl">' + formatPrice(product.price) + "</p>" +
-            '<p class="mt-6 max-w-lg text-sm leading-7 text-muted-foreground">' + esc(product.description) + "</p>" +
-            '<dl class="mt-8 grid max-w-md grid-cols-3 gap-4 border-y border-border py-6 text-sm">' +
-              '<div><dt class="text-[8px] tracking-[0.16em] text-muted-foreground">GOLD PURITY</dt><dd class="mt-2 font-serif text-xl">' + product.purity + "</dd></div>" +
-              '<div><dt class="text-[8px] tracking-[0.16em] text-muted-foreground">STONE</dt><dd class="mt-2 font-serif text-xl">' + (product.metal === "Diamond" ? "Diamond" : "Gold work") + "</dd></div>" +
-              '<div><dt class="text-[8px] tracking-[0.16em] text-muted-foreground">COLLECTION</dt><dd class="mt-2 font-serif text-xl capitalize">' + product.category + "</dd></div>" +
-            "</dl>" +
-            '<div class="mt-8 flex flex-col gap-3 sm:flex-row">' +
-              '<button type="button" data-open="enquire" class="' + btn("default", "default", "h-12 flex-1 rounded-none text-[10px] tracking-[0.18em]") + '">' + icon("message-circle") + " ENQUIRE NOW</button>" +
-              '<button type="button" data-wish data-wish-group="product" aria-pressed="false" class="' + btn("outline", "default", "h-12 flex-1 rounded-none border-gold text-[10px] tracking-[0.18em] hover:bg-secondary") + '">' + icon("heart") + " ADD TO WISHLIST</button>" +
-            "</div>" +
-            '<p class="mt-5 text-xs leading-6 text-muted-foreground">Handcrafted to order in Surat · BIS hallmarked · Insured delivery across India</p>' +
-          "</div>" +
-        "</div>" +
-        (related.length
-          ? '<section class="mx-auto mt-24 max-w-[1400px]">' +
-              '<div class="mb-10 flex items-end justify-between">' +
-                '<h2 class="font-serif text-5xl font-normal">You May Also Like</h2>' +
-                '<a href="' + product.category + '.html" class="hidden items-center gap-2 text-[9px] tracking-[0.18em] hover:text-gold sm:flex">MORE ' + product.category.toUpperCase() + " " + icon("arrow-right", "size-3") + "</a>" +
+        '<div class="container">' +
+          '<nav class="breadcrumb breadcrumb--dark" aria-label="Breadcrumb"><a href="index.html">Home</a><span class="breadcrumb__sep"></span><a href="jewellery.html">Jewellery</a><span class="breadcrumb__sep"></span><a href="' + product.category + '.html">' + capitalize(product.category) + '</a><span class="breadcrumb__sep"></span><span aria-current="page">' + name + "</span></nav>" +
+          '<div class="product__grid">' +
+            '<div class="gallery">' +
+              '<div class="gallery__thumbs">' + views.map(function (v, i) {
+                return '<button type="button" class="gallery__thumb" data-view="' + i + '" aria-label="View image ' + (i + 1) + '" aria-current="' + (i === 0) + '"><img src="' + product.image + '" alt="" style="object-position:' + v.pos + ";scale:" + v.scale + '"></button>';
+              }).join("") + "</div>" +
+              '<div class="gallery__main" data-zoom>' +
+                '<img data-main-image src="' + product.image + '" alt="' + name + '" style="object-position:' + views[0].pos + '">' +
+                wishButton(product, "pcard__wish") +
+                (canHover ? '<span class="gallery__hint">' + icon("zoom-in") + "Hover to zoom</span>" : "") +
               "</div>" +
-              '<div class="grid grid-cols-2 gap-x-3 gap-y-10 md:grid-cols-4">' + related.map(productCard).join("") + "</div>" +
-            "</section>"
-          : "");
+            "</div>" +
+            '<div class="pinfo">' +
+              '<p class="pinfo__collection">' + esc(product.collection) + "</p>" +
+              '<h1 class="pinfo__name">' + name + "</h1>" +
+              '<p class="pinfo__price">' + formatPrice(product.price) + "<span>" + product.purity + " · " + esc(product.metal) + "</span></p>" +
+              '<p class="pinfo__desc">' + esc(product.description) + "</p>" +
+              '<dl class="specs"><div><dt>Gold purity</dt><dd>' + product.purity + "</dd></div><div><dt>Stone</dt><dd>" + stone + "</dd></div><div><dt>Category</dt><dd>" + product.category + "</dd></div></dl>" +
+              '<div class="pinfo__actions">' +
+                '<button type="button" class="btn btn--primary" data-open="enquire">' + icon("message-circle") + " Enquire now</button>" +
+                '<button type="button" class="btn btn--outline" data-wish="' + product.slug + '" data-wish-text aria-pressed="false">' + icon("heart") + ' <span data-wish-label>Add to wishlist</span></button>' +
+              "</div>" +
+              '<p class="pinfo__try">' + icon("calendar") + ' Prefer to see it in person? <button type="button" data-open="appointment">Book a private viewing</button></p>' +
+              '<ul class="assure"><li>' + icon("shield-check") + "BIS hallmarked</li><li>" + icon("sparkles") + "Handcrafted in Surat</li><li>" + icon("truck") + "Insured delivery</li></ul>" +
+              '<div class="accordion">' +
+                '<details open><summary>Product details' + icon("plus") + '</summary><div class="accordion__body">' + name + " is part of " + esc(product.collection) + ". Crafted in " + product.purity + " " + (product.metal === "Diamond" ? "gold with diamonds" : "gold") + " and handcrafted to order in our Surat atelier by master karigars. Every piece carries a BIS hallmark — your assurance of its purity.</div></details>" +
+                '<details><summary>Caring for your jewel' + icon("plus") + '</summary><div class="accordion__body">Keep gold away from perfume and chlorine, wipe it gently with a soft cloth after wear, and store each piece separately. Bring it home to us once a year and our karigars will clean, inspect and re-polish it.</div></details>' +
+                '<details><summary>Delivery &amp; appointments' + icon("plus") + '</summary><div class="accordion__body">Insured delivery across India. Prefer to see it first? Book a private appointment at Mangalam House, Ring Road, Surat — our concierge will confirm your time.</div></details>' +
+              "</div>" +
+            "</div>" +
+          "</div>" +
+          (related.length
+            ? '<section class="related"><header class="section-head section-head--split"><div><p class="eyebrow">Complete the look</p><h2 class="section-title">You may also <em>love</em></h2></div>' +
+              '<a class="link-arrow" href="' + product.category + '.html">More ' + product.category + " " + icon("arrow-right") + "</a></header>" +
+              '<div class="product-grid" data-related></div></section>'
+            : "") +
+        "</div>" +
+        '<div class="mobile-buy"><div><strong>' + formatPrice(product.price) + "</strong></div>" +
+          '<button type="button" class="btn btn--primary btn--sm" data-open="enquire">' + icon("message-circle") + " Enquire</button></div>";
+      document.body.classList.add("has-mobile-buy");
+
+      var relatedGrid = $("[data-related]", productRoot);
+      if (relatedGrid) renderCards(relatedGrid, related);
 
       var mainImage = $("[data-main-image]", productRoot);
       var thumbs = $$("[data-view]", productRoot);
       thumbs.forEach(function (thumb, i) {
         thumb.addEventListener("click", function () {
-          mainImage.style.objectPosition = views[i];
-          thumbs.forEach(function (t, j) {
-            (j === i ? THUMB_OFF : THUMB_ON).forEach(function (c) { t.classList.remove(c); });
-            (j === i ? THUMB_ON : THUMB_OFF).forEach(function (c) { t.classList.add(c); });
-          });
+          mainImage.style.opacity = "0";
+          setTimeout(function () {
+            mainImage.style.objectPosition = views[i].pos;
+            mainImage.style.scale = views[i].scale;
+            mainImage.style.opacity = "1";
+          }, 180);
+          thumbs.forEach(function (t, j) { t.setAttribute("aria-current", String(j === i)); });
         });
       });
 
+      var zoom = $("[data-zoom]", productRoot);
+      if (canHover) {
+        zoom.addEventListener("mouseenter", function () { zoom.classList.add("is-zoom"); });
+        zoom.addEventListener("mouseleave", function () { zoom.classList.remove("is-zoom"); });
+        zoom.addEventListener("mousemove", function (e) {
+          var r = zoom.getBoundingClientRect();
+          mainImage.style.setProperty("--zx", ((e.clientX - r.left) / r.width * 100).toFixed(1) + "%");
+          mainImage.style.setProperty("--zy", ((e.clientY - r.top) / r.height * 100).toFixed(1) + "%");
+        });
+      }
+
       var enquire = $('[data-modal="enquire"]');
       if (enquire) {
-        var message = "I would like to know more about the " + product.name + ".";
         $("[data-product-name]", enquire).textContent = product.name;
-        var enquireForm = $("[data-enquire-form]", enquire);
-        var enquireSent = $("[data-enquire-sent]", enquire);
-        $("textarea", enquireForm).defaultValue = message;
-        enquire.addEventListener("mj:open", function () {
-          enquireForm.reset();
-          enquireForm.hidden = false;
-          enquireSent.hidden = true;
-        });
-        enquireForm.addEventListener("submit", function (e) {
-          e.preventDefault();
-          enquireForm.hidden = true;
-          enquireSent.hidden = false;
-        });
+        var message = $("textarea", enquire);
+        message.defaultValue = "I would like to know more about the " + product.name + ".";
       }
     }
   }
 
-  /* ---------- Journal ---------- */
-  if (page === "journal") {
-    var journalGrid = document.getElementById("journal-grid");
-    journalGrid.innerHTML = articles.map(function (a) {
-      return '<a href="article.html?slug=' + a.slug + '" class="group block">' +
-        '<div class="image-card aspect-[16/10] overflow-hidden bg-secondary"><img src="' + a.image + '" alt="' + esc(a.title) + '" loading="lazy" class="size-full object-cover" style="object-position: ' + a.imagePosition + '"></div>' +
-        '<p class="mt-5 text-[9px] tracking-[0.2em] text-gold">' + articleMeta(a, true) + "</p>" +
-        '<h2 class="mt-2 font-serif text-3xl font-normal">' + esc(a.title) + "</h2>" +
-        '<p class="mt-3 max-w-xl text-sm leading-6 text-muted-foreground">' + esc(a.excerpt) + "</p></a>";
-    }).join("");
+  /* ---------- Journal filters ---------- */
+  var journalFilters = $$("[data-journal-filter]");
+  if (journalFilters.length) {
+    var cards = $$("[data-journal-grid] .jcard");
+    journalFilters.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var cat = btn.getAttribute("data-journal-filter");
+        journalFilters.forEach(function (b) { b.classList.toggle("is-active", b === btn); b.setAttribute("aria-pressed", String(b === btn)); });
+        cards.forEach(function (card) {
+          var show = cat === "all" || card.getAttribute("data-cat") === cat;
+          card.hidden = !show;
+          if (show) { card.style.animation = "none"; void card.offsetWidth; card.style.animation = "cardIn .7s var(--ease-out) both"; }
+        });
+      });
+    });
   }
 
   /* ---------- Journal article ---------- */
   if (page === "article") {
     var articleRoot = document.getElementById("article-root");
-    var articleSlug = params.get("slug") || articles[0].slug;
-    var article = articles.filter(function (a) { return a.slug === articleSlug; })[0];
+    var article = articles.filter(function (a) { return a.slug === (params.get("slug") || articles[0].slug); })[0];
 
     if (!article) {
-      var missing = document.createElement("div");
-      missing.className = "px-5 pb-24 pt-48 text-center";
-      missing.innerHTML = '<h1 class="font-serif text-5xl">Article not found</h1>' +
-        '<p class="mt-3 text-sm text-muted-foreground">The story you\'re looking for may have moved.</p>' +
-        '<a href="journal.html" class="' + btn("default", "default", "mt-6 rounded-none text-[10px] tracking-[0.16em]") + '">ALL ARTICLES</a>';
-      articleRoot.replaceWith(missing);
+      articleRoot.innerHTML = '<section class="page-hero"><div class="container"><h1 class="page-hero__title">Article not found</h1>' +
+        '<p class="page-hero__lead">The story you are looking for may have moved.</p>' +
+        '<p style="margin-top:32px"><a class="btn btn--light" href="journal.html">All articles ' + icon("arrow-right") + "</a></p></div></section>";
     } else {
+      document.title = article.title + " — Mangalam Journal";
+      var more = articles.filter(function (a) { return a.slug !== article.slug; }).slice(0, 3);
+      var shareUrl = encodeURIComponent(window.location.href);
       articleRoot.innerHTML =
-        '<header class="mx-auto max-w-3xl px-5 pt-14 text-center">' +
-          '<p class="text-[9px] tracking-[0.24em] text-gold">' + articleMeta(article, true) + "</p>" +
-          '<h1 class="mt-5 font-serif text-5xl font-normal leading-tight sm:text-6xl">' + esc(article.title) + "</h1>" +
-          '<p class="mt-6 font-serif text-xl font-light italic text-muted-foreground">' + esc(article.excerpt) + "</p>" +
+        '<header class="page-hero page-hero--tall article-hero">' +
+          '<img class="page-hero__bg" src="' + article.image + '" alt="" style="object-position:' + article.imagePosition + '">' +
+          '<div class="container">' +
+            '<nav class="breadcrumb" aria-label="Breadcrumb"><a href="index.html">Home</a><span class="breadcrumb__sep"></span><a href="journal.html">Journal</a><span class="breadcrumb__sep"></span><span aria-current="page">' + esc(article.category) + "</span></nav>" +
+            '<h1 class="page-hero__title">' + esc(article.title) + "</h1>" +
+            '<p class="page-hero__lead">' + esc(article.excerpt) + "</p>" +
+            '<p class="breadcrumb" style="margin-top:26px">' + esc(article.date) + '<span class="breadcrumb__sep"></span>' + esc(article.readTime) + "</p>" +
+          "</div>" +
         "</header>" +
-        '<div class="mx-auto mt-12 max-w-5xl px-5"><div class="aspect-[16/9] overflow-hidden bg-secondary">' +
-          '<img src="' + article.image + '" alt="' + esc(article.title) + '" class="size-full object-cover" style="object-position: ' + article.imagePosition + '">' +
-        "</div></div>" +
-        '<div class="mx-auto max-w-2xl px-5 py-14">' +
-          article.body.map(function (para, i) { return '<p class="text-[15px] leading-8 text-foreground/85' + (i ? " mt-6" : "") + '">' + esc(para) + "</p>"; }).join("") +
+        '<div class="container article-cover" data-reveal="zoom"><div class="article-cover__img"><img src="' + article.image + '" alt="' + esc(article.title) + '" style="object-position:' + article.imagePosition + '"></div></div>' +
+        '<div class="container container--narrow article-body">' +
+          '<div class="prose">' + article.body.map(function (para, i) { return "<p" + (i ? "" : ' class="dropcap"') + ">" + esc(para) + "</p>"; }).join("") + "</div>" +
+          '<div class="article-share">' +
+            '<a class="link-arrow" href="journal.html">' + icon("arrow-left") + " All articles</a>" +
+            '<div class="article-share__links">' +
+              '<a href="https://www.facebook.com/sharer/sharer.php?u=' + shareUrl + '" target="_blank" rel="noopener" aria-label="Share on Facebook">' + icon("facebook") + "</a>" +
+              '<a href="mailto:?subject=' + encodeURIComponent(article.title) + "&body=" + shareUrl + '" aria-label="Share by email">' + icon("mail") + "</a>" +
+              '<button type="button" data-copy-link aria-label="Copy link">' + icon("link") + "</button>" +
+            "</div>" +
+          "</div>" +
         "</div>" +
-        '<footer class="mx-auto max-w-2xl px-5 pb-24"><div class="h-px w-full bg-border"></div>' +
-          '<a href="journal.html" class="' + btn("outline", "default", "mt-8 rounded-none border-gold text-[10px] tracking-[0.16em] hover:bg-secondary") + '">' + icon("arrow-left", "size-3") + " ALL ARTICLES</a>" +
-        "</footer>";
+        '<section class="section section--pearl"><div class="container">' +
+          '<header class="section-head"><p class="eyebrow eyebrow--center">Keep reading</p><h2 class="section-title">More from the <em>journal</em></h2></header>' +
+          '<div class="journal-grid">' + more.map(function (a) {
+            return '<a class="jcard" href="article.html?slug=' + a.slug + '"><div class="jcard__media"><img src="' + a.image + '" alt="" loading="lazy" style="object-position:' + a.imagePosition + '"><span class="jcard__cat">' + esc(a.category) + "</span></div>" +
+              '<p class="jcard__meta">' + esc(a.date) + " · " + esc(a.readTime) + '</p><h3 class="jcard__title">' + esc(a.title) + "</h3></a>";
+          }).join("") + "</div>" +
+        "</div></section>";
+
+      var copy = $("[data-copy-link]", articleRoot);
+      copy.addEventListener("click", function () {
+        if (navigator.clipboard) navigator.clipboard.writeText(window.location.href).then(function () { showToast("Link copied"); });
+      });
+      var cover = $("[data-reveal]", articleRoot);
+      if (cover) requestAnimationFrame(function () { cover.classList.add("is-visible"); });
     }
   }
 
-  /* ---------- Contact ---------- */
-  var contactForm = $("[data-contact-form]");
-  if (contactForm) {
-    contactForm.addEventListener("submit", function (e) {
-      e.preventDefault();
-      contactForm.hidden = true;
-      $("[data-contact-sent]").hidden = false;
-    });
-  }
+  /* ---------- Footer year ---------- */
+  $$("[data-year]").forEach(function (el) { el.textContent = new Date().getFullYear(); });
+
+  syncWish();
 })();

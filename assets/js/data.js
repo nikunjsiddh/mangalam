@@ -40,12 +40,13 @@
   var products = [];
   categories.forEach(function (category, categoryIndex) {
     names[category].forEach(function (name, index) {
+      var metal = /diamond|solitaire|halo|tennis|floral/i.test(name) ? "Diamond" : "Gold";
       products.push({
         slug: slugify(name),
         name: name,
         category: category,
         price: 18500 + categoryIndex * 9500 + index * 13750,
-        metal: /diamond|solitaire|halo|tennis|floral/i.test(name) ? "Diamond" : "Gold",
+        metal: metal,
         style: /bridal/i.test(name) ? "Bridal"
           : /heritage|traditional|temple|antique|rajwadi|maharani|gujarati|jhumka|chandbali|rani/i.test(name) ? "Traditional"
           : /modern|contemporary|minimal|daily|everyday/i.test(name) ? "Modern"
@@ -53,7 +54,7 @@
         image: IMG[category],
         imagePosition: positions[index] || "center",
         description: "An enduring " + name.toLowerCase() + ", composed with meticulous detail by Mangalam's master karigars for celebrations today and generations to come.",
-        purity: /diamond|rose/i.test(name) ? "18K" : "22K",
+        purity: metal === "Diamond" || /rose/i.test(name) ? "18K" : "22K", // diamond settings need 18K's strength
         collection: category === "bridal" ? "The Bridal Edit" : category === "mangalsutra" ? "Sacred Bonds" : "Mangalam Signature",
         isNew: index < 2,
       });
