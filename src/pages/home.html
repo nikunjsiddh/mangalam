@@ -37,10 +37,10 @@
     <!-- TRUST -->
     <section class="trust" id="discover" aria-label="Our promise">
       <ul class="container trust__list" data-stagger>
-        <li class="trust__item" data-reveal><span class="trust__icon">{{icon:shield-check}}</span><div><strong>BIS Hallmarked</strong><span>Certified 22K &amp; 18K purity</span></div></li>
-        <li class="trust__item" data-reveal><span class="trust__icon">{{icon:sparkles}}</span><div><strong>Made by Hand</strong><span>By master karigars in Surat</span></div></li>
-        <li class="trust__item" data-reveal><span class="trust__icon">{{icon:truck}}</span><div><strong>Insured Delivery</strong><span>Safely shipped across India</span></div></li>
-        <li class="trust__item" data-reveal><span class="trust__icon">{{icon:calendar}}</span><div><strong>Private Consultations</strong><span>Bridal &amp; bespoke, by appointment</span></div></li>
+        <li class="trust__item" data-reveal><span class="trust__icon">{{icon:shield-check}}</span><div class="trust__text"><strong>BIS Hallmarked</strong><span>Certified 22K &amp; 18K purity</span></div></li>
+        <li class="trust__item" data-reveal><span class="trust__icon">{{icon:sparkles}}</span><div class="trust__text"><strong>Made by Hand</strong><span>By master karigars in Surat</span></div></li>
+        <li class="trust__item" data-reveal><span class="trust__icon">{{icon:truck}}</span><div class="trust__text"><strong>Insured Delivery</strong><span>Safely shipped across India</span></div></li>
+        <li class="trust__item" data-reveal><span class="trust__icon">{{icon:calendar}}</span><div class="trust__text"><strong>Private Consultations</strong><span>Bridal &amp; bespoke, by appointment</span></div></li>
       </ul>
     </section>
 
@@ -98,12 +98,12 @@
     </section>
 
     <!-- THE MANGALAM PROMISE -->
-    <section class="section promise" aria-labelledby="promise-title">
-      <span class="brand-emblem promise__watermark" aria-hidden="true"></span>
+    <section class="section promise" aria-labelledby="promise-title" data-expand>
+      <span class="brand-emblem promise__watermark" aria-hidden="true" data-float="-0.12"></span>
       <div class="container promise__grid">
         <div class="promise__media" data-reveal="left">
           <div class="arch-frame"><img src="assets/images/products/necklaces.jpg" alt="Temple gold necklace with pearl drops on maroon velvet" loading="lazy" width="800" height="800" data-parallax="0.1"></div>
-          <div class="seal" aria-hidden="true">
+          <div class="seal" aria-hidden="true" data-float="0.2">
             <svg class="seal__ring" viewBox="0 0 150 150"><defs><path id="seal-path" d="M75,75 m-58,0 a58,58 0 1,1 116,0 a58,58 0 1,1 -116,0"/></defs><text><textPath href="#seal-path" textLength="358" lengthAdjust="spacing">Handcrafted • Since 1962 • Surat •</textPath></text></svg>
             <span class="seal__core"><span class="brand-emblem"></span></span>
           </div>
@@ -132,26 +132,26 @@
           <p class="section-lead">Jewellery as unforgettable as the moment itself — composed as one harmonious whole, from rani haar to maang tikka.</p>
           <span class="ornament" aria-hidden="true"></span>
         </header>
-        <div class="panels" data-reveal>
-          <a class="panel is-active" href="bridal.html">
+        <div class="panels" data-stagger="0.12">
+          <a class="panel is-active" href="bridal.html" data-reveal="mask">
             <img src="assets/images/products/bridal.jpg" alt="" loading="lazy">
             <span class="panel__num">01</span>
             <span class="panel__label">Bridal Sets</span>
             <span class="panel__body"><span class="panel__title">Bridal Sets</span><span class="panel__text">Necklace, jhumkas and bangles composed together — heirloom weight with modern grace.</span><span class="panel__cta">Explore the edit {{icon:arrow-right}}</span></span>
           </a>
-          <a class="panel" href="bridal.html">
+          <a class="panel" href="bridal.html" data-reveal="mask">
             <img src="assets/images/products/necklaces.jpg" alt="" loading="lazy">
             <span class="panel__num">02</span>
             <span class="panel__label">Necklaces</span>
             <span class="panel__body"><span class="panel__title">Bridal Necklaces</span><span class="panel__text">Rani haars, polki chokers and temple necklaces with pearl drops.</span><span class="panel__cta">Explore {{icon:arrow-right}}</span></span>
           </a>
-          <a class="panel" href="bridal.html">
+          <a class="panel" href="bridal.html" data-reveal="mask">
             <img src="assets/images/products/earrings.jpg" alt="" loading="lazy">
             <span class="panel__num">03</span>
             <span class="panel__label">Earrings</span>
             <span class="panel__body"><span class="panel__title">Bridal Earrings</span><span class="panel__text">Jhumkas and chandbalis designed to frame every expression.</span><span class="panel__cta">Explore {{icon:arrow-right}}</span></span>
           </a>
-          <a class="panel" href="bridal.html">
+          <a class="panel" href="bridal.html" data-reveal="mask">
             <img src="assets/images/products/bangles.jpg" alt="" loading="lazy">
             <span class="panel__num">04</span>
             <span class="panel__label">Bangles</span>
@@ -166,8 +166,8 @@
       <div class="container craft__grid">
         <div class="craft__media" data-reveal="left">
           <div class="craft__main"><img src="assets/images/mangalam-craft.jpg" alt="A Mangalam master karigar hand-finishing a gold pendant" loading="lazy" width="1600" height="1200" data-parallax="0.08"></div>
-          <div class="craft__small"><img src="assets/images/products/bridal.jpg" alt="" loading="lazy"></div>
-          <div class="craft__since"><span>Since</span><strong>1962</strong></div>
+          <div class="craft__small" data-float="0.1"><img src="assets/images/products/bridal.jpg" alt="" loading="lazy"></div>
+          <div class="craft__since" data-float="0.22"><span>Since</span><strong>1962</strong></div>
         </div>
         <div data-reveal="right">
           <p class="eyebrow">Made by hand, since 1962</p>
@@ -183,9 +183,9 @@
     </section>
 
     <!-- GUJARATI HERITAGE -->
-    <section class="heritage" aria-labelledby="heritage-title">
-      <div class="heritage__arch heritage__arch--l" aria-hidden="true"><img src="assets/images/products/bangles.jpg" alt="" loading="lazy"></div>
-      <div class="heritage__arch heritage__arch--r" aria-hidden="true"><img src="assets/images/products/earrings.jpg" alt="" loading="lazy"></div>
+    <section class="heritage" aria-labelledby="heritage-title" data-expand>
+      <div class="heritage__arch heritage__arch--l" aria-hidden="true" data-float="0.16"><img src="assets/images/products/bangles.jpg" alt="" loading="lazy"></div>
+      <div class="heritage__arch heritage__arch--r" aria-hidden="true" data-float="-0.12"><img src="assets/images/products/earrings.jpg" alt="" loading="lazy"></div>
       <div class="container heritage__inner" data-reveal>
         <span class="heritage__gu gu text-metal" lang="gu">મંગલમ</span>
         <h2 class="heritage__title" id="heritage-title">Rooted in <em>Tradition.</em></h2>
@@ -222,7 +222,7 @@
       <div class="ticker__track"><ul class="ticker__list">{{tickerItems}}{{tickerItems}}</ul><ul class="ticker__list">{{tickerItems}}{{tickerItems}}</ul></div>
     </div>
     <section class="manifesto" aria-label="Our belief">
-      <div class="container" data-reveal>
+      <div class="container" data-reveal="blur">
         <span class="brand-emblem" aria-hidden="true"></span>
         <p class="manifesto__text">Some jewellery is worn.<br>Some jewellery is <em class="text-metal text-metal--deep">remembered.</em></p>
       </div>
@@ -275,8 +275,8 @@
     </section>
 
     <!-- VISIT / APPOINTMENT -->
-    <section class="cta-band" aria-labelledby="visit-title">
-      <img class="cta-band__img" src="assets/images/mangalam-craft.jpg" alt="" loading="lazy">
+    <section class="cta-band" aria-labelledby="visit-title" data-expand>
+      <img class="cta-band__img" src="assets/images/mangalam-craft.jpg" alt="" loading="lazy" data-float="0.12">
       <div class="container cta-band__inner">
         <div class="cta-band__content" data-reveal="right">
           <p class="eyebrow eyebrow--light">Visit Mangalam House</p>

@@ -58,4 +58,19 @@ The logo is applied with CSS masks (`.brand-logo`, `.brand-emblem`, `.brand-full
 - The wishlist is saved in the visitor's browser (localStorage).
 - Phone number, email, address and social links are placeholders carried over from the original template.
 - The product photographs had thin white borders and slivers of neighbouring images along some edges; these were cropped out.
-- Animations respect the visitor's "reduce motion" setting.
+## Scroll animations
+
+Handled by `assets/js/main.js` (one scroll loop) and section 37 of `mangalam.css`. Hooks you can add to any element:
+
+| Attribute | Effect |
+| --- | --- |
+| `data-reveal` | Fades up when scrolled into view. Variants: `left`, `right`, `zoom`, `fade`, `blur`, `rise`, and image curtains `mask`, `mask-down`, `mask-left`, `mask-right` |
+| `data-stagger="0.1"` | On a parent: its `data-reveal` children follow one another by that many seconds |
+| `data-parallax="0.1"` | On an image taller than its frame: drifts inside the frame |
+| `data-float="0.15"` | Drifts at its own speed for depth (negative = opposite direction) |
+| `data-expand` | On a section: opens from an inset rounded card to full width as it arrives |
+| `data-count="200"` | Counts up to the number |
+
+Headlines (`.section-title`, `.page-hero__title` …) animate word by word automatically, section eyebrows and the logo ornament draw themselves in, and icons in `.trust__icon` / `.value__icon` trace their outlines.
+
+If a visitor's system asks for reduced motion (Windows: *Settings → Accessibility → Visual effects → Animation effects* turned off), the site keeps the gentle fades, curtains and counters and leaves out parallax, zooms, drifting layers and moving marquees.

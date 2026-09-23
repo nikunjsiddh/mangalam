@@ -26,10 +26,14 @@
   /* ---------- Loader: shown on the first page of a visit ---------- */
   var loader = document.getElementById("loader");
   var loaded = false;
+  var loadedQueue = [];
+  function afterLoad(fn) { if (loaded) fn(); else loadedQueue.push(fn); }
   function finishLoading() {
     if (loaded) return;
     loaded = true;
     html.classList.add("is-loaded");
+    loadedQueue.forEach(function (fn) { fn(); });
+    loadedQueue = [];
     if (loader) {
       loader.classList.add("is-done");
       setTimeout(function () { loader.remove(); }, 900);
@@ -60,15 +64,56 @@
     toastTimer = setTimeout(function () { toast.classList.remove("is-visible"); }, 2600);
   }
 
-  /* ---------- Header state, back-to-top, parallax (one scroll loop) ---------- */
+  /* ---------- Scroll engine: header, progress, parallax and scroll-linked depth (one rAF loop) ---------- */
   var toTop = $("[data-to-top]");
+  var progress = $("[data-progress]");
+  var heroEl = $(".hero"), pageHero = $(".page-hero");
   var parallax = reduceMotion ? [] : $$("[data-parallax]");
+  var floats = reduceMotion ? [] : $$("[data-float]");
+  var expands = reduceMotion ? [] : $$("[data-expand]");
+  var tickers = reduceMotion ? [] : $$(".ticker");
   var steps = $$("[data-steps]");
-  var ticking = false;
+  var ticking = false, lastY = window.scrollY, headerHidden = false;
+  function clamp(v, min, max) { return Math.max(min, Math.min(max, v)); }
   function onScroll() {
     var y = window.scrollY;
     var vh = window.innerHeight;
     html.classList.toggle("is-scrolled", y > 60);
+
+    // Header tucks away on the way down, returns on the way up (never while a dialog or the mega menu is open).
+    var dy = y - lastY;
+    if (!reduceMotion && (Math.abs(dy) > 8 || y < 160)) {
+      var hide = dy > 0 && y > vh * 0.7 && document.body.style.overflow !== "hidden" && !(megaItem && megaItem.matches(":hover"));
+      if (y < 160) hide = false;
+      if (hide !== headerHidden) { headerHidden = hide; html.classList.toggle("is-header-hidden", hide); }
+      lastY = y;
+    }
+    var docMax = document.documentElement.scrollHeight - vh;
+    if (progress) progress.style.setProperty("--sp", docMax > 0 ? (y / docMax).toFixed(4) : 0);
+
+    if (!reduceMotion) {
+      if (heroEl) heroEl.style.setProperty("--hero-p", clamp(y / heroEl.offsetHeight, 0, 1).toFixed(3));
+      if (pageHero) pageHero.style.setProperty("--ph-p", clamp(y / pageHero.offsetHeight, 0, 1).toFixed(3));
+      // Dark bands open from an inset card to full bleed as they arrive.
+      expands.forEach(function (el) {
+        var r = el.getBoundingClientRect();
+        if (r.top > vh || r.bottom < 0) return;
+        el.style.setProperty("--xp", clamp((vh - r.top) / (vh * 0.75), 0, 1).toFixed(3));
+      });
+      // Layered elements drift at their own speed for depth.
+      floats.forEach(function (el) {
+        var r = el.parentElement.getBoundingClientRect();
+        if (r.bottom < -200 || r.top > vh + 200) return;
+        var speed = parseFloat(el.getAttribute("data-float")) || 0.1;
+        el.style.translate = "0 " + clamp((r.top + r.height / 2 - vh / 2) * -speed, -140, 140).toFixed(1) + "px";
+      });
+      // The word ticker picks up pace with the scroll.
+      tickers.forEach(function (el) {
+        var r = el.getBoundingClientRect();
+        if (r.bottom < 0 || r.top > vh) return;
+        el.style.setProperty("--tx", Math.min(0, (r.top - vh) * 0.5).toFixed(1));
+      });
+    }
     if (toTop) {
       var max = document.documentElement.scrollHeight - vh;
       toTop.classList.toggle("is-visible", y > vh * 0.8);
@@ -134,6 +179,9 @@
     });
     document.addEventListener("pointerdown", function (e) { if (!megaItem.contains(e.target)) setMega(false); });
   }
+  // A keyboard user tabbing into the header brings it back into view.
+  var siteHeader = document.getElementById("site-header");
+  if (siteHeader) siteHeader.addEventListener("focusin", function () { headerHidden = false; html.classList.remove("is-header-hidden"); });
 
   /* Mobile menu sub-list */
   $$("[data-menu-toggle]").forEach(function (btn) {
@@ -347,7 +395,7 @@
   function productCard(p, i) {
     var h = hash(p.slug);
     var url = "product.html?slug=" + p.slug;
-    return '<article class="pcard' + (h % 2 ? " is-flip" : "") + '" style="--i:' + (i || 0) + '">' +
+    return '<article class="pcard' + (h % 2 ? " is-flip" : "") + '" data-reveal style="--d:' + ((i || 0) % 4 * 0.09).toFixed(2) + 's">' +
       '<div class="pcard__visual">' +
         '<a class="pcard__media" href="' + url + '" tabindex="-1" aria-hidden="true">' +
           '<img class="pcard__img" src="' + p.image + '" alt="" loading="lazy" width="800" height="800" style="object-position:' + p.imagePosition + '">' +
@@ -369,9 +417,61 @@
   function renderCards(el, list) {
     el.innerHTML = list.map(productCard).join("");
     syncWish();
+    watch(el);
   }
 
-  /* ---------- Scroll reveal & counters ---------- */
+  /* ---------- Scroll motion setup ---------- */
+  // Photographs open with a curtain as they scroll in.
+  var CURTAINS = [
+    [".bento__item", "mask"], [".coll-card", "mask"], [".insta__item", "mask"], [".jcard__media", "mask"],
+    [".arch-frame", "mask"], [".craft__main", "mask-left"], [".craft__small", "mask-down"],
+  ];
+  CURTAINS.forEach(function (pair) { $$(pair[0]).forEach(function (el) { el.setAttribute("data-reveal", pair[1]); }); });
+  $$(".cat-arch").forEach(function (el) { el.setAttribute("data-reveal", "rise"); });
+
+  // Headlines are split into words that rise in one after another.
+  function splitWords(el) {
+    if (el.classList.contains("split-text")) return;
+    var n = 0;
+    var wrap = function (node) {
+      Array.prototype.slice.call(node.childNodes).forEach(function (child) {
+        if (child.nodeType === 3) {
+          var frag = document.createDocumentFragment();
+          child.textContent.split(/(\s+)/).forEach(function (part) {
+            if (!part) return;
+            if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(part)); return; }
+            var w = document.createElement("span");
+            w.className = "w";
+            w.style.setProperty("--wi", n++);
+            w.textContent = part;
+            frag.appendChild(w);
+          });
+          child.replaceWith(frag);
+        } else if (child.nodeType === 1 && child.tagName !== "BR") {
+          // Keep gold-gradient words whole so the metallic fill still paints.
+          if (child.classList.contains("text-metal")) {
+            var unit = document.createElement("span");
+            unit.className = "w";
+            unit.style.setProperty("--wi", n++);
+            child.replaceWith(unit);
+            unit.appendChild(child);
+          } else wrap(child);
+        }
+      });
+    };
+    wrap(el);
+    el.classList.add("split-text");
+  }
+  var SPLIT = ".section-title, .page-hero__title, .heritage__title, .cta-final__title, .manifesto__text, .quote-band__text, .newsletter h2, .process__body h2";
+  $$(SPLIT).forEach(splitWords);
+
+  // Line icons trace their strokes when their card appears.
+  $$(".trust__icon svg, .value__icon svg").forEach(function (svg) {
+    svg.classList.add("draw");
+    $$("path, circle, rect, line, polyline", svg).forEach(function (shape) { shape.setAttribute("pathLength", "1"); });
+  });
+
+  // Children of a [data-stagger] group follow one another.
   $$("[data-stagger]").forEach(function (group) {
     var step = parseFloat(group.getAttribute("data-stagger")) || 0.09;
     $$("[data-reveal]", group).forEach(function (el, i) { el.style.setProperty("--d", (i * step).toFixed(2) + "s"); });
@@ -380,7 +480,6 @@
     var target = parseFloat(el.getAttribute("data-count"));
     var dur = 1800, start = null;
     var fmt = function (v) { return Math.round(v).toLocaleString("en-IN"); };
-    if (reduceMotion) { el.textContent = fmt(target); return; }
     var tick = function (t) {
       if (!start) start = t;
       var k = Math.min(1, (t - start) / dur);
@@ -389,27 +488,48 @@
     };
     requestAnimationFrame(tick);
   }
-  if ("IntersectionObserver" in window) {
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add("is-visible");
-        io.unobserve(entry.target);
-      });
-    }, { threshold: 0.14, rootMargin: "0px 0px -6% 0px" });
-    $$("[data-reveal]").forEach(function (el) { io.observe(el); });
-    var countIO = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (!entry.isIntersecting) return;
-        countUp(entry.target);
-        countIO.unobserve(entry.target);
-      });
-    }, { threshold: 0.6 });
-    $$("[data-count]").forEach(function (el) { countIO.observe(el); });
-  } else {
-    $$("[data-reveal]").forEach(function (el) { el.classList.add("is-visible"); });
-    $$("[data-count]").forEach(countUp);
+  // A fully clipped element never counts as "on screen", so curtained images are watched through their parent.
+  var proxies = new Map();
+  var io = "IntersectionObserver" in window && new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (!entry.isIntersecting) return;
+      if (entry.intersectionRatio < 0.12 && entry.intersectionRect.height < window.innerHeight * 0.2) return;
+      var t = entry.target;
+      if (t.hasAttribute("data-reveal") || t.classList.contains("split-text")) t.classList.add("is-visible");
+      (proxies.get(t) || []).forEach(function (el) { el.classList.add("is-visible"); });
+      proxies.delete(t);
+      io.unobserve(t);
+    });
+  }, { threshold: [0, 0.06, 0.12, 0.25], rootMargin: "0px 0px -6% 0px" });
+  function track(el) {
+    if (!/^mask/.test(el.getAttribute("data-reveal") || "")) { io.observe(el); return; }
+    var host = el.parentElement;
+    if (!proxies.has(host)) proxies.set(host, []);
+    proxies.get(host).push(el);
+    io.observe(host);
   }
+  var countIO = io && new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (!entry.isIntersecting) return;
+      countUp(entry.target);
+      countIO.unobserve(entry.target);
+    });
+  }, { threshold: 0.6 });
+
+  // Start watching once the loader has lifted, so nothing plays behind it.
+  function watch(root) {
+    afterLoad(function () {
+      $$("[data-reveal]:not(.is-visible), .split-text:not(.is-visible)", root).forEach(function (el) {
+        if (io) track(el); else el.classList.add("is-visible");
+      });
+      $$("[data-count]", root).forEach(function (el) {
+        if (el.hasAttribute("data-counted")) return;
+        el.setAttribute("data-counted", "");
+        if (countIO) countIO.observe(el); else countUp(el);
+      });
+    });
+  }
+  watch(document);
 
   /* ---------- Hotspots (tap to open on touch screens) ---------- */
   $$(".hotspot").forEach(function (spot) {
@@ -629,6 +749,7 @@
         : '<div class="empty-state"><p class="empty-state__title">No pieces match these filters</p><p>Try widening your selection.</p>' +
           '<button type="button" class="btn btn--outline" data-clear-filters>Clear filters</button></div>';
       syncWish();
+      watch(results);
     };
 
     document.addEventListener("change", function (e) {
@@ -724,6 +845,8 @@
           '<button type="button" class="btn btn--primary btn--sm" data-open="enquire">' + icon("message-circle") + " Enquire</button></div>";
       document.body.classList.add("has-mobile-buy");
 
+      $$(SPLIT, productRoot).forEach(splitWords);
+      watch(productRoot);
       var relatedGrid = $("[data-related]", productRoot);
       if (relatedGrid) renderCards(relatedGrid, related);
 
@@ -825,8 +948,11 @@
       copy.addEventListener("click", function () {
         if (navigator.clipboard) navigator.clipboard.writeText(window.location.href).then(function () { showToast("Link copied"); });
       });
-      var cover = $("[data-reveal]", articleRoot);
-      if (cover) requestAnimationFrame(function () { cover.classList.add("is-visible"); });
+      // This content arrived after the motion setup ran, so wire it up here.
+      pageHero = $(".page-hero", articleRoot);
+      $$(".jcard__media", articleRoot).forEach(function (el) { el.setAttribute("data-reveal", "mask"); });
+      $$(SPLIT, articleRoot).forEach(splitWords);
+      watch(articleRoot);
     }
   }
 
