@@ -54,6 +54,7 @@
   --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-expo: cubic-bezier(0.87, 0, 0.13, 1);
 
   /* Depth */
   --shadow-sm: 0 8px 22px -12px rgba(46, 10, 22, 0.28);
@@ -648,7 +649,7 @@ body.is-locked { overflow: hidden; }
 .promise__grid { display: grid; grid-template-columns: 0.95fr 1.05fr; align-items: center; gap: clamp(48px, 7vw, 110px); }
 .promise__media { position: relative; }
 .arch-frame { position: relative; overflow: hidden; border-radius: 999px 999px 0 0; aspect-ratio: 4 / 5; }
-.arch-frame img { width: 100%; height: 118%; object-fit: cover; will-change: transform; }
+.arch-frame img { width: 100%; height: 100%; object-fit: cover; }
 .promise__media .arch-frame { max-width: 480px; }
 .promise__media::before { content: ""; position: absolute; inset: -18px auto auto -18px; width: min(480px, 100%); aspect-ratio: 4 / 5; border: 1px solid rgba(227, 199, 122, 0.45); border-radius: 999px 999px 0 0; }
 .seal { position: absolute; right: max(0px, calc(100% - 560px)); bottom: 40px; width: 150px; height: 150px; display: grid; place-items: center; }
@@ -708,7 +709,6 @@ body.is-locked { overflow: hidden; }
 .craft__media { position: relative; padding: 0 10% 12% 0; }
 .craft__main { overflow: hidden; aspect-ratio: 4 / 5; }
 .craft__main img, .craft__small img { width: 100%; height: 100%; object-fit: cover; }
-.craft__main img { height: 114%; will-change: transform; }
 .craft__small { position: absolute; right: 0; bottom: 0; width: 46%; aspect-ratio: 1; overflow: hidden; border: 10px solid var(--pearl); box-shadow: var(--shadow); }
 .craft__small img { transition: transform 1.2s var(--ease-out); }
 .craft__small:hover img { transform: scale(1.1); }
@@ -902,7 +902,7 @@ body.is-locked { overflow: hidden; }
   position: relative; overflow: hidden; isolation: isolate; text-align: center; color: var(--ivory); background: var(--wine-deep);
   padding: calc(var(--topbar-h) + var(--header-h) + clamp(56px, 7vw, 96px)) 0 clamp(64px, 7vw, 100px);
 }
-.page-hero__bg { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; opacity: 0.42; transform: scale(1.08); animation: pageHeroZoom 12s var(--ease-out) forwards; }
+.page-hero__bg { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; opacity: 0.42; transform: scale(1.08); }
 .page-hero::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(29, 6, 14, 0.82) 0%, rgba(46, 10, 22, 0.72) 50%, rgba(29, 6, 14, 0.94) 100%); }
 .page-hero::after { content: ""; position: absolute; left: 50%; bottom: 0; width: 1px; height: 46px; background: linear-gradient(transparent, var(--gold-soft)); }
 .page-hero__title { margin-top: 20px; font-family: var(--font-display); font-weight: 300; font-size: clamp(3rem, 7vw, 6rem); line-height: 1; letter-spacing: -0.015em; }
@@ -1141,6 +1141,7 @@ body.is-locked { overflow: hidden; }
 @media (max-width: 559px) { .info-cards { grid-template-columns: 1fr; } }
 .contact__grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(40px, 6vw, 90px); align-items: start; }
 .visit-card { position: relative; overflow: hidden; color: var(--ivory); background: var(--wine-deep); }
+.visit-card__media { overflow: hidden; }
 .visit-card img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; opacity: 0.85; }
 .visit-card__body { padding: 36px; }
 .visit-card__body h2 { font-size: 34px; }
@@ -1300,25 +1301,52 @@ select.field__input { cursor: pointer; background: url("data:image/svg+xml,%3Csv
 .is-header-hidden .catalog__sidebar { top: 92px; }
 .is-header-hidden .gallery { top: 24px; }
 
-/* Reveal on enter */
-.js [data-reveal] { opacity: 0; transform: translate3d(0, 46px, 0); transition: opacity 1.1s var(--ease-out), transform 1.3s var(--ease-out), filter 1.1s var(--ease-out); transition-delay: var(--d, 0s); }
+/* Reveal on enter (curtain and shutter frames are left out here: they stay put and open instead, see below) */
+.js [data-reveal]:where(:not([data-reveal^="mask"], [data-reveal="shutter"])) { opacity: 0; transform: translate3d(0, 46px, 0); transition: opacity 1.1s var(--ease-out), transform 1.3s var(--ease-out), filter 1.1s var(--ease-out); transition-delay: var(--d, 0s); }
 .js [data-reveal="left"] { transform: translate3d(-64px, 0, 0); }
 .js [data-reveal="right"] { transform: translate3d(64px, 0, 0); }
 .js [data-reveal="zoom"] { transform: scale(0.9); }
 .js [data-reveal="fade"] { transform: none; }
 .js [data-reveal="blur"] { transform: translate3d(0, 22px, 0); filter: blur(12px); }
 .js [data-reveal="rise"] { transform: translate3d(0, 80px, 0) rotate(2deg); transform-origin: left top; }
-.js [data-reveal].is-visible { opacity: 1; transform: none; filter: none; }
+.js [data-reveal]:where(:not([data-reveal^="mask"], [data-reveal="shutter"])).is-visible { opacity: 1; transform: none; filter: none; }
 
-/* Image curtains: the frame opens while the photo settles from a slight zoom */
-.js [data-reveal^="mask"] { opacity: 1; transform: none; transition: clip-path 1.6s var(--ease-in-out); transition-delay: var(--d, 0s); }
-.js [data-reveal="mask"] { clip-path: inset(100% 0 0 0); }
-.js [data-reveal="mask-down"] { clip-path: inset(0 0 100% 0); }
-.js [data-reveal="mask-left"] { clip-path: inset(0 100% 0 0); }
-.js [data-reveal="mask-right"] { clip-path: inset(0 0 0 100%); }
-.js [data-reveal^="mask"].is-visible { clip-path: inset(0 0 0 0); }
-.js [data-reveal^="mask"] img { scale: 1.24; transition: scale 2.2s var(--ease-out), transform 1.4s var(--ease-out), filter 0.8s var(--ease), opacity 0.7s var(--ease); transition-delay: var(--d, 0s), 0s, 0s, 0s; }
-.js [data-reveal^="mask"].is-visible img { scale: 1; }
+/* Image curtains (mask = rising, mask-down, mask-left, mask-right): the frame wipes open while the photo
+   settles from a zoom. A closed curtain is a shape of no area that still traces the whole frame, so the
+   scroll observer keeps seeing the frame; once open, main.js marks it .is-revealed and the clip is dropped. */
+.js [data-reveal="mask"] { clip-path: polygon(0 0, 0 100%, 100% 100%, 100% 100%, 0 100%, 0 0); }
+.js [data-reveal="mask-down"] { clip-path: polygon(0 100%, 0 0, 100% 0, 100% 0, 0 0, 0 100%); }
+.js [data-reveal="mask-left"] { clip-path: polygon(100% 0, 0 0, 0 100%, 0 100%, 0 0, 100% 0); }
+.js [data-reveal="mask-right"] { clip-path: polygon(0 0, 100% 0, 100% 100%, 100% 100%, 100% 0, 0 0); }
+.js [data-reveal^="mask"].is-visible { animation: curtainUp 1.5s var(--ease-in-out) var(--d, 0s) both; }
+.js [data-reveal="mask-down"].is-visible { animation-name: curtainDown; }
+.js [data-reveal="mask-left"].is-visible { animation-name: curtainLeft; }
+.js [data-reveal="mask-right"].is-visible { animation-name: curtainRight; }
+.js [data-reveal^="mask"].is-visible img { animation: settle 2.4s var(--ease-out) var(--d, 0s) backwards; }
+.js [data-reveal^="mask"].is-visible img[data-parallax] { animation-name: settleDrift; }
+.js [data-reveal^="mask"].is-revealed { clip-path: none; animation: none; }
+
+/* Photographs drift inside their frames as the page scrolls (main.js moves them; this extra scale is the
+   room they travel in, so no edge ever shows) */
+.js [data-parallax] { scale: 1.18; }
+
+/* Shutter: the frame opens in vertical bands (--bands, default 4) while the photograph settles from a
+   zoom. The home and inner-page heroes open this way once the page has loaded. */
+@property --reveal { syntax: "<percentage>"; inherits: false; initial-value: 0%; }
+.js [data-reveal="shutter"], .js .hero__media, .js .page-hero__bg {
+  -webkit-mask-image: linear-gradient(90deg, #000 var(--reveal), transparent var(--reveal));
+          mask-image: linear-gradient(90deg, #000 var(--reveal), transparent var(--reveal));
+  -webkit-mask-size: calc(100% / var(--bands, 4)) 100%;
+          mask-size: calc(100% / var(--bands, 4)) 100%;
+  -webkit-mask-repeat: repeat-x;
+          mask-repeat: repeat-x;
+}
+.hero__media, .page-hero__bg { --bands: 5; }
+.js [data-reveal="shutter"].is-visible { animation: shutterOpen 1.5s var(--ease-expo) var(--d, 0s) both; }
+.js [data-reveal="shutter"].is-visible img { animation: settle 2.4s var(--ease-out) var(--d, 0s) backwards; }
+.is-loaded .hero__media { animation: shutterOpen 1.8s var(--ease-expo) 0.1s both; }
+.is-loaded .page-hero__bg { animation: pageHeroZoom 12s var(--ease-out) forwards, shutterOpen 1.8s var(--ease-expo) 0.1s both; }
+.js .is-revealed { -webkit-mask: none; mask: none; }
 
 /* Headlines rise in word by word */
 .split-text .w { display: inline-block; opacity: 0; transform: translate3d(0, 0.55em, 0) rotate(4deg); transform-origin: left bottom; filter: blur(8px); transition: opacity 0.9s var(--ease-out), transform 1.25s var(--ease-out), filter 1s var(--ease-out); transition-delay: calc(var(--d, 0s) + min(var(--wi, 0) * 70ms, 1.3s) + 0.08s); }
@@ -1354,7 +1382,7 @@ select.field__input { cursor: pointer; background: url("data:image/svg+xml,%3Csv
 .page-hero__bg { translate: 0 calc(var(--ph-p, 0) * 30%); }
 [data-expand] { clip-path: inset(0 calc((1 - var(--xp, 1)) * 4.5vw) round calc((1 - var(--xp, 1)) * 44px)); }
 .ticker__track { translate: calc(var(--tx, 0) * 1px) 0; }
-[data-float], [data-parallax] { will-change: translate; }
+[data-float] { will-change: translate; }
 
 /* ---------- 38. Keyframes ---------- */
 @keyframes sheen { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
@@ -1388,22 +1416,34 @@ select.field__input { cursor: pointer; background: url("data:image/svg+xml,%3Csv
 @keyframes loaderLine { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 @keyframes spinRotate { to { rotate: 360deg; } }
 @keyframes ornamentDraw { to { clip-path: inset(0 -2% 0 -2%); } }
+@keyframes shutterOpen { from { --reveal: 0%; } to { --reveal: 100%; } }
+@keyframes settle { from { scale: 1.3; } }
+@keyframes settleDrift { from { scale: 1.5; } }
+@keyframes curtainUp { to { clip-path: polygon(0 0, 0 100%, 100% 100%, 100% 0, 0 0, 0 0); } }
+@keyframes curtainDown { to { clip-path: polygon(0 100%, 0 0, 100% 0, 100% 100%, 0 100%, 0 100%); } }
+@keyframes curtainLeft { to { clip-path: polygon(100% 0, 0 0, 0 100%, 100% 100%, 100% 0, 100% 0); } }
+@keyframes curtainRight { to { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 0 0, 0 0); } }
 
-/* ---------- 39. Reduced motion ----------
-   "Reduce motion" keeps the gentle parts — fades, curtain reveals, icon strokes, counters —
-   and drops travel, zoom, blur, parallax and anything that moves on its own. */
+/* ---------- 39. Calmer motion (optional) ----------
+   Off by default. With CALM_FOR_REDUCED_MOTION set to true in main.js, visitors whose system asks for
+   reduced motion get html.reduce-motion: the gentle parts — fades, curtain reveals, icon strokes,
+   counters — stay, and travel, zoom, blur, parallax, shutters and anything that moves on its own go. */
 @keyframes fadeOnly { from { opacity: 0; } to { opacity: 1; } }
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  .topbar__track, .ticker__track, .seal__ring, .hero__scroll i::after, .hotspot::after, .trust__icon::before { animation: none !important; }
-  .sparkles, .hero__glow { display: none; }
-  .js [data-reveal]:not([data-reveal^="mask"]) { transform: none !important; filter: none !important; transition-duration: 0.9s, 0s, 0s; }
-  .js [data-reveal^="mask"] img { scale: 1 !important; }
-  .split-text .w { transform: none !important; filter: none !important; }
-  .js .hero__zoom, .page-hero__bg { transform: none !important; animation: none !important; }
-  .js .hero [data-hero], .js .hero__title .line > span { opacity: 0; transform: none !important; }
-  .is-loaded .hero [data-hero], .is-loaded .hero__title .line > span, .is-loaded .page-hero > .container > * { animation-name: fadeOnly !important; }
-  [data-expand] { clip-path: none !important; }
-  .hero__content, .page-hero > .container { transform: none !important; opacity: 1 !important; }
-  .hero__media, .page-hero__bg, .ticker__track, [data-float], [data-parallax] { translate: none !important; }
-}
+html.reduce-motion { scroll-behavior: auto; }
+.reduce-motion .topbar__track, .reduce-motion .ticker__track, .reduce-motion .seal__ring, .reduce-motion .hero__scroll i::after, .reduce-motion .hotspot::after, .reduce-motion .trust__icon::before { animation: none !important; }
+.reduce-motion .sparkles, .reduce-motion .hero__glow { display: none; }
+.reduce-motion [data-reveal]:not([data-reveal^="mask"]):not([data-reveal="shutter"]) { transform: none !important; filter: none !important; transition-duration: 0.9s, 0s, 0s; }
+.reduce-motion [data-reveal^="mask"].is-visible img { animation: none; }
+.reduce-motion [data-parallax] { scale: none; }
+.reduce-motion [data-reveal="shutter"], .reduce-motion .hero__media, .reduce-motion .page-hero__bg { -webkit-mask: none; mask: none; }
+.reduce-motion [data-reveal="shutter"] { opacity: 0; }
+.reduce-motion [data-reveal="shutter"].is-visible { animation: fadeOnly 0.9s var(--ease) var(--d, 0s) both; }
+.reduce-motion [data-reveal="shutter"].is-visible img { animation: none; }
+.reduce-motion .split-text .w { transform: none !important; filter: none !important; }
+.reduce-motion .hero__zoom, .reduce-motion .page-hero__bg { transform: none !important; animation: none !important; }
+.reduce-motion .hero [data-hero], .reduce-motion .hero__title .line > span { opacity: 0; transform: none !important; }
+.reduce-motion.is-loaded .hero [data-hero], .reduce-motion.is-loaded .hero__title .line > span, .reduce-motion.is-loaded .page-hero > .container > * { animation-name: fadeOnly !important; }
+.reduce-motion.is-loaded .hero__media { animation: none; }
+.reduce-motion [data-expand] { clip-path: none !important; }
+.reduce-motion .hero__content, .reduce-motion .page-hero > .container { transform: none !important; opacity: 1 !important; }
+.reduce-motion .hero__media, .reduce-motion .page-hero__bg, .reduce-motion .ticker__track, .reduce-motion [data-float], .reduce-motion [data-parallax] { translate: none !important; }

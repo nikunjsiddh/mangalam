@@ -12,7 +12,12 @@
   var html = document.documentElement;
   var page = document.body.getAttribute("data-page");
   var params = new URLSearchParams(window.location.search);
-  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  // Windows reports "reduce motion" whenever Settings > Accessibility > Animation effects is off (as the
+  // "best performance" setting does), which froze the marquees and most scroll effects on such PCs.
+  // The site now animates for everyone; set this to true to give those visitors a calmer site instead.
+  var CALM_FOR_REDUCED_MOTION = false;
+  var reduceMotion = CALM_FOR_REDUCED_MOTION && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduceMotion) html.classList.add("reduce-motion");
   var canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
   function $(sel, root) { return (root || document).querySelector(sel); }
@@ -68,13 +73,25 @@
   var toTop = $("[data-to-top]");
   var progress = $("[data-progress]");
   var heroEl = $(".hero"), pageHero = $(".page-hero");
-  var parallax = reduceMotion ? [] : $$("[data-parallax]");
   var floats = reduceMotion ? [] : $$("[data-float]");
   var expands = reduceMotion ? [] : $$("[data-expand]");
   var tickers = reduceMotion ? [] : $$(".ticker");
   var steps = $$("[data-steps]");
   var ticking = false, lastY = window.scrollY, headerHidden = false;
   function clamp(v, min, max) { return Math.max(min, Math.min(max, v)); }
+  function requestTick() { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }
+  // Photographs ([data-parallax]) drift up and down inside their frames. The CSS scales them up 18% for room;
+  // DRIFT is how far they travel each way, as a share of the frame's height. Only images near the screen move.
+  var DRIFT = 0.07;
+  var drifting = [];
+  var driftIO = !reduceMotion && "IntersectionObserver" in window && new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      var img = entry.target, i = drifting.indexOf(img);
+      if (entry.isIntersecting && i === -1) { drifting.push(img); img.style.willChange = "translate"; }
+      else if (!entry.isIntersecting && i !== -1) { drifting.splice(i, 1); img.style.willChange = ""; }
+    });
+    requestTick();
+  }, { rootMargin: "25% 0px" });
   function onScroll() {
     var y = window.scrollY;
     var vh = window.innerHeight;
@@ -119,14 +136,15 @@
       toTop.classList.toggle("is-visible", y > vh * 0.8);
       toTop.style.setProperty("--p", max > 0 ? Math.min(1, y / max).toFixed(3) : 0);
     }
-    parallax.forEach(function (el) {
-      var r = el.parentElement.getBoundingClientRect();
-      if (r.bottom < -100 || r.top > vh + 100) return;
-      // The image is taller than its frame; drift it within that spare height.
-      var speed = parseFloat(el.getAttribute("data-parallax")) || 0.12;
-      var spare = Math.max(0, el.offsetHeight - r.height) / 2;
-      var offset = Math.max(-spare, Math.min(spare, (r.top + r.height / 2 - vh / 2) * speed));
-      el.style.translate = "0 " + (-spare - offset).toFixed(1) + "px";
+    // Read every frame first, then move the images, so the browser lays the page out once per frame.
+    drifting = drifting.filter(function (img) { return img.isConnected; });
+    var frames = drifting.map(function (img) { return [img.parentElement.getBoundingClientRect(), img.offsetHeight]; });
+    drifting.forEach(function (img, i) {
+      var r = frames[i][0];
+      // -1 as the frame enters at the bottom of the screen, 1 as it leaves at the top.
+      var p = clamp((vh / 2 - r.top - r.height / 2) / ((vh + r.height) / 2), -1, 1);
+      var strength = parseFloat(img.getAttribute("data-parallax")) || 1;
+      img.style.translate = "0 " + (p * frames[i][1] * DRIFT * strength).toFixed(1) + "px";
     });
     steps.forEach(function (el) {
       var r = el.getBoundingClientRect();
@@ -137,12 +155,46 @@
     if (buy) buy.classList.toggle("is-visible", y > 700);
     ticking = false;
   }
-  window.addEventListener("scroll", function () {
-    if (!ticking) { ticking = true; requestAnimationFrame(onScroll); }
-  }, { passive: true });
+  window.addEventListener("scroll", requestTick, { passive: true });
   window.addEventListener("resize", onScroll);
   onScroll();
   if (toTop) toTop.addEventListener("click", function () { window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" }); });
+
+  /* ---------- Smooth wheel scrolling (mouse and trackpad on desktop) ---------- */
+  // Each wheel step glides to where it was heading instead of jumping. Keyboard, scrollbar, touch and links
+  // scroll natively, and anything else that moves the page takes over from the glide straight away.
+  if (!reduceMotion && canHover) {
+    var glideTo = 0, glideAt = 0, glideLast = 0, gliding = false;
+    var stopGlide = function () { gliding = false; html.style.scrollBehavior = ""; };
+    // Wheel over a panel that can still scroll that way (a dialog, a long list) scrolls the panel instead.
+    var scrollsItself = function (el, dy) {
+      for (; el && el !== document.body; el = el.parentElement) {
+        var oy = getComputedStyle(el).overflowY;
+        if ((oy === "auto" || oy === "scroll") && el.scrollHeight > el.clientHeight + 1 &&
+          (dy < 0 ? el.scrollTop > 0 : el.scrollTop + el.clientHeight < el.scrollHeight - 1)) return true;
+      }
+      return false;
+    };
+    var glide = function (t) {
+      if (!gliding) return;
+      if (Math.abs(window.scrollY - glideAt) > 2) { stopGlide(); return; }
+      var dt = glideLast ? Math.min(64, t - glideLast) : 16.7;
+      glideLast = t;
+      glideAt += (glideTo - glideAt) * (1 - Math.pow(0.9, dt / 16.7));
+      if (Math.abs(glideTo - glideAt) < 0.5) glideAt = glideTo;
+      window.scrollTo(0, glideAt);
+      if (glideAt === glideTo) stopGlide(); else requestAnimationFrame(glide);
+    };
+    window.addEventListener("wheel", function (e) {
+      if (e.ctrlKey || e.defaultPrevented || Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+      if (document.body.style.overflow === "hidden" || scrollsItself(e.target, e.deltaY)) return;
+      e.preventDefault();
+      if (!gliding) { glideTo = glideAt = window.scrollY; glideLast = 0; }
+      var unit = e.deltaMode === 1 ? 40 : e.deltaMode === 2 ? window.innerHeight : 1;
+      glideTo = clamp(glideTo + e.deltaY * unit, 0, document.documentElement.scrollHeight - window.innerHeight);
+      if (!gliding) { gliding = true; html.style.scrollBehavior = "auto"; requestAnimationFrame(glide); }
+    }, { passive: false });
+  }
 
   /* ---------- Mega menu (hover on desktop, tap-to-open on touch, Esc to close) ---------- */
   var megaItem = $(".nav__item--mega");
@@ -421,13 +473,25 @@
   }
 
   /* ---------- Scroll motion setup ---------- */
-  // Photographs open with a curtain as they scroll in.
-  var CURTAINS = [
-    [".bento__item", "mask"], [".coll-card", "mask"], [".insta__item", "mask"], [".jcard__media", "mask"],
-    [".arch-frame", "mask"], [".craft__main", "mask-left"], [".craft__small", "mask-down"],
-  ];
-  CURTAINS.forEach(function (pair) { $$(pair[0]).forEach(function (el) { el.setAttribute("data-reveal", pair[1]); }); });
+  // Every photograph opens with a curtain as it scrolls in, settling from a zoom, and then drifts inside its
+  // frame as the page moves. prepare() also runs on content rendered later (product cards, articles).
+  var CURTAINS = ".bento__item, .coll-card, .panel, .insta__item, .jcard__media, .arch-frame, .craft__main, .craft__small, .heritage__arch, " +
+    ".cat-arch__img, .closer__stage, .visit-card__media, .article-cover__img, .pcard__visual, .gallery__main";
+  var PARALLAX = ".bento__item > img, .coll-card > img, .panel > img, .insta__item > img, .jcard__media > img, .arch-frame > img, " +
+    ".craft__main > img, .craft__small > img, .cat-arch__img > img, .visit-card__media > img, .article-cover__img > img, .pcard__img";
+  function prepare(root) {
+    $$(CURTAINS, root).forEach(function (el) { el.setAttribute("data-reveal", "mask"); });
+    $$(PARALLAX, root).forEach(function (img) {
+      if (!img.hasAttribute("data-parallax")) img.setAttribute("data-parallax", "");
+      if (driftIO) driftIO.observe(img);
+    });
+  }
   $$(".cat-arch").forEach(function (el) { el.setAttribute("data-reveal", "rise"); });
+  prepare(document);
+  // Once a curtain or shutter has opened, drop its clip so the frame paints (and casts its shadow) normally.
+  document.addEventListener("animationend", function (e) {
+    if (/^(curtain|shutterOpen)/.test(e.animationName)) e.target.classList.add("is-revealed");
+  });
 
   // Headlines are split into words that rise in one after another.
   function splitWords(el) {
@@ -471,10 +535,13 @@
     $$("path, circle, rect, line, polyline", svg).forEach(function (shape) { shape.setAttribute("pathLength", "1"); });
   });
 
-  // Children of a [data-stagger] group follow one another.
+  // Children of a [data-stagger] group follow one another (a reveal nested in another inherits its delay).
   $$("[data-stagger]").forEach(function (group) {
     var step = parseFloat(group.getAttribute("data-stagger")) || 0.09;
-    $$("[data-reveal]", group).forEach(function (el, i) { el.style.setProperty("--d", (i * step).toFixed(2) + "s"); });
+    $$("[data-reveal]", group).filter(function (el) {
+      var outer = el.parentElement.closest("[data-reveal]");
+      return !outer || !group.contains(outer);
+    }).forEach(function (el, i) { el.style.setProperty("--d", (i * step).toFixed(2) + "s"); });
   });
   function countUp(el) {
     var target = parseFloat(el.getAttribute("data-count"));
@@ -488,26 +555,15 @@
     };
     requestAnimationFrame(tick);
   }
-  // A fully clipped element never counts as "on screen", so curtained images are watched through their parent.
-  var proxies = new Map();
+  // Closed curtains still trace their frame's outline (see mangalam.css), so every element is watched directly.
   var io = "IntersectionObserver" in window && new IntersectionObserver(function (entries) {
     entries.forEach(function (entry) {
       if (!entry.isIntersecting) return;
       if (entry.intersectionRatio < 0.12 && entry.intersectionRect.height < window.innerHeight * 0.2) return;
-      var t = entry.target;
-      if (t.hasAttribute("data-reveal") || t.classList.contains("split-text")) t.classList.add("is-visible");
-      (proxies.get(t) || []).forEach(function (el) { el.classList.add("is-visible"); });
-      proxies.delete(t);
-      io.unobserve(t);
+      entry.target.classList.add("is-visible");
+      io.unobserve(entry.target);
     });
   }, { threshold: [0, 0.06, 0.12, 0.25], rootMargin: "0px 0px -6% 0px" });
-  function track(el) {
-    if (!/^mask/.test(el.getAttribute("data-reveal") || "")) { io.observe(el); return; }
-    var host = el.parentElement;
-    if (!proxies.has(host)) proxies.set(host, []);
-    proxies.get(host).push(el);
-    io.observe(host);
-  }
   var countIO = io && new IntersectionObserver(function (entries) {
     entries.forEach(function (entry) {
       if (!entry.isIntersecting) return;
@@ -518,9 +574,10 @@
 
   // Start watching once the loader has lifted, so nothing plays behind it.
   function watch(root) {
+    prepare(root);
     afterLoad(function () {
       $$("[data-reveal]:not(.is-visible), .split-text:not(.is-visible)", root).forEach(function (el) {
-        if (io) track(el); else el.classList.add("is-visible");
+        if (io) io.observe(el); else el.classList.add("is-visible");
       });
       $$("[data-count]", root).forEach(function (el) {
         if (el.hasAttribute("data-counted")) return;
@@ -924,7 +981,7 @@
             '<p class="breadcrumb" style="margin-top:26px">' + esc(article.date) + '<span class="breadcrumb__sep"></span>' + esc(article.readTime) + "</p>" +
           "</div>" +
         "</header>" +
-        '<div class="container article-cover" data-reveal="zoom"><div class="article-cover__img"><img src="' + article.image + '" alt="' + esc(article.title) + '" style="object-position:' + article.imagePosition + '"></div></div>' +
+        '<div class="container article-cover"><div class="article-cover__img"><img src="' + article.image + '" alt="' + esc(article.title) + '" style="object-position:' + article.imagePosition + '"></div></div>' +
         '<div class="container container--narrow article-body">' +
           '<div class="prose">' + article.body.map(function (para, i) { return "<p" + (i ? "" : ' class="dropcap"') + ">" + esc(para) + "</p>"; }).join("") + "</div>" +
           '<div class="article-share">' +
@@ -950,7 +1007,6 @@
       });
       // This content arrived after the motion setup ran, so wire it up here.
       pageHero = $(".page-hero", articleRoot);
-      $$(".jcard__media", articleRoot).forEach(function (el) { el.setAttribute("data-reveal", "mask"); });
       $$(SPLIT, articleRoot).forEach(splitWords);
       watch(articleRoot);
     }

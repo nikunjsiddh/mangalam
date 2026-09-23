@@ -64,13 +64,15 @@ Handled by `assets/js/main.js` (one scroll loop) and section 37 of `mangalam.css
 
 | Attribute | Effect |
 | --- | --- |
-| `data-reveal` | Fades up when scrolled into view. Variants: `left`, `right`, `zoom`, `fade`, `blur`, `rise`, and image curtains `mask`, `mask-down`, `mask-left`, `mask-right` |
+| `data-reveal` | Fades up when scrolled into view. Variants: `left`, `right`, `zoom`, `fade`, `blur`, `rise`; image curtains `mask` (rises), `mask-down`, `mask-left`, `mask-right` — the photo frame wipes open while the photo settles from a zoom; and `shutter` — the frame opens in vertical bands (set `--bands` on the element to change their number, default 4) |
 | `data-stagger="0.1"` | On a parent: its `data-reveal` children follow one another by that many seconds |
-| `data-parallax="0.1"` | On an image taller than its frame: drifts inside the frame |
+| `data-parallax` | On an image inside a frame that hides its overflow: drifts up and down inside the frame as the page scrolls. An optional value scales the drift (`0.5` = half) |
 | `data-float="0.15"` | Drifts at its own speed for depth (negative = opposite direction) |
 | `data-expand` | On a section: opens from an inset rounded card to full width as it arrives |
 | `data-count="200"` | Counts up to the number |
 
 Headlines (`.section-title`, `.page-hero__title` …) animate word by word automatically, section eyebrows and the logo ornament draw themselves in, and icons in `.trust__icon` / `.value__icon` trace their outlines.
 
-If a visitor's system asks for reduced motion (Windows: *Settings → Accessibility → Visual effects → Animation effects* turned off), the site keeps the gentle fades, curtains and counters and leaves out parallax, zooms, drifting layers and moving marquees.
+Every photograph gets the rising curtain and the drift automatically — product cards, category arches, collection and journal cards, arch frames, bridal panels, Instagram tiles and more (the lists are `CURTAINS` and `PARALLAX` in `main.js`; the closer-look stage and the product gallery reveal but stay still, so the magnifier and zoom line up). The home and inner-page heroes open in five bands once the page has loaded. On desktop, mouse-wheel and trackpad scrolling glides smoothly; touch screens, the keyboard and the scrollbar keep native scrolling.
+
+The site animates for every visitor. Windows tells browsers to "reduce motion" whenever *Settings → Accessibility → Visual effects → Animation effects* is off (the *Adjust for best performance* option switches it off too), which used to freeze the announcement bar and most effects on such PCs. To give those visitors a calmer site again, set `CALM_FOR_REDUCED_MOTION` to `true` at the top of `assets/js/main.js`: they then keep the fades, curtains and counters and lose smooth scrolling, parallax, zooms, shutters, drifting layers and moving marquees.
