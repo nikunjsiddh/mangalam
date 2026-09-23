@@ -382,6 +382,8 @@ body.is-locked { overflow: hidden; }
   background: var(--wine-night); color: var(--ivory);
 }
 .hero__media { position: absolute; inset: 0; z-index: -3; container-type: size; }
+.hero__pins { z-index: -1; pointer-events: none; }
+.hero__pins .hotspot { pointer-events: auto; }
 .hero__frame { position: absolute; top: 50%; left: var(--fx); width: max(100cqw, 150cqh); aspect-ratio: 3 / 2; transform: translate(calc(var(--fx) * -1), -50%); }
 .hero__zoom { position: absolute; inset: 0; transform-origin: 68% 45%; }
 .js .hero__zoom { transform: scale(1.14); }

@@ -4,13 +4,20 @@
         <div class="hero__frame">
           <div class="hero__zoom">
             <img class="hero__img" src="assets/images/mangalam-hero.jpg" alt="A bride in a maroon silk saree wearing Mangalam heritage gold and diamond jewellery" width="1920" height="1280" fetchpriority="high">
-          {{heroHotspots}}
           </div>
         </div>
       </div>
       <div class="hero__shade"></div>
       <div class="hero__glow"></div>
       <div class="sparkles" aria-hidden="true">{{sparkles}}</div>
+      <!-- Shop-the-look pins: same frame as the photo, layered above its shading so they stay crisp -->
+      <div class="hero__media hero__pins">
+        <div class="hero__frame">
+          <div class="hero__zoom">
+          {{heroHotspots}}
+          </div>
+        </div>
+      </div>
       <div class="container hero__inner">
         <div class="hero__content">
           <p class="eyebrow eyebrow--light" data-hero style="--i:0">The art of timeless adornment</p>

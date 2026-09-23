@@ -80,10 +80,11 @@ const fragments = {
 /* Home-only fragments */
 function homeFragments() {
   const hotspots = [
-    { slug: "bridal-jhumka", x: 68.2, y: 27.5 },
-    { slug: "diamond-collar-necklace", x: 70.4, y: 60.5 },
+    // Positions are percentages of assets/images/mangalam-hero.jpg (1920 × 1280), centred on each jewel.
+    { slug: "bridal-jhumka", x: 68.1, y: 29.6 },
+    { slug: "diamond-collar-necklace", x: 70.3, y: 61.6 },
     { slug: "heritage-gold-bangles", x: 85.6, y: 51.5, flip: true },
-    { slug: "floral-diamond-ring", x: 89.2, y: 81.6, flip: true },
+    { slug: "floral-diamond-ring", x: 84.1, y: 82.0, flip: true },
   ];
   const heroHotspots = hotspots.map(({ slug, x, y, flip }) => {
     const p = bySlug(slug);
