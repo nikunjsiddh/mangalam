@@ -1290,6 +1290,77 @@ select.field__input { cursor: pointer; background: url("data:image/svg+xml,%3Csv
 .toast .icon { width: 17px; height: 17px; color: var(--gold-soft); }
 .has-mobile-buy .toast { bottom: 90px; }
 
+/* Offer popup (opens by itself once per visit) and the tab it folds into on the right */
+.offer__panel {
+  left: 50%; top: 50%; translate: -50% -50%; overflow: visible;
+  width: min(410px, calc(100% - 40px)); padding: 52px clamp(26px, 6vw, 44px) 40px;
+  text-align: center; color: var(--ivory);
+  background: radial-gradient(ellipse at 22% 0%, #6A2238 0%, var(--wine) 45%, var(--wine-deep) 100%);
+  border: 1px solid rgba(227, 199, 122, 0.42); box-shadow: 0 44px 90px -30px rgba(29, 6, 14, 0.85);
+}
+.offer__panel::before { content: ""; position: absolute; inset: 9px; border: 1px solid rgba(227, 199, 122, 0.16); pointer-events: none; }
+.offer__panel[data-state="open"] { animation: offerIn 0.9s var(--ease-out) both; }
+.offer:not(.is-timed) .offer__panel[data-state="open"] { animation-name: offerFromTab; animation-duration: 0.7s; }
+.offer__panel[data-state="closed"] { animation: offerToTab 0.44s cubic-bezier(0.55, 0, 1, 0.45) both; }
+.offer__close {
+  position: absolute; top: -17px; right: -17px; z-index: 2; width: 38px; height: 38px; border-radius: 50%;
+  display: grid; place-items: center; background: var(--ivory); color: var(--wine-deep); box-shadow: var(--shadow-sm);
+  transition: transform 0.5s var(--ease-out), background-color 0.3s;
+}
+.offer__close:hover { transform: rotate(90deg); background: var(--gold-pale); }
+.offer__close .icon { width: 17px; height: 17px; }
+.offer__corner { position: absolute; width: 24px; height: 24px; border: 0 solid var(--gold-soft); pointer-events: none; }
+.offer__corner--tl { top: 16px; left: 16px; border-width: 1.5px 0 0 1.5px; }
+.offer__corner--br { right: 16px; bottom: 16px; border-width: 0 1.5px 1.5px 0; }
+.offer__seal { position: absolute; top: 20px; right: 20px; width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; border: 1px solid rgba(227, 199, 122, 0.55); }
+.offer__seal .brand-emblem { width: 22px; }
+.offer__spark { position: absolute; left: var(--x); top: var(--y); font-size: 12px; line-height: 1; color: var(--gold-soft); opacity: 0; animation: twinkle 5s var(--ease-in-out) infinite; animation-delay: var(--d, 0s); pointer-events: none; }
+.offer__eyebrow { font-size: 10.5px; font-weight: 500; letter-spacing: 0.34em; text-transform: uppercase; color: var(--gold-soft); }
+.offer__title { margin-top: 16px; font-family: var(--font-display); font-weight: 400; font-size: clamp(34px, 8vw, 42px); line-height: 1.04; }
+.offer__title em { display: block; font-style: italic; }
+.offer__rule { display: block; width: 70px; height: 1px; margin: 20px auto 16px; background: linear-gradient(90deg, transparent, var(--gold-soft), transparent); }
+.offer__deal { display: flex; justify-content: center; align-items: baseline; gap: 12px; }
+.offer__deal span { font-size: 11px; font-weight: 500; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold-soft); }
+.offer__deal strong { font-family: var(--font-display); font-weight: 400; font-size: clamp(62px, 17vw, 78px); line-height: 0.95; }
+.offer__text { max-width: 290px; margin: 14px auto 0; font-size: 14.5px; font-weight: 300; line-height: 1.7; color: rgba(251, 248, 242, 0.8); }
+.offer__cta { margin-top: 28px; }
+.offer__note { margin-top: 16px; font-size: 11px; letter-spacing: 0.12em; color: rgba(251, 248, 242, 0.5); }
+/* The gold line along the foot counts the seconds down; hovering or focusing the offer pauses it */
+.offer__countdown { position: absolute; left: 10px; right: 10px; bottom: 10px; height: 2px; background: var(--metal-flat); transform: scaleX(0); transform-origin: left; }
+.offer.is-timed .offer__countdown { animation: offerCountdown var(--offer-seconds, 7s) linear both; }
+.offer.is-timed .offer__panel:is(:hover, :focus-within) .offer__countdown { animation-play-state: paused; }
+@media (max-height: 620px) {
+  .offer__panel { padding-block: 36px 30px; }
+  .offer__title { margin-top: 10px; font-size: 32px; }
+  .offer__deal strong { font-size: 52px; }
+  .offer__cta { margin-top: 18px; }
+}
+
+.offer-tab {
+  position: fixed; right: 16px; top: 50%; z-index: 44;
+  display: grid; justify-items: center; gap: 3px; min-width: 96px; padding: 12px 16px 11px;
+  overflow: hidden; isolation: isolate; color: var(--ivory);
+  background: radial-gradient(ellipse at 25% 0%, #6A2238 0%, var(--wine-deep) 75%);
+  border: 1px solid rgba(227, 199, 122, 0.55); border-radius: 4px; box-shadow: 0 18px 38px -14px rgba(29, 6, 14, 0.75);
+  opacity: 0; visibility: hidden; transform: translateY(-50%);
+  transition: opacity 0.5s var(--ease), transform 0.6s var(--ease-out), border-color 0.3s;
+}
+.offer-tab::after { /* light sweeps across now and then */
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(110deg, transparent 30%, rgba(243, 230, 194, 0.24) 50%, transparent 70%);
+  transform: translateX(-120%); animation: offerShine 5s var(--ease-in-out) 1.5s infinite;
+}
+.offer-tab.is-shown { opacity: 1; visibility: visible; animation: offerTabIn 1s var(--ease-out) 0.2s backwards; }
+.offer-tab.is-shown:hover { transform: translate(-6px, -50%); border-color: var(--gold-soft); }
+.offer-tab.is-away { opacity: 0; transform: translate(40px, -50%); pointer-events: none; }
+.offer-tab__spark { font-size: 13px; line-height: 1; color: var(--gold-soft); }
+.offer-tab__label { padding-left: 0.32em; font-size: 9.5px; font-weight: 600; letter-spacing: 0.32em; text-transform: uppercase; color: var(--gold-soft); }
+.offer-tab__deal { font-family: var(--font-display); font-size: 18px; font-weight: 600; line-height: 1.1; text-transform: uppercase; white-space: nowrap; }
+@media (max-width: 639px) {
+  .offer-tab { right: 10px; min-width: 78px; padding: 9px 10px 8px; }
+  .offer-tab__deal { font-size: 15px; }
+}
+
 /* ---------- 37. Scroll motion ---------- */
 /* Gold reading-progress line */
 .scroll-progress { position: fixed; left: 0; right: 0; top: 0; z-index: 80; height: 2px; background: var(--metal-flat); transform-origin: left; transform: scaleX(var(--sp, 0)); pointer-events: none; }
@@ -1419,6 +1490,12 @@ select.field__input { cursor: pointer; background: url("data:image/svg+xml,%3Csv
 @keyframes shutterOpen { from { --reveal: 0%; } to { --reveal: 100%; } }
 @keyframes settle { from { scale: 1.3; } }
 @keyframes settleDrift { from { scale: 1.5; } }
+@keyframes offerIn { from { opacity: 0; transform: translateY(34px) scale(0.94); } }
+@keyframes offerFromTab { from { opacity: 0; transform: translateX(calc(50vw - 64px)) scale(0.16); } }
+@keyframes offerToTab { to { opacity: 0; transform: translateX(calc(50vw - 64px)) scale(0.16); } }
+@keyframes offerCountdown { from { transform: scaleX(1); } to { transform: scaleX(0); } }
+@keyframes offerTabIn { from { opacity: 0; transform: translate(40px, -50%); } }
+@keyframes offerShine { 0%, 55% { transform: translateX(-120%); } 85%, 100% { transform: translateX(120%); } }
 @keyframes curtainUp { to { clip-path: polygon(0 0, 0 100%, 100% 100%, 100% 0, 0 0, 0 0); } }
 @keyframes curtainDown { to { clip-path: polygon(0 100%, 0 0, 100% 0, 100% 100%, 0 100%, 0 100%); } }
 @keyframes curtainLeft { to { clip-path: polygon(100% 0, 0 0, 0 100%, 100% 100%, 100% 0, 100% 0); } }
@@ -1432,6 +1509,7 @@ select.field__input { cursor: pointer; background: url("data:image/svg+xml,%3Csv
 html.reduce-motion { scroll-behavior: auto; }
 .reduce-motion .topbar__track, .reduce-motion .ticker__track, .reduce-motion .seal__ring, .reduce-motion .hero__scroll i::after, .reduce-motion .hotspot::after, .reduce-motion .trust__icon::before { animation: none !important; }
 .reduce-motion .sparkles, .reduce-motion .hero__glow { display: none; }
+.reduce-motion .offer__spark, .reduce-motion .offer-tab::after { animation: none; }
 .reduce-motion [data-reveal]:not([data-reveal^="mask"]):not([data-reveal="shutter"]) { transform: none !important; filter: none !important; transition-duration: 0.9s, 0s, 0s; }
 .reduce-motion [data-reveal^="mask"].is-visible img { animation: none; }
 .reduce-motion [data-parallax] { scale: none; }

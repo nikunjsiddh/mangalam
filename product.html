@@ -365,6 +365,33 @@
     </div>
   </div>
 
+  <!-- Offer: opens by itself once per visit, then waits in the tab on the right (text here, % and link in build.mjs) -->
+  <div class="modal offer" data-modal="offer" hidden>
+    <div class="modal__overlay" data-overlay data-close></div>
+    <div class="modal__panel offer__panel" data-panel role="dialog" aria-modal="true" aria-labelledby="offer-title" tabindex="-1">
+      <button type="button" class="offer__close" data-close aria-label="Close offer"><svg class="icon icon--x" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
+      <span class="offer__corner offer__corner--tl" aria-hidden="true"></span>
+      <span class="offer__corner offer__corner--br" aria-hidden="true"></span>
+      <span class="offer__seal" aria-hidden="true"><span class="brand-emblem"></span></span>
+      <span class="offer__spark" style="--x:88%;--y:30%;--d:0.4s" aria-hidden="true">&#10023;</span>
+      <span class="offer__spark" style="--x:9%;--y:66%;--d:1.6s" aria-hidden="true">&#10022;</span>
+      <span class="offer__spark" style="--x:91%;--y:72%;--d:2.7s" aria-hidden="true">&#10023;</span>
+      <p class="offer__eyebrow">&#10022; Exclusive offer &#10022;</p>
+      <h2 class="offer__title" id="offer-title">A Little More <em class="text-metal">to Adore</em></h2>
+      <span class="offer__rule" aria-hidden="true"></span>
+      <p class="offer__deal"><span>Up to</span><strong class="text-metal">30%</strong><span>Off</span></p>
+      <p class="offer__text">Discover selected jewellery pieces crafted to make every moment shine.</p>
+      <a class="btn btn--gold offer__cta" href="jewellery.html" data-autofocus>Explore offer <svg class="icon icon--arrow-right icon--arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+      <p class="offer__note">Limited time &middot; T&amp;C apply</p>
+      <span class="offer__countdown" aria-hidden="true"></span>
+    </div>
+  </div>
+  <button type="button" class="offer-tab" data-open="offer" aria-label="Exclusive offer: up to 30% off">
+    <span class="offer-tab__spark" aria-hidden="true">&#10022;</span>
+    <span class="offer-tab__label">Offer</span>
+    <span class="offer-tab__deal">30% Off</span>
+  </button>
+
 
   <button type="button" class="to-top" data-to-top aria-label="Back to top">
     <svg class="to-top__ring" viewBox="0 0 54 54" aria-hidden="true"><circle class="track" cx="27" cy="27" r="24"/><circle class="bar" cx="27" cy="27" r="24"/></svg>

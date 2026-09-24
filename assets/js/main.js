@@ -250,11 +250,12 @@
   var AUTOFOCUS = "button:not([disabled]), input:not([disabled]):not([type=hidden]), textarea:not([disabled]), select:not([disabled])";
   var TABBABLE = "a[href], " + AUTOFOCUS + ", [tabindex]:not([tabindex='-1'])";
 
-  function openModal(name, trigger) {
+  // quiet: opened by the site rather than the visitor, so leave their focus and scrolling alone.
+  function openModal(name, trigger, quiet) {
     var modal = $('[data-modal="' + name + '"]');
     if (!modal || stack.some(function (m) { return m.modal === modal; })) return;
     var panel = $("[data-panel]", modal), overlay = $("[data-overlay]", modal);
-    if (!stack.length) {
+    if (!quiet && document.body.style.overflow !== "hidden") {
       var gap = window.innerWidth - document.documentElement.clientWidth;
       document.body.style.overflow = "hidden";
       if (gap > 0) document.body.style.paddingRight = gap + "px";
@@ -264,6 +265,7 @@
     panel.setAttribute("data-state", "open");
     stack.push({ modal: modal, trigger: trigger || null });
     modal.dispatchEvent(new CustomEvent("mj:open"));
+    if (quiet) return;
     var first = $("[data-autofocus]", modal) || panel;
     first.focus({ preventScroll: true });
   }
@@ -284,6 +286,7 @@
     };
     panel.addEventListener("animationend", function onEnd(e) { if (e.target === panel) { panel.removeEventListener("animationend", onEnd); finish(); } });
     setTimeout(finish, 450);
+    modal.dispatchEvent(new CustomEvent("mj:close"));
     if (restoreFocus !== false && entry.trigger && document.contains(entry.trigger)) entry.trigger.focus({ preventScroll: true });
   }
 
@@ -364,6 +367,36 @@
     });
   });
   $$("input[type=date]").forEach(function (input) { input.min = new Date().toISOString().slice(0, 10); });
+
+  /* ---------- Offer: opens by itself once per visit, counts down, then waits in the tab on the right ---------- */
+  var offer = $('[data-modal="offer"]'), offerTab = $(".offer-tab");
+  if (offer && offerTab) {
+    var OFFER_DELAY = 1500; // ms after the page has loaded before it opens
+    var OFFER_SECONDS = 7;  // how long it stays open by itself (the gold line along its foot counts this down)
+    offer.style.setProperty("--offer-seconds", OFFER_SECONDS + "s");
+    offer.addEventListener("mj:open", function () { offerTab.classList.add("is-away"); });
+    offer.addEventListener("mj:close", function () {
+      offer.classList.remove("is-timed");
+      offerTab.classList.add("is-shown");
+      offerTab.classList.remove("is-away");
+    });
+    // The countdown pauses while the visitor hovers or tabs into the offer; when it runs out, the offer folds away.
+    offer.addEventListener("animationend", function (e) {
+      if (e.animationName === "offerCountdown") closeModal(offer, false);
+    });
+    var offerSeen = false;
+    try { offerSeen = !!sessionStorage.getItem("mj-offer"); } catch (e) { /* storage unavailable */ }
+    afterLoad(function () {
+      if (offerSeen) { offerTab.classList.add("is-shown"); return; }
+      setTimeout(function () {
+        // Something else is already open: leave the offer waiting in its tab.
+        if (stack.length) { offerTab.classList.add("is-shown"); return; }
+        try { sessionStorage.setItem("mj-offer", "1"); } catch (e) { /* storage unavailable */ }
+        offer.classList.add("is-timed");
+        openModal("offer", null, true);
+      }, OFFER_DELAY);
+    });
+  }
 
   /* ---------- Wishlist (saved in this browser) ---------- */
   var WISH_KEY = "mj-wishlist";

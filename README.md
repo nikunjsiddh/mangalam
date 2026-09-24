@@ -49,6 +49,11 @@ npm run build
 - **Phone, email, address, hours, social links:** the `site` object at the top of `src/build.mjs`
 - **Products, articles, testimonials:** `assets/js/data.js` — then rebuild so counts, the hero hotspots and the journal pages update
 - **Colours and fonts:** the tokens at the top of `assets/css/mangalam.css`
+- **Offer popup:** the wording is in `src/partials/offer.html`; the percentage and the button's link are `offerPercent` / `offerHref` in the `site` object of `src/build.mjs`; the timing is `OFFER_DELAY` / `OFFER_SECONDS` in `assets/js/main.js`
+
+## Offer popup
+
+On a visitor's first page the offer opens by itself 1.5 seconds after the page has loaded. A gold line along its foot counts down 7 seconds (it pauses while the pointer is over the offer), then the offer folds into the small "30% off" tab at the middle of the right edge. The tab stays on every page; clicking it opens the offer again, and then it stays open until closed. The offer opens by itself only once per visit — to see it again while testing, open the site in a new browser tab.
 
 The logo is applied with CSS masks (`.brand-logo`, `.brand-emblem`, `.brand-full`, `.ornament`), which gives it the animated metallic gold finish. It needs the site to be served over http(s) — as it is through XAMPP — rather than opened as a local file.
 

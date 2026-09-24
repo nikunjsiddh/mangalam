@@ -36,6 +36,9 @@ const site = {
   facebook: "https://facebook.com",
   youtube: "https://youtube.com",
   years: String(new Date().getFullYear() - FOUNDED),
+  // Offer popup and side tab (the wording is in src/partials/offer.html, the timing in assets/js/main.js)
+  offerPercent: "30",
+  offerHref: "jewellery.html",
 };
 
 /* ---------- Templating ---------- */
