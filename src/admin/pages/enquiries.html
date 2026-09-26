@@ -1,0 +1,27 @@
+      <header class="ph">
+        <div>
+          <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Dashboard</a>{{icon:chevron-right}}<span aria-current="page">Enquiries</span></nav>
+          <h1 class="ph__title">Enquiries</h1>
+          <p class="ph__desc">Messages from the Enquire button on product pages and from the contact form.</p>
+        </div>
+        <div class="ph__actions">
+          <button type="button" class="btn btn--outline" data-toast="Export started" data-toast-text="enquiries.csv downloads once the backend is connected.">{{icon:download}} Export</button>
+        </div>
+      </header>
+
+      <section class="card inbox" data-inbox>
+        <div class="inbox__list" data-list-scope>
+          <div class="inbox__controls">
+            <label class="search">{{icon:search}}<span class="sr-only">Search enquiries</span><input class="input" type="search" placeholder="Search {{enquiryTotal}} enquiries…" data-list-search></label>
+            <div class="chips chips--tight">{{enquiryChips}}</div>
+            <select class="select select--sm" data-list-filter="source" aria-label="Where the enquiry came from"><option value="">Every source</option><option value="product">Product pages</option><option value="contact">Contact form</option></select>
+          </div>
+          <ul class="inbox__items" data-list>{{enquiryItems}}
+          </ul>
+          <div class="empty empty--sm" data-list-empty hidden><span class="empty__icon">{{icon:inbox}}</span><p class="empty__title">Nothing here</p><button type="button" class="btn btn--outline btn--sm" data-list-reset>Show every enquiry</button></div>
+        </div>
+        <div class="inbox__thread">{{enquiryThreads}}
+        </div>
+      </section>
+
+{{> appointment-dialog}}

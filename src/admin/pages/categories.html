@@ -1,0 +1,68 @@
+      <header class="ph">
+        <div>
+          <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Dashboard</a>{{icon:chevron-right}}<span aria-current="page">Categories</span></nav>
+          <h1 class="ph__title">Categories</h1>
+          <p class="ph__desc">The {{categoryTotal}} categories in the Jewellery menu, the category pages and the catalogue filters. Drag to change their order.</p>
+        </div>
+        <div class="ph__actions">
+          <button type="button" class="btn btn--gold" data-dialog-open="category-drawer" data-fill='{"title":"New category"}'>{{icon:plus}} Add category</button>
+        </div>
+      </header>
+
+      <section class="card">
+        <div class="table-wrap">
+          <table class="table">
+            <thead>
+              <tr>
+                <th class="col-grip"><span class="sr-only">Order</span></th>
+                <th scope="col">Category</th>
+                <th scope="col">Introduction</th>
+                <th scope="col" class="num">Pieces</th>
+                <th scope="col">In menu</th>
+                <th scope="col" class="col-actions"><span class="sr-only">Actions</span></th>
+              </tr>
+            </thead>
+            <tbody data-sortable data-sort-toast="Category order updated">{{categoryRows}}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <dialog class="dialog dialog--drawer" id="category-drawer" aria-labelledby="category-drawer-title">
+        <form class="dialog__panel" data-demo data-toast="Category saved">
+          <header class="dialog__head">
+            <div><p class="dialog__eyebrow">Category</p><h2 class="dialog__title" id="category-drawer-title" data-fill-text="title">Edit category</h2></div>
+            <button type="button" class="icon-btn" data-dialog-close aria-label="Close">{{icon:x}}</button>
+          </header>
+          <div class="dialog__body stack">
+            <div class="form-grid">
+              <label class="field"><span class="field__label">Name</span><input class="input" name="name" required data-slug-source></label>
+              <label class="field"><span class="field__label">Web address</span><span class="input-group"><span class="input-group__addon">/</span><input class="input" name="slug" data-slug-target><span class="input-group__addon">.html</span></span></label>
+              <label class="field span-2"><span class="field__label">Page heading</span><input class="input" name="heading"></label>
+              <label class="field span-2"><span class="field__label">Introduction</span><textarea class="textarea" name="intro" rows="3"></textarea><span class="hint">Shown under the heading on the category page.</span></label>
+            </div>
+            <div class="image-pair">
+              <div class="field">
+                <span class="field__label">Menu &amp; arch image</span>
+                <div class="image-field image-field--portrait"><img alt="" data-fill-src="image" data-image-preview hidden><label class="image-field__btn">{{icon:upload}} Replace<input type="file" accept="image/*" data-image-input></label></div>
+                <span class="hint">Portrait, 3 : 4</span>
+              </div>
+              <div class="field">
+                <span class="field__label">Page banner</span>
+                <div class="image-field image-field--wide"><img alt="" data-fill-src="banner" data-image-preview hidden><label class="image-field__btn">{{icon:upload}} Replace<input type="file" accept="image/*" data-image-input></label></div>
+                <span class="hint">Wide, 2000 px across</span>
+              </div>
+            </div>
+            <fieldset class="fieldset">
+              <legend>Search engine listing</legend>
+              <label class="field"><span class="field__label">Page title <span class="field__count"></span></span><input class="input" name="seoTitle" maxlength="70" data-count data-count-ideal="60"></label>
+              <label class="field"><span class="field__label">Meta description <span class="field__count"></span></span><textarea class="textarea" name="seoDesc" rows="3" maxlength="200" data-count data-count-ideal="160"></textarea></label>
+            </fieldset>
+            <label class="switch switch--text"><input type="checkbox" name="inMenu" checked><span class="switch__track" aria-hidden="true"></span><span>Show in the Jewellery menu</span></label>
+          </div>
+          <footer class="dialog__foot">
+            <button type="button" class="btn btn--outline" data-dialog-close>Cancel</button>
+            <button type="submit" class="btn btn--primary">{{icon:check}} Save category</button>
+          </footer>
+        </form>
+      </dialog>

@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Subscribers — Mangalam Admin</title>
+  <meta name="theme-color" content="#2E0A16">
+  <link rel="icon" href="../assets/images/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&amp;family=Jost:wght@300;400;500;600&amp;display=swap">
+  <link rel="stylesheet" href="../assets/css/admin.css">
+  <script>try { if (localStorage.getItem("mj-admin-sidebar") === "mini") document.documentElement.classList.add("side-mini"); } catch (e) {}</script>
+</head>
+<body class="adm" data-page="subscribers">
+  <svg class="icon-sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><symbol id="i-arrow-up-down" viewBox="0 0 24 24"><path d="m21 16-4 4-4-4"/><path d="M17 20V4"/><path d="m3 8 4-4 4 4"/><path d="M7 4v16"/></symbol><symbol id="i-bell" viewBox="0 0 24 24"><path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"/></symbol><symbol id="i-book-open" viewBox="0 0 24 24"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></symbol><symbol id="i-calendar-check" viewBox="0 0 24 24"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="m9 16 2 2 4-4"/></symbol><symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol><symbol id="i-chevron-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol><symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol><symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol><symbol id="i-circle-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></symbol><symbol id="i-download" viewBox="0 0 24 24"><path d="M12 15V3"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/></symbol><symbol id="i-external-link" viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></symbol><symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></symbol><symbol id="i-file-text" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></symbol><symbol id="i-gem" viewBox="0 0 24 24"><path d="M6 3h12l4 6-10 13L2 9Z"/><path d="M11 3 8 9l4 13 4-13-3-6"/><path d="M2 9h20"/></symbol><symbol id="i-house" viewBox="0 0 24 24"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></symbol><symbol id="i-image" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></symbol><symbol id="i-images" viewBox="0 0 24 24"><path d="M18 22H4a2 2 0 0 1-2-2V6"/><path d="m22 13-1.296-1.296a2.41 2.41 0 0 0-3.408 0L11 18"/><circle cx="12" cy="8" r="2"/><rect width="16" height="16" x="6" y="2" rx="2"/></symbol><symbol id="i-inbox" viewBox="0 0 24 24"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></symbol><symbol id="i-layers" viewBox="0 0 24 24"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"/><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"/></symbol><symbol id="i-layout-dashboard" viewBox="0 0 24 24"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></symbol><symbol id="i-layout-grid" viewBox="0 0 24 24"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></symbol><symbol id="i-log-out" viewBox="0 0 24 24"><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/></symbol><symbol id="i-mail" viewBox="0 0 24 24"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect x="2" y="4" width="20" height="16" rx="2"/></symbol><symbol id="i-megaphone" viewBox="0 0 24 24"><path d="M11 6a13 13 0 0 0 8.4-2.8A1 1 0 0 1 21 4v12a1 1 0 0 1-1.6.8A13 13 0 0 0 11 14H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z"/><path d="M6 14a12 12 0 0 0 2.4 7.2 2 2 0 0 0 3.2-2.4A8 8 0 0 1 10 14"/><path d="M8 6v8"/></symbol><symbol id="i-panel-left" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 3v18"/></symbol><symbol id="i-quote" viewBox="0 0 24 24"><path d="M16 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"/><path d="M5 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"/></symbol><symbol id="i-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></symbol><symbol id="i-settings" viewBox="0 0 24 24"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></symbol><symbol id="i-trash-2" viewBox="0 0 24 24"><path d="M10 11v6"/><path d="M14 11v6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></symbol><symbol id="i-user-plus" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" x2="19" y1="8" y2="14"/><line x1="22" x2="16" y1="11" y2="11"/></symbol><symbol id="i-user-round" viewBox="0 0 24 24"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></symbol><symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol><symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol></svg>
+  <a class="skip-link" href="#content">Skip to content</a>
+  <aside class="side" id="sidebar" aria-label="Admin navigation">
+    <div class="side__brand">
+      <a class="side__logo" href="index.html" aria-label="Mangalam Jewellers admin — dashboard">
+        <span class="logo logo--full" aria-hidden="true"></span>
+        <span class="logo logo--emblem" aria-hidden="true"></span>
+      </a>
+      <span class="side__label">Admin</span>
+    </div>
+    <nav class="side__nav">
+      <a class="side__link" data-nav="dashboard" href="index.html" data-tip="Dashboard"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-layout-dashboard"/></svg><span>Dashboard</span></a>
+
+      <p class="side__group">Catalogue</p>
+      <a class="side__link" data-nav="products" href="products.html" data-tip="Products"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-gem"/></svg><span>Products</span><span class="side__count">46</span></a>
+      <a class="side__link" data-nav="categories" href="categories.html" data-tip="Categories"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-layout-grid"/></svg><span>Categories</span></a>
+      <a class="side__link" data-nav="collections" href="collections.html" data-tip="Collections"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-layers"/></svg><span>Collections</span></a>
+
+      <p class="side__group">Website</p>
+      <a class="side__link" data-nav="homepage" href="homepage.html" data-tip="Homepage"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-house"/></svg><span>Homepage</span></a>
+      <a class="side__link" data-nav="pages" href="pages.html" data-tip="Pages &amp; banners"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-file-text"/></svg><span>Pages &amp; banners</span></a>
+      <a class="side__link" data-nav="journal" href="journal.html" data-tip="Journal"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-book-open"/></svg><span>Journal</span></a>
+      <a class="side__link" data-nav="testimonials" href="testimonials.html" data-tip="Testimonials"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-quote"/></svg><span>Testimonials</span></a>
+      <a class="side__link" data-nav="media" href="media.html" data-tip="Media library"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-images"/></svg><span>Media library</span></a>
+
+      <p class="side__group">Customers</p>
+      <a class="side__link" data-nav="enquiries" href="enquiries.html" data-tip="Enquiries"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-inbox"/></svg><span>Enquiries</span><span class="side__count side__count--new" aria-label="3 new">3</span></a>
+      <a class="side__link" data-nav="appointments" href="appointments.html" data-tip="Appointments"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-calendar-check"/></svg><span>Appointments</span></a>
+      <a class="side__link" data-nav="subscribers" aria-current="page" href="subscribers.html" data-tip="Subscribers"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-mail"/></svg><span>Subscribers</span></a>
+
+      <p class="side__group">Marketing</p>
+      <a class="side__link" data-nav="offers" href="offers.html" data-tip="Offers &amp; announcements"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-megaphone"/></svg><span>Offers &amp; announcements</span></a>
+
+      <p class="side__group">System</p>
+      <a class="side__link" data-nav="settings" href="settings.html" data-tip="Settings"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-settings"/></svg><span>Settings</span></a>
+      <a class="side__link" data-nav="users" href="users.html" data-tip="Users &amp; roles"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-users"/></svg><span>Users &amp; roles</span></a>
+    </nav>
+    <div class="side__foot">
+      <a class="side__link side__link--site" href="../index.html" target="_blank" rel="noopener" data-tip="View website"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-external-link"/></svg><span>View website</span></a>
+    </div>
+  </aside>
+  <div class="side-scrim" data-sidebar-close hidden></div>
+
+  <div class="adm__main">
+    <header class="top">
+      <button type="button" class="icon-btn top__toggle" data-sidebar-toggle aria-controls="sidebar" aria-label="Show or hide the menu"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-panel-left"/></svg></button>
+      <label class="top__search">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-search"/></svg>
+        <span class="sr-only">Search the admin</span>
+        <input type="search" placeholder="Search products, enquiries, pages…" data-global-search>
+        <kbd>Ctrl K</kbd>
+      </label>
+      <div class="top__end">
+        <span class="preview-pill" tabindex="0" data-tip="Every screen and button works so you can review the design. Nothing is saved until the backend is connected." data-tip-pos="bottom"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-eye"/></svg><span>Design preview</span></span>
+        <a class="btn btn--outline btn--sm top__site" href="../index.html" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-external-link"/></svg><span>View website</span></a>
+        <div class="dropdown">
+          <button type="button" class="icon-btn top__bell" data-menu-trigger aria-haspopup="true" aria-expanded="false" aria-label="Notifications, 3 unread"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-bell"/></svg><span class="top__dot" aria-hidden="true"></span></button>
+          <div class="menu menu--notices" data-menu hidden>
+            <div class="menu__head"><span>Notifications</span><button type="button" class="link-btn" data-toast="All marked as read">Mark all as read</button></div>
+            <div class="menu__list">
+            <a class="notice is-unread" href="enquiries.html"><span class="notice__icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-inbox"/></svg></span><span><span class="notice__text">New enquiry from Ananya Parekh about the Royal Heritage Necklace</span><span class="notice__when">12 min ago</span></span></a>
+            <a class="notice is-unread" href="appointments.html"><span class="notice__icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-calendar-check"/></svg></span><span><span class="notice__text">Hetal Desai confirmed her bridal consultation for today, 11:30 AM</span><span class="notice__when">1 hr ago</span></span></a>
+            <a class="notice is-unread" href="enquiries.html"><span class="notice__icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-inbox"/></svg></span><span><span class="notice__text">New enquiry from Kunal Shah about the Diamond Tennis Bracelet</span><span class="notice__when">3 hrs ago</span></span></a>
+            <a class="notice" href="products.html?flags=photos"><span class="notice__icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-image"/></svg></span><span><span class="notice__text">4 mangalsutra pieces are still waiting for photographs</span><span class="notice__when">Yesterday</span></span></a>
+            <a class="notice" href="subscribers.html"><span class="notice__icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-mail"/></svg></span><span><span class="notice__text">58 people subscribed to the newsletter this month</span><span class="notice__when">2 days ago</span></span></a>
+            </div>
+          </div>
+        </div>
+        <div class="dropdown">
+          <button type="button" class="top__user" data-menu-trigger aria-haspopup="menu" aria-expanded="false">
+            <span class="avatar avatar--t3" aria-hidden="true">RM</span>
+            <span class="top__user-text"><span class="top__user-name">Rohan Mehta</span><span class="top__user-role">Owner</span></span>
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chevron-down"/></svg>
+          </button>
+          <div class="menu" data-menu role="menu" hidden>
+            <a role="menuitem" href="users.html"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-user-round"/></svg>Your profile</a>
+            <a role="menuitem" href="settings.html"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-settings"/></svg>Settings</a>
+            <a role="menuitem" href="../index.html" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-external-link"/></svg>View website</a>
+            <hr>
+            <a role="menuitem" href="login.html"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-log-out"/></svg>Sign out</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="adm__content" id="content">
+      <header class="ph">
+        <div>
+          <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Dashboard</a><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chevron-right"/></svg><span aria-current="page">Subscribers</span></nav>
+          <h1 class="ph__title">Subscribers</h1>
+          <p class="ph__desc">People who signed up for “private notes from the house” in the website footer, the offer popup or in store.</p>
+        </div>
+        <div class="ph__actions">
+          <button type="button" class="btn btn--outline" data-dialog-open="subscriber-dialog"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-user-plus"/></svg> Add subscriber</button>
+          <button type="button" class="btn btn--gold" data-toast="Export started" data-toast-text="subscribers.csv downloads once the backend is connected."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-download"/></svg> Export CSV</button>
+        </div>
+      </header>
+
+      <section class="grid grid--kpi grid--kpi-3" aria-label="Subscriber figures">
+        <div class="card kpi"><span class="kpi__top"><span class="kpi__label">Subscribers</span><span class="kpi__icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-mail"/></svg></span></span><span class="kpi__value">1,284</span><span class="kpi__foot"><span class="kpi__note">Growing for 12 months</span><svg class="spark" viewBox="0 0 104 34" width="104" height="34" aria-hidden="true"><polyline points="4.0,30.0 12.7,28.1 21.5,26.3 30.2,23.7 38.9,21.7 47.6,19.2 56.4,17.1 65.1,14.5 73.8,12.4 82.5,9.4 91.3,6.8 100.0,4.0"/><circle cx="100.0" cy="4.0" r="3.5"/></svg></span></div>
+        <div class="card kpi"><span class="kpi__top"><span class="kpi__label">Joined this month</span><span class="kpi__icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-user-plus"/></svg></span></span><span class="kpi__value">+58</span><span class="kpi__foot"><span class="kpi__note">Mostly from the offer popup</span></span></div>
+        <div class="card kpi"><span class="kpi__top"><span class="kpi__label">Unsubscribed, last 30 days</span><span class="kpi__icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-log-out"/></svg></span></span><span class="kpi__value">3</span><span class="kpi__foot"><span class="kpi__note">Of the 24 most recent sign-ups</span></span></div>
+      </section>
+
+      <section class="card" data-list-scope>
+        <div class="toolbar">
+          <label class="search"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-search"/></svg><span class="sr-only">Search by email</span><input class="input" type="search" placeholder="Search by email…" data-list-search></label>
+          <select class="select" data-list-filter="status" aria-label="Status"><option value="">Everyone</option><option value="subscribed">Subscribed</option><option value="unsubscribed">Unsubscribed</option></select>
+          <select class="select" data-list-filter="source" aria-label="Where they signed up"><option value="">Every source</option><option>Website footer</option><option>Offer popup</option><option>In store</option></select>
+          <label class="sort"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow-up-down"/></svg><span class="sr-only">Sort by</span>
+            <select class="select select--bare" data-list-sort><option value="">Newest first</option><option value="date:asc">Oldest first</option></select>
+          </label>
+        </div>
+        <div class="bulkbar" data-bulkbar hidden>
+          <span class="bulkbar__count"><strong data-bulk-count>0</strong> selected</span>
+          <button type="button" class="btn btn--ghost btn--sm" data-toast="Export started"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-download"/></svg> Export selected</button>
+          <button type="button" class="btn btn--ghost btn--sm" data-confirm="Remove the selected subscribers?" data-confirm-text="They will stop receiving the newsletter." data-confirm-action="Remove" data-done="Subscribers removed"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg> Remove</button>
+          <button type="button" class="btn btn--ghost btn--sm bulkbar__clear" data-bulk-clear>Clear selection</button>
+        </div>
+        <div class="table-wrap">
+          <table class="table">
+            <thead><tr><th class="col-check"><input class="check" type="checkbox" data-check-all aria-label="Select everyone on this page"></th><th scope="col">Email</th><th scope="col">Signed up in</th><th scope="col">Date</th><th scope="col">Status</th><th scope="col" class="col-actions"><span class="sr-only">Actions</span></th></tr></thead>
+            <tbody data-list data-per-page="12">
+              <tr data-item data-status="subscribed" data-source="Website footer" data-search="kavya.joshi@example.com" data-sort-date="1790361000000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select kavya.joshi@example.com"></td>
+                <td><span class="cell-main"><span class="avatar avatar--t1 avatar--sm" aria-hidden="true">KJ</span><span class="cell-title">kavya.joshi@example.com</span></span></td>
+                <td class="cell-muted">Website footer</td>
+                <td class="cell-muted nowrap">26 Sep 2026</td>
+                <td><span class="badge badge--ok">Subscribed</span></td>
+                <td class="col-actions"><div class="row-actions"><button type="button" class="icon-btn icon-btn--sm" data-confirm="Remove kavya.joshi@example.com?" data-confirm-text="They will stop receiving the newsletter and be removed from this list." data-confirm-action="Remove" data-done="Subscriber removed" aria-label="Remove kavya.joshi@example.com"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg></button></div></td>
+              </tr>
+              <tr data-item data-status="subscribed" data-source="Offer popup" data-search="ritu.agarwal@example.com" data-sort-date="1790361000000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select ritu.agarwal@example.com"></td>
+                <td><span class="cell-main"><span class="avatar avatar--t3 avatar--sm" aria-hidden="true">RA</span><span class="cell-title">ritu.agarwal@example.com</span></span></td>
+                <td class="cell-muted">Offer popup</td>
+                <td class="cell-muted nowrap">26 Sep 2026</td>
+                <td><span class="badge badge--ok">Subscribed</span></td>
+                <td class="col-actions"><div class="row-actions"><button type="button" class="icon-btn icon-btn--sm" data-confirm="Remove ritu.agarwal@example.com?" data-confirm-text="They will stop receiving the newsletter and be removed from this list." data-confirm-action="Remove" data-done="Subscriber removed" aria-label="Remove ritu.agarwal@example.com"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg></button></div></td>
+              </tr>
+              <tr data-item data-status="subscribed" data-source="Website footer" data-search="mansi.patel@example.com" data-sort-date="1790274600000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select mansi.patel@example.com"></td>
+                <td><span class="cell-main"><span class="avatar avatar--t2 avatar--sm" aria-hidden="true">MP</span><span class="cell-title">mansi.patel@example.com</span></span></td>
+                <td class="cell-muted">Website footer</td>
+                <td class="cell-muted nowrap">25 Sep 2026</td>
+                <td><span class="badge badge--ok">Subscribed</span></td>
+                <td class="col-actions"><div class="row-actions"><button type="button" class="icon-btn icon-btn--sm" data-confirm="Remove mansi.patel@example.com?" data-confirm-text="They will stop receiving the newsletter and be removed from this list." data-confirm-action="Remove" data-done="Subscriber removed" aria-label="Remove mansi.patel@example.com"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg></button></div></td>
+              </tr>
+              <tr data-item data-status="subscribed" data-source="In store" data-search="sneha.kothari@example.com" data-sort-date="1790188200000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select sneha.kothari@example.com"></td>
+                <td><span class="cell-main"><span class="avatar avatar--t1 avatar--sm" aria-hidden="true">SK</span><span class="cell-title">sneha.kothari@example.com</span></span></td>
+                <td class="cell-muted">In store</td>
+                <td class="cell-muted nowrap">24 Sep 2026</td>
+                <td><span class="badge badge--ok">Subscribed</span></td>
+                <td class="col-actions"><div class="row-actions"><button type="button" class="icon-btn icon-btn--sm" data-confirm="Remove sneha.kothari@example.com?" data-confirm-text="They will stop receiving the newsletter and be removed from this list." data-confirm-action="Remove" data-done="Subscriber removed" aria-label="Remove sneha.kothari@example.com"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg></button></div></td>
+              </tr>
+              <tr data-item data-status="subscribed" data-source="Offer popup" data-search="pallavi.shah@example.com" data-sort-date="1790101800000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select pallavi.shah@example.com"></td>
+                <td><span class="cell-main"><span class="avatar avatar--t1 avatar--sm" aria-hidden="true">PS</span><span class="cell-title">pallavi.shah@example.com</span></span></td>
+                <td class="cell-muted">Offer popup</td>
+                <td class="cell-muted nowrap">23 Sep 2026</td>
+                <td><span class="badge badge--ok">Subscribed</span></td>
+                <td class="col-actions"><div class="row-actions"><button type="button" class="icon-btn icon-btn--sm" data-confirm="Remove pallavi.shah@example.com?" data-confirm-text="They will stop receiving the newsletter and be removed from this list." data-confirm-action="Remove" data-done="Subscriber removed" aria-label="Remove pallavi.shah@example.com"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg></button></div></td>
+              </tr>
+              <tr data-item data-status="subscribed" data-source="Website footer" data-search="amit.vora@example.com" data-sort-date="1790015400000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select amit.vora@example.com"></td>
+                <td><span class="cell-main"><span class="avatar avatar--t3 avatar--sm" aria-hidden="true">AV</span><span class="cell-title">amit.vora@example.com</span></span></td>
+                <td class="cell-muted">Website footer</td>
+                <td class="cell-muted nowrap">22 Sep 2026</td>
+                <td><span class="badge badge--ok">Subscribed</span></td>
+                <td class="col-actions"><div class="row-actions"><button type="button" class="icon-btn icon-btn--sm" data-confirm="Remove amit.vora@example.com?" data-confirm-text="They will stop receiving the newsletter and be removed from this list." data-confirm-action="Remove" data-done="Subscriber removed" aria-label="Remove amit.vora@example.com"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg></button></div></td>
+              </tr>
+              <tr data-item data-status="subscribed" data-source="Offer popup" data-search="jinal.mehta@example.com" data-sort-date="1789929000000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select jinal.mehta@example.com"></td>
+                <td><span class="cell-main"><span class="avatar avatar--t1 avatar--sm" aria-hidden="true">JM</span><span class="cell-title">jinal.mehta@example.com</span></span></td>
+                <td class="cell-muted">Offer popup</td>
+                <td class="cell-muted nowrap">21 Sep 2026</td>
+                <td><span class="badge badge--ok">Subscribed</span></td>
+                <td class="col-actions"><div class="row-actions"><button type="button" class="icon-btn icon-btn--sm" data-confirm="Remove jinal.mehta@example.com?" data-confirm-text="They will stop receiving the newsletter and be removed from this list." data-confirm-action="Remove" data-done="Subscriber removed" aria-label="Remove jinal.mehta@example.com"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg></button></div></td>
+              </tr>
+              <tr data-item data-status="subscribed" data-source="In store" data-search="bhavna.desai@example.com" data-sort-date="1789842600000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select bhavna.desai@example.com"></td>
+                <td><span class="cell-main"><span class="avatar avatar--t2 avatar--sm" aria-hidden="true">BD</span><span class="cell-title">bhavna.desai@example.com</span></span></td>
+                <td class="cell-muted">In store</td>
+                <td class="cell-muted nowrap">20 Sep 2026</td>
+                <td><span class="badge badge--ok">Subscribed</span></td>
+                <td class="col-actions"><div class="row-actions"><button type="button" class="icon-btn icon-btn--sm" data-confirm="Remove bhavna.desai@example.com?" data-confirm-text="They will stop receiving the newsletter and be removed from this list." data-confirm-action="Remove" data-done="Subscriber removed" aria-label="Remove bhavna.desai@example.com"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg></button></div></td>
+              </tr>
+              <tr data-item data-status="unsubscribed" data-source="Website footer" data-search="rahul.trivedi@example.com" data-sort-date="1789669800000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select rahul.trivedi@example.com"></td>
+                <td><span class="cell-main"><span class="avatar avatar--t3 avatar--sm" aria-hidden="true">RT</span><span class="cell-title">rahul.trivedi@example.com</span></span></td>
+                <td class="cell-muted">Website footer</td>
+                <td class="cell-muted nowrap">18 Sep 2026</td>
+                <td><span class="badge badge--neutral">Unsubscribed</span></td>
+                <td class="col-actions"><div class="row-actions"><button type="button" class="icon-btn icon-btn--sm" data-confirm="Remove rahul.trivedi@example.com?" data-confirm-text="They will stop receiving the newsletter and be removed from this list." data-confirm-action="Remove" data-done="Subscriber removed" aria-label="Remove rahul.trivedi@example.com"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg></button></div></td>
+              </tr>
+              <tr data-item data-status="subscribed" data-source="Offer popup" data-search="khushi.pandya@example.com" data-sort-date="1789583400000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select khushi.pandya@example.com"></td>
+                <td><span class="cell-main"><span class="avatar avatar--t1 avatar--sm" aria-hidden="true">KP</span><span class="cell-title">khushi.pandya@example.com</span></span></td>
+                <td class="cell-muted">Offer popup</td>
+                <td class="cell-muted nowrap">17 Sep 2026</td>
+                <td><span class="badge badge--ok">Subscribed</span></td>
+                <td class="col-actions"><div class="row-actions"><button type="button" class="icon-btn icon-btn--sm" data-confirm="Remove khushi.pandya@example.com?" data-confirm-text="They will stop receiving the newsletter and be removed from this list." data-confirm-action="Remove" data-done="Subscriber removed" aria-label="Remove khushi.pandya@example.com"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg></button></div></td>
+              </tr>
+              <tr data-item data-status="subscribed" data-source="Website footer" data-search="neha.bhavsar@example.com" data-sort-date="1789410600000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select neha.bhavsar@example.com"></td>
+                <td><span class="cell-main"><span class="avatar avatar--t3 avatar--sm" aria-hidden="true">NB</span><span class="cell-title">neha.bhavsar@example.com</span></span></td>
+                <td class="cell-muted">Website footer</td>
+                <td class="cell-muted nowrap">15 Sep 2026</td>
+                <td><span class="badge badge--ok">Subscribed</span></td>
+                <td class="col-actions"><div class="row-actions"><button type="button" class="icon-btn icon-btn--sm" data-confirm="Remove neha.bhavsar@example.com?" data-confirm-text="They will stop receiving the newsletter and be removed from this list." data-confirm-action="Remove" data-done="Subscriber removed" aria-label="Remove neha.bhavsar@example.com"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg></button></div></td>
+              </tr>
+              <tr data-item data-status="subscribed" data-source="In store" data-search="yash.modi@example.com" data-sort-date="1789324200000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select yash.modi@example.com"></td>
+                <td><span class="cell-main"><span class="avatar avatar--t2 avatar--sm" aria-hidden="true">YM</span><span class="cell-title">yash.modi@example.com</span></span></td>
+                <td class="cell-muted">In store</td>
+                <td class="cell-muted nowrap">14 Sep 2026</td>
+                <td><span class="badge badge--ok">Subscribed</span></td>
+                <td class="col-actions"><div class="row-actions"><button type="button" class="icon-btn icon-btn--sm" data-confirm="Remove yash.modi@example.com?" data-confirm-text="They will stop receiving the newsletter and be removed from this list." data-confirm-action="Remove" data-done="Subscriber removed" aria-label="Remove yash.modi@example.com"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg></button></div></td>
+              </tr>
+              <tr data-item data-status="subscribed" data-source="Offer popup" data-search="disha.parikh@example.com" data-sort-date="1789151400000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select disha.parikh@example.com"></td>
+                <td><span class="cell-main"><span class="avatar avatar--t0 avatar--sm" aria-hidden="true">DP</span><span class="cell-title">disha.parikh@example.com</span></span></td>
+                <td class="cell-muted">Offer popup</td>
+                <td class="cell-muted nowrap">12 Sep 2026</td>
+                <td><span class="badge badge--ok">Subscribed</span></td>
+                <td class="col-actions"><div class="row-actions"><button type="button" class="icon-btn icon-btn--sm" data-confirm="Remove disha.parikh@example.com?" data-confirm-text="They will stop receiving the newsletter and be removed from this list." data-confirm-action="Remove" data-done="Subscriber removed" aria-label="Remove disha.parikh@example.com"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg></button></div></td>
+              </tr>
+              <tr data-item data-status="subscribed" data-source="Website footer" data-search="forum.sheth@example.com" data-sort-date="1789065000000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select forum.sheth@example.com"></td>
+                <td><span class="cell-main"><span class="avatar avatar--t1 avatar--sm" aria-hidden="true">FS</span><span class="cell-title">forum.sheth@example.com</span></span></td>
+                <td class="cell-muted">Website footer</td>
+                <td class="cell-muted nowrap">11 Sep 2026</td>
+                <td><span class="badge badge--ok">Subscribed</span></td>
+                <td class="col-actions"><div class="row-actions"><button type="button" class="icon-btn icon-btn--sm" data-confirm="Remove forum.sheth@example.com?" data-confirm-text="They will stop receiving the newsletter and be removed from this list." data-confirm-action="Remove" data-done="Subscriber removed" aria-label="Remove forum.sheth@example.com"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg></button></div></td>
+              </tr>
+              <tr data-item data-status="subscribed" data-source="Website footer" data-search="gauri.naik@example.com" data-sort-date="1788892200000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select gauri.naik@example.com"></td>
+                <td><span class="cell-main"><span class="avatar avatar--t3 avatar--sm" aria-hidden="true">GN</span><span class="cell-title">gauri.naik@example.com</span></span></td>
+                <td class="cell-muted">Website footer</td>
+                <td class="cell-muted nowrap">9 Sep 2026</td>
+                <td><span class="badge badge--ok">Subscribed</span></td>
+                <td class="col-actions"><div class="row-actions"><button type="button" class="icon-btn icon-btn--sm" data-confirm="Remove gauri.naik@example.com?" data-confirm-text="They will stop receiving the newsletter and be removed from this list." data-confirm-action="Remove" data-done="Subscriber removed" aria-label="Remove gauri.naik@example.com"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg></button></div></td>
+              </tr>
+              <tr data-item data-status="unsubscribed" data-source="Offer popup" data-search="hiral.soni@example.com" data-sort-date="1788719400000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select hiral.soni@example.com"></td>
+                <td><span class="cell-main"><span class="avatar avatar--t1 avatar--sm" aria-hidden="true">HS</span><span class="cell-title">hiral.soni@example.com</span></span></td>
+                <td class="cell-muted">Offer popup</td>
+                <td class="cell-muted nowrap">7 Sep 2026</td>
+                <td><span class="badge badge--neutral">Unsubscribed</span></td>
+                <td class="col-actions"><div class="row-actions"><button type="button" class="icon-btn icon-btn--sm" data-confirm="Remove hiral.soni@example.com?" data-confirm-text="They will stop receiving the newsletter and be removed from this list." data-confirm-action="Remove" data-done="Subscriber removed" aria-label="Remove hiral.soni@example.com"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg></button></div></td>
+              </tr>
+              <tr data-item data-status="subscribed" data-source="In store" data-search="ishita.chokshi@example.com" data-sort-date="1788546600000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select ishita.chokshi@example.com"></td>
+                <td><span class="cell-main"><span class="avatar avatar--t3 avatar--sm" aria-hidden="true">IC</span><span class="cell-title">ishita.chokshi@example.com</span></span></td>
+                <td class="cell-muted">In store</td>
+                <td class="cell-muted nowrap">5 Sep 2026</td>
+                <td><span class="badge badge--ok">Subscribed</span></td>
+                <td class="col-actions"><div class="row-actions"><button type="button" class="icon-btn icon-btn--sm" data-confirm="Remove ishita.chokshi@example.com?" data-confirm-text="They will stop receiving the newsletter and be removed from this list." data-confirm-action="Remove" data-done="Subscriber removed" aria-label="Remove ishita.chokshi@example.com"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg></button></div></td>
+              </tr>
+              <tr data-item data-status="subscribed" data-source="Website footer" data-search="janvi.raval@example.com" data-sort-date="1788287400000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select janvi.raval@example.com"></td>
+                <td><span class="cell-main"><span class="avatar avatar--t2 avatar--sm" aria-hidden="true">JR</span><span class="cell-title">janvi.raval@example.com</span></span></td>
+                <td class="cell-muted">Website footer</td>
+                <td class="cell-muted nowrap">2 Sep 2026</td>
+                <td><span class="badge badge--ok">Subscribed</span></td>
+                <td class="col-actions"><div class="row-actions"><button type="button" class="icon-btn icon-btn--sm" data-confirm="Remove janvi.raval@example.com?" data-confirm-text="They will stop receiving the newsletter and be removed from this list." data-confirm-action="Remove" data-done="Subscriber removed" aria-label="Remove janvi.raval@example.com"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg></button></div></td>
+              </tr>
+              <tr data-item data-status="subscribed" data-source="Offer popup" data-search="kinjal.dave@example.com" data-sort-date="1788114600000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select kinjal.dave@example.com"></td>
+                <td><span class="cell-main"><span class="avatar avatar--t1 avatar--sm" aria-hidden="true">KD</span><span class="cell-title">kinjal.dave@example.com</span></span></td>
+                <td class="cell-muted">Offer popup</td>
+                <td class="cell-muted nowrap">31 Aug 2026</td>
+                <td><span class="badge badge--ok">Subscribed</span></td>
+                <td class="col-actions"><div class="row-actions"><button type="button" class="icon-btn icon-btn--sm" data-confirm="Remove kinjal.dave@example.com?" data-confirm-text="They will stop receiving the newsletter and be removed from this list." data-confirm-action="Remove" data-done="Subscriber removed" aria-label="Remove kinjal.dave@example.com"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg></button></div></td>
+              </tr>
+              <tr data-item data-status="subscribed" data-source="Website footer" data-search="lopa.thakkar@example.com" data-sort-date="1787855400000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select lopa.thakkar@example.com"></td>
+                <td><span class="cell-main"><span class="avatar avatar--t2 avatar--sm" aria-hidden="true">LT</span><span class="cell-title">lopa.thakkar@example.com</span></span></td>
+                <td class="cell-muted">Website footer</td>
+                <td class="cell-muted nowrap">28 Aug 2026</td>
+                <td><span class="badge badge--ok">Subscribed</span></td>
+                <td class="col-actions"><div class="row-actions"><button type="button" class="icon-btn icon-btn--sm" data-confirm="Remove lopa.thakkar@example.com?" data-confirm-text="They will stop receiving the newsletter and be removed from this list." data-confirm-action="Remove" data-done="Subscriber removed" aria-label="Remove lopa.thakkar@example.com"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg></button></div></td>
+              </tr>
+              <tr data-item data-status="subscribed" data-source="In store" data-search="mitali.bhatt@example.com" data-sort-date="1787509800000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select mitali.bhatt@example.com"></td>
+                <td><span class="cell-main"><span class="avatar avatar--t3 avatar--sm" aria-hidden="true">MB</span><span class="cell-title">mitali.bhatt@example.com</span></span></td>
+                <td class="cell-muted">In store</td>
+                <td class="cell-muted nowrap">24 Aug 2026</td>
+                <td><span class="badge badge--ok">Subscribed</span></td>
+                <td class="col-actions"><div class="row-actions"><button type="button" class="icon-btn icon-btn--sm" data-confirm="Remove mitali.bhatt@example.com?" data-confirm-text="They will stop receiving the newsletter and be removed from this list." data-confirm-action="Remove" data-done="Subscriber removed" aria-label="Remove mitali.bhatt@example.com"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg></button></div></td>
+              </tr>
+              <tr data-item data-status="subscribed" data-source="Offer popup" data-search="nupur.shukla@example.com" data-sort-date="1787250600000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select nupur.shukla@example.com"></td>
+                <td><span class="cell-main"><span class="avatar avatar--t2 avatar--sm" aria-hidden="true">NS</span><span class="cell-title">nupur.shukla@example.com</span></span></td>
+                <td class="cell-muted">Offer popup</td>
+                <td class="cell-muted nowrap">21 Aug 2026</td>
+                <td><span class="badge badge--ok">Subscribed</span></td>
+                <td class="col-actions"><div class="row-actions"><button type="button" class="icon-btn icon-btn--sm" data-confirm="Remove nupur.shukla@example.com?" data-confirm-text="They will stop receiving the newsletter and be removed from this list." data-confirm-action="Remove" data-done="Subscriber removed" aria-label="Remove nupur.shukla@example.com"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg></button></div></td>
+              </tr>
+              <tr data-item data-status="unsubscribed" data-source="Website footer" data-search="ojas.rana@example.com" data-sort-date="1786818600000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select ojas.rana@example.com"></td>
+                <td><span class="cell-main"><span class="avatar avatar--t3 avatar--sm" aria-hidden="true">OR</span><span class="cell-title">ojas.rana@example.com</span></span></td>
+                <td class="cell-muted">Website footer</td>
+                <td class="cell-muted nowrap">16 Aug 2026</td>
+                <td><span class="badge badge--neutral">Unsubscribed</span></td>
+                <td class="col-actions"><div class="row-actions"><button type="button" class="icon-btn icon-btn--sm" data-confirm="Remove ojas.rana@example.com?" data-confirm-text="They will stop receiving the newsletter and be removed from this list." data-confirm-action="Remove" data-done="Subscriber removed" aria-label="Remove ojas.rana@example.com"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg></button></div></td>
+              </tr>
+              <tr data-item data-status="subscribed" data-source="Website footer" data-search="parul.gandhi@example.com" data-sort-date="1786473000000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select parul.gandhi@example.com"></td>
+                <td><span class="cell-main"><span class="avatar avatar--t3 avatar--sm" aria-hidden="true">PG</span><span class="cell-title">parul.gandhi@example.com</span></span></td>
+                <td class="cell-muted">Website footer</td>
+                <td class="cell-muted nowrap">12 Aug 2026</td>
+                <td><span class="badge badge--ok">Subscribed</span></td>
+                <td class="col-actions"><div class="row-actions"><button type="button" class="icon-btn icon-btn--sm" data-confirm="Remove parul.gandhi@example.com?" data-confirm-text="They will stop receiving the newsletter and be removed from this list." data-confirm-action="Remove" data-done="Subscriber removed" aria-label="Remove parul.gandhi@example.com"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg></button></div></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="empty" data-list-empty hidden><span class="empty__icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-mail"/></svg></span><p class="empty__title">No one matches</p><button type="button" class="btn btn--outline btn--sm" data-list-reset>Clear filters</button></div>
+        <div class="pager" data-pager></div>
+      </section>
+
+      <dialog class="dialog dialog--sm" id="subscriber-dialog" aria-labelledby="subscriber-title">
+        <form class="dialog__panel" data-demo data-toast="Subscriber added">
+          <header class="dialog__head">
+            <div><p class="dialog__eyebrow">Newsletter</p><h2 class="dialog__title" id="subscriber-title">Add a subscriber</h2></div>
+            <button type="button" class="icon-btn" data-dialog-close aria-label="Close"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-x"/></svg></button>
+          </header>
+          <div class="dialog__body stack">
+            <label class="field"><span class="field__label">Email address</span><input class="input" type="email" required placeholder="name@example.com" autocomplete="off"></label>
+            <label class="field"><span class="field__label">Signed up in</span><select class="select"><option>In store</option><option>Website footer</option><option>Offer popup</option></select></label>
+            <label class="check-row"><input class="check" type="checkbox" required><span>They asked to receive the newsletter</span></label>
+          </div>
+          <footer class="dialog__foot">
+            <button type="button" class="btn btn--outline" data-dialog-close>Cancel</button>
+            <button type="submit" class="btn btn--primary"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg> Add</button>
+          </footer>
+        </form>
+      </dialog>
+
+    </main>
+  </div>
+  <!-- Confirmation for anything that removes something (filled in by admin.js from the button's data-confirm) -->
+  <dialog class="dialog dialog--sm" id="confirm-dialog" aria-labelledby="confirm-title" aria-describedby="confirm-text">
+    <form method="dialog" class="dialog__panel dialog__panel--confirm">
+      <span class="dialog__badge"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg></span>
+      <h2 class="dialog__title" id="confirm-title" data-confirm-title>Delete this item?</h2>
+      <p class="dialog__text" id="confirm-text" data-confirm-text>This can't be undone.</p>
+      <div class="dialog__actions">
+        <button type="submit" class="btn btn--outline" value="cancel" autofocus>Cancel</button>
+        <button type="submit" class="btn btn--danger" value="ok" data-confirm-ok>Delete</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Toasts stand in for saving: they say what would happen, and that it was a preview -->
+  <div class="toasts" data-toasts aria-live="polite"></div>
+  <template id="toast-template">
+    <div class="toast" role="status">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-circle-check"/></svg>
+      <div><p class="toast__title"></p><p class="toast__text"></p></div>
+      <button type="button" class="toast__close" aria-label="Dismiss"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-x"/></svg></button>
+    </div>
+  </template>
+
+  <script src="../assets/js/admin.js"></script>
+</body>
+</html>

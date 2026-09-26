@@ -435,7 +435,7 @@
     list.innerHTML = wishlist.map(function (slug) {
       var p = bySlug(slug);
       var url = "product.html?slug=" + p.slug;
-      return '<li class="drawer__item"><a href="' + url + '"><img src="' + p.image + '" alt="" style="object-position:' + p.imagePosition + '"></a>' +
+      return '<li class="drawer__item"><a href="' + url + '"><img src="' + p.thumb + '" alt="" style="object-position:' + p.imagePosition + '"></a>' +
         '<div><a class="drawer__name" href="' + url + '">' + esc(p.name) + '</a><p class="drawer__price">' + formatPrice(p.price) + "</p></div>" +
         '<button type="button" class="drawer__remove" data-wish-remove="' + p.slug + '" aria-label="Remove ' + esc(p.name) + ' from wishlist">' + icon("x") + "</button></li>";
     }).join("");
@@ -455,7 +455,7 @@
     searchResults.innerHTML = results.length
       ? results.map(function (p) {
         return '<a class="search__result" href="product.html?slug=' + p.slug + '">' +
-          '<img src="' + p.image + '" alt="" style="object-position:' + p.imagePosition + '">' +
+          '<img src="' + p.thumb + '" alt="" style="object-position:' + p.imagePosition + '">' +
           '<span><span class="search__result-name">' + esc(p.name) + '</span><span class="search__result-meta">' + p.category + " · " + p.metal + "</span></span>" +
           '<span class="search__result-price">' + formatPrice(p.price) + "</span></a>";
       }).join("")
@@ -473,18 +473,21 @@
   }
 
   /* ---------- Product card ---------- */
+  // Hovering a card shows the piece's second photograph; a piece with only one gets a closer look at it.
   var ALT_VIEWS = ["40% 38%", "62% 55%", "50% 30%", "45% 66%"];
   function wishButton(p, cls) {
     return '<button type="button" class="' + cls + '" data-wish="' + p.slug + '" aria-pressed="false" aria-label="Save ' + esc(p.name) + ' to wishlist">' + icon("heart") + "</button>";
   }
   function productCard(p, i) {
-    var h = hash(p.slug);
     var url = "product.html?slug=" + p.slug;
-    return '<article class="pcard' + (h % 2 ? " is-flip" : "") + '" data-reveal style="--d:' + ((i || 0) % 4 * 0.09).toFixed(2) + 's">' +
+    var second = p.gallery[1];
+    return '<article class="pcard" data-reveal style="--d:' + ((i || 0) % 4 * 0.09).toFixed(2) + 's">' +
       '<div class="pcard__visual">' +
         '<a class="pcard__media" href="' + url + '" tabindex="-1" aria-hidden="true">' +
-          '<img class="pcard__img" src="' + p.image + '" alt="" loading="lazy" width="800" height="800" style="object-position:' + p.imagePosition + '">' +
-          '<img class="pcard__img pcard__img--alt" src="' + p.image + '" alt="" loading="lazy" width="800" height="800" style="object-position:' + ALT_VIEWS[h % ALT_VIEWS.length] + '">' +
+          '<img class="pcard__img" src="' + p.thumb + '" alt="" loading="lazy" width="600" height="600" style="object-position:' + p.imagePosition + '">' +
+          (second
+            ? '<img class="pcard__img pcard__img--alt pcard__img--second" src="' + MJ.small(second) + '" alt="" loading="lazy" width="600" height="600">'
+            : '<img class="pcard__img pcard__img--alt" src="' + p.thumb + '" alt="" loading="lazy" width="600" height="600" style="object-position:' + ALT_VIEWS[hash(p.slug) % ALT_VIEWS.length] + '">') +
           (p.isNew ? '<span class="pcard__badge">New</span>' : "") +
         "</a>" +
         wishButton(p, "pcard__wish") +
@@ -883,11 +886,14 @@
         '<a class="btn btn--primary" href="jewellery.html">View all jewellery ' + icon("arrow-right") + "</a></div>";
     } else {
       document.title = product.name + " — Mangalam Jewellers";
-      var views = [
-        { pos: product.imagePosition, scale: 1 },
-        { pos: "35% 35%", scale: 1.45 },
-        { pos: "62% 62%", scale: 1.8 },
-      ];
+      // The piece's own photographs; a piece with a single photograph shows it whole and twice closer.
+      var views = product.gallery.length > 1
+        ? product.gallery.map(function (src) { return { src: src, thumb: MJ.small(src), pos: "center", scale: 1 }; })
+        : [
+          { src: product.image, thumb: product.thumb, pos: product.imagePosition, scale: 1 },
+          { src: product.image, thumb: product.thumb, pos: "35% 35%", scale: 1.45 },
+          { src: product.image, thumb: product.thumb, pos: "62% 62%", scale: 1.8 },
+        ];
       var related = products.filter(function (p) { return p.category === product.category && p.slug !== product.slug; }).slice(0, 4);
       var name = esc(product.name);
       var stone = product.metal === "Diamond" ? "Diamond" : "Gold work";
@@ -898,10 +904,10 @@
           '<div class="product__grid">' +
             '<div class="gallery">' +
               '<div class="gallery__thumbs">' + views.map(function (v, i) {
-                return '<button type="button" class="gallery__thumb" data-view="' + i + '" aria-label="View image ' + (i + 1) + '" aria-current="' + (i === 0) + '"><img src="' + product.image + '" alt="" style="object-position:' + v.pos + ";scale:" + v.scale + '"></button>';
+                return '<button type="button" class="gallery__thumb" data-view="' + i + '" aria-label="View image ' + (i + 1) + '" aria-current="' + (i === 0) + '"><img src="' + v.thumb + '" alt="" style="object-position:' + v.pos + ";scale:" + v.scale + '"></button>';
               }).join("") + "</div>" +
               '<div class="gallery__main" data-zoom>' +
-                '<img data-main-image src="' + product.image + '" alt="' + name + '" style="object-position:' + views[0].pos + '">' +
+                '<img data-main-image src="' + views[0].src + '" alt="' + name + '" style="object-position:' + views[0].pos + '">' +
                 wishButton(product, "pcard__wish") +
                 (canHover ? '<span class="gallery__hint">' + icon("zoom-in") + "Hover to zoom</span>" : "") +
               "</div>" +
@@ -943,9 +949,14 @@
       var mainImage = $("[data-main-image]", productRoot);
       var thumbs = $$("[data-view]", productRoot);
       thumbs.forEach(function (thumb, i) {
+        // Fetch the full-size photograph as soon as a thumbnail is pointed at, so the swap is instant.
+        var preload = function () { new Image().src = views[i].src; };
+        thumb.addEventListener("pointerenter", preload, { once: true });
+        thumb.addEventListener("focus", preload, { once: true });
         thumb.addEventListener("click", function () {
           mainImage.style.opacity = "0";
           setTimeout(function () {
+            mainImage.src = views[i].src;
             mainImage.style.objectPosition = views[i].pos;
             mainImage.style.scale = views[i].scale;
             mainImage.style.opacity = "1";

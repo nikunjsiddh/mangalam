@@ -1,0 +1,51 @@
+      <header class="ph">
+        <div>
+          <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Dashboard</a>{{icon:chevron-right}}<span aria-current="page">Collections</span></nav>
+          <h1 class="ph__title">Collections</h1>
+          <p class="ph__desc">{{collectionTotal}} families of jewels on the Collections page and the homepage. Each one gathers its pieces by a rule, so it stays up to date by itself.</p>
+        </div>
+        <div class="ph__actions">
+          <button type="button" class="btn btn--gold" data-dialog-open="collection-drawer" data-fill='{"title":"New collection"}'>{{icon:plus}} Add collection</button>
+        </div>
+      </header>
+
+      <div class="colls" data-sortable data-sort-toast="Collection order updated">{{collectionCards}}
+      </div>
+
+      <dialog class="dialog dialog--drawer" id="collection-drawer" aria-labelledby="collection-drawer-title">
+        <form class="dialog__panel" data-demo data-toast="Collection saved">
+          <header class="dialog__head">
+            <div><p class="dialog__eyebrow">Collection</p><h2 class="dialog__title" id="collection-drawer-title" data-fill-text="title">Edit collection</h2></div>
+            <button type="button" class="icon-btn" data-dialog-close aria-label="Close">{{icon:x}}</button>
+          </header>
+          <div class="dialog__body stack">
+            <div class="form-grid">
+              <label class="field"><span class="field__label">Title</span><input class="input" name="name" required></label>
+              <label class="field"><span class="field__label">Tagline</span><input class="input" name="kicker" placeholder="e.g. Light, held forever"></label>
+            </div>
+            <div class="field">
+              <span class="field__label">Cover photograph</span>
+              <div class="image-field image-field--portrait image-field--lg"><img alt="" data-fill-src="image" data-image-preview hidden><label class="image-field__btn">{{icon:upload}} Replace<input type="file" accept="image/*" data-image-input></label></div>
+              <span class="hint">Portrait, 3 : 4 — shown on the Collections page and the homepage.</span>
+            </div>
+            <fieldset class="fieldset">
+              <legend>Which pieces belong to it?</legend>
+              <div class="seg" role="radiogroup" aria-label="How pieces are chosen">
+                <label><input type="radio" name="mode" value="rule" checked><span>Match a rule</span></label>
+                <label><input type="radio" name="mode" value="pick"><span>Choose by hand</span></label>
+              </div>
+              <div class="rule">
+                <select class="select" name="field" aria-label="Detail to match"><option value="category">Category</option><option value="metal">Metal</option><option value="style">Style</option></select>
+                <span class="rule__is">is</span>
+                <select class="select" name="value" aria-label="Value to match">{{valueOptions}}</select>
+              </div>
+              <button type="button" class="btn btn--ghost btn--sm" data-toast="Condition added" data-toast-text="Pieces must match every condition.">{{icon:plus}} Add another condition</button>
+            </fieldset>
+            <label class="switch switch--text"><input type="checkbox" name="onHome" checked><span class="switch__track" aria-hidden="true"></span><span>Show on the homepage</span></label>
+          </div>
+          <footer class="dialog__foot">
+            <button type="button" class="btn btn--outline" data-dialog-close>Cancel</button>
+            <button type="submit" class="btn btn--primary">{{icon:check}} Save collection</button>
+          </footer>
+        </form>
+      </dialog>

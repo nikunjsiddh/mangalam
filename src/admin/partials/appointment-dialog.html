@@ -1,0 +1,33 @@
+      <dialog class="dialog" id="appointment-dialog" aria-labelledby="appointment-dialog-title">
+        <form class="dialog__panel" data-demo data-toast="Appointment saved" data-toast-text="The customer would receive a confirmation by SMS and email.">
+          <header class="dialog__head">
+            <div><p class="dialog__eyebrow">Appointment</p><h2 class="dialog__title" id="appointment-dialog-title" data-fill-text="title">New appointment</h2></div>
+            <button type="button" class="icon-btn" data-dialog-close aria-label="Close">{{icon:x}}</button>
+          </header>
+          <div class="dialog__body stack">
+            <div class="form-grid">
+              <label class="field"><span class="field__label">Customer</span><input class="input" name="name" required autocomplete="off"></label>
+              <label class="field"><span class="field__label">Phone</span><input class="input" type="tel" name="phone" autocomplete="off"></label>
+              <label class="field"><span class="field__label">Date</span><input class="input" type="date" name="date" required></label>
+              <label class="field"><span class="field__label">Time</span><select class="select" name="time">{{timeSlotOptions}}</select></label>
+              <label class="field"><span class="field__label">Interested in</span><select class="select" name="interest">{{interestOptions}}</select></label>
+              <label class="field"><span class="field__label">Consultant</span><select class="select" name="consultant">{{consultantOptions}}</select></label>
+            </div>
+            <div class="field">
+              <span class="field__label" id="appointment-status-label">Status</span>
+              <div class="seg seg--wrap" role="radiogroup" aria-labelledby="appointment-status-label">
+                <label><input type="radio" name="status" value="confirmed"><span>Confirmed</span></label>
+                <label><input type="radio" name="status" value="pending" checked><span>Pending</span></label>
+                <label><input type="radio" name="status" value="completed"><span>Completed</span></label>
+                <label><input type="radio" name="status" value="cancelled"><span>Cancelled</span></label>
+              </div>
+            </div>
+            <label class="field"><span class="field__label">Notes for the consultant</span><textarea class="textarea" name="notes" rows="3" placeholder="Pieces to prepare, occasion, budget…"></textarea></label>
+          </div>
+          <footer class="dialog__foot">
+            <button type="button" class="btn btn--danger-ghost dialog__foot-start" data-confirm="Cancel this appointment?" data-confirm-text="The customer would be told by SMS and email." data-confirm-action="Cancel appointment" data-done="Appointment cancelled">Cancel appointment</button>
+            <button type="button" class="btn btn--outline" data-dialog-close>Close</button>
+            <button type="submit" class="btn btn--primary">{{icon:check}} Save</button>
+          </footer>
+        </form>
+      </dialog>

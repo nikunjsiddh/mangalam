@@ -1,0 +1,98 @@
+      <form class="editor-page" data-demo data-toast="{{savedToast}}" novalidate>
+        <header class="ph ph--sticky">
+          <div>
+            <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Dashboard</a>{{icon:chevron-right}}<a href="journal.html">Journal</a>{{icon:chevron-right}}<span aria-current="page" data-fill-article="crumb">{{formCrumb}}</span></nav>
+            <h1 class="ph__title"><span data-fill-article="title">{{formTitle}}</span> {{formBadge}}</h1>
+            <p class="ph__desc" data-fill-article="desc">{{formDesc}}</p>
+          </div>
+          <div class="ph__actions">
+            <a class="btn btn--ghost" href="{{viewHref}}" target="_blank" rel="noopener" data-fill-article="view">{{icon:external-link}} View</a>
+            <button type="button" class="btn btn--outline" data-toast="Draft saved" data-toast-text="Only the team can see a draft until it is published.">{{icon:save}} Save draft</button>
+            <button type="submit" class="btn btn--gold">{{icon:check}} {{submitLabel}}</button>
+          </div>
+        </header>
+
+        <div class="form-layout">
+          <div class="form-main">
+            <section class="card">
+              <div class="card__body stack">
+                <label class="field">
+                  <span class="field__label">Title <span class="req" aria-hidden="true">*</span></span>
+                  <input class="input input--title" name="title" value="{{fTitle}}" required placeholder="e.g. The Art of Bridal Jewellery" data-slug-source>
+                </label>
+                <label class="field">
+                  <span class="field__label">Web address</span>
+                  <span class="input-group"><span class="input-group__addon">…/article.html?slug=</span><input class="input" name="slug" value="{{fSlug}}" data-slug-target></span>
+                </label>
+                <label class="field">
+                  <span class="field__label">Summary <span class="field__count"></span></span>
+                  <textarea class="textarea" name="excerpt" rows="2" maxlength="200" data-count data-count-ideal="160">{{fExcerpt}}</textarea>
+                  <span class="hint">Shown on the journal cards and under the title.</span>
+                </label>
+                <div class="field">
+                  <span class="field__label" id="body-label">Story</span>
+                  <div class="rte rte--tall" data-rte>
+                    <div class="rte__bar" role="toolbar" aria-label="Formatting">
+                      <button type="button" data-cmd="bold" aria-label="Bold" data-tip="Bold">{{icon:bold}}</button>
+                      <button type="button" data-cmd="italic" aria-label="Italic" data-tip="Italic">{{icon:italic}}</button>
+                      <button type="button" data-cmd="underline" aria-label="Underline" data-tip="Underline">{{icon:underline}}</button>
+                      <span class="rte__sep" aria-hidden="true"></span>
+                      <button type="button" data-cmd="formatBlock" data-value="h3" aria-label="Heading" data-tip="Heading">{{icon:heading-2}}</button>
+                      <button type="button" data-cmd="insertUnorderedList" aria-label="Bulleted list" data-tip="Bullets">{{icon:list}}</button>
+                      <button type="button" data-cmd="insertOrderedList" aria-label="Numbered list" data-tip="Numbers">{{icon:list-ordered}}</button>
+                      <button type="button" data-cmd="formatBlock" data-value="blockquote" aria-label="Quote" data-tip="Quote">{{icon:quote}}</button>
+                      <button type="button" data-cmd="createLink" aria-label="Link" data-tip="Link">{{icon:link}}</button>
+                      <button type="button" data-cmd="insertImage" aria-label="Photo" data-tip="Photo">{{icon:image}}</button>
+                      <span class="rte__sep" aria-hidden="true"></span>
+                      <button type="button" data-cmd="undo" aria-label="Undo" data-tip="Undo">{{icon:undo-2}}</button>
+                      <button type="button" data-cmd="redo" aria-label="Redo" data-tip="Redo">{{icon:redo-2}}</button>
+                    </div>
+                    <div class="rte__area rte__area--story" contenteditable="true" role="textbox" aria-multiline="true" aria-labelledby="body-label" data-placeholder="Begin the story…" data-fill-article="body">{{fBody}}</div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section class="card">
+              <header class="card__head"><div><h2 class="card__title">Search engine listing</h2><p class="card__sub">How the story appears on Google.</p></div></header>
+              <div class="card__body">
+                <div class="serp" aria-hidden="true">
+                  <p class="serp__site"><span class="serp__favicon"></span><span><span class="serp__name">Mangalam Jewellers</span><span class="serp__url">mangalamjewellers.in › {{seoPreviewUrl}}</span></span></p>
+                  <p class="serp__title" data-bound="seoTitle">{{seoPreviewTitle}}</p>
+                  <p class="serp__desc" data-bound="seoDesc">{{seoPreviewDesc}}</p>
+                </div>
+                <div class="form-grid mt-16">
+                  <label class="field span-2"><span class="field__label">Page title <span class="field__count"></span></span><input class="input" name="seoTitle" value="{{fSeoTitle}}" maxlength="70" data-count data-count-ideal="60" data-bind="seoTitle"></label>
+                  <label class="field span-2"><span class="field__label">Meta description <span class="field__count"></span></span><textarea class="textarea" name="seoDesc" rows="3" maxlength="200" data-count data-count-ideal="160" data-bind="seoDesc">{{fSeoDesc}}</textarea></label>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <aside class="form-side">
+            <section class="card">
+              <header class="card__head"><h2 class="card__title">Publishing</h2></header>
+              <div class="card__body stack">
+                <div class="seg seg--block" role="radiogroup" aria-label="Status">{{statusRadios}}</div>
+                <label class="field"><span class="field__label">Date</span><input class="input" type="date" name="date" value="{{publishDate}}"></label>
+                <label class="field"><span class="field__label">Author</span><select class="select" name="author">{{authorOptions}}</select></label>
+                <label class="field"><span class="field__label">Reading time</span><span class="input-group"><input class="input" name="readTime" inputmode="numeric" value="{{fReadTime}}" placeholder="5"><span class="input-group__addon">min</span></span></label>
+                <label class="switch switch--text"><input type="checkbox" name="onHome" checked><span class="switch__track" aria-hidden="true"></span><span>Can appear on the homepage</span></label>
+              </div>
+            </section>
+
+            <section class="card">
+              <header class="card__head"><h2 class="card__title">Topic</h2></header>
+              <div class="card__body"><div class="seg seg--wrap" role="radiogroup" aria-label="Topic">{{categoryRadios}}</div></div>
+            </section>
+
+            <section class="card">
+              <header class="card__head"><div><h2 class="card__title">Cover photograph</h2><p class="card__sub">Wide, 16 : 10</p></div></header>
+              <div class="card__body">
+                <div class="image-field image-field--cover">{{coverImage}}<span class="image-field__empty"{{coverEmpty}}>{{icon:image}}No photograph yet</span><label class="image-field__btn">{{icon:upload}} Replace<input type="file" accept="image/*" data-image-input></label></div>
+              </div>
+            </section>
+{{deleteCard}}
+          </aside>
+        </div>
+      </form>

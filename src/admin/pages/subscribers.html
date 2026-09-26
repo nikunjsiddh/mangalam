@@ -1,0 +1,61 @@
+      <header class="ph">
+        <div>
+          <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Dashboard</a>{{icon:chevron-right}}<span aria-current="page">Subscribers</span></nav>
+          <h1 class="ph__title">Subscribers</h1>
+          <p class="ph__desc">People who signed up for “private notes from the house” in the website footer, the offer popup or in store.</p>
+        </div>
+        <div class="ph__actions">
+          <button type="button" class="btn btn--outline" data-dialog-open="subscriber-dialog">{{icon:user-plus}} Add subscriber</button>
+          <button type="button" class="btn btn--gold" data-toast="Export started" data-toast-text="subscribers.csv downloads once the backend is connected.">{{icon:download}} Export CSV</button>
+        </div>
+      </header>
+
+      <section class="grid grid--kpi grid--kpi-3" aria-label="Subscriber figures">
+        <div class="card kpi"><span class="kpi__top"><span class="kpi__label">Subscribers</span><span class="kpi__icon">{{icon:mail}}</span></span><span class="kpi__value">{{subscriberTotal}}</span><span class="kpi__foot"><span class="kpi__note">Growing for 12 months</span>{{subscriberSpark}}</span></div>
+        <div class="card kpi"><span class="kpi__top"><span class="kpi__label">Joined this month</span><span class="kpi__icon">{{icon:user-plus}}</span></span><span class="kpi__value">+{{subscribersMonth}}</span><span class="kpi__foot"><span class="kpi__note">Mostly from the offer popup</span></span></div>
+        <div class="card kpi"><span class="kpi__top"><span class="kpi__label">Unsubscribed, last 30 days</span><span class="kpi__icon">{{icon:log-out}}</span></span><span class="kpi__value">{{unsubscribed}}</span><span class="kpi__foot"><span class="kpi__note">Of the {{listed}} most recent sign-ups</span></span></div>
+      </section>
+
+      <section class="card" data-list-scope>
+        <div class="toolbar">
+          <label class="search">{{icon:search}}<span class="sr-only">Search by email</span><input class="input" type="search" placeholder="Search by email…" data-list-search></label>
+          <select class="select" data-list-filter="status" aria-label="Status"><option value="">Everyone</option><option value="subscribed">Subscribed</option><option value="unsubscribed">Unsubscribed</option></select>
+          <select class="select" data-list-filter="source" aria-label="Where they signed up"><option value="">Every source</option><option>Website footer</option><option>Offer popup</option><option>In store</option></select>
+          <label class="sort">{{icon:arrow-up-down}}<span class="sr-only">Sort by</span>
+            <select class="select select--bare" data-list-sort><option value="">Newest first</option><option value="date:asc">Oldest first</option></select>
+          </label>
+        </div>
+        <div class="bulkbar" data-bulkbar hidden>
+          <span class="bulkbar__count"><strong data-bulk-count>0</strong> selected</span>
+          <button type="button" class="btn btn--ghost btn--sm" data-toast="Export started">{{icon:download}} Export selected</button>
+          <button type="button" class="btn btn--ghost btn--sm" data-confirm="Remove the selected subscribers?" data-confirm-text="They will stop receiving the newsletter." data-confirm-action="Remove" data-done="Subscribers removed">{{icon:trash-2}} Remove</button>
+          <button type="button" class="btn btn--ghost btn--sm bulkbar__clear" data-bulk-clear>Clear selection</button>
+        </div>
+        <div class="table-wrap">
+          <table class="table">
+            <thead><tr><th class="col-check"><input class="check" type="checkbox" data-check-all aria-label="Select everyone on this page"></th><th scope="col">Email</th><th scope="col">Signed up in</th><th scope="col">Date</th><th scope="col">Status</th><th scope="col" class="col-actions"><span class="sr-only">Actions</span></th></tr></thead>
+            <tbody data-list data-per-page="12">{{subscriberRows}}
+            </tbody>
+          </table>
+        </div>
+        <div class="empty" data-list-empty hidden><span class="empty__icon">{{icon:mail}}</span><p class="empty__title">No one matches</p><button type="button" class="btn btn--outline btn--sm" data-list-reset>Clear filters</button></div>
+        <div class="pager" data-pager></div>
+      </section>
+
+      <dialog class="dialog dialog--sm" id="subscriber-dialog" aria-labelledby="subscriber-title">
+        <form class="dialog__panel" data-demo data-toast="Subscriber added">
+          <header class="dialog__head">
+            <div><p class="dialog__eyebrow">Newsletter</p><h2 class="dialog__title" id="subscriber-title">Add a subscriber</h2></div>
+            <button type="button" class="icon-btn" data-dialog-close aria-label="Close">{{icon:x}}</button>
+          </header>
+          <div class="dialog__body stack">
+            <label class="field"><span class="field__label">Email address</span><input class="input" type="email" required placeholder="name@example.com" autocomplete="off"></label>
+            <label class="field"><span class="field__label">Signed up in</span><select class="select"><option>In store</option><option>Website footer</option><option>Offer popup</option></select></label>
+            <label class="check-row"><input class="check" type="checkbox" required><span>They asked to receive the newsletter</span></label>
+          </div>
+          <footer class="dialog__foot">
+            <button type="button" class="btn btn--outline" data-dialog-close>Cancel</button>
+            <button type="submit" class="btn btn--primary">{{icon:check}} Add</button>
+          </footer>
+        </form>
+      </dialog>

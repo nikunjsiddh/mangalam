@@ -1,0 +1,1114 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Media library — Mangalam Admin</title>
+  <meta name="theme-color" content="#2E0A16">
+  <link rel="icon" href="../assets/images/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&amp;family=Jost:wght@300;400;500;600&amp;display=swap">
+  <link rel="stylesheet" href="../assets/css/admin.css">
+  <script>try { if (localStorage.getItem("mj-admin-sidebar") === "mini") document.documentElement.classList.add("side-mini"); } catch (e) {}</script>
+</head>
+<body class="adm" data-page="media">
+  <svg class="icon-sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><symbol id="i-bell" viewBox="0 0 24 24"><path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"/></symbol><symbol id="i-book-open" viewBox="0 0 24 24"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></symbol><symbol id="i-calendar-check" viewBox="0 0 24 24"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="m9 16 2 2 4-4"/></symbol><symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol><symbol id="i-chevron-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol><symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol><symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol><symbol id="i-circle-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></symbol><symbol id="i-cloud-upload" viewBox="0 0 24 24"><path d="M12 13v8"/><path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"/><path d="m8 17 4-4 4 4"/></symbol><symbol id="i-copy" viewBox="0 0 24 24"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></symbol><symbol id="i-external-link" viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></symbol><symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></symbol><symbol id="i-file-text" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></symbol><symbol id="i-gem" viewBox="0 0 24 24"><path d="M6 3h12l4 6-10 13L2 9Z"/><path d="M11 3 8 9l4 13 4-13-3-6"/><path d="M2 9h20"/></symbol><symbol id="i-house" viewBox="0 0 24 24"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></symbol><symbol id="i-image" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></symbol><symbol id="i-images" viewBox="0 0 24 24"><path d="M18 22H4a2 2 0 0 1-2-2V6"/><path d="m22 13-1.296-1.296a2.41 2.41 0 0 0-3.408 0L11 18"/><circle cx="12" cy="8" r="2"/><rect width="16" height="16" x="6" y="2" rx="2"/></symbol><symbol id="i-inbox" viewBox="0 0 24 24"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></symbol><symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></symbol><symbol id="i-layers" viewBox="0 0 24 24"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"/><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"/></symbol><symbol id="i-layout-dashboard" viewBox="0 0 24 24"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></symbol><symbol id="i-layout-grid" viewBox="0 0 24 24"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></symbol><symbol id="i-log-out" viewBox="0 0 24 24"><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/></symbol><symbol id="i-mail" viewBox="0 0 24 24"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect x="2" y="4" width="20" height="16" rx="2"/></symbol><symbol id="i-megaphone" viewBox="0 0 24 24"><path d="M11 6a13 13 0 0 0 8.4-2.8A1 1 0 0 1 21 4v12a1 1 0 0 1-1.6.8A13 13 0 0 0 11 14H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z"/><path d="M6 14a12 12 0 0 0 2.4 7.2 2 2 0 0 0 3.2-2.4A8 8 0 0 1 10 14"/><path d="M8 6v8"/></symbol><symbol id="i-panel-left" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 3v18"/></symbol><symbol id="i-quote" viewBox="0 0 24 24"><path d="M16 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"/><path d="M5 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"/></symbol><symbol id="i-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></symbol><symbol id="i-settings" viewBox="0 0 24 24"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></symbol><symbol id="i-trash-2" viewBox="0 0 24 24"><path d="M10 11v6"/><path d="M14 11v6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></symbol><symbol id="i-user-round" viewBox="0 0 24 24"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></symbol><symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol><symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol></svg>
+  <a class="skip-link" href="#content">Skip to content</a>
+  <aside class="side" id="sidebar" aria-label="Admin navigation">
+    <div class="side__brand">
+      <a class="side__logo" href="index.html" aria-label="Mangalam Jewellers admin — dashboard">
+        <span class="logo logo--full" aria-hidden="true"></span>
+        <span class="logo logo--emblem" aria-hidden="true"></span>
+      </a>
+      <span class="side__label">Admin</span>
+    </div>
+    <nav class="side__nav">
+      <a class="side__link" data-nav="dashboard" href="index.html" data-tip="Dashboard"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-layout-dashboard"/></svg><span>Dashboard</span></a>
+
+      <p class="side__group">Catalogue</p>
+      <a class="side__link" data-nav="products" href="products.html" data-tip="Products"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-gem"/></svg><span>Products</span><span class="side__count">46</span></a>
+      <a class="side__link" data-nav="categories" href="categories.html" data-tip="Categories"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-layout-grid"/></svg><span>Categories</span></a>
+      <a class="side__link" data-nav="collections" href="collections.html" data-tip="Collections"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-layers"/></svg><span>Collections</span></a>
+
+      <p class="side__group">Website</p>
+      <a class="side__link" data-nav="homepage" href="homepage.html" data-tip="Homepage"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-house"/></svg><span>Homepage</span></a>
+      <a class="side__link" data-nav="pages" href="pages.html" data-tip="Pages &amp; banners"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-file-text"/></svg><span>Pages &amp; banners</span></a>
+      <a class="side__link" data-nav="journal" href="journal.html" data-tip="Journal"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-book-open"/></svg><span>Journal</span></a>
+      <a class="side__link" data-nav="testimonials" href="testimonials.html" data-tip="Testimonials"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-quote"/></svg><span>Testimonials</span></a>
+      <a class="side__link" data-nav="media" aria-current="page" href="media.html" data-tip="Media library"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-images"/></svg><span>Media library</span></a>
+
+      <p class="side__group">Customers</p>
+      <a class="side__link" data-nav="enquiries" href="enquiries.html" data-tip="Enquiries"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-inbox"/></svg><span>Enquiries</span><span class="side__count side__count--new" aria-label="3 new">3</span></a>
+      <a class="side__link" data-nav="appointments" href="appointments.html" data-tip="Appointments"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-calendar-check"/></svg><span>Appointments</span></a>
+      <a class="side__link" data-nav="subscribers" href="subscribers.html" data-tip="Subscribers"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-mail"/></svg><span>Subscribers</span></a>
+
+      <p class="side__group">Marketing</p>
+      <a class="side__link" data-nav="offers" href="offers.html" data-tip="Offers &amp; announcements"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-megaphone"/></svg><span>Offers &amp; announcements</span></a>
+
+      <p class="side__group">System</p>
+      <a class="side__link" data-nav="settings" href="settings.html" data-tip="Settings"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-settings"/></svg><span>Settings</span></a>
+      <a class="side__link" data-nav="users" href="users.html" data-tip="Users &amp; roles"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-users"/></svg><span>Users &amp; roles</span></a>
+    </nav>
+    <div class="side__foot">
+      <a class="side__link side__link--site" href="../index.html" target="_blank" rel="noopener" data-tip="View website"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-external-link"/></svg><span>View website</span></a>
+    </div>
+  </aside>
+  <div class="side-scrim" data-sidebar-close hidden></div>
+
+  <div class="adm__main">
+    <header class="top">
+      <button type="button" class="icon-btn top__toggle" data-sidebar-toggle aria-controls="sidebar" aria-label="Show or hide the menu"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-panel-left"/></svg></button>
+      <label class="top__search">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-search"/></svg>
+        <span class="sr-only">Search the admin</span>
+        <input type="search" placeholder="Search products, enquiries, pages…" data-global-search>
+        <kbd>Ctrl K</kbd>
+      </label>
+      <div class="top__end">
+        <span class="preview-pill" tabindex="0" data-tip="Every screen and button works so you can review the design. Nothing is saved until the backend is connected." data-tip-pos="bottom"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-eye"/></svg><span>Design preview</span></span>
+        <a class="btn btn--outline btn--sm top__site" href="../index.html" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-external-link"/></svg><span>View website</span></a>
+        <div class="dropdown">
+          <button type="button" class="icon-btn top__bell" data-menu-trigger aria-haspopup="true" aria-expanded="false" aria-label="Notifications, 3 unread"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-bell"/></svg><span class="top__dot" aria-hidden="true"></span></button>
+          <div class="menu menu--notices" data-menu hidden>
+            <div class="menu__head"><span>Notifications</span><button type="button" class="link-btn" data-toast="All marked as read">Mark all as read</button></div>
+            <div class="menu__list">
+            <a class="notice is-unread" href="enquiries.html"><span class="notice__icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-inbox"/></svg></span><span><span class="notice__text">New enquiry from Ananya Parekh about the Royal Heritage Necklace</span><span class="notice__when">12 min ago</span></span></a>
+            <a class="notice is-unread" href="appointments.html"><span class="notice__icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-calendar-check"/></svg></span><span><span class="notice__text">Hetal Desai confirmed her bridal consultation for today, 11:30 AM</span><span class="notice__when">1 hr ago</span></span></a>
+            <a class="notice is-unread" href="enquiries.html"><span class="notice__icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-inbox"/></svg></span><span><span class="notice__text">New enquiry from Kunal Shah about the Diamond Tennis Bracelet</span><span class="notice__when">3 hrs ago</span></span></a>
+            <a class="notice" href="products.html?flags=photos"><span class="notice__icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-image"/></svg></span><span><span class="notice__text">4 mangalsutra pieces are still waiting for photographs</span><span class="notice__when">Yesterday</span></span></a>
+            <a class="notice" href="subscribers.html"><span class="notice__icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-mail"/></svg></span><span><span class="notice__text">58 people subscribed to the newsletter this month</span><span class="notice__when">2 days ago</span></span></a>
+            </div>
+          </div>
+        </div>
+        <div class="dropdown">
+          <button type="button" class="top__user" data-menu-trigger aria-haspopup="menu" aria-expanded="false">
+            <span class="avatar avatar--t3" aria-hidden="true">RM</span>
+            <span class="top__user-text"><span class="top__user-name">Rohan Mehta</span><span class="top__user-role">Owner</span></span>
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chevron-down"/></svg>
+          </button>
+          <div class="menu" data-menu role="menu" hidden>
+            <a role="menuitem" href="users.html"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-user-round"/></svg>Your profile</a>
+            <a role="menuitem" href="settings.html"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-settings"/></svg>Settings</a>
+            <a role="menuitem" href="../index.html" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-external-link"/></svg>View website</a>
+            <hr>
+            <a role="menuitem" href="login.html"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-log-out"/></svg>Sign out</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="adm__content" id="content">
+      <header class="ph">
+        <div>
+          <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Dashboard</a><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chevron-right"/></svg><span aria-current="page">Media library</span></nav>
+          <h1 class="ph__title">Media library</h1>
+          <p class="ph__desc">130 images, 31.0 MB — every photograph and logo the website uses.</p>
+        </div>
+        <div class="ph__actions">
+          <button type="button" class="btn btn--gold" data-dialog-open="upload-dialog"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-cloud-upload"/></svg> Upload</button>
+        </div>
+      </header>
+
+      <div class="media-layout" data-list-scope>
+        <section class="card">
+          <div class="card__chips chips"><button type="button" class="chip is-active" data-list-chip="folder" data-value="" aria-pressed="true">All<span class="chip__count">130</span></button><button type="button" class="chip" data-list-chip="folder" data-value="campaign" aria-pressed="false">Campaign<span class="chip__count">48</span></button><button type="button" class="chip" data-list-chip="folder" data-value="products" aria-pressed="false">Products<span class="chip__count">73</span></button><button type="button" class="chip" data-list-chip="folder" data-value="brand" aria-pressed="false">Brand<span class="chip__count">8</span></button><button type="button" class="chip" data-list-chip="folder" data-value="other" aria-pressed="false">Other<span class="chip__count">1</span></button></div>
+          <div class="toolbar">
+            <label class="search"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-search"/></svg><span class="sr-only">Search by file name</span><input class="input" type="search" placeholder="Search by file name…" data-list-search></label>
+            <p class="toolbar__note"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-info"/></svg>Select a photograph to see where it is used</p>
+          </div>
+          <ul class="tiles" data-list data-per-page="30">
+            <li data-item data-folder="campaign" data-search="article-bridal.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/campaign/article-bridal.jpg&quot;,&quot;name&quot;:&quot;article-bridal.jpg&quot;,&quot;folder&quot;:&quot;Campaign&quot;,&quot;dims&quot;:&quot;1600 × 1000&quot;,&quot;size&quot;:&quot;377 KB&quot;,&quot;url&quot;:&quot;assets/images/campaign/article-bridal.jpg&quot;,&quot;alt&quot;:&quot;&quot;,&quot;used&quot;:[&quot;Home&quot;,&quot;Journal&quot;,&quot;Journal: The Art of Bridal Jewellery&quot;]}" aria-label="article-bridal.jpg">
+                <span class="tile__img"><img src="../assets/images/campaign/article-bridal.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">article-bridal.jpg</span>
+                <span class="tile__meta">1600 × 1000 · 377 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="campaign" data-search="article-care.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/campaign/article-care.jpg&quot;,&quot;name&quot;:&quot;article-care.jpg&quot;,&quot;folder&quot;:&quot;Campaign&quot;,&quot;dims&quot;:&quot;1600 × 1000&quot;,&quot;size&quot;:&quot;221 KB&quot;,&quot;url&quot;:&quot;assets/images/campaign/article-care.jpg&quot;,&quot;alt&quot;:&quot;&quot;,&quot;used&quot;:[&quot;Journal&quot;,&quot;Journal: Jewellery Care Guide&quot;]}" aria-label="article-care.jpg">
+                <span class="tile__img"><img src="../assets/images/campaign/article-care.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">article-care.jpg</span>
+                <span class="tile__meta">1600 × 1000 · 221 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="campaign" data-search="article-gold.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/campaign/article-gold.jpg&quot;,&quot;name&quot;:&quot;article-gold.jpg&quot;,&quot;folder&quot;:&quot;Campaign&quot;,&quot;dims&quot;:&quot;1600 × 1000&quot;,&quot;size&quot;:&quot;479 KB&quot;,&quot;url&quot;:&quot;assets/images/campaign/article-gold.jpg&quot;,&quot;alt&quot;:&quot;&quot;,&quot;used&quot;:[&quot;Home&quot;,&quot;Journal&quot;,&quot;Journal: Understanding Gold Purity&quot;]}" aria-label="article-gold.jpg">
+                <span class="tile__img"><img src="../assets/images/campaign/article-gold.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">article-gold.jpg</span>
+                <span class="tile__meta">1600 × 1000 · 479 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="campaign" data-search="article-heritage.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/campaign/article-heritage.jpg&quot;,&quot;name&quot;:&quot;article-heritage.jpg&quot;,&quot;folder&quot;:&quot;Campaign&quot;,&quot;dims&quot;:&quot;1600 × 1000&quot;,&quot;size&quot;:&quot;452 KB&quot;,&quot;url&quot;:&quot;assets/images/campaign/article-heritage.jpg&quot;,&quot;alt&quot;:&quot;&quot;,&quot;used&quot;:[&quot;Home&quot;,&quot;Journal&quot;,&quot;Journal: Gujarati Jewellery Heritage&quot;]}" aria-label="article-heritage.jpg">
+                <span class="tile__img"><img src="../assets/images/campaign/article-heritage.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">article-heritage.jpg</span>
+                <span class="tile__meta">1600 × 1000 · 452 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="campaign" data-search="article-signature.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/campaign/article-signature.jpg&quot;,&quot;name&quot;:&quot;article-signature.jpg&quot;,&quot;folder&quot;:&quot;Campaign&quot;,&quot;dims&quot;:&quot;1600 × 1000&quot;,&quot;size&quot;:&quot;231 KB&quot;,&quot;url&quot;:&quot;assets/images/campaign/article-signature.jpg&quot;,&quot;alt&quot;:&quot;&quot;,&quot;used&quot;:[&quot;Home&quot;,&quot;Journal&quot;,&quot;Journal: Choosing Your Signature Piece&quot;]}" aria-label="article-signature.jpg">
+                <span class="tile__img"><img src="../assets/images/campaign/article-signature.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">article-signature.jpg</span>
+                <span class="tile__meta">1600 × 1000 · 231 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="campaign" data-search="article-trends.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/campaign/article-trends.jpg&quot;,&quot;name&quot;:&quot;article-trends.jpg&quot;,&quot;folder&quot;:&quot;Campaign&quot;,&quot;dims&quot;:&quot;1600 × 1000&quot;,&quot;size&quot;:&quot;434 KB&quot;,&quot;url&quot;:&quot;assets/images/campaign/article-trends.jpg&quot;,&quot;alt&quot;:&quot;&quot;,&quot;used&quot;:[&quot;Journal&quot;,&quot;Journal: Modern Bridal Trends&quot;]}" aria-label="article-trends.jpg">
+                <span class="tile__img"><img src="../assets/images/campaign/article-trends.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">article-trends.jpg</span>
+                <span class="tile__meta">1600 × 1000 · 434 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="campaign" data-search="banner-about.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/campaign/banner-about.jpg&quot;,&quot;name&quot;:&quot;banner-about.jpg&quot;,&quot;folder&quot;:&quot;Campaign&quot;,&quot;dims&quot;:&quot;2000 × 840&quot;,&quot;size&quot;:&quot;287 KB&quot;,&quot;url&quot;:&quot;assets/images/campaign/banner-about.jpg&quot;,&quot;alt&quot;:&quot;&quot;,&quot;used&quot;:[&quot;About us&quot;]}" aria-label="banner-about.jpg">
+                <span class="tile__img"><img src="../assets/images/campaign/banner-about.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">banner-about.jpg</span>
+                <span class="tile__meta">2000 × 840 · 287 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="campaign" data-search="banner-all.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/campaign/banner-all.jpg&quot;,&quot;name&quot;:&quot;banner-all.jpg&quot;,&quot;folder&quot;:&quot;Campaign&quot;,&quot;dims&quot;:&quot;2000 × 840&quot;,&quot;size&quot;:&quot;291 KB&quot;,&quot;url&quot;:&quot;assets/images/campaign/banner-all.jpg&quot;,&quot;alt&quot;:&quot;&quot;,&quot;used&quot;:[&quot;All jewellery&quot;]}" aria-label="banner-all.jpg">
+                <span class="tile__img"><img src="../assets/images/campaign/banner-all.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">banner-all.jpg</span>
+                <span class="tile__meta">2000 × 840 · 291 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="campaign" data-search="banner-bangles.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/campaign/banner-bangles.jpg&quot;,&quot;name&quot;:&quot;banner-bangles.jpg&quot;,&quot;folder&quot;:&quot;Campaign&quot;,&quot;dims&quot;:&quot;2000 × 840&quot;,&quot;size&quot;:&quot;147 KB&quot;,&quot;url&quot;:&quot;assets/images/campaign/banner-bangles.jpg&quot;,&quot;alt&quot;:&quot;&quot;,&quot;used&quot;:[&quot;Bangles&quot;]}" aria-label="banner-bangles.jpg">
+                <span class="tile__img"><img src="../assets/images/campaign/banner-bangles.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">banner-bangles.jpg</span>
+                <span class="tile__meta">2000 × 840 · 147 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="campaign" data-search="banner-bracelets.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/campaign/banner-bracelets.jpg&quot;,&quot;name&quot;:&quot;banner-bracelets.jpg&quot;,&quot;folder&quot;:&quot;Campaign&quot;,&quot;dims&quot;:&quot;2000 × 840&quot;,&quot;size&quot;:&quot;224 KB&quot;,&quot;url&quot;:&quot;assets/images/campaign/banner-bracelets.jpg&quot;,&quot;alt&quot;:&quot;&quot;,&quot;used&quot;:[&quot;Bracelets&quot;]}" aria-label="banner-bracelets.jpg">
+                <span class="tile__img"><img src="../assets/images/campaign/banner-bracelets.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">banner-bracelets.jpg</span>
+                <span class="tile__meta">2000 × 840 · 224 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="campaign" data-search="banner-bridal.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/campaign/banner-bridal.jpg&quot;,&quot;name&quot;:&quot;banner-bridal.jpg&quot;,&quot;folder&quot;:&quot;Campaign&quot;,&quot;dims&quot;:&quot;2000 × 840&quot;,&quot;size&quot;:&quot;275 KB&quot;,&quot;url&quot;:&quot;assets/images/campaign/banner-bridal.jpg&quot;,&quot;alt&quot;:&quot;&quot;,&quot;used&quot;:[&quot;Bridal&quot;]}" aria-label="banner-bridal.jpg">
+                <span class="tile__img"><img src="../assets/images/campaign/banner-bridal.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">banner-bridal.jpg</span>
+                <span class="tile__meta">2000 × 840 · 275 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="campaign" data-search="banner-collections.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/campaign/banner-collections.jpg&quot;,&quot;name&quot;:&quot;banner-collections.jpg&quot;,&quot;folder&quot;:&quot;Campaign&quot;,&quot;dims&quot;:&quot;2000 × 840&quot;,&quot;size&quot;:&quot;127 KB&quot;,&quot;url&quot;:&quot;assets/images/campaign/banner-collections.jpg&quot;,&quot;alt&quot;:&quot;&quot;,&quot;used&quot;:[&quot;Collections&quot;]}" aria-label="banner-collections.jpg">
+                <span class="tile__img"><img src="../assets/images/campaign/banner-collections.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">banner-collections.jpg</span>
+                <span class="tile__meta">2000 × 840 · 127 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="campaign" data-search="banner-contact.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/campaign/banner-contact.jpg&quot;,&quot;name&quot;:&quot;banner-contact.jpg&quot;,&quot;folder&quot;:&quot;Campaign&quot;,&quot;dims&quot;:&quot;2000 × 840&quot;,&quot;size&quot;:&quot;199 KB&quot;,&quot;url&quot;:&quot;assets/images/campaign/banner-contact.jpg&quot;,&quot;alt&quot;:&quot;&quot;,&quot;used&quot;:[&quot;Contact&quot;]}" aria-label="banner-contact.jpg">
+                <span class="tile__img"><img src="../assets/images/campaign/banner-contact.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">banner-contact.jpg</span>
+                <span class="tile__meta">2000 × 840 · 199 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="campaign" data-search="banner-craft.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/campaign/banner-craft.jpg&quot;,&quot;name&quot;:&quot;banner-craft.jpg&quot;,&quot;folder&quot;:&quot;Campaign&quot;,&quot;dims&quot;:&quot;2000 × 840&quot;,&quot;size&quot;:&quot;135 KB&quot;,&quot;url&quot;:&quot;assets/images/campaign/banner-craft.jpg&quot;,&quot;alt&quot;:&quot;&quot;,&quot;used&quot;:[&quot;Craftsmanship&quot;]}" aria-label="banner-craft.jpg">
+                <span class="tile__img"><img src="../assets/images/campaign/banner-craft.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">banner-craft.jpg</span>
+                <span class="tile__meta">2000 × 840 · 135 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="campaign" data-search="banner-earrings.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/campaign/banner-earrings.jpg&quot;,&quot;name&quot;:&quot;banner-earrings.jpg&quot;,&quot;folder&quot;:&quot;Campaign&quot;,&quot;dims&quot;:&quot;2000 × 840&quot;,&quot;size&quot;:&quot;142 KB&quot;,&quot;url&quot;:&quot;assets/images/campaign/banner-earrings.jpg&quot;,&quot;alt&quot;:&quot;&quot;,&quot;used&quot;:[&quot;Earrings&quot;]}" aria-label="banner-earrings.jpg">
+                <span class="tile__img"><img src="../assets/images/campaign/banner-earrings.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">banner-earrings.jpg</span>
+                <span class="tile__meta">2000 × 840 · 142 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="campaign" data-search="banner-journal.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/campaign/banner-journal.jpg&quot;,&quot;name&quot;:&quot;banner-journal.jpg&quot;,&quot;folder&quot;:&quot;Campaign&quot;,&quot;dims&quot;:&quot;2000 × 840&quot;,&quot;size&quot;:&quot;210 KB&quot;,&quot;url&quot;:&quot;assets/images/campaign/banner-journal.jpg&quot;,&quot;alt&quot;:&quot;&quot;,&quot;used&quot;:[&quot;Journal&quot;]}" aria-label="banner-journal.jpg">
+                <span class="tile__img"><img src="../assets/images/campaign/banner-journal.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">banner-journal.jpg</span>
+                <span class="tile__meta">2000 × 840 · 210 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="campaign" data-search="banner-necklaces.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/campaign/banner-necklaces.jpg&quot;,&quot;name&quot;:&quot;banner-necklaces.jpg&quot;,&quot;folder&quot;:&quot;Campaign&quot;,&quot;dims&quot;:&quot;2000 × 840&quot;,&quot;size&quot;:&quot;270 KB&quot;,&quot;url&quot;:&quot;assets/images/campaign/banner-necklaces.jpg&quot;,&quot;alt&quot;:&quot;&quot;,&quot;used&quot;:[&quot;Necklaces&quot;]}" aria-label="banner-necklaces.jpg">
+                <span class="tile__img"><img src="../assets/images/campaign/banner-necklaces.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">banner-necklaces.jpg</span>
+                <span class="tile__meta">2000 × 840 · 270 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="campaign" data-search="banner-pendants.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/campaign/banner-pendants.jpg&quot;,&quot;name&quot;:&quot;banner-pendants.jpg&quot;,&quot;folder&quot;:&quot;Campaign&quot;,&quot;dims&quot;:&quot;2000 × 840&quot;,&quot;size&quot;:&quot;120 KB&quot;,&quot;url&quot;:&quot;assets/images/campaign/banner-pendants.jpg&quot;,&quot;alt&quot;:&quot;&quot;,&quot;used&quot;:[&quot;Pendants&quot;]}" aria-label="banner-pendants.jpg">
+                <span class="tile__img"><img src="../assets/images/campaign/banner-pendants.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">banner-pendants.jpg</span>
+                <span class="tile__meta">2000 × 840 · 120 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="campaign" data-search="banner-rings.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/campaign/banner-rings.jpg&quot;,&quot;name&quot;:&quot;banner-rings.jpg&quot;,&quot;folder&quot;:&quot;Campaign&quot;,&quot;dims&quot;:&quot;2000 × 840&quot;,&quot;size&quot;:&quot;247 KB&quot;,&quot;url&quot;:&quot;assets/images/campaign/banner-rings.jpg&quot;,&quot;alt&quot;:&quot;&quot;,&quot;used&quot;:[&quot;Rings&quot;]}" aria-label="banner-rings.jpg">
+                <span class="tile__img"><img src="../assets/images/campaign/banner-rings.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">banner-rings.jpg</span>
+                <span class="tile__meta">2000 × 840 · 247 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="campaign" data-search="cat-bangles.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/campaign/cat-bangles.jpg&quot;,&quot;name&quot;:&quot;cat-bangles.jpg&quot;,&quot;folder&quot;:&quot;Campaign&quot;,&quot;dims&quot;:&quot;900 × 1200&quot;,&quot;size&quot;:&quot;174 KB&quot;,&quot;url&quot;:&quot;assets/images/campaign/cat-bangles.jpg&quot;,&quot;alt&quot;:&quot;&quot;,&quot;used&quot;:[&quot;Home&quot;,&quot;Collections&quot;,&quot;All jewellery&quot;,&quot;Rings&quot;,&quot;Necklaces&quot;,&quot;Earrings&quot;,&quot;Bangles&quot;,&quot;Bracelets&quot;,&quot;Pendants&quot;,&quot;Mangalsutra&quot;,&quot;Bridal&quot;,&quot;Product page&quot;,&quot;About us&quot;,&quot;Craftsmanship&quot;,&quot;Journal&quot;,&quot;Journal story&quot;,&quot;Contact&quot;,&quot;Page not found&quot;]}" aria-label="cat-bangles.jpg">
+                <span class="tile__img"><img src="../assets/images/campaign/cat-bangles.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">cat-bangles.jpg</span>
+                <span class="tile__meta">900 × 1200 · 174 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="campaign" data-search="cat-bracelets.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/campaign/cat-bracelets.jpg&quot;,&quot;name&quot;:&quot;cat-bracelets.jpg&quot;,&quot;folder&quot;:&quot;Campaign&quot;,&quot;dims&quot;:&quot;900 × 1200&quot;,&quot;size&quot;:&quot;170 KB&quot;,&quot;url&quot;:&quot;assets/images/campaign/cat-bracelets.jpg&quot;,&quot;alt&quot;:&quot;&quot;,&quot;used&quot;:[&quot;Home&quot;,&quot;Collections&quot;,&quot;All jewellery&quot;,&quot;Rings&quot;,&quot;Necklaces&quot;,&quot;Earrings&quot;,&quot;Bangles&quot;,&quot;Bracelets&quot;,&quot;Pendants&quot;,&quot;Mangalsutra&quot;,&quot;Bridal&quot;,&quot;Product page&quot;,&quot;About us&quot;,&quot;Craftsmanship&quot;,&quot;Journal&quot;,&quot;Journal story&quot;,&quot;Contact&quot;,&quot;Page not found&quot;]}" aria-label="cat-bracelets.jpg">
+                <span class="tile__img"><img src="../assets/images/campaign/cat-bracelets.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">cat-bracelets.jpg</span>
+                <span class="tile__meta">900 × 1200 · 170 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="campaign" data-search="cat-bridal.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/campaign/cat-bridal.jpg&quot;,&quot;name&quot;:&quot;cat-bridal.jpg&quot;,&quot;folder&quot;:&quot;Campaign&quot;,&quot;dims&quot;:&quot;900 × 1200&quot;,&quot;size&quot;:&quot;307 KB&quot;,&quot;url&quot;:&quot;assets/images/campaign/cat-bridal.jpg&quot;,&quot;alt&quot;:&quot;&quot;,&quot;used&quot;:[&quot;Home&quot;,&quot;Collections&quot;,&quot;All jewellery&quot;,&quot;Rings&quot;,&quot;Necklaces&quot;,&quot;Earrings&quot;,&quot;Bangles&quot;,&quot;Bracelets&quot;,&quot;Pendants&quot;,&quot;Mangalsutra&quot;,&quot;Bridal&quot;,&quot;Product page&quot;,&quot;About us&quot;,&quot;Craftsmanship&quot;,&quot;Journal&quot;,&quot;Journal story&quot;,&quot;Contact&quot;,&quot;Page not found&quot;]}" aria-label="cat-bridal.jpg">
+                <span class="tile__img"><img src="../assets/images/campaign/cat-bridal.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">cat-bridal.jpg</span>
+                <span class="tile__meta">900 × 1200 · 307 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="campaign" data-search="cat-earrings.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/campaign/cat-earrings.jpg&quot;,&quot;name&quot;:&quot;cat-earrings.jpg&quot;,&quot;folder&quot;:&quot;Campaign&quot;,&quot;dims&quot;:&quot;900 × 1200&quot;,&quot;size&quot;:&quot;151 KB&quot;,&quot;url&quot;:&quot;assets/images/campaign/cat-earrings.jpg&quot;,&quot;alt&quot;:&quot;&quot;,&quot;used&quot;:[&quot;Home&quot;,&quot;Collections&quot;,&quot;All jewellery&quot;,&quot;Rings&quot;,&quot;Necklaces&quot;,&quot;Earrings&quot;,&quot;Bangles&quot;,&quot;Bracelets&quot;,&quot;Pendants&quot;,&quot;Mangalsutra&quot;,&quot;Bridal&quot;,&quot;Product page&quot;,&quot;About us&quot;,&quot;Craftsmanship&quot;,&quot;Journal&quot;,&quot;Journal story&quot;,&quot;Contact&quot;,&quot;Page not found&quot;]}" aria-label="cat-earrings.jpg">
+                <span class="tile__img"><img src="../assets/images/campaign/cat-earrings.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">cat-earrings.jpg</span>
+                <span class="tile__meta">900 × 1200 · 151 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="campaign" data-search="cat-necklaces.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/campaign/cat-necklaces.jpg&quot;,&quot;name&quot;:&quot;cat-necklaces.jpg&quot;,&quot;folder&quot;:&quot;Campaign&quot;,&quot;dims&quot;:&quot;900 × 1200&quot;,&quot;size&quot;:&quot;265 KB&quot;,&quot;url&quot;:&quot;assets/images/campaign/cat-necklaces.jpg&quot;,&quot;alt&quot;:&quot;&quot;,&quot;used&quot;:[&quot;Home&quot;,&quot;Collections&quot;,&quot;All jewellery&quot;,&quot;Rings&quot;,&quot;Necklaces&quot;,&quot;Earrings&quot;,&quot;Bangles&quot;,&quot;Bracelets&quot;,&quot;Pendants&quot;,&quot;Mangalsutra&quot;,&quot;Bridal&quot;,&quot;Product page&quot;,&quot;About us&quot;,&quot;Craftsmanship&quot;,&quot;Journal&quot;,&quot;Journal story&quot;,&quot;Contact&quot;,&quot;Page not found&quot;]}" aria-label="cat-necklaces.jpg">
+                <span class="tile__img"><img src="../assets/images/campaign/cat-necklaces.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">cat-necklaces.jpg</span>
+                <span class="tile__meta">900 × 1200 · 265 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="campaign" data-search="cat-pendants.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/campaign/cat-pendants.jpg&quot;,&quot;name&quot;:&quot;cat-pendants.jpg&quot;,&quot;folder&quot;:&quot;Campaign&quot;,&quot;dims&quot;:&quot;900 × 1200&quot;,&quot;size&quot;:&quot;143 KB&quot;,&quot;url&quot;:&quot;assets/images/campaign/cat-pendants.jpg&quot;,&quot;alt&quot;:&quot;&quot;,&quot;used&quot;:[&quot;Home&quot;,&quot;Collections&quot;,&quot;All jewellery&quot;,&quot;Rings&quot;,&quot;Necklaces&quot;,&quot;Earrings&quot;,&quot;Bangles&quot;,&quot;Bracelets&quot;,&quot;Pendants&quot;,&quot;Mangalsutra&quot;,&quot;Bridal&quot;,&quot;Product page&quot;,&quot;About us&quot;,&quot;Craftsmanship&quot;,&quot;Journal&quot;,&quot;Journal story&quot;,&quot;Contact&quot;,&quot;Page not found&quot;]}" aria-label="cat-pendants.jpg">
+                <span class="tile__img"><img src="../assets/images/campaign/cat-pendants.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">cat-pendants.jpg</span>
+                <span class="tile__meta">900 × 1200 · 143 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="campaign" data-search="cat-rings.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/campaign/cat-rings.jpg&quot;,&quot;name&quot;:&quot;cat-rings.jpg&quot;,&quot;folder&quot;:&quot;Campaign&quot;,&quot;dims&quot;:&quot;900 × 1200&quot;,&quot;size&quot;:&quot;282 KB&quot;,&quot;url&quot;:&quot;assets/images/campaign/cat-rings.jpg&quot;,&quot;alt&quot;:&quot;&quot;,&quot;used&quot;:[&quot;Home&quot;,&quot;Collections&quot;,&quot;All jewellery&quot;,&quot;Rings&quot;,&quot;Necklaces&quot;,&quot;Earrings&quot;,&quot;Bangles&quot;,&quot;Bracelets&quot;,&quot;Pendants&quot;,&quot;Mangalsutra&quot;,&quot;Bridal&quot;,&quot;Product page&quot;,&quot;About us&quot;,&quot;Craftsmanship&quot;,&quot;Journal&quot;,&quot;Journal story&quot;,&quot;Contact&quot;,&quot;Page not found&quot;]}" aria-label="cat-rings.jpg">
+                <span class="tile__img"><img src="../assets/images/campaign/cat-rings.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">cat-rings.jpg</span>
+                <span class="tile__meta">900 × 1200 · 282 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="campaign" data-search="closer.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/campaign/closer.jpg&quot;,&quot;name&quot;:&quot;closer.jpg&quot;,&quot;folder&quot;:&quot;Campaign&quot;,&quot;dims&quot;:&quot;1600 × 1600&quot;,&quot;size&quot;:&quot;588 KB&quot;,&quot;url&quot;:&quot;assets/images/campaign/closer.jpg&quot;,&quot;alt&quot;:&quot;&quot;,&quot;used&quot;:[&quot;Home&quot;]}" aria-label="closer.jpg">
+                <span class="tile__img"><img src="../assets/images/campaign/closer.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">closer.jpg</span>
+                <span class="tile__meta">1600 × 1600 · 588 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="campaign" data-search="coll-bridal.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/campaign/coll-bridal.jpg&quot;,&quot;name&quot;:&quot;coll-bridal.jpg&quot;,&quot;folder&quot;:&quot;Campaign&quot;,&quot;dims&quot;:&quot;1200 × 1600&quot;,&quot;size&quot;:&quot;183 KB&quot;,&quot;url&quot;:&quot;assets/images/campaign/coll-bridal.jpg&quot;,&quot;alt&quot;:&quot;&quot;,&quot;used&quot;:[&quot;Home&quot;,&quot;Collections&quot;,&quot;Craftsmanship&quot;]}" aria-label="coll-bridal.jpg">
+                <span class="tile__img"><img src="../assets/images/campaign/coll-bridal.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">coll-bridal.jpg</span>
+                <span class="tile__meta">1200 × 1600 · 183 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="campaign" data-search="coll-diamond.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/campaign/coll-diamond.jpg&quot;,&quot;name&quot;:&quot;coll-diamond.jpg&quot;,&quot;folder&quot;:&quot;Campaign&quot;,&quot;dims&quot;:&quot;1200 × 1600&quot;,&quot;size&quot;:&quot;225 KB&quot;,&quot;url&quot;:&quot;assets/images/campaign/coll-diamond.jpg&quot;,&quot;alt&quot;:&quot;&quot;,&quot;used&quot;:[&quot;Home&quot;,&quot;Collections&quot;]}" aria-label="coll-diamond.jpg">
+                <span class="tile__img"><img src="../assets/images/campaign/coll-diamond.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">coll-diamond.jpg</span>
+                <span class="tile__meta">1200 × 1600 · 225 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="campaign" data-search="coll-everyday.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/campaign/coll-everyday.jpg&quot;,&quot;name&quot;:&quot;coll-everyday.jpg&quot;,&quot;folder&quot;:&quot;Campaign&quot;,&quot;dims&quot;:&quot;1200 × 1600&quot;,&quot;size&quot;:&quot;210 KB&quot;,&quot;url&quot;:&quot;assets/images/campaign/coll-everyday.jpg&quot;,&quot;alt&quot;:&quot;&quot;,&quot;used&quot;:[&quot;Home&quot;,&quot;Collections&quot;]}" aria-label="coll-everyday.jpg">
+                <span class="tile__img"><img src="../assets/images/campaign/coll-everyday.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">coll-everyday.jpg</span>
+                <span class="tile__meta">1200 × 1600 · 210 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="campaign" data-search="coll-gold.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/campaign/coll-gold.jpg&quot;,&quot;name&quot;:&quot;coll-gold.jpg&quot;,&quot;folder&quot;:&quot;Campaign&quot;,&quot;dims&quot;:&quot;1200 × 1600&quot;,&quot;size&quot;:&quot;463 KB&quot;,&quot;url&quot;:&quot;assets/images/campaign/coll-gold.jpg&quot;,&quot;alt&quot;:&quot;&quot;,&quot;used&quot;:[&quot;Home&quot;,&quot;Collections&quot;]}" aria-label="coll-gold.jpg">
+                <span class="tile__img"><img src="../assets/images/campaign/coll-gold.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">coll-gold.jpg</span>
+                <span class="tile__meta">1200 × 1600 · 463 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="campaign" data-search="coll-heritage.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/campaign/coll-heritage.jpg&quot;,&quot;name&quot;:&quot;coll-heritage.jpg&quot;,&quot;folder&quot;:&quot;Campaign&quot;,&quot;dims&quot;:&quot;1200 × 1600&quot;,&quot;size&quot;:&quot;352 KB&quot;,&quot;url&quot;:&quot;assets/images/campaign/coll-heritage.jpg&quot;,&quot;alt&quot;:&quot;&quot;,&quot;used&quot;:[&quot;Home&quot;,&quot;Collections&quot;]}" aria-label="coll-heritage.jpg">
+                <span class="tile__img"><img src="../assets/images/campaign/coll-heritage.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">coll-heritage.jpg</span>
+                <span class="tile__meta">1200 × 1600 · 352 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="campaign" data-search="coll-statement.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/campaign/coll-statement.jpg&quot;,&quot;name&quot;:&quot;coll-statement.jpg&quot;,&quot;folder&quot;:&quot;Campaign&quot;,&quot;dims&quot;:&quot;1200 × 1600&quot;,&quot;size&quot;:&quot;227 KB&quot;,&quot;url&quot;:&quot;assets/images/campaign/coll-statement.jpg&quot;,&quot;alt&quot;:&quot;&quot;,&quot;used&quot;:[&quot;Home&quot;,&quot;Collections&quot;]}" aria-label="coll-statement.jpg">
+                <span class="tile__img"><img src="../assets/images/campaign/coll-statement.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">coll-statement.jpg</span>
+                <span class="tile__meta">1200 × 1600 · 227 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="campaign" data-search="cta.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/campaign/cta.jpg&quot;,&quot;name&quot;:&quot;cta.jpg&quot;,&quot;folder&quot;:&quot;Campaign&quot;,&quot;dims&quot;:&quot;2000 × 1000&quot;,&quot;size&quot;:&quot;195 KB&quot;,&quot;url&quot;:&quot;assets/images/campaign/cta.jpg&quot;,&quot;alt&quot;:&quot;&quot;,&quot;used&quot;:[&quot;Home&quot;]}" aria-label="cta.jpg">
+                <span class="tile__img"><img src="../assets/images/campaign/cta.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">cta.jpg</span>
+                <span class="tile__meta">2000 × 1000 · 195 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="campaign" data-search="heritage-1.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/campaign/heritage-1.jpg&quot;,&quot;name&quot;:&quot;heritage-1.jpg&quot;,&quot;folder&quot;:&quot;Campaign&quot;,&quot;dims&quot;:&quot;600 × 800&quot;,&quot;size&quot;:&quot;113 KB&quot;,&quot;url&quot;:&quot;assets/images/campaign/heritage-1.jpg&quot;,&quot;alt&quot;:&quot;&quot;,&quot;used&quot;:[&quot;Home&quot;]}" aria-label="heritage-1.jpg">
+                <span class="tile__img"><img src="../assets/images/campaign/heritage-1.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">heritage-1.jpg</span>
+                <span class="tile__meta">600 × 800 · 113 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="campaign" data-search="heritage-2.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/campaign/heritage-2.jpg&quot;,&quot;name&quot;:&quot;heritage-2.jpg&quot;,&quot;folder&quot;:&quot;Campaign&quot;,&quot;dims&quot;:&quot;600 × 800&quot;,&quot;size&quot;:&quot;92 KB&quot;,&quot;url&quot;:&quot;assets/images/campaign/heritage-2.jpg&quot;,&quot;alt&quot;:&quot;&quot;,&quot;used&quot;:[&quot;Home&quot;]}" aria-label="heritage-2.jpg">
+                <span class="tile__img"><img src="../assets/images/campaign/heritage-2.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">heritage-2.jpg</span>
+                <span class="tile__meta">600 × 800 · 92 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="campaign" data-search="hero.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/campaign/hero.jpg&quot;,&quot;name&quot;:&quot;hero.jpg&quot;,&quot;folder&quot;:&quot;Campaign&quot;,&quot;dims&quot;:&quot;1600 × 2400&quot;,&quot;size&quot;:&quot;714 KB&quot;,&quot;url&quot;:&quot;assets/images/campaign/hero.jpg&quot;,&quot;alt&quot;:&quot;&quot;,&quot;used&quot;:[&quot;Home&quot;]}" aria-label="hero.jpg">
+                <span class="tile__img"><img src="../assets/images/campaign/hero.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">hero.jpg</span>
+                <span class="tile__meta">1600 × 2400 · 714 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="campaign" data-search="insta-1.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/campaign/insta-1.jpg&quot;,&quot;name&quot;:&quot;insta-1.jpg&quot;,&quot;folder&quot;:&quot;Campaign&quot;,&quot;dims&quot;:&quot;600 × 600&quot;,&quot;size&quot;:&quot;86 KB&quot;,&quot;url&quot;:&quot;assets/images/campaign/insta-1.jpg&quot;,&quot;alt&quot;:&quot;&quot;,&quot;used&quot;:[&quot;Home&quot;]}" aria-label="insta-1.jpg">
+                <span class="tile__img"><img src="../assets/images/campaign/insta-1.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">insta-1.jpg</span>
+                <span class="tile__meta">600 × 600 · 86 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="campaign" data-search="insta-2.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/campaign/insta-2.jpg&quot;,&quot;name&quot;:&quot;insta-2.jpg&quot;,&quot;folder&quot;:&quot;Campaign&quot;,&quot;dims&quot;:&quot;600 × 600&quot;,&quot;size&quot;:&quot;104 KB&quot;,&quot;url&quot;:&quot;assets/images/campaign/insta-2.jpg&quot;,&quot;alt&quot;:&quot;&quot;,&quot;used&quot;:[&quot;Home&quot;]}" aria-label="insta-2.jpg">
+                <span class="tile__img"><img src="../assets/images/campaign/insta-2.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">insta-2.jpg</span>
+                <span class="tile__meta">600 × 600 · 104 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="campaign" data-search="insta-3.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/campaign/insta-3.jpg&quot;,&quot;name&quot;:&quot;insta-3.jpg&quot;,&quot;folder&quot;:&quot;Campaign&quot;,&quot;dims&quot;:&quot;600 × 600&quot;,&quot;size&quot;:&quot;77 KB&quot;,&quot;url&quot;:&quot;assets/images/campaign/insta-3.jpg&quot;,&quot;alt&quot;:&quot;&quot;,&quot;used&quot;:[&quot;Home&quot;]}" aria-label="insta-3.jpg">
+                <span class="tile__img"><img src="../assets/images/campaign/insta-3.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">insta-3.jpg</span>
+                <span class="tile__meta">600 × 600 · 77 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="campaign" data-search="insta-4.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/campaign/insta-4.jpg&quot;,&quot;name&quot;:&quot;insta-4.jpg&quot;,&quot;folder&quot;:&quot;Campaign&quot;,&quot;dims&quot;:&quot;600 × 600&quot;,&quot;size&quot;:&quot;113 KB&quot;,&quot;url&quot;:&quot;assets/images/campaign/insta-4.jpg&quot;,&quot;alt&quot;:&quot;&quot;,&quot;used&quot;:[&quot;Home&quot;]}" aria-label="insta-4.jpg">
+                <span class="tile__img"><img src="../assets/images/campaign/insta-4.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">insta-4.jpg</span>
+                <span class="tile__meta">600 × 600 · 113 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="campaign" data-search="insta-5.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/campaign/insta-5.jpg&quot;,&quot;name&quot;:&quot;insta-5.jpg&quot;,&quot;folder&quot;:&quot;Campaign&quot;,&quot;dims&quot;:&quot;600 × 600&quot;,&quot;size&quot;:&quot;86 KB&quot;,&quot;url&quot;:&quot;assets/images/campaign/insta-5.jpg&quot;,&quot;alt&quot;:&quot;&quot;,&quot;used&quot;:[&quot;Home&quot;]}" aria-label="insta-5.jpg">
+                <span class="tile__img"><img src="../assets/images/campaign/insta-5.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">insta-5.jpg</span>
+                <span class="tile__meta">600 × 600 · 86 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="campaign" data-search="insta-6.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/campaign/insta-6.jpg&quot;,&quot;name&quot;:&quot;insta-6.jpg&quot;,&quot;folder&quot;:&quot;Campaign&quot;,&quot;dims&quot;:&quot;600 × 600&quot;,&quot;size&quot;:&quot;93 KB&quot;,&quot;url&quot;:&quot;assets/images/campaign/insta-6.jpg&quot;,&quot;alt&quot;:&quot;&quot;,&quot;used&quot;:[&quot;Home&quot;]}" aria-label="insta-6.jpg">
+                <span class="tile__img"><img src="../assets/images/campaign/insta-6.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">insta-6.jpg</span>
+                <span class="tile__meta">600 × 600 · 93 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="campaign" data-search="panel-bangles.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/campaign/panel-bangles.jpg&quot;,&quot;name&quot;:&quot;panel-bangles.jpg&quot;,&quot;folder&quot;:&quot;Campaign&quot;,&quot;dims&quot;:&quot;1000 × 1500&quot;,&quot;size&quot;:&quot;275 KB&quot;,&quot;url&quot;:&quot;assets/images/campaign/panel-bangles.jpg&quot;,&quot;alt&quot;:&quot;&quot;,&quot;used&quot;:[&quot;Home&quot;]}" aria-label="panel-bangles.jpg">
+                <span class="tile__img"><img src="../assets/images/campaign/panel-bangles.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">panel-bangles.jpg</span>
+                <span class="tile__meta">1000 × 1500 · 275 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="campaign" data-search="panel-earrings.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/campaign/panel-earrings.jpg&quot;,&quot;name&quot;:&quot;panel-earrings.jpg&quot;,&quot;folder&quot;:&quot;Campaign&quot;,&quot;dims&quot;:&quot;1000 × 1500&quot;,&quot;size&quot;:&quot;255 KB&quot;,&quot;url&quot;:&quot;assets/images/campaign/panel-earrings.jpg&quot;,&quot;alt&quot;:&quot;&quot;,&quot;used&quot;:[&quot;Home&quot;]}" aria-label="panel-earrings.jpg">
+                <span class="tile__img"><img src="../assets/images/campaign/panel-earrings.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">panel-earrings.jpg</span>
+                <span class="tile__meta">1000 × 1500 · 255 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="campaign" data-search="panel-necklaces.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/campaign/panel-necklaces.jpg&quot;,&quot;name&quot;:&quot;panel-necklaces.jpg&quot;,&quot;folder&quot;:&quot;Campaign&quot;,&quot;dims&quot;:&quot;1000 × 1500&quot;,&quot;size&quot;:&quot;241 KB&quot;,&quot;url&quot;:&quot;assets/images/campaign/panel-necklaces.jpg&quot;,&quot;alt&quot;:&quot;&quot;,&quot;used&quot;:[&quot;Home&quot;]}" aria-label="panel-necklaces.jpg">
+                <span class="tile__img"><img src="../assets/images/campaign/panel-necklaces.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">panel-necklaces.jpg</span>
+                <span class="tile__meta">1000 × 1500 · 241 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="campaign" data-search="panel-sets.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/campaign/panel-sets.jpg&quot;,&quot;name&quot;:&quot;panel-sets.jpg&quot;,&quot;folder&quot;:&quot;Campaign&quot;,&quot;dims&quot;:&quot;1000 × 1500&quot;,&quot;size&quot;:&quot;230 KB&quot;,&quot;url&quot;:&quot;assets/images/campaign/panel-sets.jpg&quot;,&quot;alt&quot;:&quot;&quot;,&quot;used&quot;:[&quot;Home&quot;]}" aria-label="panel-sets.jpg">
+                <span class="tile__img"><img src="../assets/images/campaign/panel-sets.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">panel-sets.jpg</span>
+                <span class="tile__meta">1000 × 1500 · 230 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="campaign" data-search="promise.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/campaign/promise.jpg&quot;,&quot;name&quot;:&quot;promise.jpg&quot;,&quot;folder&quot;:&quot;Campaign&quot;,&quot;dims&quot;:&quot;1000 × 1250&quot;,&quot;size&quot;:&quot;249 KB&quot;,&quot;url&quot;:&quot;assets/images/campaign/promise.jpg&quot;,&quot;alt&quot;:&quot;&quot;,&quot;used&quot;:[&quot;Home&quot;]}" aria-label="promise.jpg">
+                <span class="tile__img"><img src="../assets/images/campaign/promise.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">promise.jpg</span>
+                <span class="tile__meta">1000 × 1250 · 249 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="bangle-gold-cuff.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/bangle-gold-cuff.jpg&quot;,&quot;name&quot;:&quot;bangle-gold-cuff.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;230 KB&quot;,&quot;url&quot;:&quot;assets/images/products/bangle-gold-cuff.jpg&quot;,&quot;alt&quot;:&quot;Statement Ring&quot;,&quot;used&quot;:[&quot;Statement Ring&quot;,&quot;Antique Bangles&quot;]}" aria-label="bangle-gold-cuff.jpg">
+                <span class="tile__img"><img src="../assets/images/products/bangle-gold-cuff-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">bangle-gold-cuff.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 230 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="bangle-pave-cuff-2.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/bangle-pave-cuff-2.jpg&quot;,&quot;name&quot;:&quot;bangle-pave-cuff-2.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;107 KB&quot;,&quot;url&quot;:&quot;assets/images/products/bangle-pave-cuff-2.jpg&quot;,&quot;alt&quot;:&quot;Diamond Kada&quot;,&quot;used&quot;:[&quot;Diamond Kada&quot;]}" aria-label="bangle-pave-cuff-2.jpg">
+                <span class="tile__img"><img src="../assets/images/products/bangle-pave-cuff-2-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">bangle-pave-cuff-2.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 107 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="bangle-pave-cuff.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/bangle-pave-cuff.jpg&quot;,&quot;name&quot;:&quot;bangle-pave-cuff.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;104 KB&quot;,&quot;url&quot;:&quot;assets/images/products/bangle-pave-cuff.jpg&quot;,&quot;alt&quot;:&quot;Diamond Kada&quot;,&quot;used&quot;:[&quot;Diamond Kada&quot;]}" aria-label="bangle-pave-cuff.jpg">
+                <span class="tile__img"><img src="../assets/images/products/bangle-pave-cuff-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">bangle-pave-cuff.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 104 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="bangles-bridal-ivory.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/bangles-bridal-ivory.jpg&quot;,&quot;name&quot;:&quot;bangles-bridal-ivory.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;240 KB&quot;,&quot;url&quot;:&quot;assets/images/products/bangles-bridal-ivory.jpg&quot;,&quot;alt&quot;:&quot;Rose Gold Band&quot;,&quot;used&quot;:[&quot;Rose Gold Band&quot;,&quot;Bridal Bangle Set&quot;]}" aria-label="bangles-bridal-ivory.jpg">
+                <span class="tile__img"><img src="../assets/images/products/bangles-bridal-ivory-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">bangles-bridal-ivory.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 240 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="bangles-filigree-kada.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/bangles-filigree-kada.jpg&quot;,&quot;name&quot;:&quot;bangles-filigree-kada.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;398 KB&quot;,&quot;url&quot;:&quot;assets/images/products/bangles-filigree-kada.jpg&quot;,&quot;alt&quot;:&quot;Traditional Kada Set&quot;,&quot;used&quot;:[&quot;Traditional Kada Set&quot;]}" aria-label="bangles-filigree-kada.jpg">
+                <span class="tile__img"><img src="../assets/images/products/bangles-filigree-kada-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">bangles-filigree-kada.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 398 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="bangles-kada-pair-2.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/bangles-kada-pair-2.jpg&quot;,&quot;name&quot;:&quot;bangles-kada-pair-2.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;440 KB&quot;,&quot;url&quot;:&quot;assets/images/products/bangles-kada-pair-2.jpg&quot;,&quot;alt&quot;:&quot;Heritage Gold Bangles&quot;,&quot;used&quot;:[&quot;Heritage Gold Bangles&quot;]}" aria-label="bangles-kada-pair-2.jpg">
+                <span class="tile__img"><img src="../assets/images/products/bangles-kada-pair-2-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">bangles-kada-pair-2.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 440 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="bangles-kada-pair-3.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/bangles-kada-pair-3.jpg&quot;,&quot;name&quot;:&quot;bangles-kada-pair-3.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;536 KB&quot;,&quot;url&quot;:&quot;assets/images/products/bangles-kada-pair-3.jpg&quot;,&quot;alt&quot;:&quot;Heritage Gold Bangles&quot;,&quot;used&quot;:[&quot;Heritage Gold Bangles&quot;]}" aria-label="bangles-kada-pair-3.jpg">
+                <span class="tile__img"><img src="../assets/images/products/bangles-kada-pair-3-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">bangles-kada-pair-3.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 536 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="bangles-kada-pair.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/bangles-kada-pair.jpg&quot;,&quot;name&quot;:&quot;bangles-kada-pair.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;192 KB&quot;,&quot;url&quot;:&quot;assets/images/products/bangles-kada-pair.jpg&quot;,&quot;alt&quot;:&quot;Home&quot;,&quot;used&quot;:[&quot;Home&quot;,&quot;Elegant Everyday Ring&quot;,&quot;Traditional Gujarati Ring&quot;,&quot;Heritage Gold Bangles&quot;]}" aria-label="bangles-kada-pair.jpg">
+                <span class="tile__img"><img src="../assets/images/products/bangles-kada-pair-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">bangles-kada-pair.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 192 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="bangles-kundan-kada.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/bangles-kundan-kada.jpg&quot;,&quot;name&quot;:&quot;bangles-kundan-kada.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;254 KB&quot;,&quot;url&quot;:&quot;assets/images/products/bangles-kundan-kada.jpg&quot;,&quot;alt&quot;:&quot;Heritage Bridal Bangles&quot;,&quot;used&quot;:[&quot;Heritage Bridal Bangles&quot;]}" aria-label="bangles-kundan-kada.jpg">
+                <span class="tile__img"><img src="../assets/images/products/bangles-kundan-kada-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">bangles-kundan-kada.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 254 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="bracelet-gold-bar-2.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/bracelet-gold-bar-2.jpg&quot;,&quot;name&quot;:&quot;bracelet-gold-bar-2.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;260 KB&quot;,&quot;url&quot;:&quot;assets/images/products/bracelet-gold-bar-2.jpg&quot;,&quot;alt&quot;:&quot;Gold Chain Bracelet&quot;,&quot;used&quot;:[&quot;Gold Chain Bracelet&quot;]}" aria-label="bracelet-gold-bar-2.jpg">
+                <span class="tile__img"><img src="../assets/images/products/bracelet-gold-bar-2-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">bracelet-gold-bar-2.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 260 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="bracelet-gold-bar.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/bracelet-gold-bar.jpg&quot;,&quot;name&quot;:&quot;bracelet-gold-bar.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;208 KB&quot;,&quot;url&quot;:&quot;assets/images/products/bracelet-gold-bar.jpg&quot;,&quot;alt&quot;:&quot;Gold Chain Bracelet&quot;,&quot;used&quot;:[&quot;Gold Chain Bracelet&quot;]}" aria-label="bracelet-gold-bar.jpg">
+                <span class="tile__img"><img src="../assets/images/products/bracelet-gold-bar-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">bracelet-gold-bar.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 208 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="bracelet-meenakari.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/bracelet-meenakari.jpg&quot;,&quot;name&quot;:&quot;bracelet-meenakari.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;420 KB&quot;,&quot;url&quot;:&quot;assets/images/products/bracelet-meenakari.jpg&quot;,&quot;alt&quot;:&quot;Charm Bracelet&quot;,&quot;used&quot;:[&quot;Charm Bracelet&quot;]}" aria-label="bracelet-meenakari.jpg">
+                <span class="tile__img"><img src="../assets/images/products/bracelet-meenakari-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">bracelet-meenakari.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 420 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="bracelet-pearl-kundan-2.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/bracelet-pearl-kundan-2.jpg&quot;,&quot;name&quot;:&quot;bracelet-pearl-kundan-2.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;288 KB&quot;,&quot;url&quot;:&quot;assets/images/products/bracelet-pearl-kundan-2.jpg&quot;,&quot;alt&quot;:&quot;Elegant Daily Bracelet&quot;,&quot;used&quot;:[&quot;Elegant Daily Bracelet&quot;]}" aria-label="bracelet-pearl-kundan-2.jpg">
+                <span class="tile__img"><img src="../assets/images/products/bracelet-pearl-kundan-2-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">bracelet-pearl-kundan-2.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 288 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="bracelet-pearl-kundan.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/bracelet-pearl-kundan.jpg&quot;,&quot;name&quot;:&quot;bracelet-pearl-kundan.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;296 KB&quot;,&quot;url&quot;:&quot;assets/images/products/bracelet-pearl-kundan.jpg&quot;,&quot;alt&quot;:&quot;Elegant Daily Bracelet&quot;,&quot;used&quot;:[&quot;Elegant Daily Bracelet&quot;]}" aria-label="bracelet-pearl-kundan.jpg">
+                <span class="tile__img"><img src="../assets/images/products/bracelet-pearl-kundan-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">bracelet-pearl-kundan.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 296 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="bracelet-polki-emerald-2.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/bracelet-polki-emerald-2.jpg&quot;,&quot;name&quot;:&quot;bracelet-polki-emerald-2.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;176 KB&quot;,&quot;url&quot;:&quot;assets/images/products/bracelet-polki-emerald-2.jpg&quot;,&quot;alt&quot;:&quot;Statement Bracelet&quot;,&quot;used&quot;:[&quot;Statement Bracelet&quot;]}" aria-label="bracelet-polki-emerald-2.jpg">
+                <span class="tile__img"><img src="../assets/images/products/bracelet-polki-emerald-2-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">bracelet-polki-emerald-2.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 176 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="bracelet-polki-emerald-3.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/bracelet-polki-emerald-3.jpg&quot;,&quot;name&quot;:&quot;bracelet-polki-emerald-3.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;238 KB&quot;,&quot;url&quot;:&quot;assets/images/products/bracelet-polki-emerald-3.jpg&quot;,&quot;alt&quot;:&quot;Statement Bracelet&quot;,&quot;used&quot;:[&quot;Statement Bracelet&quot;]}" aria-label="bracelet-polki-emerald-3.jpg">
+                <span class="tile__img"><img src="../assets/images/products/bracelet-polki-emerald-3-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">bracelet-polki-emerald-3.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 238 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="bracelet-polki-emerald.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/bracelet-polki-emerald.jpg&quot;,&quot;name&quot;:&quot;bracelet-polki-emerald.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;243 KB&quot;,&quot;url&quot;:&quot;assets/images/products/bracelet-polki-emerald.jpg&quot;,&quot;alt&quot;:&quot;Statement Bracelet&quot;,&quot;used&quot;:[&quot;Statement Bracelet&quot;]}" aria-label="bracelet-polki-emerald.jpg">
+                <span class="tile__img"><img src="../assets/images/products/bracelet-polki-emerald-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">bracelet-polki-emerald.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 243 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="bracelet-rose-diamond-2.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/bracelet-rose-diamond-2.jpg&quot;,&quot;name&quot;:&quot;bracelet-rose-diamond-2.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;165 KB&quot;,&quot;url&quot;:&quot;assets/images/products/bracelet-rose-diamond-2.jpg&quot;,&quot;alt&quot;:&quot;Diamond Tennis Bracelet&quot;,&quot;used&quot;:[&quot;Diamond Tennis Bracelet&quot;]}" aria-label="bracelet-rose-diamond-2.jpg">
+                <span class="tile__img"><img src="../assets/images/products/bracelet-rose-diamond-2-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">bracelet-rose-diamond-2.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 165 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="bracelet-rose-diamond-3.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/bracelet-rose-diamond-3.jpg&quot;,&quot;name&quot;:&quot;bracelet-rose-diamond-3.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;204 KB&quot;,&quot;url&quot;:&quot;assets/images/products/bracelet-rose-diamond-3.jpg&quot;,&quot;alt&quot;:&quot;Diamond Tennis Bracelet&quot;,&quot;used&quot;:[&quot;Diamond Tennis Bracelet&quot;]}" aria-label="bracelet-rose-diamond-3.jpg">
+                <span class="tile__img"><img src="../assets/images/products/bracelet-rose-diamond-3-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">bracelet-rose-diamond-3.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 204 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="bracelet-rose-diamond.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/bracelet-rose-diamond.jpg&quot;,&quot;name&quot;:&quot;bracelet-rose-diamond.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;148 KB&quot;,&quot;url&quot;:&quot;assets/images/products/bracelet-rose-diamond.jpg&quot;,&quot;alt&quot;:&quot;Diamond Tennis Bracelet&quot;,&quot;used&quot;:[&quot;Diamond Tennis Bracelet&quot;]}" aria-label="bracelet-rose-diamond.jpg">
+                <span class="tile__img"><img src="../assets/images/products/bracelet-rose-diamond-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">bracelet-rose-diamond.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 148 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="bridal-emerald-choker-2.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/bridal-emerald-choker-2.jpg&quot;,&quot;name&quot;:&quot;bridal-emerald-choker-2.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;341 KB&quot;,&quot;url&quot;:&quot;assets/images/products/bridal-emerald-choker-2.jpg&quot;,&quot;alt&quot;:&quot;Gold Chandbali&quot;,&quot;used&quot;:[&quot;Gold Chandbali&quot;,&quot;Polki Bridal Choker&quot;]}" aria-label="bridal-emerald-choker-2.jpg">
+                <span class="tile__img"><img src="../assets/images/products/bridal-emerald-choker-2-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">bridal-emerald-choker-2.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 341 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="bridal-emerald-choker.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/bridal-emerald-choker.jpg&quot;,&quot;name&quot;:&quot;bridal-emerald-choker.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;281 KB&quot;,&quot;url&quot;:&quot;assets/images/products/bridal-emerald-choker.jpg&quot;,&quot;alt&quot;:&quot;Polki Bridal Choker&quot;,&quot;used&quot;:[&quot;Polki Bridal Choker&quot;]}" aria-label="bridal-emerald-choker.jpg">
+                <span class="tile__img"><img src="../assets/images/products/bridal-emerald-choker-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">bridal-emerald-choker.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 281 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="bridal-lehenga-2.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/bridal-lehenga-2.jpg&quot;,&quot;name&quot;:&quot;bridal-lehenga-2.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;350 KB&quot;,&quot;url&quot;:&quot;assets/images/products/bridal-lehenga-2.jpg&quot;,&quot;alt&quot;:&quot;Saat Phere Bridal Set&quot;,&quot;used&quot;:[&quot;Saat Phere Bridal Set&quot;]}" aria-label="bridal-lehenga-2.jpg">
+                <span class="tile__img"><img src="../assets/images/products/bridal-lehenga-2-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">bridal-lehenga-2.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 350 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="bridal-lehenga.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/bridal-lehenga.jpg&quot;,&quot;name&quot;:&quot;bridal-lehenga.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;325 KB&quot;,&quot;url&quot;:&quot;assets/images/products/bridal-lehenga.jpg&quot;,&quot;alt&quot;:&quot;Saat Phere Bridal Set&quot;,&quot;used&quot;:[&quot;Saat Phere Bridal Set&quot;]}" aria-label="bridal-lehenga.jpg">
+                <span class="tile__img"><img src="../assets/images/products/bridal-lehenga-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">bridal-lehenga.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 325 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="bridal-nath-2.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/bridal-nath-2.jpg&quot;,&quot;name&quot;:&quot;bridal-nath-2.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;260 KB&quot;,&quot;url&quot;:&quot;assets/images/products/bridal-nath-2.jpg&quot;,&quot;alt&quot;:&quot;Heritage Bridal Bangles&quot;,&quot;used&quot;:[&quot;Heritage Bridal Bangles&quot;,&quot;Royal Bridal Nath&quot;]}" aria-label="bridal-nath-2.jpg">
+                <span class="tile__img"><img src="../assets/images/products/bridal-nath-2-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">bridal-nath-2.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 260 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="bridal-nath.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/bridal-nath.jpg&quot;,&quot;name&quot;:&quot;bridal-nath.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;115 KB&quot;,&quot;url&quot;:&quot;assets/images/products/bridal-nath.jpg&quot;,&quot;alt&quot;:&quot;Royal Bridal Nath&quot;,&quot;used&quot;:[&quot;Royal Bridal Nath&quot;]}" aria-label="bridal-nath.jpg">
+                <span class="tile__img"><img src="../assets/images/products/bridal-nath-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">bridal-nath.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 115 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="bridal-polki-set-2.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/bridal-polki-set-2.jpg&quot;,&quot;name&quot;:&quot;bridal-polki-set-2.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;257 KB&quot;,&quot;url&quot;:&quot;assets/images/products/bridal-polki-set-2.jpg&quot;,&quot;alt&quot;:&quot;Rajwadi Bridal Necklace Set&quot;,&quot;used&quot;:[&quot;Rajwadi Bridal Necklace Set&quot;]}" aria-label="bridal-polki-set-2.jpg">
+                <span class="tile__img"><img src="../assets/images/products/bridal-polki-set-2-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">bridal-polki-set-2.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 257 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="bridal-polki-set.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/bridal-polki-set.jpg&quot;,&quot;name&quot;:&quot;bridal-polki-set.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;256 KB&quot;,&quot;url&quot;:&quot;assets/images/products/bridal-polki-set.jpg&quot;,&quot;alt&quot;:&quot;Contemporary Studs&quot;,&quot;used&quot;:[&quot;Contemporary Studs&quot;,&quot;Rajwadi Bridal Necklace Set&quot;]}" aria-label="bridal-polki-set.jpg">
+                <span class="tile__img"><img src="../assets/images/products/bridal-polki-set-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">bridal-polki-set.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 256 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="bridal-rani-haar-2.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/bridal-rani-haar-2.jpg&quot;,&quot;name&quot;:&quot;bridal-rani-haar-2.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;324 KB&quot;,&quot;url&quot;:&quot;assets/images/products/bridal-rani-haar-2.jpg&quot;,&quot;alt&quot;:&quot;Classic Jhumka&quot;,&quot;used&quot;:[&quot;Classic Jhumka&quot;,&quot;Gujarati Rani Haar&quot;]}" aria-label="bridal-rani-haar-2.jpg">
+                <span class="tile__img"><img src="../assets/images/products/bridal-rani-haar-2-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">bridal-rani-haar-2.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 324 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="bridal-rani-haar-3.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/bridal-rani-haar-3.jpg&quot;,&quot;name&quot;:&quot;bridal-rani-haar-3.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;318 KB&quot;,&quot;url&quot;:&quot;assets/images/products/bridal-rani-haar-3.jpg&quot;,&quot;alt&quot;:&quot;Gujarati Rani Haar&quot;,&quot;used&quot;:[&quot;Gujarati Rani Haar&quot;]}" aria-label="bridal-rani-haar-3.jpg">
+                <span class="tile__img"><img src="../assets/images/products/bridal-rani-haar-3-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">bridal-rani-haar-3.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 318 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="bridal-rani-haar.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/bridal-rani-haar.jpg&quot;,&quot;name&quot;:&quot;bridal-rani-haar.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;298 KB&quot;,&quot;url&quot;:&quot;assets/images/products/bridal-rani-haar.jpg&quot;,&quot;alt&quot;:&quot;Classic Gold Pendant&quot;,&quot;used&quot;:[&quot;Classic Gold Pendant&quot;,&quot;Gujarati Rani Haar&quot;]}" aria-label="bridal-rani-haar.jpg">
+                <span class="tile__img"><img src="../assets/images/products/bridal-rani-haar-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">bridal-rani-haar.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 298 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="bridal-tikka-2.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/bridal-tikka-2.jpg&quot;,&quot;name&quot;:&quot;bridal-tikka-2.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;287 KB&quot;,&quot;url&quot;:&quot;assets/images/products/bridal-tikka-2.jpg&quot;,&quot;alt&quot;:&quot;Bridal Maang Tikka&quot;,&quot;used&quot;:[&quot;Bridal Maang Tikka&quot;]}" aria-label="bridal-tikka-2.jpg">
+                <span class="tile__img"><img src="../assets/images/products/bridal-tikka-2-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">bridal-tikka-2.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 287 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="bridal-tikka-3.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/bridal-tikka-3.jpg&quot;,&quot;name&quot;:&quot;bridal-tikka-3.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;349 KB&quot;,&quot;url&quot;:&quot;assets/images/products/bridal-tikka-3.jpg&quot;,&quot;alt&quot;:&quot;Bridal Maang Tikka&quot;,&quot;used&quot;:[&quot;Bridal Maang Tikka&quot;]}" aria-label="bridal-tikka-3.jpg">
+                <span class="tile__img"><img src="../assets/images/products/bridal-tikka-3-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">bridal-tikka-3.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 349 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="bridal-tikka.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/bridal-tikka.jpg&quot;,&quot;name&quot;:&quot;bridal-tikka.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;413 KB&quot;,&quot;url&quot;:&quot;assets/images/products/bridal-tikka.jpg&quot;,&quot;alt&quot;:&quot;Home&quot;,&quot;used&quot;:[&quot;Home&quot;,&quot;Bridal Maang Tikka&quot;]}" aria-label="bridal-tikka.jpg">
+                <span class="tile__img"><img src="../assets/images/products/bridal-tikka-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">bridal-tikka.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 413 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="earring-chandbali-2.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/earring-chandbali-2.jpg&quot;,&quot;name&quot;:&quot;earring-chandbali-2.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;250 KB&quot;,&quot;url&quot;:&quot;assets/images/products/earring-chandbali-2.jpg&quot;,&quot;alt&quot;:&quot;Gold Chandbali&quot;,&quot;used&quot;:[&quot;Gold Chandbali&quot;]}" aria-label="earring-chandbali-2.jpg">
+                <span class="tile__img"><img src="../assets/images/products/earring-chandbali-2-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">earring-chandbali-2.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 250 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="earring-chandbali.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/earring-chandbali.jpg&quot;,&quot;name&quot;:&quot;earring-chandbali.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;173 KB&quot;,&quot;url&quot;:&quot;assets/images/products/earring-chandbali.jpg&quot;,&quot;alt&quot;:&quot;Gold Chandbali&quot;,&quot;used&quot;:[&quot;Gold Chandbali&quot;,&quot;Polki Bridal Choker&quot;]}" aria-label="earring-chandbali.jpg">
+                <span class="tile__img"><img src="../assets/images/products/earring-chandbali-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">earring-chandbali.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 173 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="earring-chandelier-2.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/earring-chandelier-2.jpg&quot;,&quot;name&quot;:&quot;earring-chandelier-2.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;295 KB&quot;,&quot;url&quot;:&quot;assets/images/products/earring-chandelier-2.jpg&quot;,&quot;alt&quot;:&quot;Maharani Bridal Jhumka&quot;,&quot;used&quot;:[&quot;Maharani Bridal Jhumka&quot;]}" aria-label="earring-chandelier-2.jpg">
+                <span class="tile__img"><img src="../assets/images/products/earring-chandelier-2-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">earring-chandelier-2.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 295 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="earring-chandelier.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/earring-chandelier.jpg&quot;,&quot;name&quot;:&quot;earring-chandelier.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;200 KB&quot;,&quot;url&quot;:&quot;assets/images/products/earring-chandelier.jpg&quot;,&quot;alt&quot;:&quot;Maharani Bridal Jhumka&quot;,&quot;used&quot;:[&quot;Maharani Bridal Jhumka&quot;]}" aria-label="earring-chandelier.jpg">
+                <span class="tile__img"><img src="../assets/images/products/earring-chandelier-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">earring-chandelier.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 200 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="earring-diamond.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/earring-diamond.jpg&quot;,&quot;name&quot;:&quot;earring-diamond.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;136 KB&quot;,&quot;url&quot;:&quot;assets/images/products/earring-diamond.jpg&quot;,&quot;alt&quot;:&quot;Diamond Collar Necklace&quot;,&quot;used&quot;:[&quot;Diamond Collar Necklace&quot;,&quot;Diamond Drop Earrings&quot;]}" aria-label="earring-diamond.jpg">
+                <span class="tile__img"><img src="../assets/images/products/earring-diamond-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">earring-diamond.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 136 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="earring-emerald-plaque-2.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/earring-emerald-plaque-2.jpg&quot;,&quot;name&quot;:&quot;earring-emerald-plaque-2.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;370 KB&quot;,&quot;url&quot;:&quot;assets/images/products/earring-emerald-plaque-2.jpg&quot;,&quot;alt&quot;:&quot;Traditional Gujarati Earrings&quot;,&quot;used&quot;:[&quot;Traditional Gujarati Earrings&quot;]}" aria-label="earring-emerald-plaque-2.jpg">
+                <span class="tile__img"><img src="../assets/images/products/earring-emerald-plaque-2-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">earring-emerald-plaque-2.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 370 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="earring-emerald-plaque.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/earring-emerald-plaque.jpg&quot;,&quot;name&quot;:&quot;earring-emerald-plaque.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;483 KB&quot;,&quot;url&quot;:&quot;assets/images/products/earring-emerald-plaque.jpg&quot;,&quot;alt&quot;:&quot;Home&quot;,&quot;used&quot;:[&quot;Home&quot;,&quot;Royal Heritage Necklace&quot;,&quot;Traditional Gujarati Earrings&quot;]}" aria-label="earring-emerald-plaque.jpg">
+                <span class="tile__img"><img src="../assets/images/products/earring-emerald-plaque-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">earring-emerald-plaque.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 483 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="earring-gold-jhumka.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/earring-gold-jhumka.jpg&quot;,&quot;name&quot;:&quot;earring-gold-jhumka.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;369 KB&quot;,&quot;url&quot;:&quot;assets/images/products/earring-gold-jhumka.jpg&quot;,&quot;alt&quot;:&quot;Bridal Jhumka&quot;,&quot;used&quot;:[&quot;Bridal Jhumka&quot;]}" aria-label="earring-gold-jhumka.jpg">
+                <span class="tile__img"><img src="../assets/images/products/earring-gold-jhumka-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">earring-gold-jhumka.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 369 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="earring-jhumka.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/earring-jhumka.jpg&quot;,&quot;name&quot;:&quot;earring-jhumka.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;250 KB&quot;,&quot;url&quot;:&quot;assets/images/products/earring-jhumka.jpg&quot;,&quot;alt&quot;:&quot;Classic Jhumka&quot;,&quot;used&quot;:[&quot;Classic Jhumka&quot;]}" aria-label="earring-jhumka.jpg">
+                <span class="tile__img"><img src="../assets/images/products/earring-jhumka-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">earring-jhumka.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 250 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="earring-polki-studs.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/earring-polki-studs.jpg&quot;,&quot;name&quot;:&quot;earring-polki-studs.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;127 KB&quot;,&quot;url&quot;:&quot;assets/images/products/earring-polki-studs.jpg&quot;,&quot;alt&quot;:&quot;Contemporary Studs&quot;,&quot;used&quot;:[&quot;Contemporary Studs&quot;,&quot;Rajwadi Bridal Necklace Set&quot;]}" aria-label="earring-polki-studs.jpg">
+                <span class="tile__img"><img src="../assets/images/products/earring-polki-studs-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">earring-polki-studs.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 127 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="hands-pink-silk.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/hands-pink-silk.jpg&quot;,&quot;name&quot;:&quot;hands-pink-silk.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;308 KB&quot;,&quot;url&quot;:&quot;assets/images/products/hands-pink-silk.jpg&quot;,&quot;alt&quot;:&quot;Classic Solitaire Ring&quot;,&quot;used&quot;:[&quot;Classic Solitaire Ring&quot;,&quot;Floral Diamond Ring&quot;,&quot;Charm Bracelet&quot;]}" aria-label="hands-pink-silk.jpg">
+                <span class="tile__img"><img src="../assets/images/products/hands-pink-silk-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">hands-pink-silk.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 308 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="mangalsutra.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/mangalsutra.jpg&quot;,&quot;name&quot;:&quot;mangalsutra.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;800 × 800&quot;,&quot;size&quot;:&quot;73 KB&quot;,&quot;url&quot;:&quot;assets/images/products/mangalsutra.jpg&quot;,&quot;alt&quot;:&quot;Home&quot;,&quot;used&quot;:[&quot;Home&quot;,&quot;Collections&quot;,&quot;All jewellery&quot;,&quot;Rings&quot;,&quot;Necklaces&quot;,&quot;Earrings&quot;,&quot;Bangles&quot;,&quot;Bracelets&quot;,&quot;Pendants&quot;,&quot;Mangalsutra&quot;,&quot;Bridal&quot;,&quot;Product page&quot;,&quot;About us&quot;,&quot;Craftsmanship&quot;,&quot;Journal&quot;,&quot;Journal story&quot;,&quot;Contact&quot;,&quot;Page not found&quot;,&quot;Classic Mangalsutra&quot;,&quot;Diamond Mangalsutra&quot;,&quot;Modern Mangalsutra&quot;,&quot;Traditional Gold Mangalsutra&quot;]}" aria-label="mangalsutra.jpg">
+                <span class="tile__img"><img src="../assets/images/products/mangalsutra-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">mangalsutra.jpg</span>
+                <span class="tile__meta">800 × 800 · 73 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="necklace-antique-gold-2.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/necklace-antique-gold-2.jpg&quot;,&quot;name&quot;:&quot;necklace-antique-gold-2.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;312 KB&quot;,&quot;url&quot;:&quot;assets/images/products/necklace-antique-gold-2.jpg&quot;,&quot;alt&quot;:&quot;Antique Gold Necklace&quot;,&quot;used&quot;:[&quot;Antique Gold Necklace&quot;]}" aria-label="necklace-antique-gold-2.jpg">
+                <span class="tile__img"><img src="../assets/images/products/necklace-antique-gold-2-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">necklace-antique-gold-2.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 312 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="necklace-antique-gold.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/necklace-antique-gold.jpg&quot;,&quot;name&quot;:&quot;necklace-antique-gold.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;323 KB&quot;,&quot;url&quot;:&quot;assets/images/products/necklace-antique-gold.jpg&quot;,&quot;alt&quot;:&quot;Antique Gold Necklace&quot;,&quot;used&quot;:[&quot;Antique Gold Necklace&quot;]}" aria-label="necklace-antique-gold.jpg">
+                <span class="tile__img"><img src="../assets/images/products/necklace-antique-gold-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">necklace-antique-gold.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 323 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="necklace-diamond-2.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/necklace-diamond-2.jpg&quot;,&quot;name&quot;:&quot;necklace-diamond-2.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;158 KB&quot;,&quot;url&quot;:&quot;assets/images/products/necklace-diamond-2.jpg&quot;,&quot;alt&quot;:&quot;Diamond Collar Necklace&quot;,&quot;used&quot;:[&quot;Diamond Collar Necklace&quot;]}" aria-label="necklace-diamond-2.jpg">
+                <span class="tile__img"><img src="../assets/images/products/necklace-diamond-2-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">necklace-diamond-2.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 158 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="necklace-diamond.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/necklace-diamond.jpg&quot;,&quot;name&quot;:&quot;necklace-diamond.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;171 KB&quot;,&quot;url&quot;:&quot;assets/images/products/necklace-diamond.jpg&quot;,&quot;alt&quot;:&quot;Diamond Collar Necklace&quot;,&quot;used&quot;:[&quot;Diamond Collar Necklace&quot;,&quot;Diamond Drop Earrings&quot;]}" aria-label="necklace-diamond.jpg">
+                <span class="tile__img"><img src="../assets/images/products/necklace-diamond-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">necklace-diamond.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 171 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="necklace-emerald-plaque-2.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/necklace-emerald-plaque-2.jpg&quot;,&quot;name&quot;:&quot;necklace-emerald-plaque-2.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;337 KB&quot;,&quot;url&quot;:&quot;assets/images/products/necklace-emerald-plaque-2.jpg&quot;,&quot;alt&quot;:&quot;Royal Heritage Necklace&quot;,&quot;used&quot;:[&quot;Royal Heritage Necklace&quot;]}" aria-label="necklace-emerald-plaque-2.jpg">
+                <span class="tile__img"><img src="../assets/images/products/necklace-emerald-plaque-2-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">necklace-emerald-plaque-2.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 337 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="necklace-emerald-plaque.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/necklace-emerald-plaque.jpg&quot;,&quot;name&quot;:&quot;necklace-emerald-plaque.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;415 KB&quot;,&quot;url&quot;:&quot;assets/images/products/necklace-emerald-plaque.jpg&quot;,&quot;alt&quot;:&quot;Home&quot;,&quot;used&quot;:[&quot;Home&quot;,&quot;Royal Heritage Necklace&quot;]}" aria-label="necklace-emerald-plaque.jpg">
+                <span class="tile__img"><img src="../assets/images/products/necklace-emerald-plaque-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">necklace-emerald-plaque.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 415 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="necklace-gold-collar-2.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/necklace-gold-collar-2.jpg&quot;,&quot;name&quot;:&quot;necklace-gold-collar-2.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;278 KB&quot;,&quot;url&quot;:&quot;assets/images/products/necklace-gold-collar-2.jpg&quot;,&quot;alt&quot;:&quot;Gujarati Heritage Necklace&quot;,&quot;used&quot;:[&quot;Gujarati Heritage Necklace&quot;]}" aria-label="necklace-gold-collar-2.jpg">
+                <span class="tile__img"><img src="../assets/images/products/necklace-gold-collar-2-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">necklace-gold-collar-2.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 278 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="necklace-gold-collar.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/necklace-gold-collar.jpg&quot;,&quot;name&quot;:&quot;necklace-gold-collar.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;338 KB&quot;,&quot;url&quot;:&quot;assets/images/products/necklace-gold-collar.jpg&quot;,&quot;alt&quot;:&quot;Gujarati Heritage Necklace&quot;,&quot;used&quot;:[&quot;Gujarati Heritage Necklace&quot;,&quot;Bridal Jhumka&quot;]}" aria-label="necklace-gold-collar.jpg">
+                <span class="tile__img"><img src="../assets/images/products/necklace-gold-collar-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">necklace-gold-collar.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 338 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="necklace-polki-pearl-2.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/necklace-polki-pearl-2.jpg&quot;,&quot;name&quot;:&quot;necklace-polki-pearl-2.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;128 KB&quot;,&quot;url&quot;:&quot;assets/images/products/necklace-polki-pearl-2.jpg&quot;,&quot;alt&quot;:&quot;Bridal Necklace Set&quot;,&quot;used&quot;:[&quot;Bridal Necklace Set&quot;]}" aria-label="necklace-polki-pearl-2.jpg">
+                <span class="tile__img"><img src="../assets/images/products/necklace-polki-pearl-2-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">necklace-polki-pearl-2.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 128 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="necklace-polki-pearl-3.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/necklace-polki-pearl-3.jpg&quot;,&quot;name&quot;:&quot;necklace-polki-pearl-3.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;265 KB&quot;,&quot;url&quot;:&quot;assets/images/products/necklace-polki-pearl-3.jpg&quot;,&quot;alt&quot;:&quot;Bridal Necklace Set&quot;,&quot;used&quot;:[&quot;Bridal Necklace Set&quot;]}" aria-label="necklace-polki-pearl-3.jpg">
+                <span class="tile__img"><img src="../assets/images/products/necklace-polki-pearl-3-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">necklace-polki-pearl-3.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 265 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="necklace-polki-pearl.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/necklace-polki-pearl.jpg&quot;,&quot;name&quot;:&quot;necklace-polki-pearl.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;163 KB&quot;,&quot;url&quot;:&quot;assets/images/products/necklace-polki-pearl.jpg&quot;,&quot;alt&quot;:&quot;Heritage Gold Ring&quot;,&quot;used&quot;:[&quot;Heritage Gold Ring&quot;,&quot;Bridal Necklace Set&quot;]}" aria-label="necklace-polki-pearl.jpg">
+                <span class="tile__img"><img src="../assets/images/products/necklace-polki-pearl-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">necklace-polki-pearl.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 163 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="necklace-temple-gold-2.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/necklace-temple-gold-2.jpg&quot;,&quot;name&quot;:&quot;necklace-temple-gold-2.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;260 KB&quot;,&quot;url&quot;:&quot;assets/images/products/necklace-temple-gold-2.jpg&quot;,&quot;alt&quot;:&quot;Temple Gold Necklace&quot;,&quot;used&quot;:[&quot;Temple Gold Necklace&quot;]}" aria-label="necklace-temple-gold-2.jpg">
+                <span class="tile__img"><img src="../assets/images/products/necklace-temple-gold-2-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">necklace-temple-gold-2.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 260 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="necklace-temple-gold.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/necklace-temple-gold.jpg&quot;,&quot;name&quot;:&quot;necklace-temple-gold.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;296 KB&quot;,&quot;url&quot;:&quot;assets/images/products/necklace-temple-gold.jpg&quot;,&quot;alt&quot;:&quot;Temple Gold Necklace&quot;,&quot;used&quot;:[&quot;Temple Gold Necklace&quot;]}" aria-label="necklace-temple-gold.jpg">
+                <span class="tile__img"><img src="../assets/images/products/necklace-temple-gold-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">necklace-temple-gold.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 296 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="pendant-medallion.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/pendant-medallion.jpg&quot;,&quot;name&quot;:&quot;pendant-medallion.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;401 KB&quot;,&quot;url&quot;:&quot;assets/images/products/pendant-medallion.jpg&quot;,&quot;alt&quot;:&quot;Classic Gold Pendant&quot;,&quot;used&quot;:[&quot;Classic Gold Pendant&quot;]}" aria-label="pendant-medallion.jpg">
+                <span class="tile__img"><img src="../assets/images/products/pendant-medallion-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">pendant-medallion.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 401 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="pendant-peacock-2.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/pendant-peacock-2.jpg&quot;,&quot;name&quot;:&quot;pendant-peacock-2.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;200 KB&quot;,&quot;url&quot;:&quot;assets/images/products/pendant-peacock-2.jpg&quot;,&quot;alt&quot;:&quot;Diamond Solitaire Pendant&quot;,&quot;used&quot;:[&quot;Diamond Solitaire Pendant&quot;,&quot;Heritage Pendant&quot;]}" aria-label="pendant-peacock-2.jpg">
+                <span class="tile__img"><img src="../assets/images/products/pendant-peacock-2-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">pendant-peacock-2.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 200 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="pendant-peacock.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/pendant-peacock.jpg&quot;,&quot;name&quot;:&quot;pendant-peacock.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;180 KB&quot;,&quot;url&quot;:&quot;assets/images/products/pendant-peacock.jpg&quot;,&quot;alt&quot;:&quot;Diamond Solitaire Pendant&quot;,&quot;used&quot;:[&quot;Diamond Solitaire Pendant&quot;,&quot;Heritage Pendant&quot;]}" aria-label="pendant-peacock.jpg">
+                <span class="tile__img"><img src="../assets/images/products/pendant-peacock-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">pendant-peacock.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 180 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="pendant-tassel-2.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/pendant-tassel-2.jpg&quot;,&quot;name&quot;:&quot;pendant-tassel-2.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;179 KB&quot;,&quot;url&quot;:&quot;assets/images/products/pendant-tassel-2.jpg&quot;,&quot;alt&quot;:&quot;Minimal Gold Pendant&quot;,&quot;used&quot;:[&quot;Minimal Gold Pendant&quot;]}" aria-label="pendant-tassel-2.jpg">
+                <span class="tile__img"><img src="../assets/images/products/pendant-tassel-2-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">pendant-tassel-2.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 179 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="pendant-tassel.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/pendant-tassel.jpg&quot;,&quot;name&quot;:&quot;pendant-tassel.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;206 KB&quot;,&quot;url&quot;:&quot;assets/images/products/pendant-tassel.jpg&quot;,&quot;alt&quot;:&quot;Minimal Gold Pendant&quot;,&quot;used&quot;:[&quot;Minimal Gold Pendant&quot;]}" aria-label="pendant-tassel.jpg">
+                <span class="tile__img"><img src="../assets/images/products/pendant-tassel-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">pendant-tassel.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 206 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="ring-antique-gold.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/ring-antique-gold.jpg&quot;,&quot;name&quot;:&quot;ring-antique-gold.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;339 KB&quot;,&quot;url&quot;:&quot;assets/images/products/ring-antique-gold.jpg&quot;,&quot;alt&quot;:&quot;Heritage Gold Ring&quot;,&quot;used&quot;:[&quot;Heritage Gold Ring&quot;]}" aria-label="ring-antique-gold.jpg">
+                <span class="tile__img"><img src="../assets/images/products/ring-antique-gold-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">ring-antique-gold.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 339 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="ring-cocktail.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/ring-cocktail.jpg&quot;,&quot;name&quot;:&quot;ring-cocktail.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;317 KB&quot;,&quot;url&quot;:&quot;assets/images/products/ring-cocktail.jpg&quot;,&quot;alt&quot;:&quot;Statement Ring&quot;,&quot;used&quot;:[&quot;Statement Ring&quot;,&quot;Antique Bangles&quot;]}" aria-label="ring-cocktail.jpg">
+                <span class="tile__img"><img src="../assets/images/products/ring-cocktail-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">ring-cocktail.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 317 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="ring-kundan-floral.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/ring-kundan-floral.jpg&quot;,&quot;name&quot;:&quot;ring-kundan-floral.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;400 KB&quot;,&quot;url&quot;:&quot;assets/images/products/ring-kundan-floral.jpg&quot;,&quot;alt&quot;:&quot;Floral Diamond Ring&quot;,&quot;used&quot;:[&quot;Floral Diamond Ring&quot;]}" aria-label="ring-kundan-floral.jpg">
+                <span class="tile__img"><img src="../assets/images/products/ring-kundan-floral-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">ring-kundan-floral.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 400 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="ring-kundan-pearl.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/ring-kundan-pearl.jpg&quot;,&quot;name&quot;:&quot;ring-kundan-pearl.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;331 KB&quot;,&quot;url&quot;:&quot;assets/images/products/ring-kundan-pearl.jpg&quot;,&quot;alt&quot;:&quot;Traditional Gujarati Ring&quot;,&quot;used&quot;:[&quot;Traditional Gujarati Ring&quot;]}" aria-label="ring-kundan-pearl.jpg">
+                <span class="tile__img"><img src="../assets/images/products/ring-kundan-pearl-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">ring-kundan-pearl.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 331 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="ring-pearl-dome.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/ring-pearl-dome.jpg&quot;,&quot;name&quot;:&quot;ring-pearl-dome.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;376 KB&quot;,&quot;url&quot;:&quot;assets/images/products/ring-pearl-dome.jpg&quot;,&quot;alt&quot;:&quot;Elegant Everyday Ring&quot;,&quot;used&quot;:[&quot;Elegant Everyday Ring&quot;]}" aria-label="ring-pearl-dome.jpg">
+                <span class="tile__img"><img src="../assets/images/products/ring-pearl-dome-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">ring-pearl-dome.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 376 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="ring-pearl-ruby.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/ring-pearl-ruby.jpg&quot;,&quot;name&quot;:&quot;ring-pearl-ruby.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;412 KB&quot;,&quot;url&quot;:&quot;assets/images/products/ring-pearl-ruby.jpg&quot;,&quot;alt&quot;:&quot;Classic Solitaire Ring&quot;,&quot;used&quot;:[&quot;Classic Solitaire Ring&quot;]}" aria-label="ring-pearl-ruby.jpg">
+                <span class="tile__img"><img src="../assets/images/products/ring-pearl-ruby-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">ring-pearl-ruby.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 412 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="ring-ruby-dome.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/ring-ruby-dome.jpg&quot;,&quot;name&quot;:&quot;ring-ruby-dome.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;339 KB&quot;,&quot;url&quot;:&quot;assets/images/products/ring-ruby-dome.jpg&quot;,&quot;alt&quot;:&quot;Rose Gold Band&quot;,&quot;used&quot;:[&quot;Rose Gold Band&quot;,&quot;Bridal Bangle Set&quot;]}" aria-label="ring-ruby-dome.jpg">
+                <span class="tile__img"><img src="../assets/images/products/ring-ruby-dome-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">ring-ruby-dome.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 339 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="ring-sage-polki-2.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/ring-sage-polki-2.jpg&quot;,&quot;name&quot;:&quot;ring-sage-polki-2.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;156 KB&quot;,&quot;url&quot;:&quot;assets/images/products/ring-sage-polki-2.jpg&quot;,&quot;alt&quot;:&quot;Diamond Halo Ring&quot;,&quot;used&quot;:[&quot;Diamond Halo Ring&quot;]}" aria-label="ring-sage-polki-2.jpg">
+                <span class="tile__img"><img src="../assets/images/products/ring-sage-polki-2-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">ring-sage-polki-2.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 156 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="products" data-search="ring-sage-polki.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/products/ring-sage-polki.jpg&quot;,&quot;name&quot;:&quot;ring-sage-polki.jpg&quot;,&quot;folder&quot;:&quot;Products&quot;,&quot;dims&quot;:&quot;1200 × 1200&quot;,&quot;size&quot;:&quot;177 KB&quot;,&quot;url&quot;:&quot;assets/images/products/ring-sage-polki.jpg&quot;,&quot;alt&quot;:&quot;Home&quot;,&quot;used&quot;:[&quot;Home&quot;,&quot;Diamond Halo Ring&quot;]}" aria-label="ring-sage-polki.jpg">
+                <span class="tile__img"><img src="../assets/images/products/ring-sage-polki-sm.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">ring-sage-polki.jpg</span>
+                <span class="tile__meta">1200 × 1200 · 177 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="brand" data-search="apple-touch-icon.png">
+              <button type="button" class="tile tile--brand" data-media="{&quot;src&quot;:&quot;../assets/images/brand/apple-touch-icon.png&quot;,&quot;name&quot;:&quot;apple-touch-icon.png&quot;,&quot;folder&quot;:&quot;Brand&quot;,&quot;dims&quot;:&quot;180 × 180&quot;,&quot;size&quot;:&quot;5 KB&quot;,&quot;url&quot;:&quot;assets/images/brand/apple-touch-icon.png&quot;,&quot;alt&quot;:&quot;&quot;,&quot;used&quot;:[&quot;Home&quot;,&quot;Collections&quot;,&quot;All jewellery&quot;,&quot;Rings&quot;,&quot;Necklaces&quot;,&quot;Earrings&quot;,&quot;Bangles&quot;,&quot;Bracelets&quot;,&quot;Pendants&quot;,&quot;Mangalsutra&quot;,&quot;Bridal&quot;,&quot;Product page&quot;,&quot;About us&quot;,&quot;Craftsmanship&quot;,&quot;Journal&quot;,&quot;Journal story&quot;,&quot;Contact&quot;,&quot;Page not found&quot;]}" aria-label="apple-touch-icon.png">
+                <span class="tile__img"><img src="../assets/images/brand/apple-touch-icon.png" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">apple-touch-icon.png</span>
+                <span class="tile__meta">180 × 180 · 5 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="brand" data-search="mangalam-emblem-512.png">
+              <button type="button" class="tile tile--brand" data-media="{&quot;src&quot;:&quot;../assets/images/brand/mangalam-emblem-512.png&quot;,&quot;name&quot;:&quot;mangalam-emblem-512.png&quot;,&quot;folder&quot;:&quot;Brand&quot;,&quot;dims&quot;:&quot;512 × 334&quot;,&quot;size&quot;:&quot;23 KB&quot;,&quot;url&quot;:&quot;assets/images/brand/mangalam-emblem-512.png&quot;,&quot;alt&quot;:&quot;&quot;,&quot;used&quot;:[]}" aria-label="mangalam-emblem-512.png">
+                <span class="tile__img"><img src="../assets/images/brand/mangalam-emblem-512.png" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">mangalam-emblem-512.png</span>
+                <span class="tile__meta">512 × 334 · 23 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="brand" data-search="mangalam-emblem.svg">
+              <button type="button" class="tile tile--brand" data-media="{&quot;src&quot;:&quot;../assets/images/brand/mangalam-emblem.svg&quot;,&quot;name&quot;:&quot;mangalam-emblem.svg&quot;,&quot;folder&quot;:&quot;Brand&quot;,&quot;dims&quot;:&quot;531 × 346&quot;,&quot;size&quot;:&quot;11 KB&quot;,&quot;url&quot;:&quot;assets/images/brand/mangalam-emblem.svg&quot;,&quot;alt&quot;:&quot;&quot;,&quot;used&quot;:[]}" aria-label="mangalam-emblem.svg">
+                <span class="tile__img"><img src="../assets/images/brand/mangalam-emblem.svg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">mangalam-emblem.svg</span>
+                <span class="tile__meta">531 × 346 · 11 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="brand" data-search="mangalam-logo-horizontal.svg">
+              <button type="button" class="tile tile--brand" data-media="{&quot;src&quot;:&quot;../assets/images/brand/mangalam-logo-horizontal.svg&quot;,&quot;name&quot;:&quot;mangalam-logo-horizontal.svg&quot;,&quot;folder&quot;:&quot;Brand&quot;,&quot;dims&quot;:&quot;1882 × 350&quot;,&quot;size&quot;:&quot;26 KB&quot;,&quot;url&quot;:&quot;assets/images/brand/mangalam-logo-horizontal.svg&quot;,&quot;alt&quot;:&quot;&quot;,&quot;used&quot;:[]}" aria-label="mangalam-logo-horizontal.svg">
+                <span class="tile__img"><img src="../assets/images/brand/mangalam-logo-horizontal.svg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">mangalam-logo-horizontal.svg</span>
+                <span class="tile__meta">1882 × 350 · 26 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="brand" data-search="mangalam-logo.png">
+              <button type="button" class="tile tile--brand" data-media="{&quot;src&quot;:&quot;../assets/images/brand/mangalam-logo.png&quot;,&quot;name&quot;:&quot;mangalam-logo.png&quot;,&quot;folder&quot;:&quot;Brand&quot;,&quot;dims&quot;:&quot;1000 × 734&quot;,&quot;size&quot;:&quot;62 KB&quot;,&quot;url&quot;:&quot;assets/images/brand/mangalam-logo.png&quot;,&quot;alt&quot;:&quot;&quot;,&quot;used&quot;:[&quot;Home&quot;,&quot;Collections&quot;,&quot;All jewellery&quot;,&quot;Rings&quot;,&quot;Necklaces&quot;,&quot;Earrings&quot;,&quot;Bangles&quot;,&quot;Bracelets&quot;,&quot;Pendants&quot;,&quot;Mangalsutra&quot;,&quot;Bridal&quot;,&quot;Product page&quot;,&quot;About us&quot;,&quot;Craftsmanship&quot;,&quot;Journal&quot;,&quot;Journal story&quot;,&quot;Contact&quot;,&quot;Page not found&quot;]}" aria-label="mangalam-logo.png">
+                <span class="tile__img"><img src="../assets/images/brand/mangalam-logo.png" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">mangalam-logo.png</span>
+                <span class="tile__meta">1000 × 734 · 62 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="brand" data-search="mangalam-logo.svg">
+              <button type="button" class="tile tile--brand" data-media="{&quot;src&quot;:&quot;../assets/images/brand/mangalam-logo.svg&quot;,&quot;name&quot;:&quot;mangalam-logo.svg&quot;,&quot;folder&quot;:&quot;Brand&quot;,&quot;dims&quot;:&quot;1318 × 968&quot;,&quot;size&quot;:&quot;34 KB&quot;,&quot;url&quot;:&quot;assets/images/brand/mangalam-logo.svg&quot;,&quot;alt&quot;:&quot;&quot;,&quot;used&quot;:[]}" aria-label="mangalam-logo.svg">
+                <span class="tile__img"><img src="../assets/images/brand/mangalam-logo.svg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">mangalam-logo.svg</span>
+                <span class="tile__meta">1318 × 968 · 34 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="brand" data-search="mangalam-ornament.svg">
+              <button type="button" class="tile tile--brand" data-media="{&quot;src&quot;:&quot;../assets/images/brand/mangalam-ornament.svg&quot;,&quot;name&quot;:&quot;mangalam-ornament.svg&quot;,&quot;folder&quot;:&quot;Brand&quot;,&quot;dims&quot;:&quot;607 × 203&quot;,&quot;size&quot;:&quot;8 KB&quot;,&quot;url&quot;:&quot;assets/images/brand/mangalam-ornament.svg&quot;,&quot;alt&quot;:&quot;&quot;,&quot;used&quot;:[]}" aria-label="mangalam-ornament.svg">
+                <span class="tile__img"><img src="../assets/images/brand/mangalam-ornament.svg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">mangalam-ornament.svg</span>
+                <span class="tile__meta">607 × 203 · 8 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="brand" data-search="mangalam-wordmark.svg">
+              <button type="button" class="tile tile--brand" data-media="{&quot;src&quot;:&quot;../assets/images/brand/mangalam-wordmark.svg&quot;,&quot;name&quot;:&quot;mangalam-wordmark.svg&quot;,&quot;folder&quot;:&quot;Brand&quot;,&quot;dims&quot;:&quot;1286 × 325&quot;,&quot;size&quot;:&quot;15 KB&quot;,&quot;url&quot;:&quot;assets/images/brand/mangalam-wordmark.svg&quot;,&quot;alt&quot;:&quot;&quot;,&quot;used&quot;:[]}" aria-label="mangalam-wordmark.svg">
+                <span class="tile__img"><img src="../assets/images/brand/mangalam-wordmark.svg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">mangalam-wordmark.svg</span>
+                <span class="tile__meta">1286 × 325 · 15 KB</span>
+              </button>
+            </li>
+            <li data-item data-folder="other" data-search="mangalam-craft.jpg">
+              <button type="button" class="tile" data-media="{&quot;src&quot;:&quot;../assets/images/mangalam-craft.jpg&quot;,&quot;name&quot;:&quot;mangalam-craft.jpg&quot;,&quot;folder&quot;:&quot;Other&quot;,&quot;dims&quot;:&quot;1600 × 1200&quot;,&quot;size&quot;:&quot;245 KB&quot;,&quot;url&quot;:&quot;assets/images/mangalam-craft.jpg&quot;,&quot;alt&quot;:&quot;&quot;,&quot;used&quot;:[&quot;Home&quot;,&quot;About us&quot;,&quot;Craftsmanship&quot;,&quot;Contact&quot;]}" aria-label="mangalam-craft.jpg">
+                <span class="tile__img"><img src="../assets/images/mangalam-craft.jpg" alt="" loading="lazy" draggable="false"></span>
+                <span class="tile__name">mangalam-craft.jpg</span>
+                <span class="tile__meta">1600 × 1200 · 245 KB</span>
+              </button>
+            </li>
+          </ul>
+          <div class="empty" data-list-empty hidden><span class="empty__icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-images"/></svg></span><p class="empty__title">No images match</p><button type="button" class="btn btn--outline btn--sm" data-list-reset>Show everything</button></div>
+          <div class="pager" data-pager></div>
+        </section>
+
+        <aside class="card media-info" data-media-info aria-live="polite">
+          <div class="media-info__empty" data-media-empty>
+            <span class="empty__icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-image"/></svg></span>
+            <p>Select a photograph to see its details, alt text and the pages that use it.</p>
+          </div>
+          <div class="media-info__body" data-media-body hidden>
+            <div class="media-info__preview"><img src="" alt="" data-media-field="src"></div>
+            <div class="card__body stack">
+              <div>
+                <p class="media-info__name" data-media-field="name"></p>
+                <p class="cell-sub"><span data-media-field="folder"></span> · <span data-media-field="dims"></span> · <span data-media-field="size"></span></p>
+              </div>
+              <label class="field"><span class="field__label">Alt text</span><textarea class="textarea" rows="2" placeholder="Describe the photograph for people who can't see it" data-media-field="alt"></textarea></label>
+              <div class="field">
+                <span class="field__label">Address</span>
+                <div class="copy-field"><input class="input input--mono" readonly data-media-field="url" aria-label="Image address"><button type="button" class="icon-btn icon-btn--sm" data-copy-from="[data-media-field=url]" aria-label="Copy address" data-tip="Copy"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-copy"/></svg></button></div>
+              </div>
+              <div class="field"><span class="field__label">Used on</span><ul class="used" data-media-field="used"></ul></div>
+            </div>
+            <div class="card__foot">
+              <button type="button" class="btn btn--danger-ghost btn--sm" data-confirm="Delete this image?" data-confirm-text="Pages that use it will show an empty space until another image is chosen." data-confirm-action="Delete" data-done="Image deleted"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg> Delete</button>
+              <button type="button" class="btn btn--primary btn--sm" data-toast="Alt text saved"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg> Save</button>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <dialog class="dialog dialog--lg" id="upload-dialog" aria-labelledby="upload-title">
+        <form class="dialog__panel" data-demo data-toast="Images uploaded" data-toast-text="They would now be in the library, ready to use.">
+          <header class="dialog__head">
+            <div><p class="dialog__eyebrow">Media library</p><h2 class="dialog__title" id="upload-title">Upload images</h2></div>
+            <button type="button" class="icon-btn" data-dialog-close aria-label="Close"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-x"/></svg></button>
+          </header>
+          <div class="dialog__body stack">
+            <label class="field"><span class="field__label">Folder</span><select class="select"><option>Campaign</option><option>Products</option><option>Brand</option><option>Other</option></select></label>
+            <label class="dropzone dropzone--lg" data-dropzone>
+              <span class="dropzone__icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-cloud-upload"/></svg></span>
+              <span class="dropzone__title">Drop images here, or <u>browse</u></span>
+              <span class="dropzone__hint">JPEG, PNG or SVG. Large photographs are resized for the web automatically.</span>
+              <input type="file" accept="image/*" multiple data-upload-into="[data-upload-list]">
+            </label>
+            <ul class="gallery gallery--sm" data-upload-list></ul>
+          </div>
+          <footer class="dialog__foot">
+            <button type="button" class="btn btn--outline" data-dialog-close>Cancel</button>
+            <button type="submit" class="btn btn--primary"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-cloud-upload"/></svg> Upload</button>
+          </footer>
+        </form>
+      </dialog>
+
+    </main>
+  </div>
+  <!-- Confirmation for anything that removes something (filled in by admin.js from the button's data-confirm) -->
+  <dialog class="dialog dialog--sm" id="confirm-dialog" aria-labelledby="confirm-title" aria-describedby="confirm-text">
+    <form method="dialog" class="dialog__panel dialog__panel--confirm">
+      <span class="dialog__badge"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg></span>
+      <h2 class="dialog__title" id="confirm-title" data-confirm-title>Delete this item?</h2>
+      <p class="dialog__text" id="confirm-text" data-confirm-text>This can't be undone.</p>
+      <div class="dialog__actions">
+        <button type="submit" class="btn btn--outline" value="cancel" autofocus>Cancel</button>
+        <button type="submit" class="btn btn--danger" value="ok" data-confirm-ok>Delete</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Toasts stand in for saving: they say what would happen, and that it was a preview -->
+  <div class="toasts" data-toasts aria-live="polite"></div>
+  <template id="toast-template">
+    <div class="toast" role="status">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-circle-check"/></svg>
+      <div><p class="toast__title"></p><p class="toast__text"></p></div>
+      <button type="button" class="toast__close" aria-label="Dismiss"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-x"/></svg></button>
+    </div>
+  </template>
+
+  <script src="../assets/js/admin.js"></script>
+</body>
+</html>

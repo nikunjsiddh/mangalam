@@ -30,7 +30,11 @@ assets/js/main.js            behaviour: loader, header, mega menu, dialogs, wish
                              scroll animations, catalogue, product and article pages
 assets/images/brand/         logo files extracted from the client's .ai artwork (full, horizontal,
                              emblem, wordmark, ornament) + PNG versions and the app icon
-assets/images/               hero, craft and product photography, favicon
+assets/images/campaign/      the campaign shoot, cropped for each place it appears: hero, category
+                             arches, collections, banners, bridal panels, journal, Instagram …
+assets/images/products/      photographs of each piece (1200 px, for the product page zoom), each
+                             with a 600 px "-sm" copy for cards, search and the wishlist
+assets/images/               the atelier photograph (mangalam-craft.jpg) and favicon
 src/build.mjs                generates every .html page
 src/partials/                layout, header, footer and dialogs shared by all pages
 src/pages/                   the main content of each page
@@ -48,6 +52,8 @@ npm run build
 - **Page content:** `src/pages/` (`home.html` is `index.html`; `catalog.html` is used for all category pages)
 - **Phone, email, address, hours, social links:** the `site` object at the top of `src/build.mjs`
 - **Products, articles, testimonials:** `assets/js/data.js` — then rebuild so counts, the hero hotspots and the journal pages update
+- **Product photographs:** the `photos` list in `assets/js/data.js` names each piece's files in `assets/images/products/`. The first is its main image, the second appears when its card is hovered, and all of them fill the product page gallery. To add one, save a 1200 × 1200 JPEG and a 600 × 600 copy ending in `-sm.jpg`, add its name to the list, and rebuild
+- **Hero "shop the look" pins:** the `hotspots` list in `src/build.mjs` — positions are percentages of `assets/images/campaign/hero.jpg`, and each pin links to the piece photographed there
 - **Colours and fonts:** the tokens at the top of `assets/css/mangalam.css`
 - **Offer popup:** the wording is in `src/partials/offer.html`; the percentage and the button's link are `offerPercent` / `offerHref` in the `site` object of `src/build.mjs`; the timing is `OFFER_DELAY` / `OFFER_SECONDS` in `assets/js/main.js`
 
@@ -62,7 +68,7 @@ The logo is applied with CSS masks (`.brand-logo`, `.brand-emblem`, `.brand-full
 - Forms (newsletter, account, appointment, enquiry, contact) are front-end only: they show a confirmation but do not send anything. Connect them to your mail or CRM service before going live.
 - The wishlist is saved in the visitor's browser (localStorage).
 - Phone number, email, address and social links are placeholders carried over from the original template.
-- The product photographs had thin white borders and slivers of neighbouring images along some edges; these were cropped out.
+- The photographs come from the client's two shoots. The campaign photos were converted from Adobe RGB to sRGB so their colour holds in every browser; the product photos arrived straight from the camera and were given levels and a midtone lift (several were very dark). Only the mangalsutra pieces and the atelier (`mangalam-craft.jpg`) still use the earlier artwork — neither was part of the shoots.
 ## Scroll animations
 
 Handled by `assets/js/main.js` (one scroll loop) and section 37 of `mangalam.css`. Hooks you can add to any element:

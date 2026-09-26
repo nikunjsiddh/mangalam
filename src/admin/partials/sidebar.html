@@ -1,0 +1,40 @@
+  <aside class="side" id="sidebar" aria-label="Admin navigation">
+    <div class="side__brand">
+      <a class="side__logo" href="index.html" aria-label="Mangalam Jewellers admin — dashboard">
+        <span class="logo logo--full" aria-hidden="true"></span>
+        <span class="logo logo--emblem" aria-hidden="true"></span>
+      </a>
+      <span class="side__label">Admin</span>
+    </div>
+    <nav class="side__nav">
+      <a class="side__link" data-nav="dashboard" href="index.html" data-tip="Dashboard">{{icon:layout-dashboard}}<span>Dashboard</span></a>
+
+      <p class="side__group">Catalogue</p>
+      <a class="side__link" data-nav="products" href="products.html" data-tip="Products">{{icon:gem}}<span>Products</span><span class="side__count">{{productCount}}</span></a>
+      <a class="side__link" data-nav="categories" href="categories.html" data-tip="Categories">{{icon:layout-grid}}<span>Categories</span></a>
+      <a class="side__link" data-nav="collections" href="collections.html" data-tip="Collections">{{icon:layers}}<span>Collections</span></a>
+
+      <p class="side__group">Website</p>
+      <a class="side__link" data-nav="homepage" href="homepage.html" data-tip="Homepage">{{icon:house}}<span>Homepage</span></a>
+      <a class="side__link" data-nav="pages" href="pages.html" data-tip="Pages &amp; banners">{{icon:file-text}}<span>Pages &amp; banners</span></a>
+      <a class="side__link" data-nav="journal" href="journal.html" data-tip="Journal">{{icon:book-open}}<span>Journal</span></a>
+      <a class="side__link" data-nav="testimonials" href="testimonials.html" data-tip="Testimonials">{{icon:quote}}<span>Testimonials</span></a>
+      <a class="side__link" data-nav="media" href="media.html" data-tip="Media library">{{icon:images}}<span>Media library</span></a>
+
+      <p class="side__group">Customers</p>
+      <a class="side__link" data-nav="enquiries" href="enquiries.html" data-tip="Enquiries">{{icon:inbox}}<span>Enquiries</span><span class="side__count side__count--new" aria-label="{{newEnquiries}} new">{{newEnquiries}}</span></a>
+      <a class="side__link" data-nav="appointments" href="appointments.html" data-tip="Appointments">{{icon:calendar-check}}<span>Appointments</span></a>
+      <a class="side__link" data-nav="subscribers" href="subscribers.html" data-tip="Subscribers">{{icon:mail}}<span>Subscribers</span></a>
+
+      <p class="side__group">Marketing</p>
+      <a class="side__link" data-nav="offers" href="offers.html" data-tip="Offers &amp; announcements">{{icon:megaphone}}<span>Offers &amp; announcements</span></a>
+
+      <p class="side__group">System</p>
+      <a class="side__link" data-nav="settings" href="settings.html" data-tip="Settings">{{icon:settings}}<span>Settings</span></a>
+      <a class="side__link" data-nav="users" href="users.html" data-tip="Users &amp; roles">{{icon:users}}<span>Users &amp; roles</span></a>
+    </nav>
+    <div class="side__foot">
+      <a class="side__link side__link--site" href="../index.html" target="_blank" rel="noopener" data-tip="View website">{{icon:external-link}}<span>View website</span></a>
+    </div>
+  </aside>
+  <div class="side-scrim" data-sidebar-close hidden></div>

@@ -1,0 +1,73 @@
+      <header class="ph">
+        <div>
+          <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Dashboard</a>{{icon:chevron-right}}<span aria-current="page">Media library</span></nav>
+          <h1 class="ph__title">Media library</h1>
+          <p class="ph__desc">{{mediaTotal}} images, {{mediaSize}} — every photograph and logo the website uses.</p>
+        </div>
+        <div class="ph__actions">
+          <button type="button" class="btn btn--gold" data-dialog-open="upload-dialog">{{icon:cloud-upload}} Upload</button>
+        </div>
+      </header>
+
+      <div class="media-layout" data-list-scope>
+        <section class="card">
+          <div class="card__chips chips">{{mediaChips}}</div>
+          <div class="toolbar">
+            <label class="search">{{icon:search}}<span class="sr-only">Search by file name</span><input class="input" type="search" placeholder="Search by file name…" data-list-search></label>
+            <p class="toolbar__note">{{icon:info}}Select a photograph to see where it is used</p>
+          </div>
+          <ul class="tiles" data-list data-per-page="30">{{mediaTiles}}
+          </ul>
+          <div class="empty" data-list-empty hidden><span class="empty__icon">{{icon:images}}</span><p class="empty__title">No images match</p><button type="button" class="btn btn--outline btn--sm" data-list-reset>Show everything</button></div>
+          <div class="pager" data-pager></div>
+        </section>
+
+        <aside class="card media-info" data-media-info aria-live="polite">
+          <div class="media-info__empty" data-media-empty>
+            <span class="empty__icon">{{icon:image}}</span>
+            <p>Select a photograph to see its details, alt text and the pages that use it.</p>
+          </div>
+          <div class="media-info__body" data-media-body hidden>
+            <div class="media-info__preview"><img src="" alt="" data-media-field="src"></div>
+            <div class="card__body stack">
+              <div>
+                <p class="media-info__name" data-media-field="name"></p>
+                <p class="cell-sub"><span data-media-field="folder"></span> · <span data-media-field="dims"></span> · <span data-media-field="size"></span></p>
+              </div>
+              <label class="field"><span class="field__label">Alt text</span><textarea class="textarea" rows="2" placeholder="Describe the photograph for people who can't see it" data-media-field="alt"></textarea></label>
+              <div class="field">
+                <span class="field__label">Address</span>
+                <div class="copy-field"><input class="input input--mono" readonly data-media-field="url" aria-label="Image address"><button type="button" class="icon-btn icon-btn--sm" data-copy-from="[data-media-field=url]" aria-label="Copy address" data-tip="Copy">{{icon:copy}}</button></div>
+              </div>
+              <div class="field"><span class="field__label">Used on</span><ul class="used" data-media-field="used"></ul></div>
+            </div>
+            <div class="card__foot">
+              <button type="button" class="btn btn--danger-ghost btn--sm" data-confirm="Delete this image?" data-confirm-text="Pages that use it will show an empty space until another image is chosen." data-confirm-action="Delete" data-done="Image deleted">{{icon:trash-2}} Delete</button>
+              <button type="button" class="btn btn--primary btn--sm" data-toast="Alt text saved">{{icon:check}} Save</button>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <dialog class="dialog dialog--lg" id="upload-dialog" aria-labelledby="upload-title">
+        <form class="dialog__panel" data-demo data-toast="Images uploaded" data-toast-text="They would now be in the library, ready to use.">
+          <header class="dialog__head">
+            <div><p class="dialog__eyebrow">Media library</p><h2 class="dialog__title" id="upload-title">Upload images</h2></div>
+            <button type="button" class="icon-btn" data-dialog-close aria-label="Close">{{icon:x}}</button>
+          </header>
+          <div class="dialog__body stack">
+            <label class="field"><span class="field__label">Folder</span><select class="select"><option>Campaign</option><option>Products</option><option>Brand</option><option>Other</option></select></label>
+            <label class="dropzone dropzone--lg" data-dropzone>
+              <span class="dropzone__icon">{{icon:cloud-upload}}</span>
+              <span class="dropzone__title">Drop images here, or <u>browse</u></span>
+              <span class="dropzone__hint">JPEG, PNG or SVG. Large photographs are resized for the web automatically.</span>
+              <input type="file" accept="image/*" multiple data-upload-into="[data-upload-list]">
+            </label>
+            <ul class="gallery gallery--sm" data-upload-list></ul>
+          </div>
+          <footer class="dialog__foot">
+            <button type="button" class="btn btn--outline" data-dialog-close>Cancel</button>
+            <button type="submit" class="btn btn--primary">{{icon:cloud-upload}} Upload</button>
+          </footer>
+        </form>
+      </dialog>

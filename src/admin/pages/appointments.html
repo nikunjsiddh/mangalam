@@ -1,0 +1,39 @@
+      <header class="ph">
+        <div>
+          <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Dashboard</a>{{icon:chevron-right}}<span aria-current="page">Appointments</span></nav>
+          <h1 class="ph__title">Appointments</h1>
+          <p class="ph__desc">Private consultations at Mangalam House: {{upcomingTotal}} coming up, {{todayTotal}} today, {{pendingTotal}} waiting to be confirmed.</p>
+        </div>
+        <div class="ph__actions">
+          <button type="button" class="btn btn--gold" data-dialog-open="appointment-dialog" data-fill='{"title":"New appointment","status":"confirmed"}'>{{icon:plus}} New appointment</button>
+        </div>
+      </header>
+
+      <div class="grid grid--calendar">
+        <section class="card cal-card">
+          <header class="card__head">
+            <div class="cal-nav">
+              <button type="button" class="icon-btn icon-btn--sm" aria-label="Previous month" data-toast="Previous month" data-toast-text="Other months load once the backend is connected.">{{icon:chevron-left}}</button>
+              <h2 class="card__title cal-nav__title">{{monthLabel}}</h2>
+              <button type="button" class="icon-btn icon-btn--sm" aria-label="Next month" data-toast="Next month" data-toast-text="Other months load once the backend is connected.">{{icon:chevron-right}}</button>
+            </div>
+            <ul class="legend" aria-label="Status colours">
+              <li><span class="legend__key legend__key--confirmed"></span>Confirmed</li>
+              <li><span class="legend__key legend__key--pending"></span>Pending</li>
+              <li><span class="legend__key legend__key--completed"></span>Completed</li>
+              <li><span class="legend__key legend__key--cancelled"></span>Cancelled</li>
+            </ul>
+          </header>
+          <div class="cal" role="grid" aria-label="{{monthLabel}}">
+            <div class="cal__dow">Mon</div><div class="cal__dow">Tue</div><div class="cal__dow">Wed</div><div class="cal__dow">Thu</div><div class="cal__dow">Fri</div><div class="cal__dow">Sat</div><div class="cal__dow">Sun</div>{{calendarDays}}
+          </div>
+        </section>
+
+        <section class="card">
+          <header class="card__head"><div><h2 class="card__title">Coming up</h2><p class="card__sub">The next two weeks</p></div></header>
+          <ul class="agenda">{{agenda}}
+          </ul>
+        </section>
+      </div>
+
+{{> appointment-dialog}}

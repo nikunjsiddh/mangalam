@@ -1,0 +1,34 @@
+      <header class="ph">
+        <div>
+          <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Dashboard</a>{{icon:chevron-right}}<span aria-current="page">Testimonials</span></nav>
+          <h1 class="ph__title">Testimonials</h1>
+          <p class="ph__desc">{{testimonialTotal}} customer stories in the “Stories that shine” slider on the homepage. Drag to change the order.</p>
+        </div>
+        <div class="ph__actions">
+          <button type="button" class="btn btn--gold" data-dialog-open="testimonial-dialog" data-fill='{"title":"New testimonial"}'>{{icon:plus}} Add testimonial</button>
+        </div>
+      </header>
+
+      <div class="qcards" data-sortable data-sort-toast="Order updated">{{testimonialCards}}
+      </div>
+
+      <dialog class="dialog" id="testimonial-dialog" aria-labelledby="testimonial-dialog-title">
+        <form class="dialog__panel" data-demo data-toast="Testimonial saved">
+          <header class="dialog__head">
+            <div><p class="dialog__eyebrow">Testimonial</p><h2 class="dialog__title" id="testimonial-dialog-title" data-fill-text="title">Edit testimonial</h2></div>
+            <button type="button" class="icon-btn" data-dialog-close aria-label="Close">{{icon:x}}</button>
+          </header>
+          <div class="dialog__body stack">
+            <label class="field"><span class="field__label">Their words <span class="field__count"></span></span><textarea class="textarea" name="quote" rows="4" maxlength="260" data-count data-count-ideal="200" required></textarea><span class="hint">Short quotes read best — one or two sentences.</span></label>
+            <div class="form-grid">
+              <label class="field"><span class="field__label">Name</span><input class="input" name="who" required></label>
+              <label class="field"><span class="field__label">Occasion &amp; city</span><input class="input" name="occasion" placeholder="e.g. Wedding, Surat"></label>
+            </div>
+            <label class="check-row"><input class="check" type="checkbox" name="consent" checked><span>They agreed to their words and name appearing on the website</span></label>
+          </div>
+          <footer class="dialog__foot">
+            <button type="button" class="btn btn--outline" data-dialog-close>Cancel</button>
+            <button type="submit" class="btn btn--primary">{{icon:check}} Save testimonial</button>
+          </footer>
+        </form>
+      </dialog>

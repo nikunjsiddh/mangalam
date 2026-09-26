@@ -1,0 +1,60 @@
+      <header class="ph">
+        <div>
+          <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Dashboard</a>{{icon:chevron-right}}<span aria-current="page">Users &amp; roles</span></nav>
+          <h1 class="ph__title">Users &amp; roles</h1>
+          <p class="ph__desc">Who can sign in to the admin, and what each role is allowed to do.</p>
+        </div>
+        <div class="ph__actions">
+          <button type="button" class="btn btn--gold" data-dialog-open="invite-dialog">{{icon:user-plus}} Invite someone</button>
+        </div>
+      </header>
+
+      <div class="tabs" role="tablist" aria-label="Users and roles">
+        <button type="button" role="tab" id="tab-team" aria-controls="panel-team" aria-selected="true">Team <span class="chip__count">{{teamTotal}}</span></button>
+        <button type="button" role="tab" id="tab-roles" aria-controls="panel-roles" aria-selected="false" tabindex="-1">Roles &amp; permissions</button>
+      </div>
+
+      <section class="card" role="tabpanel" id="panel-team" aria-labelledby="tab-team">
+        <div class="table-wrap">
+          <table class="table">
+            <thead><tr><th scope="col">Name</th><th scope="col">Role</th><th scope="col">Status</th><th scope="col">Last signed in</th><th scope="col" class="col-actions"><span class="sr-only">Actions</span></th></tr></thead>
+            <tbody>{{userRows}}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="card" role="tabpanel" id="panel-roles" aria-labelledby="tab-roles" hidden>
+        <header class="card__head">
+          <div><h2 class="card__title">What each role can do</h2><p class="card__sub">The owner can always do everything.</p></div>
+          <button type="button" class="btn btn--primary btn--sm" data-toast="Permissions saved">{{icon:check}} Save permissions</button>
+        </header>
+        <div class="table-wrap">
+          <table class="table table--matrix">
+            <thead><tr><th scope="col">Permission</th>{{roleHeads}}</tr></thead>
+            <tbody>{{permissionRows}}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <dialog class="dialog" id="invite-dialog" aria-labelledby="invite-title">
+        <form class="dialog__panel" data-demo data-toast="Invitation sent" data-toast-text="They would receive an email with a link to set a password.">
+          <header class="dialog__head">
+            <div><p class="dialog__eyebrow">Team</p><h2 class="dialog__title" id="invite-title">Invite someone</h2></div>
+            <button type="button" class="icon-btn" data-dialog-close aria-label="Close">{{icon:x}}</button>
+          </header>
+          <div class="dialog__body stack">
+            <div class="form-grid">
+              <label class="field"><span class="field__label">Name</span><input class="input" required autocomplete="off"></label>
+              <label class="field"><span class="field__label">Email</span><input class="input" type="email" required placeholder="name@mangalamjewellers.in" autocomplete="off"></label>
+            </div>
+            <label class="field"><span class="field__label">Role</span><select class="select">{{roleOptions}}</select></label>
+            <label class="field"><span class="field__label">Personal note <span class="field__aside">optional</span></span><textarea class="textarea" rows="3" placeholder="Welcome to the team…"></textarea></label>
+          </div>
+          <footer class="dialog__foot">
+            <button type="button" class="btn btn--outline" data-dialog-close>Cancel</button>
+            <button type="submit" class="btn btn--primary">{{icon:send}} Send invitation</button>
+          </footer>
+        </form>
+      </dialog>

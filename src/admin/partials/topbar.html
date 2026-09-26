@@ -1,0 +1,35 @@
+    <header class="top">
+      <button type="button" class="icon-btn top__toggle" data-sidebar-toggle aria-controls="sidebar" aria-label="Show or hide the menu">{{icon:panel-left}}</button>
+      <label class="top__search">
+        {{icon:search}}
+        <span class="sr-only">Search the admin</span>
+        <input type="search" placeholder="Search products, enquiries, pages…" data-global-search>
+        <kbd>Ctrl K</kbd>
+      </label>
+      <div class="top__end">
+        <span class="preview-pill" tabindex="0" data-tip="Every screen and button works so you can review the design. Nothing is saved until the backend is connected." data-tip-pos="bottom">{{icon:eye}}<span>Design preview</span></span>
+        <a class="btn btn--outline btn--sm top__site" href="../index.html" target="_blank" rel="noopener">{{icon:external-link}}<span>View website</span></a>
+        <div class="dropdown">
+          <button type="button" class="icon-btn top__bell" data-menu-trigger aria-haspopup="true" aria-expanded="false" aria-label="Notifications, {{notificationCount}} unread">{{icon:bell}}<span class="top__dot" aria-hidden="true"></span></button>
+          <div class="menu menu--notices" data-menu hidden>
+            <div class="menu__head"><span>Notifications</span><button type="button" class="link-btn" data-toast="All marked as read">Mark all as read</button></div>
+            <div class="menu__list">{{notificationItems}}
+            </div>
+          </div>
+        </div>
+        <div class="dropdown">
+          <button type="button" class="top__user" data-menu-trigger aria-haspopup="menu" aria-expanded="false">
+            <span class="avatar avatar--t{{meTint}}" aria-hidden="true">{{meInitials}}</span>
+            <span class="top__user-text"><span class="top__user-name">{{meName}}</span><span class="top__user-role">{{meRole}}</span></span>
+            {{icon:chevron-down}}
+          </button>
+          <div class="menu" data-menu role="menu" hidden>
+            <a role="menuitem" href="users.html">{{icon:user-round}}Your profile</a>
+            <a role="menuitem" href="settings.html">{{icon:settings}}Settings</a>
+            <a role="menuitem" href="../index.html" target="_blank" rel="noopener">{{icon:external-link}}View website</a>
+            <hr>
+            <a role="menuitem" href="login.html">{{icon:log-out}}Sign out</a>
+          </div>
+        </div>
+      </div>
+    </header>

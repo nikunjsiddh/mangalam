@@ -1,0 +1,129 @@
+      <header class="ph">
+        <div>
+          <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Dashboard</a>{{icon:chevron-right}}<span aria-current="page">Settings</span></nav>
+          <h1 class="ph__title">Settings</h1>
+          <p class="ph__desc">The details shown across the website — contact information, opening hours, social links — and how it behaves.</p>
+        </div>
+      </header>
+
+      <form class="settings" data-demo data-toast="Settings saved" data-dirty-watch>
+        <div class="settings__tabs" role="tablist" aria-orientation="vertical" aria-label="Settings sections">
+          <button type="button" role="tab" id="tab-general" aria-controls="panel-general" aria-selected="true">{{icon:house}}General</button>
+          <button type="button" role="tab" id="tab-contact" aria-controls="panel-contact" aria-selected="false" tabindex="-1">{{icon:map-pin}}Contact &amp; hours</button>
+          <button type="button" role="tab" id="tab-social" aria-controls="panel-social" aria-selected="false" tabindex="-1">{{icon:instagram}}Social links</button>
+          <button type="button" role="tab" id="tab-seo" aria-controls="panel-seo" aria-selected="false" tabindex="-1">{{icon:globe}}Search &amp; sharing</button>
+          <button type="button" role="tab" id="tab-notify" aria-controls="panel-notify" aria-selected="false" tabindex="-1">{{icon:bell}}Notifications</button>
+          <button type="button" role="tab" id="tab-motion" aria-controls="panel-motion" aria-selected="false" tabindex="-1">{{icon:sparkles}}Motion &amp; brand</button>
+          <button type="button" role="tab" id="tab-maint" aria-controls="panel-maint" aria-selected="false" tabindex="-1">{{icon:wrench}}Maintenance</button>
+        </div>
+
+        <div class="settings__panels">
+          <section class="card" role="tabpanel" id="panel-general" aria-labelledby="tab-general">
+            <header class="card__head"><div><h2 class="card__title">General</h2><p class="card__sub">The house's name and the essentials.</p></div></header>
+            <div class="card__body form-grid">
+              <label class="field"><span class="field__label">Store name</span><input class="input" value="Mangalam Jewellers"></label>
+              <label class="field"><span class="field__label">Founded</span><input class="input" inputmode="numeric" value="{{founded}}"><span class="hint">Used in “Handcrafted in Surat since …” and the years-of-heritage counter.</span></label>
+              <label class="field span-2"><span class="field__label">Tagline</span><input class="input" value="Where Tradition Becomes Timeless"></label>
+              <label class="field"><span class="field__label">Currency</span><select class="select"><option>Indian rupee (₹)</option></select></label>
+              <label class="field"><span class="field__label">Time zone</span><select class="select"><option>India (IST, UTC+5:30)</option></select></label>
+              <div class="field span-2">
+                <span class="field__label">Logo</span>
+                <div class="logo-field"><span class="logo logo--full" aria-hidden="true"></span><label class="btn btn--outline btn--sm btn--file">{{icon:upload}} Replace logo<input type="file" accept=".svg,image/svg+xml,image/png"></label><span class="hint">SVG works best: the website gives it the metallic gold finish.</span></div>
+              </div>
+            </div>
+          </section>
+
+          <section class="card" role="tabpanel" id="panel-contact" aria-labelledby="tab-contact" hidden>
+            <header class="card__head"><div><h2 class="card__title">Contact &amp; hours</h2><p class="card__sub">Shown in the footer, on the Contact page and in the menu.</p></div></header>
+            <div class="card__body form-grid">
+              <label class="field"><span class="field__label">Phone</span><input class="input" type="tel" value="{{sitePhone}}"></label>
+              <label class="field"><span class="field__label">WhatsApp</span><input class="input" type="tel" value="{{sitePhone}}"></label>
+              <label class="field span-2"><span class="field__label">Email</span><input class="input" type="email" value="{{siteEmail}}"></label>
+              <label class="field"><span class="field__label">Address</span><input class="input" value="{{addrLine1}}"></label>
+              <label class="field"><span class="field__label">City &amp; PIN code</span><input class="input" value="{{addrLine2}}"></label>
+              <label class="field span-2"><span class="field__label">Google Maps link</span><span class="input-group"><span class="input-group__addon">{{icon:map-pin}}</span><input class="input" value="{{siteMaps}}"></span></label>
+              <div class="field span-2">
+                <span class="field__label">Opening hours</span>
+                <div class="hours">{{hours}}
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="card" role="tabpanel" id="panel-social" aria-labelledby="tab-social" hidden>
+            <header class="card__head"><div><h2 class="card__title">Social links</h2><p class="card__sub">The icons in the footer and the Instagram section of the homepage.</p></div></header>
+            <div class="card__body stack">
+              <label class="field"><span class="field__label">Instagram</span><span class="input-group"><span class="input-group__addon">{{icon:instagram}}</span><input class="input" value="{{siteInstagram}}"></span></label>
+              <label class="field"><span class="field__label">Facebook</span><span class="input-group"><span class="input-group__addon">{{icon:facebook}}</span><input class="input" value="{{siteFacebook}}"></span></label>
+              <label class="field"><span class="field__label">YouTube</span><span class="input-group"><span class="input-group__addon">{{icon:youtube}}</span><input class="input" value="{{siteYoutube}}"></span></label>
+              <p class="note">{{icon:info}}<span>These are still the placeholder addresses from the template — add the house's real pages here.</span></p>
+            </div>
+          </section>
+
+          <section class="card" role="tabpanel" id="panel-seo" aria-labelledby="tab-seo" hidden>
+            <header class="card__head"><div><h2 class="card__title">Search &amp; sharing</h2><p class="card__sub">The homepage's listing, and what shows when a page is shared.</p></div></header>
+            <div class="card__body stack">
+              <label class="field"><span class="field__label">Homepage title <span class="field__count"></span></span><input class="input" value="{{homeTitle}}" maxlength="70" data-count data-count-ideal="60"></label>
+              <label class="field"><span class="field__label">Homepage description <span class="field__count"></span></span><textarea class="textarea" rows="3" maxlength="200" data-count data-count-ideal="160">{{homeDesc}}</textarea></label>
+              <div class="field">
+                <span class="field__label">Sharing image</span>
+                <div class="share-card"><img src="../assets/images/brand/mangalam-logo.png" alt="" class="share-card__img"><span><span class="share-card__site">mangalamjewellers.in</span><span class="share-card__title">{{homeTitle}}</span></span></div>
+              </div>
+              <label class="switch switch--text"><input type="checkbox" checked><span class="switch__track" aria-hidden="true"></span><span>Let search engines list the website</span></label>
+            </div>
+          </section>
+
+          <section class="card" role="tabpanel" id="panel-notify" aria-labelledby="tab-notify" hidden>
+            <header class="card__head"><div><h2 class="card__title">Notifications</h2><p class="card__sub">Who hears about what, by email.</p></div></header>
+            <div class="card__body stack">
+              <label class="field"><span class="field__label">Send to</span><input class="input" type="email" value="{{siteEmail}}"><span class="hint">Separate several addresses with commas.</span></label>
+              <div class="toggle-list">
+                <label class="switch switch--text"><input type="checkbox" checked><span class="switch__track" aria-hidden="true"></span><span>A new enquiry arrives</span></label>
+                <label class="switch switch--text"><input type="checkbox" checked><span class="switch__track" aria-hidden="true"></span><span>Someone asks for an appointment</span></label>
+                <label class="switch switch--text"><input type="checkbox"><span class="switch__track" aria-hidden="true"></span><span>Someone subscribes to the newsletter</span></label>
+                <label class="switch switch--text"><input type="checkbox" checked><span class="switch__track" aria-hidden="true"></span><span>A morning summary of the day's appointments</span></label>
+              </div>
+            </div>
+          </section>
+
+          <section class="card" role="tabpanel" id="panel-motion" aria-labelledby="tab-motion" hidden>
+            <header class="card__head"><div><h2 class="card__title">Motion &amp; brand</h2><p class="card__sub">How the website moves, and the colours it is built from.</p></div></header>
+            <div class="card__body stack">
+              <div class="toggle-list">
+                <label class="switch switch--text"><input type="checkbox" checked><span class="switch__track" aria-hidden="true"></span><span>Loading screen with the gold emblem on the first page of a visit</span></label>
+                <label class="switch switch--text"><input type="checkbox" checked><span class="switch__track" aria-hidden="true"></span><span>Smooth scrolling with the mouse wheel on desktop</span></label>
+                <label class="switch switch--text"><input type="checkbox"{{calmChecked}}><span class="switch__track" aria-hidden="true"></span><span>A calmer website for visitors whose computer asks for reduced motion</span></label>
+              </div>
+              <div class="field">
+                <span class="field__label">Brand colours</span>
+                <ul class="swatches">
+                  <li><span class="swatch" style="background:#A57E00"></span><span><strong>Antique gold</strong>#A57E00</span></li>
+                  <li><span class="swatch" style="background:#4A1224"></span><span><strong>Wine</strong>#4A1224</span></li>
+                  <li><span class="swatch" style="background:#2E0A16"></span><span><strong>Midnight wine</strong>#2E0A16</span></li>
+                  <li><span class="swatch swatch--light" style="background:#FBF8F2"></span><span><strong>Ivory</strong>#FBF8F2</span></li>
+                  <li><span class="swatch swatch--light" style="background:#F5EEE2"></span><span><strong>Pearl</strong>#F5EEE2</span></li>
+                  <li><span class="swatch" style="background:#E3C77A"></span><span><strong>Soft gold</strong>#E3C77A</span></li>
+                </ul>
+                <span class="hint">Set in the design system; changing them is a design decision rather than a setting.</span>
+              </div>
+            </div>
+          </section>
+
+          <section class="card" role="tabpanel" id="panel-maint" aria-labelledby="tab-maint" hidden>
+            <header class="card__head"><div><h2 class="card__title">Maintenance</h2><p class="card__sub">Take the website offline for a while, for example during a relaunch.</p></div></header>
+            <div class="card__body stack">
+              <label class="switch switch--text"><input type="checkbox"><span class="switch__track" aria-hidden="true"></span><span>Show a maintenance page instead of the website</span></label>
+              <label class="field"><span class="field__label">Message</span><textarea class="textarea" rows="3">Our website is being polished. Mangalam House on Ring Road, Surat, is open as usual from 10:30 AM to 8:30 PM.</textarea></label>
+              <p class="note">{{icon:info}}<span>Signed-in team members still see the full website.</span></p>
+            </div>
+          </section>
+        </div>
+
+        <div class="savebar" data-savebar hidden>
+          <span>{{icon:info}} You have unsaved changes</span>
+          <div class="savebar__actions">
+            <button type="reset" class="btn btn--ghost btn--sm" data-discard>Discard</button>
+            <button type="submit" class="btn btn--gold btn--sm">{{icon:check}} Save changes</button>
+          </div>
+        </div>
+      </form>

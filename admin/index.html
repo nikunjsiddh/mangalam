@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Dashboard — Mangalam Admin</title>
+  <meta name="theme-color" content="#2E0A16">
+  <link rel="icon" href="../assets/images/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&amp;family=Jost:wght@300;400;500;600&amp;display=swap">
+  <link rel="stylesheet" href="../assets/css/admin.css">
+  <script>try { if (localStorage.getItem("mj-admin-sidebar") === "mini") document.documentElement.classList.add("side-mini"); } catch (e) {}</script>
+</head>
+<body class="adm" data-page="dashboard">
+  <svg class="icon-sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol><symbol id="i-bell" viewBox="0 0 24 24"><path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"/></symbol><symbol id="i-book-open" viewBox="0 0 24 24"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></symbol><symbol id="i-calendar-check" viewBox="0 0 24 24"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="m9 16 2 2 4-4"/></symbol><symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol><symbol id="i-chevron-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol><symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol><symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol><symbol id="i-circle-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></symbol><symbol id="i-cloud-upload" viewBox="0 0 24 24"><path d="M12 13v8"/><path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"/><path d="m8 17 4-4 4 4"/></symbol><symbol id="i-external-link" viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></symbol><symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></symbol><symbol id="i-file-text" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></symbol><symbol id="i-gem" viewBox="0 0 24 24"><path d="M6 3h12l4 6-10 13L2 9Z"/><path d="M11 3 8 9l4 13 4-13-3-6"/><path d="M2 9h20"/></symbol><symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></symbol><symbol id="i-house" viewBox="0 0 24 24"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></symbol><symbol id="i-image" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></symbol><symbol id="i-images" viewBox="0 0 24 24"><path d="M18 22H4a2 2 0 0 1-2-2V6"/><path d="m22 13-1.296-1.296a2.41 2.41 0 0 0-3.408 0L11 18"/><circle cx="12" cy="8" r="2"/><rect width="16" height="16" x="6" y="2" rx="2"/></symbol><symbol id="i-inbox" viewBox="0 0 24 24"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></symbol><symbol id="i-layers" viewBox="0 0 24 24"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"/><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"/></symbol><symbol id="i-layout-dashboard" viewBox="0 0 24 24"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></symbol><symbol id="i-layout-grid" viewBox="0 0 24 24"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></symbol><symbol id="i-list" viewBox="0 0 24 24"><path d="M3 12h.01"/><path d="M3 18h.01"/><path d="M3 6h.01"/><path d="M8 12h13"/><path d="M8 18h13"/><path d="M8 6h13"/></symbol><symbol id="i-log-out" viewBox="0 0 24 24"><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/></symbol><symbol id="i-mail" viewBox="0 0 24 24"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect x="2" y="4" width="20" height="16" rx="2"/></symbol><symbol id="i-megaphone" viewBox="0 0 24 24"><path d="M11 6a13 13 0 0 0 8.4-2.8A1 1 0 0 1 21 4v12a1 1 0 0 1-1.6.8A13 13 0 0 0 11 14H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z"/><path d="M6 14a12 12 0 0 0 2.4 7.2 2 2 0 0 0 3.2-2.4A8 8 0 0 1 10 14"/><path d="M8 6v8"/></symbol><symbol id="i-panel-left" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 3v18"/></symbol><symbol id="i-pencil" viewBox="0 0 24 24"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></symbol><symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></symbol><symbol id="i-quote" viewBox="0 0 24 24"><path d="M16 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"/><path d="M5 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"/></symbol><symbol id="i-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></symbol><symbol id="i-settings" viewBox="0 0 24 24"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></symbol><symbol id="i-trash-2" viewBox="0 0 24 24"><path d="M10 11v6"/><path d="M14 11v6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></symbol><symbol id="i-trending-up" viewBox="0 0 24 24"><path d="M16 7h6v6"/><path d="m22 7-8.5 8.5-5-5L2 17"/></symbol><symbol id="i-triangle-alert" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></symbol><symbol id="i-user-plus" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" x2="19" y1="8" y2="14"/><line x1="22" x2="16" y1="11" y2="11"/></symbol><symbol id="i-user-round" viewBox="0 0 24 24"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></symbol><symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol><symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol></svg>
+  <a class="skip-link" href="#content">Skip to content</a>
+  <aside class="side" id="sidebar" aria-label="Admin navigation">
+    <div class="side__brand">
+      <a class="side__logo" href="index.html" aria-label="Mangalam Jewellers admin — dashboard">
+        <span class="logo logo--full" aria-hidden="true"></span>
+        <span class="logo logo--emblem" aria-hidden="true"></span>
+      </a>
+      <span class="side__label">Admin</span>
+    </div>
+    <nav class="side__nav">
+      <a class="side__link" data-nav="dashboard" aria-current="page" href="index.html" data-tip="Dashboard"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-layout-dashboard"/></svg><span>Dashboard</span></a>
+
+      <p class="side__group">Catalogue</p>
+      <a class="side__link" data-nav="products" href="products.html" data-tip="Products"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-gem"/></svg><span>Products</span><span class="side__count">46</span></a>
+      <a class="side__link" data-nav="categories" href="categories.html" data-tip="Categories"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-layout-grid"/></svg><span>Categories</span></a>
+      <a class="side__link" data-nav="collections" href="collections.html" data-tip="Collections"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-layers"/></svg><span>Collections</span></a>
+
+      <p class="side__group">Website</p>
+      <a class="side__link" data-nav="homepage" href="homepage.html" data-tip="Homepage"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-house"/></svg><span>Homepage</span></a>
+      <a class="side__link" data-nav="pages" href="pages.html" data-tip="Pages &amp; banners"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-file-text"/></svg><span>Pages &amp; banners</span></a>
+      <a class="side__link" data-nav="journal" href="journal.html" data-tip="Journal"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-book-open"/></svg><span>Journal</span></a>
+      <a class="side__link" data-nav="testimonials" href="testimonials.html" data-tip="Testimonials"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-quote"/></svg><span>Testimonials</span></a>
+      <a class="side__link" data-nav="media" href="media.html" data-tip="Media library"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-images"/></svg><span>Media library</span></a>
+
+      <p class="side__group">Customers</p>
+      <a class="side__link" data-nav="enquiries" href="enquiries.html" data-tip="Enquiries"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-inbox"/></svg><span>Enquiries</span><span class="side__count side__count--new" aria-label="3 new">3</span></a>
+      <a class="side__link" data-nav="appointments" href="appointments.html" data-tip="Appointments"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-calendar-check"/></svg><span>Appointments</span></a>
+      <a class="side__link" data-nav="subscribers" href="subscribers.html" data-tip="Subscribers"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-mail"/></svg><span>Subscribers</span></a>
+
+      <p class="side__group">Marketing</p>
+      <a class="side__link" data-nav="offers" href="offers.html" data-tip="Offers &amp; announcements"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-megaphone"/></svg><span>Offers &amp; announcements</span></a>
+
+      <p class="side__group">System</p>
+      <a class="side__link" data-nav="settings" href="settings.html" data-tip="Settings"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-settings"/></svg><span>Settings</span></a>
+      <a class="side__link" data-nav="users" href="users.html" data-tip="Users &amp; roles"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-users"/></svg><span>Users &amp; roles</span></a>
+    </nav>
+    <div class="side__foot">
+      <a class="side__link side__link--site" href="../index.html" target="_blank" rel="noopener" data-tip="View website"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-external-link"/></svg><span>View website</span></a>
+    </div>
+  </aside>
+  <div class="side-scrim" data-sidebar-close hidden></div>
+
+  <div class="adm__main">
+    <header class="top">
+      <button type="button" class="icon-btn top__toggle" data-sidebar-toggle aria-controls="sidebar" aria-label="Show or hide the menu"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-panel-left"/></svg></button>
+      <label class="top__search">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-search"/></svg>
+        <span class="sr-only">Search the admin</span>
+        <input type="search" placeholder="Search products, enquiries, pages…" data-global-search>
+        <kbd>Ctrl K</kbd>
+      </label>
+      <div class="top__end">
+        <span class="preview-pill" tabindex="0" data-tip="Every screen and button works so you can review the design. Nothing is saved until the backend is connected." data-tip-pos="bottom"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-eye"/></svg><span>Design preview</span></span>
+        <a class="btn btn--outline btn--sm top__site" href="../index.html" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-external-link"/></svg><span>View website</span></a>
+        <div class="dropdown">
+          <button type="button" class="icon-btn top__bell" data-menu-trigger aria-haspopup="true" aria-expanded="false" aria-label="Notifications, 3 unread"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-bell"/></svg><span class="top__dot" aria-hidden="true"></span></button>
+          <div class="menu menu--notices" data-menu hidden>
+            <div class="menu__head"><span>Notifications</span><button type="button" class="link-btn" data-toast="All marked as read">Mark all as read</button></div>
+            <div class="menu__list">
+            <a class="notice is-unread" href="enquiries.html"><span class="notice__icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-inbox"/></svg></span><span><span class="notice__text">New enquiry from Ananya Parekh about the Royal Heritage Necklace</span><span class="notice__when">12 min ago</span></span></a>
+            <a class="notice is-unread" href="appointments.html"><span class="notice__icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-calendar-check"/></svg></span><span><span class="notice__text">Hetal Desai confirmed her bridal consultation for today, 11:30 AM</span><span class="notice__when">1 hr ago</span></span></a>
+            <a class="notice is-unread" href="enquiries.html"><span class="notice__icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-inbox"/></svg></span><span><span class="notice__text">New enquiry from Kunal Shah about the Diamond Tennis Bracelet</span><span class="notice__when">3 hrs ago</span></span></a>
+            <a class="notice" href="products.html?flags=photos"><span class="notice__icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-image"/></svg></span><span><span class="notice__text">4 mangalsutra pieces are still waiting for photographs</span><span class="notice__when">Yesterday</span></span></a>
+            <a class="notice" href="subscribers.html"><span class="notice__icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-mail"/></svg></span><span><span class="notice__text">58 people subscribed to the newsletter this month</span><span class="notice__when">2 days ago</span></span></a>
+            </div>
+          </div>
+        </div>
+        <div class="dropdown">
+          <button type="button" class="top__user" data-menu-trigger aria-haspopup="menu" aria-expanded="false">
+            <span class="avatar avatar--t3" aria-hidden="true">RM</span>
+            <span class="top__user-text"><span class="top__user-name">Rohan Mehta</span><span class="top__user-role">Owner</span></span>
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chevron-down"/></svg>
+          </button>
+          <div class="menu" data-menu role="menu" hidden>
+            <a role="menuitem" href="users.html"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-user-round"/></svg>Your profile</a>
+            <a role="menuitem" href="settings.html"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-settings"/></svg>Settings</a>
+            <a role="menuitem" href="../index.html" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-external-link"/></svg>View website</a>
+            <hr>
+            <a role="menuitem" href="login.html"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-log-out"/></svg>Sign out</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="adm__content" id="content">
+      <header class="ph">
+        <div>
+          <p class="ph__eyebrow">Saturday, 26 September 2026</p>
+          <h1 class="ph__title"><span data-greeting>Welcome back</span>, <em>Rohan</em></h1>
+          <p class="ph__desc">How the website is doing, and what needs you today.</p>
+        </div>
+        <div class="ph__actions">
+          <div class="seg" role="radiogroup" aria-label="Period shown">
+            <label><input type="radio" name="period" value="7" checked data-change-toast="Last 7 days" data-change-toast-text="The figures follow the period once the backend is connected."><span>7 days</span></label>
+            <label><input type="radio" name="period" value="30" data-change-toast="Last 30 days" data-change-toast-text="The figures follow the period once the backend is connected."><span>30 days</span></label>
+            <label><input type="radio" name="period" value="90" data-change-toast="Last 90 days" data-change-toast-text="The figures follow the period once the backend is connected."><span>90 days</span></label>
+            <label><input type="radio" name="period" value="365" data-change-toast="Last 12 months" data-change-toast-text="The figures follow the period once the backend is connected."><span>12 months</span></label>
+          </div>
+          <a class="btn btn--gold" href="product-new.html"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-plus"/></svg> Add product</a>
+        </div>
+      </header>
+
+      <section class="grid grid--kpi" aria-label="Key figures">
+        <a class="card kpi" href="enquiries.html">
+          <span class="kpi__top"><span class="kpi__label">Enquiries this week</span><span class="kpi__icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-inbox"/></svg></span></span>
+          <span class="kpi__value">24</span>
+          <span class="kpi__foot"><span class="kpi__note"><span class="delta delta--up"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trending-up"/></svg>+20%</span> vs last week</span><svg class="spark" viewBox="0 0 104 34" width="104" height="34" aria-hidden="true"><polyline points="4.0,30.0 12.7,24.8 21.5,28.3 30.2,21.3 38.9,23.1 47.6,16.1 56.4,19.6 65.1,12.7 73.8,17.9 82.5,7.5 91.3,10.9 100.0,4.0"/><circle cx="100.0" cy="4.0" r="3.5"/></svg></span>
+        </a>
+        <a class="card kpi" href="appointments.html">
+          <span class="kpi__top"><span class="kpi__label">Upcoming appointments</span><span class="kpi__icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-calendar-check"/></svg></span></span>
+          <span class="kpi__value">8</span>
+          <span class="kpi__foot"><span class="kpi__note"><strong>2</strong> today · next 2 weeks</span></span>
+        </a>
+        <a class="card kpi" href="products.html">
+          <span class="kpi__top"><span class="kpi__label">Pieces on the website</span><span class="kpi__icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-gem"/></svg></span></span>
+          <span class="kpi__value">46</span>
+          <span class="kpi__foot"><span class="kpi__note"><span class="kpi__warn"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-triangle-alert"/></svg>4 need photos</span></span></span>
+        </a>
+        <a class="card kpi" href="subscribers.html">
+          <span class="kpi__top"><span class="kpi__label">Newsletter subscribers</span><span class="kpi__icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-mail"/></svg></span></span>
+          <span class="kpi__value">1,284</span>
+          <span class="kpi__foot"><span class="kpi__note"><span class="delta delta--up"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trending-up"/></svg>+58</span> this month</span><svg class="spark" viewBox="0 0 104 34" width="104" height="34" aria-hidden="true"><polyline points="4.0,30.0 12.7,28.1 21.5,26.3 30.2,23.7 38.9,21.7 47.6,19.2 56.4,17.1 65.1,14.5 73.8,12.4 82.5,9.4 91.3,6.8 100.0,4.0"/><circle cx="100.0" cy="4.0" r="3.5"/></svg></span>
+        </a>
+      </section>
+
+      <div class="grid grid--wide-narrow">
+        <section class="card">
+          <header class="card__head">
+            <div><h2 class="card__title">Enquiries per week</h2><p class="card__sub">191 in the last 12 weeks, from product pages and the contact form</p></div>
+            <button type="button" class="btn btn--ghost btn--sm" data-chart-toggle aria-pressed="false"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-list"/></svg><span>Show table</span></button>
+          </header>
+          <div class="card__body">
+            <div class="chart" data-line-chart data-series="[{&quot;label&quot;:&quot;6 Jul&quot;,&quot;value&quot;:9},{&quot;label&quot;:&quot;13 Jul&quot;,&quot;value&quot;:12},{&quot;label&quot;:&quot;20 Jul&quot;,&quot;value&quot;:10},{&quot;label&quot;:&quot;27 Jul&quot;,&quot;value&quot;:14},{&quot;label&quot;:&quot;3 Aug&quot;,&quot;value&quot;:13},{&quot;label&quot;:&quot;10 Aug&quot;,&quot;value&quot;:17},{&quot;label&quot;:&quot;17 Aug&quot;,&quot;value&quot;:15},{&quot;label&quot;:&quot;24 Aug&quot;,&quot;value&quot;:19},{&quot;label&quot;:&quot;31 Aug&quot;,&quot;value&quot;:16},{&quot;label&quot;:&quot;7 Sep&quot;,&quot;value&quot;:22},{&quot;label&quot;:&quot;14 Sep&quot;,&quot;value&quot;:20},{&quot;label&quot;:&quot;21 Sep&quot;,&quot;value&quot;:24}]" data-unit="enquiries" tabindex="0" role="img" aria-label="Enquiries per week over the last 12 weeks. Use the arrow keys to read each week."></div>
+            <div class="chart-table" hidden>
+              <table class="table table--compact"><thead><tr><th scope="col">Week</th><th scope="col" class="num">Enquiries</th></tr></thead><tbody><tr><td>Week of 6 Jul</td><td class="num">9</td></tr><tr><td>Week of 13 Jul</td><td class="num">12</td></tr><tr><td>Week of 20 Jul</td><td class="num">10</td></tr><tr><td>Week of 27 Jul</td><td class="num">14</td></tr><tr><td>Week of 3 Aug</td><td class="num">13</td></tr><tr><td>Week of 10 Aug</td><td class="num">17</td></tr><tr><td>Week of 17 Aug</td><td class="num">15</td></tr><tr><td>Week of 24 Aug</td><td class="num">19</td></tr><tr><td>Week of 31 Aug</td><td class="num">16</td></tr><tr><td>Week of 7 Sep</td><td class="num">22</td></tr><tr><td>Week of 14 Sep</td><td class="num">20</td></tr><tr><td>Week of 21 Sep</td><td class="num">24</td></tr></tbody></table>
+            </div>
+          </div>
+        </section>
+
+        <section class="card">
+          <header class="card__head">
+            <div><h2 class="card__title">Pieces by category</h2><p class="card__sub">46 pieces in 8 categories</p></div>
+            <a class="btn btn--ghost btn--sm" href="categories.html">Manage</a>
+          </header>
+          <div class="card__body"><ul class="hbars" aria-label="Number of pieces in each category">
+            <li><a class="hbar" href="products.html?category=rings" data-chart-tip="Rings|8 pieces · 17% of the catalogue">
+              <span class="hbar__label">Rings</span>
+              <span class="hbar__track"><span class="hbar__fill" style="width:100.0%"></span></span>
+              <span class="hbar__value">8</span>
+            </a></li>
+            <li><a class="hbar" href="products.html?category=bridal" data-chart-tip="Bridal|8 pieces · 17% of the catalogue">
+              <span class="hbar__label">Bridal</span>
+              <span class="hbar__track"><span class="hbar__fill" style="width:100.0%"></span></span>
+              <span class="hbar__value">8</span>
+            </a></li>
+            <li><a class="hbar" href="products.html?category=necklaces" data-chart-tip="Necklaces|6 pieces · 13% of the catalogue">
+              <span class="hbar__label">Necklaces</span>
+              <span class="hbar__track"><span class="hbar__fill" style="width:75.0%"></span></span>
+              <span class="hbar__value">6</span>
+            </a></li>
+            <li><a class="hbar" href="products.html?category=earrings" data-chart-tip="Earrings|6 pieces · 13% of the catalogue">
+              <span class="hbar__label">Earrings</span>
+              <span class="hbar__track"><span class="hbar__fill" style="width:75.0%"></span></span>
+              <span class="hbar__value">6</span>
+            </a></li>
+            <li><a class="hbar" href="products.html?category=bangles" data-chart-tip="Bangles|5 pieces · 11% of the catalogue">
+              <span class="hbar__label">Bangles</span>
+              <span class="hbar__track"><span class="hbar__fill" style="width:62.5%"></span></span>
+              <span class="hbar__value">5</span>
+            </a></li>
+            <li><a class="hbar" href="products.html?category=bracelets" data-chart-tip="Bracelets|5 pieces · 11% of the catalogue">
+              <span class="hbar__label">Bracelets</span>
+              <span class="hbar__track"><span class="hbar__fill" style="width:62.5%"></span></span>
+              <span class="hbar__value">5</span>
+            </a></li>
+            <li><a class="hbar" href="products.html?category=pendants" data-chart-tip="Pendants|4 pieces · 9% of the catalogue">
+              <span class="hbar__label">Pendants</span>
+              <span class="hbar__track"><span class="hbar__fill" style="width:50.0%"></span></span>
+              <span class="hbar__value">4</span>
+            </a></li>
+            <li><a class="hbar" href="products.html?category=mangalsutra" data-chart-tip="Mangalsutra|4 pieces · 9% of the catalogue">
+              <span class="hbar__label">Mangalsutra</span>
+              <span class="hbar__track"><span class="hbar__fill" style="width:50.0%"></span></span>
+              <span class="hbar__value">4</span>
+            </a></li></ul></div>
+        </section>
+      </div>
+
+      <div class="grid grid--wide-narrow">
+        <section class="card">
+          <header class="card__head">
+            <div><h2 class="card__title">Latest enquiries</h2><p class="card__sub">Reply within a day to keep the promise on the contact page</p></div>
+            <a class="btn btn--ghost btn--sm" href="enquiries.html">View all <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+          </header>
+          <div class="table-wrap">
+            <table class="table">
+              <thead><tr><th scope="col">Customer</th><th scope="col">About</th><th scope="col">From</th><th scope="col">Received</th><th scope="col">Status</th></tr></thead>
+              <tbody>
+              <tr>
+                <td><a class="cell-main" href="enquiries.html"><span class="avatar avatar--t3" aria-hidden="true">AP</span><span><span class="cell-title">Ananya Parekh</span><span class="cell-sub">ananya.parekh@example.com</span></span></a></td>
+                <td>Royal Heritage Necklace</td>
+                <td class="cell-muted">Product page</td>
+                <td class="cell-muted nowrap">12 min ago</td>
+                <td><span class="badge badge--info">New</span></td>
+              </tr>
+              <tr>
+                <td><a class="cell-main" href="enquiries.html"><span class="avatar avatar--t0" aria-hidden="true">HD</span><span><span class="cell-title">Hetal Desai</span><span class="cell-sub">hetal.desai@example.com</span></span></a></td>
+                <td>Bridal consultation</td>
+                <td class="cell-muted">Contact form</td>
+                <td class="cell-muted nowrap">1 hr ago</td>
+                <td><span class="badge badge--info">New</span></td>
+              </tr>
+              <tr>
+                <td><a class="cell-main" href="enquiries.html"><span class="avatar avatar--t3" aria-hidden="true">KS</span><span><span class="cell-title">Kunal Shah</span><span class="cell-sub">kunal.shah@example.com</span></span></a></td>
+                <td>Diamond Tennis Bracelet</td>
+                <td class="cell-muted">Product page</td>
+                <td class="cell-muted nowrap">3 hrs ago</td>
+                <td><span class="badge badge--info">New</span></td>
+              </tr>
+              <tr>
+                <td><a class="cell-main" href="enquiries.html"><span class="avatar avatar--t3" aria-hidden="true">MI</span><span><span class="cell-title">Meera Iyer</span><span class="cell-sub">meera.iyer@example.com</span></span></a></td>
+                <td>Bespoke commission</td>
+                <td class="cell-muted">Contact form</td>
+                <td class="cell-muted nowrap">Yesterday</td>
+                <td><span class="badge badge--ok">Replied</span></td>
+              </tr>
+              <tr>
+                <td><a class="cell-main" href="enquiries.html"><span class="avatar avatar--t0" aria-hidden="true">RT</span><span><span class="cell-title">Riya Trivedi</span><span class="cell-sub">riya.trivedi@example.com</span></span></a></td>
+                <td>Maharani Bridal Jhumka</td>
+                <td class="cell-muted">Product page</td>
+                <td class="cell-muted nowrap">Yesterday</td>
+                <td><span class="badge badge--ok">Replied</span></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="card">
+          <header class="card__head">
+            <div><h2 class="card__title">Coming up</h2><p class="card__sub">Appointments at Mangalam House</p></div>
+            <a class="btn btn--ghost btn--sm" href="appointments.html">Calendar <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+          </header>
+          <ul class="agenda agenda--compact">
+            <li><button type="button" class="agenda__item" data-dialog-open="appointment-dialog" data-fill="{&quot;title&quot;:&quot;Hetal Desai&quot;,&quot;name&quot;:&quot;Hetal Desai&quot;,&quot;phone&quot;:&quot;+91 98765 43211&quot;,&quot;date&quot;:&quot;2026-09-26&quot;,&quot;time&quot;:&quot;11:30 AM&quot;,&quot;interest&quot;:&quot;Bridal jewellery&quot;,&quot;consultant&quot;:&quot;Kavya Shah&quot;,&quot;status&quot;:&quot;confirmed&quot;,&quot;notes&quot;:&quot;Full bridal set; wedding in February. Bring the Rajwadi and Polki sets.&quot;}">
+              <span class="agenda__date"><strong>26</strong>Sep</span>
+              <span class="agenda__body"><span class="cell-title">Hetal Desai</span><span class="cell-sub">Today, 11:30 AM · Bridal jewellery</span></span>
+              <span class="badge badge--ok">Confirmed</span>
+            </button></li>
+            <li><button type="button" class="agenda__item" data-dialog-open="appointment-dialog" data-fill="{&quot;title&quot;:&quot;Meera Iyer&quot;,&quot;name&quot;:&quot;Meera Iyer&quot;,&quot;phone&quot;:&quot;+91 98765 43213&quot;,&quot;date&quot;:&quot;2026-09-26&quot;,&quot;time&quot;:&quot;4:00 PM&quot;,&quot;interest&quot;:&quot;Bespoke commission&quot;,&quot;consultant&quot;:&quot;Kavya Shah&quot;,&quot;status&quot;:&quot;confirmed&quot;,&quot;notes&quot;:&quot;Bringing her grandmother's kundan stones to reset.&quot;}">
+              <span class="agenda__date"><strong>26</strong>Sep</span>
+              <span class="agenda__body"><span class="cell-title">Meera Iyer</span><span class="cell-sub">Today, 4:00 PM · Bespoke commission</span></span>
+              <span class="badge badge--ok">Confirmed</span>
+            </button></li>
+            <li><button type="button" class="agenda__item" data-dialog-open="appointment-dialog" data-fill="{&quot;title&quot;:&quot;Priyanka Jain&quot;,&quot;name&quot;:&quot;Priyanka Jain&quot;,&quot;phone&quot;:&quot;+91 98765 40003&quot;,&quot;date&quot;:&quot;2026-09-27&quot;,&quot;time&quot;:&quot;12:30 PM&quot;,&quot;interest&quot;:&quot;Bridal jewellery&quot;,&quot;consultant&quot;:&quot;Isha Vyas&quot;,&quot;status&quot;:&quot;pending&quot;,&quot;notes&quot;:&quot;&quot;}">
+              <span class="agenda__date"><strong>27</strong>Sep</span>
+              <span class="agenda__body"><span class="cell-title">Priyanka Jain</span><span class="cell-sub">Tomorrow, 12:30 PM · Bridal jewellery</span></span>
+              <span class="badge badge--warn">Pending</span>
+            </button></li>
+            <li><button type="button" class="agenda__item" data-dialog-open="appointment-dialog" data-fill="{&quot;title&quot;:&quot;Kunal Shah&quot;,&quot;name&quot;:&quot;Kunal Shah&quot;,&quot;phone&quot;:&quot;+91 98765 43212&quot;,&quot;date&quot;:&quot;2026-09-28&quot;,&quot;time&quot;:&quot;6:00 PM&quot;,&quot;interest&quot;:&quot;Diamond jewellery&quot;,&quot;consultant&quot;:&quot;Isha Vyas&quot;,&quot;status&quot;:&quot;confirmed&quot;,&quot;notes&quot;:&quot;Anniversary gift — tennis bracelet, engraving.&quot;}">
+              <span class="agenda__date"><strong>28</strong>Sep</span>
+              <span class="agenda__body"><span class="cell-title">Kunal Shah</span><span class="cell-sub">Mon 28 Sep, 6:00 PM · Diamond jewellery</span></span>
+              <span class="badge badge--ok">Confirmed</span>
+            </button></li>
+            <li><button type="button" class="agenda__item" data-dialog-open="appointment-dialog" data-fill="{&quot;title&quot;:&quot;Riya Trivedi&quot;,&quot;name&quot;:&quot;Riya Trivedi&quot;,&quot;phone&quot;:&quot;+91 98765 43214&quot;,&quot;date&quot;:&quot;2026-09-30&quot;,&quot;time&quot;:&quot;11:00 AM&quot;,&quot;interest&quot;:&quot;Bridal jewellery&quot;,&quot;consultant&quot;:&quot;Kavya Shah&quot;,&quot;status&quot;:&quot;confirmed&quot;,&quot;notes&quot;:&quot;&quot;}">
+              <span class="agenda__date"><strong>30</strong>Sep</span>
+              <span class="agenda__body"><span class="cell-title">Riya Trivedi</span><span class="cell-sub">Wed 30 Sep, 11:00 AM · Bridal jewellery</span></span>
+              <span class="badge badge--ok">Confirmed</span>
+            </button></li>
+          </ul>
+        </section>
+      </div>
+
+      <div class="grid grid--dash-foot">
+        <section class="card">
+          <header class="card__head"><div><h2 class="card__title">Needs attention</h2><p class="card__sub">Found by checking the website's pages and products</p></div></header>
+          <ul class="todos">
+            <li class="todo todo--warn"><span class="todo__icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-image"/></svg></span><span class="todo__text">4 mangalsutra pieces have no photographs yet</span><a class="btn btn--ghost btn--sm" href="products.html?flags=photos">View<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chevron-right"/></svg></a></li>
+            <li class="todo todo--warn"><span class="todo__icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-image"/></svg></span><span class="todo__text">The atelier photograph on Craftsmanship, About and Contact predates the new shoot</span><a class="btn btn--ghost btn--sm" href="media.html?folder=other">Replace<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chevron-right"/></svg></a></li>
+            <li class="todo todo--info"><span class="todo__icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-inbox"/></svg></span><span class="todo__text">3 new enquiries waiting for a reply</span><a class="btn btn--ghost btn--sm" href="enquiries.html?status=new">Reply<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chevron-right"/></svg></a></li>
+            <li class="todo todo--info"><span class="todo__icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-globe"/></svg></span><span class="todo__text">6 pages could use a better search listing</span><a class="btn btn--ghost btn--sm" href="pages.html">Review<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chevron-right"/></svg></a></li>
+            <li class="todo todo--ok"><span class="todo__icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-megaphone"/></svg></span><span class="todo__text">The offer popup (up to 30% off) is live on every page</span><a class="btn btn--ghost btn--sm" href="offers.html">Edit<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chevron-right"/></svg></a></li>
+          </ul>
+        </section>
+
+        <section class="card">
+          <header class="card__head"><h2 class="card__title">Quick actions</h2></header>
+          <div class="card__body quick">
+            <a class="quick__item" href="product-new.html"><span class="quick__icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-gem"/></svg></span>Add a product</a>
+            <a class="quick__item" href="article-new.html"><span class="quick__icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-book-open"/></svg></span>Write a story</a>
+            <a class="quick__item" href="media.html"><span class="quick__icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-cloud-upload"/></svg></span>Upload photos</a>
+            <a class="quick__item" href="homepage.html#hero-editor"><span class="quick__icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-house"/></svg></span>Change the hero</a>
+            <a class="quick__item" href="offers.html"><span class="quick__icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-megaphone"/></svg></span>Edit the offer</a>
+            <a class="quick__item" href="users.html"><span class="quick__icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-user-plus"/></svg></span>Invite a colleague</a>
+          </div>
+        </section>
+
+        <section class="card offer-mini">
+          <div class="offer-mini__card" aria-hidden="true">
+            <p class="offer-mini__eyebrow">&#10022; Live now &#10022;</p>
+            <p class="offer-mini__title">A Little More <em>to Adore</em></p>
+            <p class="offer-mini__deal"><span>Up to</span><strong>30%</strong><span>Off</span></p>
+          </div>
+          <div class="card__body">
+            <h2 class="card__title">Offer popup</h2>
+            <p class="card__sub">Opens on each visitor's first page, then waits in the tab on the right.</p>
+            <a class="btn btn--outline btn--sm mt-12" href="offers.html"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pencil"/></svg> Edit the offer</a>
+          </div>
+        </section>
+      </div>
+
+      <dialog class="dialog" id="appointment-dialog" aria-labelledby="appointment-dialog-title">
+        <form class="dialog__panel" data-demo data-toast="Appointment saved" data-toast-text="The customer would receive a confirmation by SMS and email.">
+          <header class="dialog__head">
+            <div><p class="dialog__eyebrow">Appointment</p><h2 class="dialog__title" id="appointment-dialog-title" data-fill-text="title">New appointment</h2></div>
+            <button type="button" class="icon-btn" data-dialog-close aria-label="Close"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-x"/></svg></button>
+          </header>
+          <div class="dialog__body stack">
+            <div class="form-grid">
+              <label class="field"><span class="field__label">Customer</span><input class="input" name="name" required autocomplete="off"></label>
+              <label class="field"><span class="field__label">Phone</span><input class="input" type="tel" name="phone" autocomplete="off"></label>
+              <label class="field"><span class="field__label">Date</span><input class="input" type="date" name="date" required></label>
+              <label class="field"><span class="field__label">Time</span><select class="select" name="time"><option value="10:30 AM">10:30 AM</option><option value="11:00 AM">11:00 AM</option><option value="11:30 AM">11:30 AM</option><option value="12:00 PM">12:00 PM</option><option value="12:30 PM">12:30 PM</option><option value="1:00 PM">1:00 PM</option><option value="1:30 PM">1:30 PM</option><option value="2:00 PM">2:00 PM</option><option value="2:30 PM">2:30 PM</option><option value="3:00 PM">3:00 PM</option><option value="3:30 PM">3:30 PM</option><option value="4:00 PM">4:00 PM</option><option value="4:30 PM">4:30 PM</option><option value="5:00 PM">5:00 PM</option><option value="5:30 PM">5:30 PM</option><option value="6:00 PM">6:00 PM</option><option value="6:30 PM">6:30 PM</option><option value="7:00 PM">7:00 PM</option><option value="7:30 PM">7:30 PM</option><option value="8:00 PM">8:00 PM</option></select></label>
+              <label class="field"><span class="field__label">Interested in</span><select class="select" name="interest"><option value="Bridal jewellery">Bridal jewellery</option><option value="Gold jewellery">Gold jewellery</option><option value="Diamond jewellery">Diamond jewellery</option><option value="Bespoke commission">Bespoke commission</option></select></label>
+              <label class="field"><span class="field__label">Consultant</span><select class="select" name="consultant"><option value="Rohan Mehta">Rohan Mehta</option><option value="Kavya Shah">Kavya Shah</option><option value="Isha Vyas">Isha Vyas</option></select></label>
+            </div>
+            <div class="field">
+              <span class="field__label" id="appointment-status-label">Status</span>
+              <div class="seg seg--wrap" role="radiogroup" aria-labelledby="appointment-status-label">
+                <label><input type="radio" name="status" value="confirmed"><span>Confirmed</span></label>
+                <label><input type="radio" name="status" value="pending" checked><span>Pending</span></label>
+                <label><input type="radio" name="status" value="completed"><span>Completed</span></label>
+                <label><input type="radio" name="status" value="cancelled"><span>Cancelled</span></label>
+              </div>
+            </div>
+            <label class="field"><span class="field__label">Notes for the consultant</span><textarea class="textarea" name="notes" rows="3" placeholder="Pieces to prepare, occasion, budget…"></textarea></label>
+          </div>
+          <footer class="dialog__foot">
+            <button type="button" class="btn btn--danger-ghost dialog__foot-start" data-confirm="Cancel this appointment?" data-confirm-text="The customer would be told by SMS and email." data-confirm-action="Cancel appointment" data-done="Appointment cancelled">Cancel appointment</button>
+            <button type="button" class="btn btn--outline" data-dialog-close>Close</button>
+            <button type="submit" class="btn btn--primary"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg> Save</button>
+          </footer>
+        </form>
+      </dialog>
+
+
+    </main>
+  </div>
+  <!-- Confirmation for anything that removes something (filled in by admin.js from the button's data-confirm) -->
+  <dialog class="dialog dialog--sm" id="confirm-dialog" aria-labelledby="confirm-title" aria-describedby="confirm-text">
+    <form method="dialog" class="dialog__panel dialog__panel--confirm">
+      <span class="dialog__badge"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg></span>
+      <h2 class="dialog__title" id="confirm-title" data-confirm-title>Delete this item?</h2>
+      <p class="dialog__text" id="confirm-text" data-confirm-text>This can't be undone.</p>
+      <div class="dialog__actions">
+        <button type="submit" class="btn btn--outline" value="cancel" autofocus>Cancel</button>
+        <button type="submit" class="btn btn--danger" value="ok" data-confirm-ok>Delete</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Toasts stand in for saving: they say what would happen, and that it was a preview -->
+  <div class="toasts" data-toasts aria-live="polite"></div>
+  <template id="toast-template">
+    <div class="toast" role="status">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-circle-check"/></svg>
+      <div><p class="toast__title"></p><p class="toast__text"></p></div>
+      <button type="button" class="toast__close" aria-label="Dismiss"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-x"/></svg></button>
+    </div>
+  </template>
+
+  <script src="../assets/js/admin.js"></script>
+</body>
+</html>

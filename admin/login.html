@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Sign in — Mangalam Admin</title>
+  <meta name="theme-color" content="#2E0A16">
+  <link rel="icon" href="../assets/images/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&amp;family=Jost:wght@300;400;500;600&amp;display=swap">
+  <link rel="stylesheet" href="../assets/css/admin.css">
+</head>
+<body class="auth" data-page="login">
+  <svg class="icon-sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol><symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol><symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol><symbol id="i-circle-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></symbol><symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></symbol><symbol id="i-shield-check" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></symbol><symbol id="i-trash-2" viewBox="0 0 24 24"><path d="M10 11v6"/><path d="M14 11v6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></symbol><symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol></svg>
+  <div class="auth__art">
+    <img src="../assets/images/campaign/hero.jpg" alt="" class="auth__photo">
+    <div class="auth__art-inner">
+      <a class="auth__brand" href="../index.html" aria-label="Mangalam Jewellers — website"><span class="logo logo--full" aria-hidden="true"></span></a>
+      <p class="auth__quote">Some jewellery is worn.<br>Some jewellery is <em>remembered.</em></p>
+      <p class="auth__meta">Surat · Since 1962</p>
+    </div>
+  </div>
+
+  <main class="auth__panel">
+    <form class="auth__form" data-login novalidate>
+      <span class="logo logo--emblem auth__emblem" aria-hidden="true"></span>
+      <p class="auth__eyebrow">Mangalam admin</p>
+      <h1 class="auth__title">Welcome back</h1>
+      <p class="auth__lead">Sign in to look after the website — products, stories, enquiries and appointments.</p>
+
+      <label class="field"><span class="field__label">Email</span><input class="input input--lg" type="email" name="email" autocomplete="username" placeholder="you@mangalamjewellers.in" required></label>
+      <label class="field">
+        <span class="field__label">Password <a class="field__aside link" href="#" data-toast="Reset link sent" data-toast-text="Check your email for a link to choose a new password.">Forgot it?</a></span>
+        <span class="input-group input-group--lg"><input class="input" type="password" name="password" autocomplete="current-password" required><button type="button" class="input-group__btn" data-password-toggle aria-label="Show password" aria-pressed="false"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-eye"/></svg></button></span>
+      </label>
+      <label class="check-row"><input class="check" type="checkbox" name="remember" checked><span>Keep me signed in on this computer</span></label>
+      <button type="submit" class="btn btn--gold btn--lg btn--block">Sign in <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow-right"/></svg></button>
+      <p class="auth__note"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-shield-check"/></svg>For the Mangalam team only. Every sign-in is recorded.</p>
+    </form>
+    <p class="auth__foot">This is the design preview: signing in opens the dashboard without checking a password.</p>
+  </main>
+
+  <!-- Confirmation for anything that removes something (filled in by admin.js from the button's data-confirm) -->
+  <dialog class="dialog dialog--sm" id="confirm-dialog" aria-labelledby="confirm-title" aria-describedby="confirm-text">
+    <form method="dialog" class="dialog__panel dialog__panel--confirm">
+      <span class="dialog__badge"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg></span>
+      <h2 class="dialog__title" id="confirm-title" data-confirm-title>Delete this item?</h2>
+      <p class="dialog__text" id="confirm-text" data-confirm-text>This can't be undone.</p>
+      <div class="dialog__actions">
+        <button type="submit" class="btn btn--outline" value="cancel" autofocus>Cancel</button>
+        <button type="submit" class="btn btn--danger" value="ok" data-confirm-ok>Delete</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Toasts stand in for saving: they say what would happen, and that it was a preview -->
+  <div class="toasts" data-toasts aria-live="polite"></div>
+  <template id="toast-template">
+    <div class="toast" role="status">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-circle-check"/></svg>
+      <div><p class="toast__title"></p><p class="toast__text"></p></div>
+      <button type="button" class="toast__close" aria-label="Dismiss"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-x"/></svg></button>
+    </div>
+  </template>
+
+  <script src="../assets/js/admin.js"></script>
+</body>
+</html>

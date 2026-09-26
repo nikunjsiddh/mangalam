@@ -1,0 +1,102 @@
+      <header class="ph">
+        <div>
+          <p class="ph__eyebrow">{{todayLabel}}</p>
+          <h1 class="ph__title"><span><span data-greeting>Welcome back</span>, <em>{{meFirst}}</em></span></h1>
+          <p class="ph__desc">How the website is doing, and what needs you today.</p>
+        </div>
+        <div class="ph__actions">
+          <div class="seg" role="radiogroup" aria-label="Period shown">
+            <label><input type="radio" name="period" value="7" checked data-change-toast="Last 7 days" data-change-toast-text="The figures follow the period once the backend is connected."><span>7 days</span></label>
+            <label><input type="radio" name="period" value="30" data-change-toast="Last 30 days" data-change-toast-text="The figures follow the period once the backend is connected."><span>30 days</span></label>
+            <label><input type="radio" name="period" value="90" data-change-toast="Last 90 days" data-change-toast-text="The figures follow the period once the backend is connected."><span>90 days</span></label>
+            <label><input type="radio" name="period" value="365" data-change-toast="Last 12 months" data-change-toast-text="The figures follow the period once the backend is connected."><span>12 months</span></label>
+          </div>
+          <a class="btn btn--gold" href="product-new.html">{{icon:plus}} Add product</a>
+        </div>
+      </header>
+
+      <section class="grid grid--kpi" aria-label="Key figures">{{kpiTiles}}
+      </section>
+
+      <div class="grid grid--wide-narrow">
+        <section class="card">
+          <header class="card__head">
+            <div><h2 class="card__title">Enquiries per week</h2><p class="card__sub">{{weeksTotal}} in the last 12 weeks, from product pages and the contact form</p></div>
+            <button type="button" class="btn btn--ghost btn--sm" data-chart-toggle aria-pressed="false">{{icon:list}}<span>Show table</span></button>
+          </header>
+          <div class="card__body">
+            <div class="chart" data-line-chart data-series="{{weeksJSON}}" data-unit="enquiries" tabindex="0" role="img" aria-label="Enquiries per week over the last 12 weeks. Use the arrow keys to read each week."></div>
+            <div class="chart-table" hidden>
+              <table class="table table--compact"><thead><tr><th scope="col">Week</th><th scope="col" class="num">Enquiries</th></tr></thead><tbody>{{weeksTable}}</tbody></table>
+            </div>
+          </div>
+        </section>
+
+        <section class="card">
+          <header class="card__head">
+            <div><h2 class="card__title">Pieces by category</h2><p class="card__sub">{{productCount}} pieces in {{categoryCount}} categories</p></div>
+            <a class="btn btn--ghost btn--sm" href="categories.html">Manage</a>
+          </header>
+          <div class="card__body"><ul class="hbars" aria-label="Number of pieces in each category">{{categoryBars}}</ul></div>
+        </section>
+      </div>
+
+      <div class="grid grid--wide-narrow">
+        <section class="card">
+          <header class="card__head">
+            <div><h2 class="card__title">Latest enquiries</h2><p class="card__sub">Reply within a day to keep the promise on the contact page</p></div>
+            <a class="btn btn--ghost btn--sm" href="enquiries.html">View all {{icon:arrow-right}}</a>
+          </header>
+          <div class="table-wrap">
+            <table class="table">
+              <thead><tr><th scope="col">Customer</th><th scope="col">About</th><th scope="col">From</th><th scope="col">Received</th><th scope="col">Status</th></tr></thead>
+              <tbody>{{recentEnquiries}}
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="card">
+          <header class="card__head">
+            <div><h2 class="card__title">Coming up</h2><p class="card__sub">Appointments at Mangalam House</p></div>
+            <a class="btn btn--ghost btn--sm" href="appointments.html">Calendar {{icon:arrow-right}}</a>
+          </header>
+          <ul class="agenda agenda--compact">{{upcomingList}}
+          </ul>
+        </section>
+      </div>
+
+      <div class="grid grid--dash-foot">
+        <section class="card">
+          <header class="card__head"><div><h2 class="card__title">Needs attention</h2><p class="card__sub">Found by checking the website's pages and products</p></div></header>
+          <ul class="todos">{{attention}}
+          </ul>
+        </section>
+
+        <section class="card">
+          <header class="card__head"><h2 class="card__title">Quick actions</h2></header>
+          <div class="card__body quick">
+            <a class="quick__item" href="product-new.html"><span class="quick__icon">{{icon:gem}}</span>Add a product</a>
+            <a class="quick__item" href="article-new.html"><span class="quick__icon">{{icon:book-open}}</span>Write a story</a>
+            <a class="quick__item" href="media.html"><span class="quick__icon">{{icon:cloud-upload}}</span>Upload photos</a>
+            <a class="quick__item" href="homepage.html#hero-editor"><span class="quick__icon">{{icon:house}}</span>Change the hero</a>
+            <a class="quick__item" href="offers.html"><span class="quick__icon">{{icon:megaphone}}</span>Edit the offer</a>
+            <a class="quick__item" href="users.html"><span class="quick__icon">{{icon:user-plus}}</span>Invite a colleague</a>
+          </div>
+        </section>
+
+        <section class="card offer-mini">
+          <div class="offer-mini__card" aria-hidden="true">
+            <p class="offer-mini__eyebrow">&#10022; Live now &#10022;</p>
+            <p class="offer-mini__title">{{offerTitle1}} <em>{{offerTitle2}}</em></p>
+            <p class="offer-mini__deal"><span>Up to</span><strong>{{offerPercent}}%</strong><span>Off</span></p>
+          </div>
+          <div class="card__body">
+            <h2 class="card__title">Offer popup</h2>
+            <p class="card__sub">Opens on each visitor's first page, then waits in the tab on the right.</p>
+            <a class="btn btn--outline btn--sm mt-12" href="offers.html">{{icon:pencil}} Edit the offer</a>
+          </div>
+        </section>
+      </div>
+
+{{> appointment-dialog}}

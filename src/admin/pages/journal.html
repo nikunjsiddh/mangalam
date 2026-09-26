@@ -1,0 +1,20 @@
+      <header class="ph">
+        <div>
+          <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Dashboard</a>{{icon:chevron-right}}<span aria-current="page">Journal</span></nav>
+          <h1 class="ph__title">Journal</h1>
+          <p class="ph__desc">{{articleTotal}} stories on the Journal page; the four latest also appear on the homepage.</p>
+        </div>
+        <div class="ph__actions">
+          <a class="btn btn--gold" href="article-new.html">{{icon:plus}} Write a story</a>
+        </div>
+      </header>
+
+      <div data-list-scope>
+        <div class="list-controls">
+          <div class="chips">{{journalChips}}</div>
+          <label class="search">{{icon:search}}<span class="sr-only">Search stories</span><input class="input" type="search" placeholder="Search stories…" data-list-search></label>
+        </div>
+        <div class="posts" data-list>{{articleCards}}
+        </div>
+        <div class="card empty" data-list-empty hidden><span class="empty__icon">{{icon:book-open}}</span><p class="empty__title">No stories match</p><button type="button" class="btn btn--outline btn--sm" data-list-reset>Show every story</button></div>
+      </div>

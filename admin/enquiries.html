@@ -1,0 +1,605 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Enquiries — Mangalam Admin</title>
+  <meta name="theme-color" content="#2E0A16">
+  <link rel="icon" href="../assets/images/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&amp;family=Jost:wght@300;400;500;600&amp;display=swap">
+  <link rel="stylesheet" href="../assets/css/admin.css">
+  <script>try { if (localStorage.getItem("mj-admin-sidebar") === "mini") document.documentElement.classList.add("side-mini"); } catch (e) {}</script>
+</head>
+<body class="adm" data-page="enquiries">
+  <svg class="icon-sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><symbol id="i-archive" viewBox="0 0 24 24"><rect width="20" height="5" x="2" y="3" rx="1"/><path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8"/><path d="M10 12h4"/></symbol><symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></symbol><symbol id="i-bell" viewBox="0 0 24 24"><path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"/></symbol><symbol id="i-book-open" viewBox="0 0 24 24"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></symbol><symbol id="i-calendar-check" viewBox="0 0 24 24"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="m9 16 2 2 4-4"/></symbol><symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol><symbol id="i-chevron-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol><symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol><symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol><symbol id="i-circle-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></symbol><symbol id="i-download" viewBox="0 0 24 24"><path d="M12 15V3"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/></symbol><symbol id="i-ellipsis" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></symbol><symbol id="i-external-link" viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></symbol><symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></symbol><symbol id="i-file-text" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></symbol><symbol id="i-gem" viewBox="0 0 24 24"><path d="M6 3h12l4 6-10 13L2 9Z"/><path d="M11 3 8 9l4 13 4-13-3-6"/><path d="M2 9h20"/></symbol><symbol id="i-house" viewBox="0 0 24 24"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></symbol><symbol id="i-image" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></symbol><symbol id="i-images" viewBox="0 0 24 24"><path d="M18 22H4a2 2 0 0 1-2-2V6"/><path d="m22 13-1.296-1.296a2.41 2.41 0 0 0-3.408 0L11 18"/><circle cx="12" cy="8" r="2"/><rect width="16" height="16" x="6" y="2" rx="2"/></symbol><symbol id="i-inbox" viewBox="0 0 24 24"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></symbol><symbol id="i-layers" viewBox="0 0 24 24"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"/><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"/></symbol><symbol id="i-layout-dashboard" viewBox="0 0 24 24"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></symbol><symbol id="i-layout-grid" viewBox="0 0 24 24"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></symbol><symbol id="i-log-out" viewBox="0 0 24 24"><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/></symbol><symbol id="i-mail" viewBox="0 0 24 24"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect x="2" y="4" width="20" height="16" rx="2"/></symbol><symbol id="i-megaphone" viewBox="0 0 24 24"><path d="M11 6a13 13 0 0 0 8.4-2.8A1 1 0 0 1 21 4v12a1 1 0 0 1-1.6.8A13 13 0 0 0 11 14H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z"/><path d="M6 14a12 12 0 0 0 2.4 7.2 2 2 0 0 0 3.2-2.4A8 8 0 0 1 10 14"/><path d="M8 6v8"/></symbol><symbol id="i-panel-left" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 3v18"/></symbol><symbol id="i-phone" viewBox="0 0 24 24"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"/></symbol><symbol id="i-quote" viewBox="0 0 24 24"><path d="M16 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"/><path d="M5 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"/></symbol><symbol id="i-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></symbol><symbol id="i-send" viewBox="0 0 24 24"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"/><path d="m21.854 2.147-10.94 10.939"/></symbol><symbol id="i-settings" viewBox="0 0 24 24"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></symbol><symbol id="i-trash-2" viewBox="0 0 24 24"><path d="M10 11v6"/><path d="M14 11v6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></symbol><symbol id="i-user-round" viewBox="0 0 24 24"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></symbol><symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol><symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol></svg>
+  <a class="skip-link" href="#content">Skip to content</a>
+  <aside class="side" id="sidebar" aria-label="Admin navigation">
+    <div class="side__brand">
+      <a class="side__logo" href="index.html" aria-label="Mangalam Jewellers admin — dashboard">
+        <span class="logo logo--full" aria-hidden="true"></span>
+        <span class="logo logo--emblem" aria-hidden="true"></span>
+      </a>
+      <span class="side__label">Admin</span>
+    </div>
+    <nav class="side__nav">
+      <a class="side__link" data-nav="dashboard" href="index.html" data-tip="Dashboard"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-layout-dashboard"/></svg><span>Dashboard</span></a>
+
+      <p class="side__group">Catalogue</p>
+      <a class="side__link" data-nav="products" href="products.html" data-tip="Products"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-gem"/></svg><span>Products</span><span class="side__count">46</span></a>
+      <a class="side__link" data-nav="categories" href="categories.html" data-tip="Categories"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-layout-grid"/></svg><span>Categories</span></a>
+      <a class="side__link" data-nav="collections" href="collections.html" data-tip="Collections"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-layers"/></svg><span>Collections</span></a>
+
+      <p class="side__group">Website</p>
+      <a class="side__link" data-nav="homepage" href="homepage.html" data-tip="Homepage"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-house"/></svg><span>Homepage</span></a>
+      <a class="side__link" data-nav="pages" href="pages.html" data-tip="Pages &amp; banners"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-file-text"/></svg><span>Pages &amp; banners</span></a>
+      <a class="side__link" data-nav="journal" href="journal.html" data-tip="Journal"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-book-open"/></svg><span>Journal</span></a>
+      <a class="side__link" data-nav="testimonials" href="testimonials.html" data-tip="Testimonials"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-quote"/></svg><span>Testimonials</span></a>
+      <a class="side__link" data-nav="media" href="media.html" data-tip="Media library"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-images"/></svg><span>Media library</span></a>
+
+      <p class="side__group">Customers</p>
+      <a class="side__link" data-nav="enquiries" aria-current="page" href="enquiries.html" data-tip="Enquiries"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-inbox"/></svg><span>Enquiries</span><span class="side__count side__count--new" aria-label="3 new">3</span></a>
+      <a class="side__link" data-nav="appointments" href="appointments.html" data-tip="Appointments"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-calendar-check"/></svg><span>Appointments</span></a>
+      <a class="side__link" data-nav="subscribers" href="subscribers.html" data-tip="Subscribers"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-mail"/></svg><span>Subscribers</span></a>
+
+      <p class="side__group">Marketing</p>
+      <a class="side__link" data-nav="offers" href="offers.html" data-tip="Offers &amp; announcements"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-megaphone"/></svg><span>Offers &amp; announcements</span></a>
+
+      <p class="side__group">System</p>
+      <a class="side__link" data-nav="settings" href="settings.html" data-tip="Settings"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-settings"/></svg><span>Settings</span></a>
+      <a class="side__link" data-nav="users" href="users.html" data-tip="Users &amp; roles"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-users"/></svg><span>Users &amp; roles</span></a>
+    </nav>
+    <div class="side__foot">
+      <a class="side__link side__link--site" href="../index.html" target="_blank" rel="noopener" data-tip="View website"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-external-link"/></svg><span>View website</span></a>
+    </div>
+  </aside>
+  <div class="side-scrim" data-sidebar-close hidden></div>
+
+  <div class="adm__main">
+    <header class="top">
+      <button type="button" class="icon-btn top__toggle" data-sidebar-toggle aria-controls="sidebar" aria-label="Show or hide the menu"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-panel-left"/></svg></button>
+      <label class="top__search">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-search"/></svg>
+        <span class="sr-only">Search the admin</span>
+        <input type="search" placeholder="Search products, enquiries, pages…" data-global-search>
+        <kbd>Ctrl K</kbd>
+      </label>
+      <div class="top__end">
+        <span class="preview-pill" tabindex="0" data-tip="Every screen and button works so you can review the design. Nothing is saved until the backend is connected." data-tip-pos="bottom"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-eye"/></svg><span>Design preview</span></span>
+        <a class="btn btn--outline btn--sm top__site" href="../index.html" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-external-link"/></svg><span>View website</span></a>
+        <div class="dropdown">
+          <button type="button" class="icon-btn top__bell" data-menu-trigger aria-haspopup="true" aria-expanded="false" aria-label="Notifications, 3 unread"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-bell"/></svg><span class="top__dot" aria-hidden="true"></span></button>
+          <div class="menu menu--notices" data-menu hidden>
+            <div class="menu__head"><span>Notifications</span><button type="button" class="link-btn" data-toast="All marked as read">Mark all as read</button></div>
+            <div class="menu__list">
+            <a class="notice is-unread" href="enquiries.html"><span class="notice__icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-inbox"/></svg></span><span><span class="notice__text">New enquiry from Ananya Parekh about the Royal Heritage Necklace</span><span class="notice__when">12 min ago</span></span></a>
+            <a class="notice is-unread" href="appointments.html"><span class="notice__icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-calendar-check"/></svg></span><span><span class="notice__text">Hetal Desai confirmed her bridal consultation for today, 11:30 AM</span><span class="notice__when">1 hr ago</span></span></a>
+            <a class="notice is-unread" href="enquiries.html"><span class="notice__icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-inbox"/></svg></span><span><span class="notice__text">New enquiry from Kunal Shah about the Diamond Tennis Bracelet</span><span class="notice__when">3 hrs ago</span></span></a>
+            <a class="notice" href="products.html?flags=photos"><span class="notice__icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-image"/></svg></span><span><span class="notice__text">4 mangalsutra pieces are still waiting for photographs</span><span class="notice__when">Yesterday</span></span></a>
+            <a class="notice" href="subscribers.html"><span class="notice__icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-mail"/></svg></span><span><span class="notice__text">58 people subscribed to the newsletter this month</span><span class="notice__when">2 days ago</span></span></a>
+            </div>
+          </div>
+        </div>
+        <div class="dropdown">
+          <button type="button" class="top__user" data-menu-trigger aria-haspopup="menu" aria-expanded="false">
+            <span class="avatar avatar--t3" aria-hidden="true">RM</span>
+            <span class="top__user-text"><span class="top__user-name">Rohan Mehta</span><span class="top__user-role">Owner</span></span>
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chevron-down"/></svg>
+          </button>
+          <div class="menu" data-menu role="menu" hidden>
+            <a role="menuitem" href="users.html"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-user-round"/></svg>Your profile</a>
+            <a role="menuitem" href="settings.html"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-settings"/></svg>Settings</a>
+            <a role="menuitem" href="../index.html" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-external-link"/></svg>View website</a>
+            <hr>
+            <a role="menuitem" href="login.html"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-log-out"/></svg>Sign out</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="adm__content" id="content">
+      <header class="ph">
+        <div>
+          <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Dashboard</a><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chevron-right"/></svg><span aria-current="page">Enquiries</span></nav>
+          <h1 class="ph__title">Enquiries</h1>
+          <p class="ph__desc">Messages from the Enquire button on product pages and from the contact form.</p>
+        </div>
+        <div class="ph__actions">
+          <button type="button" class="btn btn--outline" data-toast="Export started" data-toast-text="enquiries.csv downloads once the backend is connected."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-download"/></svg> Export</button>
+        </div>
+      </header>
+
+      <section class="card inbox" data-inbox>
+        <div class="inbox__list" data-list-scope>
+          <div class="inbox__controls">
+            <label class="search"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-search"/></svg><span class="sr-only">Search enquiries</span><input class="input" type="search" placeholder="Search 9 enquiries…" data-list-search></label>
+            <div class="chips chips--tight"><button type="button" class="chip chip--sm is-active" data-list-chip="status" data-value="" aria-pressed="true">All<span class="chip__count">9</span></button><button type="button" class="chip chip--sm" data-list-chip="status" data-value="new" aria-pressed="false">New<span class="chip__count">3</span></button><button type="button" class="chip chip--sm" data-list-chip="status" data-value="replied" aria-pressed="false">Replied<span class="chip__count">3</span></button><button type="button" class="chip chip--sm" data-list-chip="status" data-value="closed" aria-pressed="false">Closed<span class="chip__count">3</span></button></div>
+            <select class="select select--sm" data-list-filter="source" aria-label="Where the enquiry came from"><option value="">Every source</option><option value="product">Product pages</option><option value="contact">Contact form</option></select>
+          </div>
+          <ul class="inbox__items" data-list>
+            <li data-item data-status="new" data-source="product" data-search="ananya parekh royal heritage necklace hello, i love the royal heritage necklace. is it available in a slightly shorter length? i would also like to see it with the matching earrings before my sister's wedding in december.">
+              <button type="button" class="inbox__item is-unread" data-thread-open="0" aria-current="true">
+                <span class="avatar avatar--t3" aria-hidden="true">AP</span>
+                <span class="inbox__body">
+                  <span class="inbox__top"><span class="inbox__name">Ananya Parekh</span><span class="inbox__time">12 min</span></span>
+                  <span class="inbox__subject">Royal Heritage Necklace</span>
+                  <span class="inbox__snippet">Hello, I love the Royal Heritage Necklace. Is it available in a slightly shorter length? I would also like to see it with the matching earrings before my sister's wedding in December.</span>
+                  <span class="inbox__meta"><span class="badge badge--info">New</span><span class="inbox__source">Product page</span></span>
+                </span>
+              </button>
+            </li>
+            <li data-item data-status="new" data-source="contact" data-search="hetal desai bridal consultation we are planning a wedding in february and would like a private bridal consultation for the full set — necklace, jhumkas, bangles and tikka. are weekend slots available in october?">
+              <button type="button" class="inbox__item is-unread" data-thread-open="1">
+                <span class="avatar avatar--t0" aria-hidden="true">HD</span>
+                <span class="inbox__body">
+                  <span class="inbox__top"><span class="inbox__name">Hetal Desai</span><span class="inbox__time">1 hr</span></span>
+                  <span class="inbox__subject">Bridal consultation</span>
+                  <span class="inbox__snippet">We are planning a wedding in February and would like a private bridal consultation for the full set — necklace, jhumkas, bangles and tikka. Are weekend slots available in October?</span>
+                  <span class="inbox__meta"><span class="badge badge--info">New</span><span class="inbox__source">Contact form</span></span>
+                </span>
+              </button>
+            </li>
+            <li data-item data-status="new" data-source="product" data-search="kunal shah diamond tennis bracelet could you share the diamond weight and clarity for this bracelet? i am looking for an anniversary gift and would like it engraved on the clasp if possible.">
+              <button type="button" class="inbox__item is-unread" data-thread-open="2">
+                <span class="avatar avatar--t3" aria-hidden="true">KS</span>
+                <span class="inbox__body">
+                  <span class="inbox__top"><span class="inbox__name">Kunal Shah</span><span class="inbox__time">3 hrs</span></span>
+                  <span class="inbox__subject">Diamond Tennis Bracelet</span>
+                  <span class="inbox__snippet">Could you share the diamond weight and clarity for this bracelet? I am looking for an anniversary gift and would like it engraved on the clasp if possible.</span>
+                  <span class="inbox__meta"><span class="badge badge--info">New</span><span class="inbox__source">Product page</span></span>
+                </span>
+              </button>
+            </li>
+            <li data-item data-status="replied" data-source="contact" data-search="meera iyer bespoke commission i have my grandmother's old kundan pieces. could your karigars reset the stones into a lighter, modern choker? happy to bring them in.">
+              <button type="button" class="inbox__item" data-thread-open="3">
+                <span class="avatar avatar--t3" aria-hidden="true">MI</span>
+                <span class="inbox__body">
+                  <span class="inbox__top"><span class="inbox__name">Meera Iyer</span><span class="inbox__time">Yesterday</span></span>
+                  <span class="inbox__subject">Bespoke commission</span>
+                  <span class="inbox__snippet">I have my grandmother's old kundan pieces. Could your karigars reset the stones into a lighter, modern choker? Happy to bring them in.</span>
+                  <span class="inbox__meta"><span class="badge badge--ok">Replied</span><span class="inbox__source">Contact form</span></span>
+                </span>
+              </button>
+            </li>
+            <li data-item data-status="replied" data-source="product" data-search="riya trivedi maharani bridal jhumka are the maharani jhumkas heavy? i would like to wear them through a full day of ceremonies.">
+              <button type="button" class="inbox__item" data-thread-open="4">
+                <span class="avatar avatar--t0" aria-hidden="true">RT</span>
+                <span class="inbox__body">
+                  <span class="inbox__top"><span class="inbox__name">Riya Trivedi</span><span class="inbox__time">Yesterday</span></span>
+                  <span class="inbox__subject">Maharani Bridal Jhumka</span>
+                  <span class="inbox__snippet">Are the Maharani jhumkas heavy? I would like to wear them through a full day of ceremonies.</span>
+                  <span class="inbox__meta"><span class="badge badge--ok">Replied</span><span class="inbox__source">Product page</span></span>
+                </span>
+              </button>
+            </li>
+            <li data-item data-status="replied" data-source="contact" data-search="aarav kapadia care &amp; repairs one of the hooks on my kada has loosened. do you repair pieces bought five years ago?">
+              <button type="button" class="inbox__item" data-thread-open="5">
+                <span class="avatar avatar--t2" aria-hidden="true">AK</span>
+                <span class="inbox__body">
+                  <span class="inbox__top"><span class="inbox__name">Aarav Kapadia</span><span class="inbox__time">2 days</span></span>
+                  <span class="inbox__subject">Care &amp; repairs</span>
+                  <span class="inbox__snippet">One of the hooks on my kada has loosened. Do you repair pieces bought five years ago?</span>
+                  <span class="inbox__meta"><span class="badge badge--ok">Replied</span><span class="inbox__source">Contact form</span></span>
+                </span>
+              </button>
+            </li>
+            <li data-item data-status="closed" data-source="product" data-search="nisha mehta classic jhumka do these jhumkas come with screw backs? buying for my mother.">
+              <button type="button" class="inbox__item" data-thread-open="6">
+                <span class="avatar avatar--t2" aria-hidden="true">NM</span>
+                <span class="inbox__body">
+                  <span class="inbox__top"><span class="inbox__name">Nisha Mehta</span><span class="inbox__time">3 days</span></span>
+                  <span class="inbox__subject">Classic Jhumka</span>
+                  <span class="inbox__snippet">Do these jhumkas come with screw backs? Buying for my mother.</span>
+                  <span class="inbox__meta"><span class="badge badge--neutral">Closed</span><span class="inbox__source">Product page</span></span>
+                </span>
+              </button>
+            </li>
+            <li data-item data-status="closed" data-source="contact" data-search="tanvi rao general enquiry are you open on sundays during navratri? we would like to visit as a family.">
+              <button type="button" class="inbox__item" data-thread-open="7">
+                <span class="avatar avatar--t0" aria-hidden="true">TR</span>
+                <span class="inbox__body">
+                  <span class="inbox__top"><span class="inbox__name">Tanvi Rao</span><span class="inbox__time">5 days</span></span>
+                  <span class="inbox__subject">General enquiry</span>
+                  <span class="inbox__snippet">Are you open on Sundays during Navratri? We would like to visit as a family.</span>
+                  <span class="inbox__meta"><span class="badge badge--neutral">Closed</span><span class="inbox__source">Contact form</span></span>
+                </span>
+              </button>
+            </li>
+            <li data-item data-status="closed" data-source="product" data-search="devang bhatt diamond halo ring can the halo ring be made in 18k rose gold? ring size 14.">
+              <button type="button" class="inbox__item" data-thread-open="8">
+                <span class="avatar avatar--t0" aria-hidden="true">DB</span>
+                <span class="inbox__body">
+                  <span class="inbox__top"><span class="inbox__name">Devang Bhatt</span><span class="inbox__time">1 week</span></span>
+                  <span class="inbox__subject">Diamond Halo Ring</span>
+                  <span class="inbox__snippet">Can the halo ring be made in 18K rose gold? Ring size 14.</span>
+                  <span class="inbox__meta"><span class="badge badge--neutral">Closed</span><span class="inbox__source">Product page</span></span>
+                </span>
+              </button>
+            </li>
+          </ul>
+          <div class="empty empty--sm" data-list-empty hidden><span class="empty__icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-inbox"/></svg></span><p class="empty__title">Nothing here</p><button type="button" class="btn btn--outline btn--sm" data-list-reset>Show every enquiry</button></div>
+        </div>
+        <div class="inbox__thread">
+          <article class="thread" data-thread="0" aria-label="Enquiry from Ananya Parekh">
+            <header class="thread__head">
+              <button type="button" class="icon-btn thread__back" data-thread-back aria-label="Back to all enquiries"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow-left"/></svg></button>
+              <span class="avatar avatar--t3 avatar--lg" aria-hidden="true">AP</span>
+              <div class="thread__who">
+                <h2 class="thread__name">Ananya Parekh</h2>
+                <p class="thread__contact"><a href="mailto:ananya.parekh@example.com"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-mail"/></svg>ananya.parekh@example.com</a><a href="tel:+919876543210"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-phone"/></svg>+91 98765 43210</a></p>
+              </div>
+              <div class="thread__tools">
+                <select class="select select--sm" aria-label="Status of this enquiry" data-change-toast="Status updated"><option value="new" selected>New</option><option value="replied">Replied</option><option value="closed">Closed</option></select>
+                <div class="dropdown"><button type="button" class="icon-btn icon-btn--sm" data-menu-trigger aria-haspopup="menu" aria-expanded="false" aria-label="More actions for Ananya Parekh"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ellipsis"/></svg></button><div class="menu" data-menu role="menu" hidden><button type="button" role="menuitem" data-dialog-open="appointment-dialog" data-fill="{&quot;title&quot;:&quot;New appointment&quot;,&quot;name&quot;:&quot;Ananya Parekh&quot;,&quot;phone&quot;:&quot;+91 98765 43210&quot;,&quot;date&quot;:&quot;2026-09-29&quot;,&quot;status&quot;:&quot;pending&quot;,&quot;notes&quot;:&quot;From enquiry: Royal Heritage Necklace&quot;}"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-calendar-check"/></svg>Book an appointment</button><button type="button" role="menuitem" data-toast="Enquiry archived" data-toast-text="It has moved out of the inbox."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-archive"/></svg>Archive</button><hr><button type="button" role="menuitem" class="is-danger" data-confirm="Delete this enquiry?" data-confirm-text="The message and any replies will be removed. This can't be undone." data-confirm-action="Delete" data-done="Enquiry deleted"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg>Delete</button></div></div>
+              </div>
+            </header>
+            <dl class="facts">
+              <div><dt>Received</dt><dd>Today, 10:42 AM</dd></div>
+              <div><dt>From</dt><dd>Product page</dd></div>
+              <div><dt>Topic</dt><dd>Product enquiry</dd></div>
+            </dl>
+            <a class="thread__product" href="../product.html?slug=royal-heritage-necklace" target="_blank" rel="noopener"><img class="thumb" src="../assets/images/products/necklace-emerald-plaque-sm.jpg" alt="" loading="lazy"><span><span class="cell-title">Royal Heritage Necklace</span><span class="cell-sub">Necklaces · ₹ 28,000</span></span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-external-link"/></svg></a>
+            <div class="msg msg--in"><p>Hello, I love the Royal Heritage Necklace. Is it available in a slightly shorter length? I would also like to see it with the matching earrings before my sister's wedding in December.</p><span class="msg__meta">Ananya · Today, 10:42 AM</span></div>
+            
+            <form class="composer" data-demo data-toast="Reply sent" data-toast-text="Ananya will receive it by email once the backend is connected.">
+              <label class="sr-only" for="reply-0">Reply to Ananya Parekh</label>
+              <textarea class="composer__text" id="reply-0" rows="4" placeholder="Write a reply to Ananya…" data-reply-for="Ananya"></textarea>
+              <div class="composer__foot">
+                <select class="select select--sm" aria-label="Insert a saved reply" data-saved-reply>
+                  <option value="">Saved replies…</option>
+                  <option value="visit">Invite to visit</option>
+                  <option value="bridal">Bridal consultation</option>
+                  <option value="care">Care &amp; repairs</option>
+                </select>
+                <button type="submit" class="btn btn--primary btn--sm"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-send"/></svg> Send reply</button>
+              </div>
+            </form>
+          </article>
+          <article class="thread" data-thread="1" hidden aria-label="Enquiry from Hetal Desai">
+            <header class="thread__head">
+              <button type="button" class="icon-btn thread__back" data-thread-back aria-label="Back to all enquiries"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow-left"/></svg></button>
+              <span class="avatar avatar--t0 avatar--lg" aria-hidden="true">HD</span>
+              <div class="thread__who">
+                <h2 class="thread__name">Hetal Desai</h2>
+                <p class="thread__contact"><a href="mailto:hetal.desai@example.com"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-mail"/></svg>hetal.desai@example.com</a><a href="tel:+919876543211"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-phone"/></svg>+91 98765 43211</a></p>
+              </div>
+              <div class="thread__tools">
+                <select class="select select--sm" aria-label="Status of this enquiry" data-change-toast="Status updated"><option value="new" selected>New</option><option value="replied">Replied</option><option value="closed">Closed</option></select>
+                <div class="dropdown"><button type="button" class="icon-btn icon-btn--sm" data-menu-trigger aria-haspopup="menu" aria-expanded="false" aria-label="More actions for Hetal Desai"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ellipsis"/></svg></button><div class="menu" data-menu role="menu" hidden><button type="button" role="menuitem" data-dialog-open="appointment-dialog" data-fill="{&quot;title&quot;:&quot;New appointment&quot;,&quot;name&quot;:&quot;Hetal Desai&quot;,&quot;phone&quot;:&quot;+91 98765 43211&quot;,&quot;date&quot;:&quot;2026-09-29&quot;,&quot;status&quot;:&quot;pending&quot;,&quot;notes&quot;:&quot;From enquiry: Bridal consultation&quot;}"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-calendar-check"/></svg>Book an appointment</button><button type="button" role="menuitem" data-toast="Enquiry archived" data-toast-text="It has moved out of the inbox."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-archive"/></svg>Archive</button><hr><button type="button" role="menuitem" class="is-danger" data-confirm="Delete this enquiry?" data-confirm-text="The message and any replies will be removed. This can't be undone." data-confirm-action="Delete" data-done="Enquiry deleted"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg>Delete</button></div></div>
+              </div>
+            </header>
+            <dl class="facts">
+              <div><dt>Received</dt><dd>Today, 9:58 AM</dd></div>
+              <div><dt>From</dt><dd>Contact form</dd></div>
+              <div><dt>Topic</dt><dd>Bridal consultation</dd></div>
+            </dl>
+            
+            <div class="msg msg--in"><p>We are planning a wedding in February and would like a private bridal consultation for the full set — necklace, jhumkas, bangles and tikka. Are weekend slots available in October?</p><span class="msg__meta">Hetal · Today, 9:58 AM</span></div>
+            
+            <form class="composer" data-demo data-toast="Reply sent" data-toast-text="Hetal will receive it by email once the backend is connected.">
+              <label class="sr-only" for="reply-1">Reply to Hetal Desai</label>
+              <textarea class="composer__text" id="reply-1" rows="4" placeholder="Write a reply to Hetal…" data-reply-for="Hetal"></textarea>
+              <div class="composer__foot">
+                <select class="select select--sm" aria-label="Insert a saved reply" data-saved-reply>
+                  <option value="">Saved replies…</option>
+                  <option value="visit">Invite to visit</option>
+                  <option value="bridal">Bridal consultation</option>
+                  <option value="care">Care &amp; repairs</option>
+                </select>
+                <button type="submit" class="btn btn--primary btn--sm"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-send"/></svg> Send reply</button>
+              </div>
+            </form>
+          </article>
+          <article class="thread" data-thread="2" hidden aria-label="Enquiry from Kunal Shah">
+            <header class="thread__head">
+              <button type="button" class="icon-btn thread__back" data-thread-back aria-label="Back to all enquiries"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow-left"/></svg></button>
+              <span class="avatar avatar--t3 avatar--lg" aria-hidden="true">KS</span>
+              <div class="thread__who">
+                <h2 class="thread__name">Kunal Shah</h2>
+                <p class="thread__contact"><a href="mailto:kunal.shah@example.com"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-mail"/></svg>kunal.shah@example.com</a><a href="tel:+919876543212"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-phone"/></svg>+91 98765 43212</a></p>
+              </div>
+              <div class="thread__tools">
+                <select class="select select--sm" aria-label="Status of this enquiry" data-change-toast="Status updated"><option value="new" selected>New</option><option value="replied">Replied</option><option value="closed">Closed</option></select>
+                <div class="dropdown"><button type="button" class="icon-btn icon-btn--sm" data-menu-trigger aria-haspopup="menu" aria-expanded="false" aria-label="More actions for Kunal Shah"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ellipsis"/></svg></button><div class="menu" data-menu role="menu" hidden><button type="button" role="menuitem" data-dialog-open="appointment-dialog" data-fill="{&quot;title&quot;:&quot;New appointment&quot;,&quot;name&quot;:&quot;Kunal Shah&quot;,&quot;phone&quot;:&quot;+91 98765 43212&quot;,&quot;date&quot;:&quot;2026-09-29&quot;,&quot;status&quot;:&quot;pending&quot;,&quot;notes&quot;:&quot;From enquiry: Diamond Tennis Bracelet&quot;}"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-calendar-check"/></svg>Book an appointment</button><button type="button" role="menuitem" data-toast="Enquiry archived" data-toast-text="It has moved out of the inbox."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-archive"/></svg>Archive</button><hr><button type="button" role="menuitem" class="is-danger" data-confirm="Delete this enquiry?" data-confirm-text="The message and any replies will be removed. This can't be undone." data-confirm-action="Delete" data-done="Enquiry deleted"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg>Delete</button></div></div>
+              </div>
+            </header>
+            <dl class="facts">
+              <div><dt>Received</dt><dd>Today, 7:31 AM</dd></div>
+              <div><dt>From</dt><dd>Product page</dd></div>
+              <div><dt>Topic</dt><dd>Product enquiry</dd></div>
+            </dl>
+            <a class="thread__product" href="../product.html?slug=diamond-tennis-bracelet" target="_blank" rel="noopener"><img class="thumb" src="../assets/images/products/bracelet-rose-diamond-2-sm.jpg" alt="" loading="lazy"><span><span class="cell-title">Diamond Tennis Bracelet</span><span class="cell-sub">Bracelets · ₹ 56,500</span></span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-external-link"/></svg></a>
+            <div class="msg msg--in"><p>Could you share the diamond weight and clarity for this bracelet? I am looking for an anniversary gift and would like it engraved on the clasp if possible.</p><span class="msg__meta">Kunal · Today, 7:31 AM</span></div>
+            
+            <form class="composer" data-demo data-toast="Reply sent" data-toast-text="Kunal will receive it by email once the backend is connected.">
+              <label class="sr-only" for="reply-2">Reply to Kunal Shah</label>
+              <textarea class="composer__text" id="reply-2" rows="4" placeholder="Write a reply to Kunal…" data-reply-for="Kunal"></textarea>
+              <div class="composer__foot">
+                <select class="select select--sm" aria-label="Insert a saved reply" data-saved-reply>
+                  <option value="">Saved replies…</option>
+                  <option value="visit">Invite to visit</option>
+                  <option value="bridal">Bridal consultation</option>
+                  <option value="care">Care &amp; repairs</option>
+                </select>
+                <button type="submit" class="btn btn--primary btn--sm"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-send"/></svg> Send reply</button>
+              </div>
+            </form>
+          </article>
+          <article class="thread" data-thread="3" hidden aria-label="Enquiry from Meera Iyer">
+            <header class="thread__head">
+              <button type="button" class="icon-btn thread__back" data-thread-back aria-label="Back to all enquiries"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow-left"/></svg></button>
+              <span class="avatar avatar--t3 avatar--lg" aria-hidden="true">MI</span>
+              <div class="thread__who">
+                <h2 class="thread__name">Meera Iyer</h2>
+                <p class="thread__contact"><a href="mailto:meera.iyer@example.com"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-mail"/></svg>meera.iyer@example.com</a><a href="tel:+919876543213"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-phone"/></svg>+91 98765 43213</a></p>
+              </div>
+              <div class="thread__tools">
+                <select class="select select--sm" aria-label="Status of this enquiry" data-change-toast="Status updated"><option value="new">New</option><option value="replied" selected>Replied</option><option value="closed">Closed</option></select>
+                <div class="dropdown"><button type="button" class="icon-btn icon-btn--sm" data-menu-trigger aria-haspopup="menu" aria-expanded="false" aria-label="More actions for Meera Iyer"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ellipsis"/></svg></button><div class="menu" data-menu role="menu" hidden><button type="button" role="menuitem" data-dialog-open="appointment-dialog" data-fill="{&quot;title&quot;:&quot;New appointment&quot;,&quot;name&quot;:&quot;Meera Iyer&quot;,&quot;phone&quot;:&quot;+91 98765 43213&quot;,&quot;date&quot;:&quot;2026-09-29&quot;,&quot;status&quot;:&quot;pending&quot;,&quot;notes&quot;:&quot;From enquiry: Bespoke commission&quot;}"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-calendar-check"/></svg>Book an appointment</button><button type="button" role="menuitem" data-toast="Enquiry archived" data-toast-text="It has moved out of the inbox."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-archive"/></svg>Archive</button><hr><button type="button" role="menuitem" class="is-danger" data-confirm="Delete this enquiry?" data-confirm-text="The message and any replies will be removed. This can't be undone." data-confirm-action="Delete" data-done="Enquiry deleted"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg>Delete</button></div></div>
+              </div>
+            </header>
+            <dl class="facts">
+              <div><dt>Received</dt><dd>Yesterday, 6:15 PM</dd></div>
+              <div><dt>From</dt><dd>Contact form</dd></div>
+              <div><dt>Topic</dt><dd>Bespoke commission</dd></div>
+            </dl>
+            
+            <div class="msg msg--in"><p>I have my grandmother's old kundan pieces. Could your karigars reset the stones into a lighter, modern choker? Happy to bring them in.</p><span class="msg__meta">Meera · Yesterday, 6:15 PM</span></div>
+            <div class="msg msg--out"><p>Thank you, Meera — we would be honoured. Please bring the pieces to Mangalam House; our designer will sketch two options for you on the day.</p><span class="msg__meta">Kavya Shah · Yesterday, 7:02 PM</span></div>
+            <form class="composer" data-demo data-toast="Reply sent" data-toast-text="Meera will receive it by email once the backend is connected.">
+              <label class="sr-only" for="reply-3">Reply to Meera Iyer</label>
+              <textarea class="composer__text" id="reply-3" rows="4" placeholder="Write a reply to Meera…" data-reply-for="Meera"></textarea>
+              <div class="composer__foot">
+                <select class="select select--sm" aria-label="Insert a saved reply" data-saved-reply>
+                  <option value="">Saved replies…</option>
+                  <option value="visit">Invite to visit</option>
+                  <option value="bridal">Bridal consultation</option>
+                  <option value="care">Care &amp; repairs</option>
+                </select>
+                <button type="submit" class="btn btn--primary btn--sm"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-send"/></svg> Send reply</button>
+              </div>
+            </form>
+          </article>
+          <article class="thread" data-thread="4" hidden aria-label="Enquiry from Riya Trivedi">
+            <header class="thread__head">
+              <button type="button" class="icon-btn thread__back" data-thread-back aria-label="Back to all enquiries"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow-left"/></svg></button>
+              <span class="avatar avatar--t0 avatar--lg" aria-hidden="true">RT</span>
+              <div class="thread__who">
+                <h2 class="thread__name">Riya Trivedi</h2>
+                <p class="thread__contact"><a href="mailto:riya.trivedi@example.com"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-mail"/></svg>riya.trivedi@example.com</a><a href="tel:+919876543214"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-phone"/></svg>+91 98765 43214</a></p>
+              </div>
+              <div class="thread__tools">
+                <select class="select select--sm" aria-label="Status of this enquiry" data-change-toast="Status updated"><option value="new">New</option><option value="replied" selected>Replied</option><option value="closed">Closed</option></select>
+                <div class="dropdown"><button type="button" class="icon-btn icon-btn--sm" data-menu-trigger aria-haspopup="menu" aria-expanded="false" aria-label="More actions for Riya Trivedi"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ellipsis"/></svg></button><div class="menu" data-menu role="menu" hidden><button type="button" role="menuitem" data-dialog-open="appointment-dialog" data-fill="{&quot;title&quot;:&quot;New appointment&quot;,&quot;name&quot;:&quot;Riya Trivedi&quot;,&quot;phone&quot;:&quot;+91 98765 43214&quot;,&quot;date&quot;:&quot;2026-09-29&quot;,&quot;status&quot;:&quot;pending&quot;,&quot;notes&quot;:&quot;From enquiry: Maharani Bridal Jhumka&quot;}"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-calendar-check"/></svg>Book an appointment</button><button type="button" role="menuitem" data-toast="Enquiry archived" data-toast-text="It has moved out of the inbox."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-archive"/></svg>Archive</button><hr><button type="button" role="menuitem" class="is-danger" data-confirm="Delete this enquiry?" data-confirm-text="The message and any replies will be removed. This can't be undone." data-confirm-action="Delete" data-done="Enquiry deleted"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg>Delete</button></div></div>
+              </div>
+            </header>
+            <dl class="facts">
+              <div><dt>Received</dt><dd>Yesterday, 1:20 PM</dd></div>
+              <div><dt>From</dt><dd>Product page</dd></div>
+              <div><dt>Topic</dt><dd>Product enquiry</dd></div>
+            </dl>
+            <a class="thread__product" href="../product.html?slug=maharani-bridal-jhumka" target="_blank" rel="noopener"><img class="thumb" src="../assets/images/products/earring-chandelier-sm.jpg" alt="" loading="lazy"><span><span class="cell-title">Maharani Bridal Jhumka</span><span class="cell-sub">Bridal · ₹ 98,750</span></span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-external-link"/></svg></a>
+            <div class="msg msg--in"><p>Are the Maharani jhumkas heavy? I would like to wear them through a full day of ceremonies.</p><span class="msg__meta">Riya · Yesterday, 1:20 PM</span></div>
+            <div class="msg msg--out"><p>Hi Riya, each earring weighs about 18 g and has a support chain, so they stay comfortable all day. Would you like to try them in store?</p><span class="msg__meta">Isha Vyas · Yesterday, 3:45 PM</span></div>
+            <form class="composer" data-demo data-toast="Reply sent" data-toast-text="Riya will receive it by email once the backend is connected.">
+              <label class="sr-only" for="reply-4">Reply to Riya Trivedi</label>
+              <textarea class="composer__text" id="reply-4" rows="4" placeholder="Write a reply to Riya…" data-reply-for="Riya"></textarea>
+              <div class="composer__foot">
+                <select class="select select--sm" aria-label="Insert a saved reply" data-saved-reply>
+                  <option value="">Saved replies…</option>
+                  <option value="visit">Invite to visit</option>
+                  <option value="bridal">Bridal consultation</option>
+                  <option value="care">Care &amp; repairs</option>
+                </select>
+                <button type="submit" class="btn btn--primary btn--sm"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-send"/></svg> Send reply</button>
+              </div>
+            </form>
+          </article>
+          <article class="thread" data-thread="5" hidden aria-label="Enquiry from Aarav Kapadia">
+            <header class="thread__head">
+              <button type="button" class="icon-btn thread__back" data-thread-back aria-label="Back to all enquiries"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow-left"/></svg></button>
+              <span class="avatar avatar--t2 avatar--lg" aria-hidden="true">AK</span>
+              <div class="thread__who">
+                <h2 class="thread__name">Aarav Kapadia</h2>
+                <p class="thread__contact"><a href="mailto:aarav.kapadia@example.com"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-mail"/></svg>aarav.kapadia@example.com</a><a href="tel:+919876543215"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-phone"/></svg>+91 98765 43215</a></p>
+              </div>
+              <div class="thread__tools">
+                <select class="select select--sm" aria-label="Status of this enquiry" data-change-toast="Status updated"><option value="new">New</option><option value="replied" selected>Replied</option><option value="closed">Closed</option></select>
+                <div class="dropdown"><button type="button" class="icon-btn icon-btn--sm" data-menu-trigger aria-haspopup="menu" aria-expanded="false" aria-label="More actions for Aarav Kapadia"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ellipsis"/></svg></button><div class="menu" data-menu role="menu" hidden><button type="button" role="menuitem" data-dialog-open="appointment-dialog" data-fill="{&quot;title&quot;:&quot;New appointment&quot;,&quot;name&quot;:&quot;Aarav Kapadia&quot;,&quot;phone&quot;:&quot;+91 98765 43215&quot;,&quot;date&quot;:&quot;2026-09-29&quot;,&quot;status&quot;:&quot;pending&quot;,&quot;notes&quot;:&quot;From enquiry: Care &amp; repairs&quot;}"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-calendar-check"/></svg>Book an appointment</button><button type="button" role="menuitem" data-toast="Enquiry archived" data-toast-text="It has moved out of the inbox."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-archive"/></svg>Archive</button><hr><button type="button" role="menuitem" class="is-danger" data-confirm="Delete this enquiry?" data-confirm-text="The message and any replies will be removed. This can't be undone." data-confirm-action="Delete" data-done="Enquiry deleted"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg>Delete</button></div></div>
+              </div>
+            </header>
+            <dl class="facts">
+              <div><dt>Received</dt><dd>Wed, 11:05 AM</dd></div>
+              <div><dt>From</dt><dd>Contact form</dd></div>
+              <div><dt>Topic</dt><dd>Care &amp; repairs</dd></div>
+            </dl>
+            
+            <div class="msg msg--in"><p>One of the hooks on my kada has loosened. Do you repair pieces bought five years ago?</p><span class="msg__meta">Aarav · Wed, 11:05 AM</span></div>
+            <div class="msg msg--out"><p>Of course — repairs on Mangalam pieces are free for life. Drop it in any day between 10:30 and 8:30.</p><span class="msg__meta">Isha Vyas · Wed, 12:30 PM</span></div>
+            <form class="composer" data-demo data-toast="Reply sent" data-toast-text="Aarav will receive it by email once the backend is connected.">
+              <label class="sr-only" for="reply-5">Reply to Aarav Kapadia</label>
+              <textarea class="composer__text" id="reply-5" rows="4" placeholder="Write a reply to Aarav…" data-reply-for="Aarav"></textarea>
+              <div class="composer__foot">
+                <select class="select select--sm" aria-label="Insert a saved reply" data-saved-reply>
+                  <option value="">Saved replies…</option>
+                  <option value="visit">Invite to visit</option>
+                  <option value="bridal">Bridal consultation</option>
+                  <option value="care">Care &amp; repairs</option>
+                </select>
+                <button type="submit" class="btn btn--primary btn--sm"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-send"/></svg> Send reply</button>
+              </div>
+            </form>
+          </article>
+          <article class="thread" data-thread="6" hidden aria-label="Enquiry from Nisha Mehta">
+            <header class="thread__head">
+              <button type="button" class="icon-btn thread__back" data-thread-back aria-label="Back to all enquiries"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow-left"/></svg></button>
+              <span class="avatar avatar--t2 avatar--lg" aria-hidden="true">NM</span>
+              <div class="thread__who">
+                <h2 class="thread__name">Nisha Mehta</h2>
+                <p class="thread__contact"><a href="mailto:nisha.mehta@example.com"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-mail"/></svg>nisha.mehta@example.com</a><a href="tel:+919876543216"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-phone"/></svg>+91 98765 43216</a></p>
+              </div>
+              <div class="thread__tools">
+                <select class="select select--sm" aria-label="Status of this enquiry" data-change-toast="Status updated"><option value="new">New</option><option value="replied">Replied</option><option value="closed" selected>Closed</option></select>
+                <div class="dropdown"><button type="button" class="icon-btn icon-btn--sm" data-menu-trigger aria-haspopup="menu" aria-expanded="false" aria-label="More actions for Nisha Mehta"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ellipsis"/></svg></button><div class="menu" data-menu role="menu" hidden><button type="button" role="menuitem" data-dialog-open="appointment-dialog" data-fill="{&quot;title&quot;:&quot;New appointment&quot;,&quot;name&quot;:&quot;Nisha Mehta&quot;,&quot;phone&quot;:&quot;+91 98765 43216&quot;,&quot;date&quot;:&quot;2026-09-29&quot;,&quot;status&quot;:&quot;pending&quot;,&quot;notes&quot;:&quot;From enquiry: Classic Jhumka&quot;}"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-calendar-check"/></svg>Book an appointment</button><button type="button" role="menuitem" data-toast="Enquiry archived" data-toast-text="It has moved out of the inbox."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-archive"/></svg>Archive</button><hr><button type="button" role="menuitem" class="is-danger" data-confirm="Delete this enquiry?" data-confirm-text="The message and any replies will be removed. This can't be undone." data-confirm-action="Delete" data-done="Enquiry deleted"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg>Delete</button></div></div>
+              </div>
+            </header>
+            <dl class="facts">
+              <div><dt>Received</dt><dd>Tue, 4:40 PM</dd></div>
+              <div><dt>From</dt><dd>Product page</dd></div>
+              <div><dt>Topic</dt><dd>Product enquiry</dd></div>
+            </dl>
+            <a class="thread__product" href="../product.html?slug=classic-jhumka" target="_blank" rel="noopener"><img class="thumb" src="../assets/images/products/earring-jhumka-sm.jpg" alt="" loading="lazy"><span><span class="cell-title">Classic Jhumka</span><span class="cell-sub">Earrings · ₹ 37,500</span></span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-external-link"/></svg></a>
+            <div class="msg msg--in"><p>Do these jhumkas come with screw backs? Buying for my mother.</p><span class="msg__meta">Nisha · Tue, 4:40 PM</span></div>
+            
+            <form class="composer" data-demo data-toast="Reply sent" data-toast-text="Nisha will receive it by email once the backend is connected.">
+              <label class="sr-only" for="reply-6">Reply to Nisha Mehta</label>
+              <textarea class="composer__text" id="reply-6" rows="4" placeholder="Write a reply to Nisha…" data-reply-for="Nisha"></textarea>
+              <div class="composer__foot">
+                <select class="select select--sm" aria-label="Insert a saved reply" data-saved-reply>
+                  <option value="">Saved replies…</option>
+                  <option value="visit">Invite to visit</option>
+                  <option value="bridal">Bridal consultation</option>
+                  <option value="care">Care &amp; repairs</option>
+                </select>
+                <button type="submit" class="btn btn--primary btn--sm"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-send"/></svg> Send reply</button>
+              </div>
+            </form>
+          </article>
+          <article class="thread" data-thread="7" hidden aria-label="Enquiry from Tanvi Rao">
+            <header class="thread__head">
+              <button type="button" class="icon-btn thread__back" data-thread-back aria-label="Back to all enquiries"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow-left"/></svg></button>
+              <span class="avatar avatar--t0 avatar--lg" aria-hidden="true">TR</span>
+              <div class="thread__who">
+                <h2 class="thread__name">Tanvi Rao</h2>
+                <p class="thread__contact"><a href="mailto:tanvi.rao@example.com"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-mail"/></svg>tanvi.rao@example.com</a><a href="tel:+919876543217"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-phone"/></svg>+91 98765 43217</a></p>
+              </div>
+              <div class="thread__tools">
+                <select class="select select--sm" aria-label="Status of this enquiry" data-change-toast="Status updated"><option value="new">New</option><option value="replied">Replied</option><option value="closed" selected>Closed</option></select>
+                <div class="dropdown"><button type="button" class="icon-btn icon-btn--sm" data-menu-trigger aria-haspopup="menu" aria-expanded="false" aria-label="More actions for Tanvi Rao"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ellipsis"/></svg></button><div class="menu" data-menu role="menu" hidden><button type="button" role="menuitem" data-dialog-open="appointment-dialog" data-fill="{&quot;title&quot;:&quot;New appointment&quot;,&quot;name&quot;:&quot;Tanvi Rao&quot;,&quot;phone&quot;:&quot;+91 98765 43217&quot;,&quot;date&quot;:&quot;2026-09-29&quot;,&quot;status&quot;:&quot;pending&quot;,&quot;notes&quot;:&quot;From enquiry: General enquiry&quot;}"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-calendar-check"/></svg>Book an appointment</button><button type="button" role="menuitem" data-toast="Enquiry archived" data-toast-text="It has moved out of the inbox."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-archive"/></svg>Archive</button><hr><button type="button" role="menuitem" class="is-danger" data-confirm="Delete this enquiry?" data-confirm-text="The message and any replies will be removed. This can't be undone." data-confirm-action="Delete" data-done="Enquiry deleted"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg>Delete</button></div></div>
+              </div>
+            </header>
+            <dl class="facts">
+              <div><dt>Received</dt><dd>Sun, 12:10 PM</dd></div>
+              <div><dt>From</dt><dd>Contact form</dd></div>
+              <div><dt>Topic</dt><dd>General enquiry</dd></div>
+            </dl>
+            
+            <div class="msg msg--in"><p>Are you open on Sundays during Navratri? We would like to visit as a family.</p><span class="msg__meta">Tanvi · Sun, 12:10 PM</span></div>
+            
+            <form class="composer" data-demo data-toast="Reply sent" data-toast-text="Tanvi will receive it by email once the backend is connected.">
+              <label class="sr-only" for="reply-7">Reply to Tanvi Rao</label>
+              <textarea class="composer__text" id="reply-7" rows="4" placeholder="Write a reply to Tanvi…" data-reply-for="Tanvi"></textarea>
+              <div class="composer__foot">
+                <select class="select select--sm" aria-label="Insert a saved reply" data-saved-reply>
+                  <option value="">Saved replies…</option>
+                  <option value="visit">Invite to visit</option>
+                  <option value="bridal">Bridal consultation</option>
+                  <option value="care">Care &amp; repairs</option>
+                </select>
+                <button type="submit" class="btn btn--primary btn--sm"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-send"/></svg> Send reply</button>
+              </div>
+            </form>
+          </article>
+          <article class="thread" data-thread="8" hidden aria-label="Enquiry from Devang Bhatt">
+            <header class="thread__head">
+              <button type="button" class="icon-btn thread__back" data-thread-back aria-label="Back to all enquiries"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow-left"/></svg></button>
+              <span class="avatar avatar--t0 avatar--lg" aria-hidden="true">DB</span>
+              <div class="thread__who">
+                <h2 class="thread__name">Devang Bhatt</h2>
+                <p class="thread__contact"><a href="mailto:devang.bhatt@example.com"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-mail"/></svg>devang.bhatt@example.com</a><a href="tel:+919876543218"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-phone"/></svg>+91 98765 43218</a></p>
+              </div>
+              <div class="thread__tools">
+                <select class="select select--sm" aria-label="Status of this enquiry" data-change-toast="Status updated"><option value="new">New</option><option value="replied">Replied</option><option value="closed" selected>Closed</option></select>
+                <div class="dropdown"><button type="button" class="icon-btn icon-btn--sm" data-menu-trigger aria-haspopup="menu" aria-expanded="false" aria-label="More actions for Devang Bhatt"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ellipsis"/></svg></button><div class="menu" data-menu role="menu" hidden><button type="button" role="menuitem" data-dialog-open="appointment-dialog" data-fill="{&quot;title&quot;:&quot;New appointment&quot;,&quot;name&quot;:&quot;Devang Bhatt&quot;,&quot;phone&quot;:&quot;+91 98765 43218&quot;,&quot;date&quot;:&quot;2026-09-29&quot;,&quot;status&quot;:&quot;pending&quot;,&quot;notes&quot;:&quot;From enquiry: Diamond Halo Ring&quot;}"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-calendar-check"/></svg>Book an appointment</button><button type="button" role="menuitem" data-toast="Enquiry archived" data-toast-text="It has moved out of the inbox."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-archive"/></svg>Archive</button><hr><button type="button" role="menuitem" class="is-danger" data-confirm="Delete this enquiry?" data-confirm-text="The message and any replies will be removed. This can't be undone." data-confirm-action="Delete" data-done="Enquiry deleted"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg>Delete</button></div></div>
+              </div>
+            </header>
+            <dl class="facts">
+              <div><dt>Received</dt><dd>19 Sep, 5:25 PM</dd></div>
+              <div><dt>From</dt><dd>Product page</dd></div>
+              <div><dt>Topic</dt><dd>Product enquiry</dd></div>
+            </dl>
+            <a class="thread__product" href="../product.html?slug=diamond-halo-ring" target="_blank" rel="noopener"><img class="thumb" src="../assets/images/products/ring-sage-polki-sm.jpg" alt="" loading="lazy"><span><span class="cell-title">Diamond Halo Ring</span><span class="cell-sub">Rings · ₹ 46,000</span></span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-external-link"/></svg></a>
+            <div class="msg msg--in"><p>Can the halo ring be made in 18K rose gold? Ring size 14.</p><span class="msg__meta">Devang · 19 Sep, 5:25 PM</span></div>
+            
+            <form class="composer" data-demo data-toast="Reply sent" data-toast-text="Devang will receive it by email once the backend is connected.">
+              <label class="sr-only" for="reply-8">Reply to Devang Bhatt</label>
+              <textarea class="composer__text" id="reply-8" rows="4" placeholder="Write a reply to Devang…" data-reply-for="Devang"></textarea>
+              <div class="composer__foot">
+                <select class="select select--sm" aria-label="Insert a saved reply" data-saved-reply>
+                  <option value="">Saved replies…</option>
+                  <option value="visit">Invite to visit</option>
+                  <option value="bridal">Bridal consultation</option>
+                  <option value="care">Care &amp; repairs</option>
+                </select>
+                <button type="submit" class="btn btn--primary btn--sm"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-send"/></svg> Send reply</button>
+              </div>
+            </form>
+          </article>
+        </div>
+      </section>
+
+      <dialog class="dialog" id="appointment-dialog" aria-labelledby="appointment-dialog-title">
+        <form class="dialog__panel" data-demo data-toast="Appointment saved" data-toast-text="The customer would receive a confirmation by SMS and email.">
+          <header class="dialog__head">
+            <div><p class="dialog__eyebrow">Appointment</p><h2 class="dialog__title" id="appointment-dialog-title" data-fill-text="title">New appointment</h2></div>
+            <button type="button" class="icon-btn" data-dialog-close aria-label="Close"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-x"/></svg></button>
+          </header>
+          <div class="dialog__body stack">
+            <div class="form-grid">
+              <label class="field"><span class="field__label">Customer</span><input class="input" name="name" required autocomplete="off"></label>
+              <label class="field"><span class="field__label">Phone</span><input class="input" type="tel" name="phone" autocomplete="off"></label>
+              <label class="field"><span class="field__label">Date</span><input class="input" type="date" name="date" required></label>
+              <label class="field"><span class="field__label">Time</span><select class="select" name="time"><option value="10:30 AM">10:30 AM</option><option value="11:00 AM">11:00 AM</option><option value="11:30 AM">11:30 AM</option><option value="12:00 PM">12:00 PM</option><option value="12:30 PM">12:30 PM</option><option value="1:00 PM">1:00 PM</option><option value="1:30 PM">1:30 PM</option><option value="2:00 PM">2:00 PM</option><option value="2:30 PM">2:30 PM</option><option value="3:00 PM">3:00 PM</option><option value="3:30 PM">3:30 PM</option><option value="4:00 PM">4:00 PM</option><option value="4:30 PM">4:30 PM</option><option value="5:00 PM">5:00 PM</option><option value="5:30 PM">5:30 PM</option><option value="6:00 PM">6:00 PM</option><option value="6:30 PM">6:30 PM</option><option value="7:00 PM">7:00 PM</option><option value="7:30 PM">7:30 PM</option><option value="8:00 PM">8:00 PM</option></select></label>
+              <label class="field"><span class="field__label">Interested in</span><select class="select" name="interest"><option value="Bridal jewellery">Bridal jewellery</option><option value="Gold jewellery">Gold jewellery</option><option value="Diamond jewellery">Diamond jewellery</option><option value="Bespoke commission">Bespoke commission</option></select></label>
+              <label class="field"><span class="field__label">Consultant</span><select class="select" name="consultant"><option value="Rohan Mehta">Rohan Mehta</option><option value="Kavya Shah">Kavya Shah</option><option value="Isha Vyas">Isha Vyas</option></select></label>
+            </div>
+            <div class="field">
+              <span class="field__label" id="appointment-status-label">Status</span>
+              <div class="seg seg--wrap" role="radiogroup" aria-labelledby="appointment-status-label">
+                <label><input type="radio" name="status" value="confirmed"><span>Confirmed</span></label>
+                <label><input type="radio" name="status" value="pending" checked><span>Pending</span></label>
+                <label><input type="radio" name="status" value="completed"><span>Completed</span></label>
+                <label><input type="radio" name="status" value="cancelled"><span>Cancelled</span></label>
+              </div>
+            </div>
+            <label class="field"><span class="field__label">Notes for the consultant</span><textarea class="textarea" name="notes" rows="3" placeholder="Pieces to prepare, occasion, budget…"></textarea></label>
+          </div>
+          <footer class="dialog__foot">
+            <button type="button" class="btn btn--danger-ghost dialog__foot-start" data-confirm="Cancel this appointment?" data-confirm-text="The customer would be told by SMS and email." data-confirm-action="Cancel appointment" data-done="Appointment cancelled">Cancel appointment</button>
+            <button type="button" class="btn btn--outline" data-dialog-close>Close</button>
+            <button type="submit" class="btn btn--primary"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg> Save</button>
+          </footer>
+        </form>
+      </dialog>
+
+
+    </main>
+  </div>
+  <!-- Confirmation for anything that removes something (filled in by admin.js from the button's data-confirm) -->
+  <dialog class="dialog dialog--sm" id="confirm-dialog" aria-labelledby="confirm-title" aria-describedby="confirm-text">
+    <form method="dialog" class="dialog__panel dialog__panel--confirm">
+      <span class="dialog__badge"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg></span>
+      <h2 class="dialog__title" id="confirm-title" data-confirm-title>Delete this item?</h2>
+      <p class="dialog__text" id="confirm-text" data-confirm-text>This can't be undone.</p>
+      <div class="dialog__actions">
+        <button type="submit" class="btn btn--outline" value="cancel" autofocus>Cancel</button>
+        <button type="submit" class="btn btn--danger" value="ok" data-confirm-ok>Delete</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Toasts stand in for saving: they say what would happen, and that it was a preview -->
+  <div class="toasts" data-toasts aria-live="polite"></div>
+  <template id="toast-template">
+    <div class="toast" role="status">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-circle-check"/></svg>
+      <div><p class="toast__title"></p><p class="toast__text"></p></div>
+      <button type="button" class="toast__close" aria-label="Dismiss"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-x"/></svg></button>
+    </div>
+  </template>
+
+  <script src="../assets/js/admin.js"></script>
+</body>
+</html>

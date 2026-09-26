@@ -1,0 +1,55 @@
+      <header class="ph">
+        <div>
+          <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Dashboard</a>{{icon:chevron-right}}<span aria-current="page">Pages &amp; banners</span></nav>
+          <h1 class="ph__title">Pages &amp; banners</h1>
+          <p class="ph__desc">The {{pageTotal}} pages of the website: the banner photograph and heading at the top of each, and how it appears in search results.</p>
+        </div>
+      </header>
+
+      <section class="card" data-list-scope>
+        <div class="toolbar">
+          <label class="search">{{icon:search}}<span class="sr-only">Search pages</span><input class="input" type="search" placeholder="Search pages…" data-list-search></label>
+          <select class="select" data-list-filter="kind" aria-label="Type of page"><option value="">All pages</option><option value="Page">Pages</option><option value="Category">Category pages</option><option value="Template">Templates</option></select>
+          <p class="toolbar__note">{{icon:globe}}{{seoIssues}} of {{pageTotal}} search listings could be better</p>
+        </div>
+        <div class="table-wrap">
+          <table class="table">
+            <thead><tr><th scope="col">Page</th><th scope="col">Type</th><th scope="col">Heading</th><th scope="col">Search listing</th><th scope="col">Last edited</th><th scope="col" class="col-actions"><span class="sr-only">Actions</span></th></tr></thead>
+            <tbody data-list>{{pageRows}}
+            </tbody>
+          </table>
+        </div>
+        <div class="empty" data-list-empty hidden><span class="empty__icon">{{icon:search}}</span><p class="empty__title">No pages match</p><button type="button" class="btn btn--outline btn--sm" data-list-reset>Clear the search</button></div>
+      </section>
+
+      <dialog class="dialog dialog--drawer" id="page-drawer" aria-labelledby="page-drawer-title">
+        <form class="dialog__panel" data-demo data-toast="Page saved">
+          <header class="dialog__head">
+            <div><p class="dialog__eyebrow">Page</p><h2 class="dialog__title" id="page-drawer-title" data-fill-text="title">Edit page</h2></div>
+            <button type="button" class="icon-btn" data-dialog-close aria-label="Close">{{icon:x}}</button>
+          </header>
+          <div class="dialog__body stack">
+            <div class="field">
+              <span class="field__label">Banner photograph</span>
+              <div class="image-field image-field--banner"><img alt="" data-fill-src="banner" data-image-preview hidden><label class="image-field__btn">{{icon:upload}} Replace<input type="file" accept="image/*" data-image-input></label></div>
+              <span class="hint">Shown behind the heading, dimmed under the wine overlay. Wide, 2000 px across.</span>
+            </div>
+            <label class="field"><span class="field__label">Heading</span><input class="input" name="heading"></label>
+            <label class="field"><span class="field__label">Introduction</span><textarea class="textarea" name="intro" rows="3"></textarea></label>
+            <fieldset class="fieldset">
+              <legend>Search engine listing</legend>
+              <div class="serp" aria-hidden="true">
+                <p class="serp__site"><span class="serp__favicon"></span><span><span class="serp__name">Mangalam Jewellers</span><span class="serp__url">mangalamjewellers.in › <span data-fill-text="url"></span></span></span></p>
+                <p class="serp__title" data-bound="pageTitle"></p>
+                <p class="serp__desc" data-bound="pageDesc"></p>
+              </div>
+              <label class="field"><span class="field__label">Page title <span class="field__count"></span></span><input class="input" name="seoTitle" maxlength="70" data-count data-count-ideal="60" data-bind="pageTitle"></label>
+              <label class="field"><span class="field__label">Meta description <span class="field__count"></span></span><textarea class="textarea" name="seoDesc" rows="3" maxlength="200" data-count data-count-ideal="160" data-bind="pageDesc"></textarea><span class="hint">Search engines show about 160 characters; aim for 70 or more.</span></label>
+            </fieldset>
+          </div>
+          <footer class="dialog__foot">
+            <button type="button" class="btn btn--outline" data-dialog-close>Cancel</button>
+            <button type="submit" class="btn btn--primary">{{icon:check}} Save page</button>
+          </footer>
+        </form>
+      </dialog>

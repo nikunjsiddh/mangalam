@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>{{title}} — Mangalam Admin</title>
+  <meta name="theme-color" content="#2E0A16">
+  <link rel="icon" href="../assets/images/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&amp;family=Jost:wght@300;400;500;600&amp;display=swap">
+  <link rel="stylesheet" href="../assets/css/admin.css">
+  <script>try { if (localStorage.getItem("mj-admin-sidebar") === "mini") document.documentElement.classList.add("side-mini"); } catch (e) {}</script>
+</head>
+<body class="adm" data-page="{{page}}">
+  <a class="skip-link" href="#content">Skip to content</a>
+{{> sidebar}}
+  <div class="adm__main">
+{{> topbar}}
+    <main class="adm__content" id="content">
+{{main}}
+    </main>
+  </div>
+{{> dialogs}}{{extraScripts}}
+  <script src="../assets/js/admin.js"></script>
+</body>
+</html>

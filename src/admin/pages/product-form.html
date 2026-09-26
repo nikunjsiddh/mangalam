@@ -1,0 +1,143 @@
+      <form class="editor-page" data-demo data-toast="{{savedToast}}" novalidate>
+        <header class="ph ph--sticky">
+          <div>
+            <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Dashboard</a>{{icon:chevron-right}}<a href="products.html">Products</a>{{icon:chevron-right}}<span aria-current="page" data-fill-product="crumb">{{formCrumb}}</span></nav>
+            <h1 class="ph__title"><span data-fill-product="title">{{formTitle}}</span> {{formBadge}}</h1>
+            <p class="ph__desc" data-fill-product="desc">{{formDesc}}</p>
+          </div>
+          <div class="ph__actions">
+            <a class="btn btn--ghost" href="{{viewHref}}" target="_blank" rel="noopener" data-fill-product="view">{{icon:external-link}} View</a>
+            <button type="button" class="btn btn--outline" data-toast="Draft saved" data-toast-text="Only you can see a draft until it is published.">{{icon:save}} Save draft</button>
+            <button type="submit" class="btn btn--gold">{{icon:check}} {{submitLabel}}</button>
+          </div>
+        </header>
+
+        <div class="form-layout">
+          <div class="form-main">
+            <section class="card">
+              <header class="card__head"><h2 class="card__title">Details</h2></header>
+              <div class="card__body form-grid">
+                <label class="field span-2">
+                  <span class="field__label">Name <span class="req" aria-hidden="true">*</span></span>
+                  <input class="input" name="name" value="{{fName}}" required placeholder="e.g. Royal Heritage Necklace" data-slug-source>
+                </label>
+                <label class="field span-2">
+                  <span class="field__label">Web address</span>
+                  <span class="input-group"><span class="input-group__addon">…/product.html?slug=</span><input class="input" name="slug" value="{{fSlug}}" placeholder="royal-heritage-necklace" data-slug-target></span>
+                </label>
+                <label class="field span-2">
+                  <span class="field__label">Short description <span class="field__count"></span></span>
+                  <textarea class="textarea" name="summary" rows="3" maxlength="220" data-count data-count-ideal="200">{{fSummary}}</textarea>
+                  <span class="hint">Shown under the price on the product page.</span>
+                </label>
+                <div class="field span-2">
+                  <span class="field__label" id="description-label">Full description</span>
+                  <div class="rte" data-rte>
+                    <div class="rte__bar" role="toolbar" aria-label="Formatting">
+                      <button type="button" data-cmd="bold" aria-label="Bold" data-tip="Bold">{{icon:bold}}</button>
+                      <button type="button" data-cmd="italic" aria-label="Italic" data-tip="Italic">{{icon:italic}}</button>
+                      <button type="button" data-cmd="underline" aria-label="Underline" data-tip="Underline">{{icon:underline}}</button>
+                      <span class="rte__sep" aria-hidden="true"></span>
+                      <button type="button" data-cmd="formatBlock" data-value="h3" aria-label="Heading" data-tip="Heading">{{icon:heading-2}}</button>
+                      <button type="button" data-cmd="insertUnorderedList" aria-label="Bulleted list" data-tip="Bullets">{{icon:list}}</button>
+                      <button type="button" data-cmd="insertOrderedList" aria-label="Numbered list" data-tip="Numbers">{{icon:list-ordered}}</button>
+                      <button type="button" data-cmd="formatBlock" data-value="blockquote" aria-label="Quote" data-tip="Quote">{{icon:quote}}</button>
+                      <button type="button" data-cmd="createLink" aria-label="Link" data-tip="Link">{{icon:link}}</button>
+                      <span class="rte__sep" aria-hidden="true"></span>
+                      <button type="button" data-cmd="undo" aria-label="Undo" data-tip="Undo">{{icon:undo-2}}</button>
+                      <button type="button" data-cmd="redo" aria-label="Redo" data-tip="Redo">{{icon:redo-2}}</button>
+                    </div>
+                    <div class="rte__area" contenteditable="true" role="textbox" aria-multiline="true" aria-labelledby="description-label" data-placeholder="Tell the story of the piece — its motifs, the craft, how it is worn." data-fill-product="description">{{fDescription}}</div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section class="card">
+              <header class="card__head">
+                <div><h2 class="card__title">Photos</h2><p class="card__sub">Square JPEGs, 1200 × 1200 px. The first is the main photo and the second shows when a card is hovered. Drag to reorder.</p></div>
+              </header>
+              <div class="card__body">
+                <ul class="gallery" data-sortable data-gallery data-fill-product="gallery">{{galleryThumbs}}
+                </ul>
+                <label class="dropzone" data-dropzone>
+                  <span class="dropzone__icon">{{icon:cloud-upload}}</span>
+                  <span class="dropzone__title">Drop photos here, or <u>browse</u></span>
+                  <span class="dropzone__hint">JPEG or PNG, up to 10 MB each. They preview here; uploading starts once the backend is connected.</span>
+                  <input type="file" accept="image/*" multiple data-upload-into="[data-gallery]">
+                </label>
+              </div>
+            </section>
+
+            <section class="card">
+              <header class="card__head"><h2 class="card__title">Price &amp; specifications</h2></header>
+              <div class="card__body form-grid">
+                <label class="field">
+                  <span class="field__label">Price <span class="req" aria-hidden="true">*</span></span>
+                  <span class="input-group"><span class="input-group__addon">₹</span><input class="input" name="price" inputmode="numeric" value="{{fPrice}}" placeholder="0" required></span>
+                </label>
+                <label class="field">
+                  <span class="field__label">Offer price</span>
+                  <span class="input-group"><span class="input-group__addon">₹</span><input class="input" name="offerPrice" inputmode="numeric" placeholder="Optional"></span>
+                  <span class="hint">Shown beside the price, which is struck through.</span>
+                </label>
+                <label class="field"><span class="field__label">Metal</span><select class="select" name="metal">{{metalOptions}}</select></label>
+                <div class="field"><span class="field__label" id="purity-label">Gold purity</span><div class="seg" role="radiogroup" aria-labelledby="purity-label">{{purityRadios}}</div></div>
+                <label class="field"><span class="field__label">Gross weight</span><span class="input-group"><input class="input" name="grossWeight" inputmode="decimal" placeholder="0.00"><span class="input-group__addon">g</span></span></label>
+                <label class="field"><span class="field__label">Gold weight</span><span class="input-group"><input class="input" name="goldWeight" inputmode="decimal" placeholder="0.00"><span class="input-group__addon">g</span></span></label>
+                <label class="field"><span class="field__label">Main stone</span><select class="select" name="stone">{{stoneOptions}}</select></label>
+                <label class="field"><span class="field__label">Stone weight</span><span class="input-group"><input class="input" name="stoneWeight" inputmode="decimal" placeholder="0.00"><span class="input-group__addon">ct</span></span></label>
+                <label class="field"><span class="field__label">Making charges</span><span class="input-group"><input class="input" name="making" inputmode="decimal" placeholder="0"><span class="input-group__addon">%</span></span></label>
+                <label class="field"><span class="field__label">BIS hallmark (HUID)</span><input class="input input--mono" name="huid" maxlength="6" placeholder="6-character code"></label>
+              </div>
+            </section>
+
+            <section class="card">
+              <header class="card__head"><div><h2 class="card__title">Search engine listing</h2><p class="card__sub">How the piece appears on Google.</p></div></header>
+              <div class="card__body">
+                <div class="serp" aria-hidden="true">
+                  <p class="serp__site"><span class="serp__favicon"></span><span><span class="serp__name">Mangalam Jewellers</span><span class="serp__url">mangalamjewellers.in › {{seoPreviewUrl}}</span></span></p>
+                  <p class="serp__title" data-bound="seoTitle">{{seoPreviewTitle}}</p>
+                  <p class="serp__desc" data-bound="seoDesc">{{seoPreviewDesc}}</p>
+                </div>
+                <div class="form-grid mt-16">
+                  <label class="field span-2"><span class="field__label">Page title <span class="field__count"></span></span><input class="input" name="seoTitle" value="{{fSeoTitle}}" maxlength="70" data-count data-count-ideal="60" data-bind="seoTitle"></label>
+                  <label class="field span-2"><span class="field__label">Meta description <span class="field__count"></span></span><textarea class="textarea" name="seoDesc" rows="3" maxlength="200" data-count data-count-ideal="160" data-bind="seoDesc">{{fSeoDesc}}</textarea></label>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <aside class="form-side">
+            <section class="card">
+              <header class="card__head"><h2 class="card__title">Visibility</h2></header>
+              <div class="card__body stack">
+                <div class="seg seg--block" role="radiogroup" aria-label="Status">{{statusRadios}}</div>
+                <label class="field"><span class="field__label">Publish on</span><input class="input" type="date" name="publishDate" value="{{publishDate}}"></label>
+                <label class="switch switch--text"><input type="checkbox" name="showPrice" checked><span class="switch__track" aria-hidden="true"></span><span>Show the price on the website</span></label>
+                <label class="switch switch--text"><input type="checkbox" name="enquiries" checked><span class="switch__track" aria-hidden="true"></span><span>Let visitors enquire about it</span></label>
+              </div>
+            </section>
+
+            <section class="card">
+              <header class="card__head"><h2 class="card__title">Organise</h2></header>
+              <div class="card__body stack">
+                <label class="field"><span class="field__label">Category</span><select class="select" name="category"><option value="">Choose a category</option>{{categorySelect}}</select></label>
+                <div class="field"><span class="field__label" id="style-label">Style</span><div class="seg seg--wrap" role="radiogroup" aria-labelledby="style-label">{{styleRadios}}</div><span class="hint">Used by the catalogue's style filter.</span></div>
+                <label class="field"><span class="field__label">Collection line</span><select class="select" name="collection">{{lineOptions}}</select><span class="hint">Shown above the name on the product page.</span></label>
+                <div class="note">{{icon:layers}}<span><strong>Appears in</strong> <span data-fill-product="collections">{{inCollections}}</span></span></div>
+              </div>
+            </section>
+
+            <section class="card">
+              <header class="card__head"><h2 class="card__title">Labels</h2></header>
+              <div class="card__body stack">
+                <label class="switch switch--text"><input type="checkbox" name="isNew"{{isNewChecked}}><span class="switch__track" aria-hidden="true"></span><span>Mark as <strong>New</strong></span></label>
+                <label class="switch switch--text"><input type="checkbox" name="featured"{{featuredChecked}}><span class="switch__track" aria-hidden="true"></span><span>Feature on the homepage</span></label>
+              </div>
+            </section>
+{{deleteCard}}
+          </aside>
+        </div>
+      </form>
+      <script type="application/json" id="product-collections">{{collectionsJSON}}</script>

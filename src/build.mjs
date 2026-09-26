@@ -6,6 +6,7 @@
  *   src/partials/   layout, header, footer and dialogs shared by all pages
  *   src/pages/      the <main> content of each page
  *   assets/js/data.js  products, journal and testimonials (also used in the browser)
+ * and then the admin panel in admin/ (see src/admin/build.mjs).
  *
  * Template syntax: {{name}} inserts a variable, {{icon:name}} an icon, {{> partial}} a partial.
  */
@@ -13,6 +14,7 @@ import { readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { createRequire } from "node:module";
+import { buildAdmin } from "./admin/build.mjs";
 
 const SRC = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(SRC, "..");
@@ -60,40 +62,52 @@ const count = (fn) => products.filter(fn).length;
 const bySlug = (slug) => products.find((p) => p.slug === slug);
 const label = (c) => (c === "bridal" ? "Bridal" : capitalize(c));
 
+/* Campaign photographs in assets/images/campaign/ (3:4 for the collections; banners are the inner-page backgrounds) */
+const photo = (file) => `assets/images/campaign/${file}.jpg`;
+const banners = {
+  all: photo("banner-all"), rings: photo("banner-rings"), necklaces: photo("banner-necklaces"), earrings: photo("banner-earrings"),
+  bangles: photo("banner-bangles"), bracelets: photo("banner-bracelets"), pendants: photo("banner-pendants"),
+  mangalsutra: IMG.mangalsutra, bridal: photo("banner-bridal"),
+};
+
+// pos is the part of the photograph kept in view by the home bento's wide and tall cells
 const collections = [
-  { title: "Bridal", kicker: "Sets for the unforgettable day", href: "bridal.html", image: IMG.bridal, pos: "center", n: count((p) => p.category === "bridal") },
-  { title: "Gold", kicker: "The warmth of 22K tradition", href: "jewellery.html?metal=Gold", image: IMG.necklaces, pos: "center", n: count((p) => p.metal === "Gold") },
-  { title: "Diamond", kicker: "Light, held forever", href: "jewellery.html?metal=Diamond", image: IMG.rings, pos: "center", n: count((p) => p.metal === "Diamond") },
-  { title: "Heritage", kicker: "Motifs passed through generations", href: "jewellery.html?style=Traditional", image: IMG.bangles, pos: "center", n: count((p) => p.style === "Traditional") },
-  { title: "Everyday", kicker: "Quietly extraordinary", href: "jewellery.html?style=Modern", image: IMG.pendants, pos: "50% 62%", n: count((p) => p.style === "Modern") },
-  { title: "Statement", kicker: "Jewels that begin conversations", href: "jewellery.html?style=Classic", image: IMG.bracelets, pos: "50% 45%", n: count((p) => p.style === "Classic") },
+  { title: "Bridal", kicker: "Sets for the unforgettable day", href: "bridal.html", image: photo("coll-bridal"), pos: "50% 18%", n: count((p) => p.category === "bridal") },
+  { title: "Gold", kicker: "The warmth of 22K tradition", href: "jewellery.html?metal=Gold", image: photo("coll-gold"), pos: "50% 55%", n: count((p) => p.metal === "Gold") },
+  { title: "Diamond", kicker: "Light, held forever", href: "jewellery.html?metal=Diamond", image: photo("coll-diamond"), pos: "50% 45%", n: count((p) => p.metal === "Diamond") },
+  { title: "Heritage", kicker: "Motifs passed through generations", href: "jewellery.html?style=Traditional", image: photo("coll-heritage"), pos: "50% 45%", n: count((p) => p.style === "Traditional") },
+  { title: "Everyday", kicker: "Quietly extraordinary", href: "jewellery.html?style=Modern", image: photo("coll-everyday"), pos: "50% 62%", n: count((p) => p.style === "Modern") },
+  { title: "Statement", kicker: "Jewels that begin conversations", href: "jewellery.html?style=Classic", image: photo("coll-statement"), pos: "50% 58%", n: count((p) => p.style === "Classic") },
 ];
+
+// The announcement bar's messages (shown twice over so the marquee never runs dry)
+const announcements = ["BIS hallmarked gold", `Handcrafted in Surat since ${FOUNDED}`, "Insured delivery across India", "Private bridal consultations", "Crafted with tradition · Designed for generations"];
 
 const fragments = {
   megaCats: categories.map((c) =>
-    `<li><a href="${c}.html"><span class="mega__thumb"><img src="${IMG[c]}" alt="" loading="lazy" width="800" height="800"></span>${label(c)}</a></li>`).join("\n                "),
+    `<li><a href="${c}.html"><span class="mega__thumb"><img src="${IMG[c]}" alt="" loading="lazy" width="900" height="1200"></span>${label(c)}</a></li>`).join("\n                "),
 
   menuCats: categories.filter((c) => c !== "bridal").map((c) => `<li><a href="${c}.html">${label(c)}</a></li>`).join(""),
 
-  topbarItems: ["BIS hallmarked gold", `Handcrafted in Surat since ${FOUNDED}`, "Insured delivery across India", "Private bridal consultations", "Crafted with tradition · Designed for generations"]
-    .concat(["BIS hallmarked gold", `Handcrafted in Surat since ${FOUNDED}`, "Insured delivery across India", "Private bridal consultations", "Crafted with tradition · Designed for generations"])
-    .map((t) => `<li>${t}</li>`).join(""),
+  topbarItems: announcements.concat(announcements).map((t) => `<li>${t}</li>`).join(""),
 };
+
+// Home hero "shop the look" pins. Positions are percentages of assets/images/campaign/hero.jpg (1600 × 2400),
+// centred on each jewel; each links to the piece whose photographs show that same jewel. Flipped cards open to the left.
+const hotspots = [
+  { slug: "bridal-maang-tikka", x: 60.4, y: 18.3, flip: true },
+  { slug: "traditional-gujarati-earrings", x: 41.4, y: 29.7, flip: true },
+  { slug: "royal-heritage-necklace", x: 48.5, y: 42.0 },
+  { slug: "heritage-gold-bangles", x: 46.3, y: 66.9 },
+];
 
 /* Home-only fragments */
 function homeFragments() {
-  const hotspots = [
-    // Positions are percentages of assets/images/mangalam-hero.jpg (1920 × 1280), centred on each jewel.
-    { slug: "bridal-jhumka", x: 68.1, y: 29.6 },
-    { slug: "diamond-collar-necklace", x: 70.3, y: 61.6 },
-    { slug: "heritage-gold-bangles", x: 85.6, y: 51.5, flip: true },
-    { slug: "floral-diamond-ring", x: 84.1, y: 82.0, flip: true },
-  ];
   const heroHotspots = hotspots.map(({ slug, x, y, flip }) => {
     const p = bySlug(slug);
     return `<div class="hotspot hotspot--desktop${flip ? " hotspot--flip" : ""}" style="--x:${x}%;--y:${y}%" tabindex="0" role="button" aria-expanded="false" aria-label="Shop the look: ${esc(p.name)}">
             <span class="hotspot__card">
-              <img src="${p.image}" alt="" loading="lazy" style="object-position:${p.imagePosition}">
+              <img src="${p.thumb}" alt="" loading="lazy" style="object-position:${p.imagePosition}">
               <span><span class="hotspot__label">Shop the look</span><a class="hotspot__name" href="product.html?slug=${p.slug}">${esc(p.name)}</a><span class="hotspot__price">${formatPrice(p.price)}</span></span>
             </span>
           </div>`;
@@ -104,7 +118,7 @@ function homeFragments() {
 
   const categoryArches = categories.map((c) => `
       <a class="cat-arch" href="${c}.html" data-reveal>
-        <span class="cat-arch__frame"><span class="cat-arch__img"><img src="${IMG[c]}" alt="" loading="lazy" width="800" height="800"></span></span>
+        <span class="cat-arch__frame"><span class="cat-arch__img"><img src="${IMG[c]}" alt="" loading="lazy" width="900" height="1200"></span></span>
         <span class="cat-arch__name">${label(c)}</span>
         <span class="cat-arch__count">${count((p) => p.category === c)} designs</span>
       </a>`).join("");
@@ -141,7 +155,7 @@ function homeFragments() {
         </a>`).join("")}
       </div>`;
 
-  const insta = [IMG.hero, IMG.bridal, IMG.bangles, IMG.necklaces, IMG.craft, IMG.earrings];
+  const insta = [1, 2, 3, 4, 5, 6].map((n) => photo(`insta-${n}`));
   const instaTiles = insta.map((src) => `
       <a class="insta__item" href="${site.instagram}" target="_blank" rel="noopener" aria-label="Mangalam Jewellers on Instagram" data-reveal>
         <img src="${src}" alt="" loading="lazy">${icon("instagram")}
@@ -149,7 +163,7 @@ function homeFragments() {
 
   const tickerItems = ["Gold", "Diamond", "Polki", "Kundan", "Temple", "Bridal", "Heritage"].map((w) => `<li>${w}</li>`).join("");
 
-  const closer = bySlug("temple-gold-necklace");
+  const closer = bySlug("polki-bridal-choker"); // the choker shown in the closer-look photograph
   return {
     heroHotspots, sparkles, categoryArches, bento, testimonialSlides, testimonialDots, journalMag, instaTiles, tickerItems,
     closerName: esc(closer.name), closerPrice: formatPrice(closer.price), closerSlug: closer.slug,
@@ -214,7 +228,7 @@ const pages = [
     file: "jewellery.html", page: "catalog", nav: "jewellery", main: "catalog",
     title: "All Jewellery — Mangalam Jewellers",
     description: "Explore timeless gold, diamond and bridal jewellery shaped by generations of Indian artistry.",
-    vars: { category: "", crumb: "All jewellery", heading: "All <em>Jewellery</em>", lead: "Explore timeless gold, diamond and bridal jewellery shaped by generations of Indian artistry.", heroImage: IMG.necklaces, total: String(products.length), chips: catalogChips("") },
+    vars: { category: "", crumb: "All jewellery", heading: "All <em>Jewellery</em>", lead: "Explore timeless gold, diamond and bridal jewellery shaped by generations of Indian artistry.", heroImage: banners.all, total: String(products.length), chips: catalogChips("") },
   },
   ...categories.map((c) => ({
     file: `${c}.html`, page: "catalog", nav: c === "bridal" ? "bridal" : "jewellery", main: "catalog", category: c,
@@ -223,7 +237,7 @@ const pages = [
     vars: {
       category: c, crumb: label(c),
       heading: c === "bridal" ? "The Bridal <em>Edit</em>" : `${label(c)}`,
-      lead: categoryCopy[c], heroImage: IMG[c], total: String(count((p) => p.category === c)), chips: catalogChips(c),
+      lead: categoryCopy[c], heroImage: banners[c], total: String(count((p) => p.category === c)), chips: catalogChips(c),
     },
   })),
   {
@@ -282,3 +296,6 @@ for (const p of pages) {
   writeFileSync(join(ROOT, p.file), out);
   console.log("built", p.file.padEnd(20), (out.length / 1024).toFixed(1) + " KB");
 }
+
+// The admin panel reads the same data, so it always shows what is on the website.
+buildAdmin({ ROOT, MJ, ICONS: globalThis.MJUI.ICONS, site, collections, hotspots, announcements, sitePages: pages, label });

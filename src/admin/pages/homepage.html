@@ -1,0 +1,70 @@
+      <header class="ph">
+        <div>
+          <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Dashboard</a>{{icon:chevron-right}}<span aria-current="page">Homepage</span></nav>
+          <h1 class="ph__title">Homepage</h1>
+          <p class="ph__desc">Choose which sections appear and in what order, and edit the parts that change most often.</p>
+        </div>
+        <div class="ph__actions">
+          <a class="btn btn--outline" href="../index.html" target="_blank" rel="noopener">{{icon:eye}} Preview</a>
+          <button type="button" class="btn btn--gold" data-toast="Homepage published" data-toast-text="Visitors would see the new homepage straight away.">{{icon:check}} Publish changes</button>
+        </div>
+      </header>
+
+      <div class="grid grid--home">
+        <section class="card home-sections">
+          <header class="card__head"><div><h2 class="card__title">Sections</h2><p class="card__sub">{{sectionTotal}} sections, top to bottom. Drag to reorder.</p></div></header>
+          <ol class="srows" data-sortable data-sort-toast="Section order updated">{{sectionRows}}
+          </ol>
+        </section>
+
+        <div class="stack stack--lg">
+          <section class="card" id="hero-editor">
+            <header class="card__head"><div><h2 class="card__title">Hero</h2><p class="card__sub">The first screen visitors see. Drag the numbered pins onto the jewels they point to.</p></div></header>
+            <div class="card__body hero-edit">
+              <div class="hero-edit__photo">
+                <div class="hotspot-stage" data-hotspot-stage>
+                  <img src="{{heroImage}}" alt="The homepage hero photograph" draggable="false" data-image-preview>
+                  {{heroPins}}
+                </div>
+                <label class="btn btn--outline btn--sm btn--file">{{icon:upload}} Replace photograph<input type="file" accept="image/*" data-image-input></label>
+              </div>
+              <div class="stack">
+                <label class="field"><span class="field__label">Eyebrow</span><input class="input" value="{{heroEyebrow}}"></label>
+                <div class="form-grid">
+                  <label class="field"><span class="field__label">Headline</span><input class="input" value="{{heroLine1}}"></label>
+                  <label class="field"><span class="field__label">Second line <span class="field__aside">gold italic</span></span><input class="input" value="{{heroLine2}}"></label>
+                </div>
+                <label class="field"><span class="field__label">Introduction</span><textarea class="textarea" rows="3">{{heroLead}}</textarea></label>
+                <div class="field"><span class="field__label">Figures</span><div class="stat-edits">{{heroStats}}
+                </div></div>
+                <div class="field">
+                  <span class="field__label">Shop-the-look pins</span>
+                  <ol class="pinrows" data-pin-list>{{pinRows}}
+                  </ol>
+                  <button type="button" class="btn btn--outline btn--sm" data-add-pin>{{icon:plus}} Add a pin</button>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="card" id="featured-editor">
+            <header class="card__head">
+              <div><h2 class="card__title">Featured pieces</h2><p class="card__sub">The Signature tab. Gold, Diamond, Bridal and New in fill themselves from each product's details.</p></div>
+            </header>
+            <div class="card__body">
+              <ol class="picks" data-sortable data-sort-toast="Order updated">{{featuredPicks}}
+              </ol>
+              <div class="picks__add">
+                <select class="select" aria-label="Piece to add" data-pick-select><option value="">Choose a piece to add…</option>{{productOptions}}</select>
+                <button type="button" class="btn btn--outline" data-pick-add>{{icon:plus}} Add</button>
+              </div>
+            </div>
+          </section>
+
+          <section class="card" id="bridal-editor">
+            <header class="card__head"><div><h2 class="card__title">The bridal edit</h2><p class="card__sub">Four panels that open as visitors point at them.</p></div></header>
+            <div class="card__body panels-edit">{{bridalPanels}}
+            </div>
+          </section>
+        </div>
+      </div>

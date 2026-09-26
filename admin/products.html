@@ -1,0 +1,792 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Products — Mangalam Admin</title>
+  <meta name="theme-color" content="#2E0A16">
+  <link rel="icon" href="../assets/images/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&amp;family=Jost:wght@300;400;500;600&amp;display=swap">
+  <link rel="stylesheet" href="../assets/css/admin.css">
+  <script>try { if (localStorage.getItem("mj-admin-sidebar") === "mini") document.documentElement.classList.add("side-mini"); } catch (e) {}</script>
+</head>
+<body class="adm" data-page="products">
+  <svg class="icon-sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><symbol id="i-arrow-up-down" viewBox="0 0 24 24"><path d="m21 16-4 4-4-4"/><path d="M17 20V4"/><path d="m3 8 4-4 4 4"/><path d="M7 4v16"/></symbol><symbol id="i-bell" viewBox="0 0 24 24"><path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"/></symbol><symbol id="i-book-open" viewBox="0 0 24 24"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></symbol><symbol id="i-calendar-check" viewBox="0 0 24 24"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="m9 16 2 2 4-4"/></symbol><symbol id="i-chevron-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol><symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol><symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol><symbol id="i-circle-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></symbol><symbol id="i-copy" viewBox="0 0 24 24"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></symbol><symbol id="i-download" viewBox="0 0 24 24"><path d="M12 15V3"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/></symbol><symbol id="i-ellipsis" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></symbol><symbol id="i-external-link" viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></symbol><symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></symbol><symbol id="i-eye-off" viewBox="0 0 24 24"><path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49"/><path d="M14.084 14.158a3 3 0 0 1-4.242-4.242"/><path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143"/><path d="m2 2 20 20"/></symbol><symbol id="i-file-text" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></symbol><symbol id="i-folder" viewBox="0 0 24 24"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></symbol><symbol id="i-gem" viewBox="0 0 24 24"><path d="M6 3h12l4 6-10 13L2 9Z"/><path d="M11 3 8 9l4 13 4-13-3-6"/><path d="M2 9h20"/></symbol><symbol id="i-house" viewBox="0 0 24 24"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></symbol><symbol id="i-image" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></symbol><symbol id="i-images" viewBox="0 0 24 24"><path d="M18 22H4a2 2 0 0 1-2-2V6"/><path d="m22 13-1.296-1.296a2.41 2.41 0 0 0-3.408 0L11 18"/><circle cx="12" cy="8" r="2"/><rect width="16" height="16" x="6" y="2" rx="2"/></symbol><symbol id="i-inbox" viewBox="0 0 24 24"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></symbol><symbol id="i-layers" viewBox="0 0 24 24"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"/><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"/></symbol><symbol id="i-layout-dashboard" viewBox="0 0 24 24"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></symbol><symbol id="i-layout-grid" viewBox="0 0 24 24"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></symbol><symbol id="i-log-out" viewBox="0 0 24 24"><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/></symbol><symbol id="i-mail" viewBox="0 0 24 24"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect x="2" y="4" width="20" height="16" rx="2"/></symbol><symbol id="i-megaphone" viewBox="0 0 24 24"><path d="M11 6a13 13 0 0 0 8.4-2.8A1 1 0 0 1 21 4v12a1 1 0 0 1-1.6.8A13 13 0 0 0 11 14H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z"/><path d="M6 14a12 12 0 0 0 2.4 7.2 2 2 0 0 0 3.2-2.4A8 8 0 0 1 10 14"/><path d="M8 6v8"/></symbol><symbol id="i-panel-left" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 3v18"/></symbol><symbol id="i-pencil" viewBox="0 0 24 24"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></symbol><symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></symbol><symbol id="i-quote" viewBox="0 0 24 24"><path d="M16 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"/><path d="M5 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"/></symbol><symbol id="i-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></symbol><symbol id="i-settings" viewBox="0 0 24 24"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></symbol><symbol id="i-trash-2" viewBox="0 0 24 24"><path d="M10 11v6"/><path d="M14 11v6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></symbol><symbol id="i-user-round" viewBox="0 0 24 24"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></symbol><symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol><symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol></svg>
+  <a class="skip-link" href="#content">Skip to content</a>
+  <aside class="side" id="sidebar" aria-label="Admin navigation">
+    <div class="side__brand">
+      <a class="side__logo" href="index.html" aria-label="Mangalam Jewellers admin — dashboard">
+        <span class="logo logo--full" aria-hidden="true"></span>
+        <span class="logo logo--emblem" aria-hidden="true"></span>
+      </a>
+      <span class="side__label">Admin</span>
+    </div>
+    <nav class="side__nav">
+      <a class="side__link" data-nav="dashboard" href="index.html" data-tip="Dashboard"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-layout-dashboard"/></svg><span>Dashboard</span></a>
+
+      <p class="side__group">Catalogue</p>
+      <a class="side__link" data-nav="products" aria-current="page" href="products.html" data-tip="Products"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-gem"/></svg><span>Products</span><span class="side__count">46</span></a>
+      <a class="side__link" data-nav="categories" href="categories.html" data-tip="Categories"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-layout-grid"/></svg><span>Categories</span></a>
+      <a class="side__link" data-nav="collections" href="collections.html" data-tip="Collections"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-layers"/></svg><span>Collections</span></a>
+
+      <p class="side__group">Website</p>
+      <a class="side__link" data-nav="homepage" href="homepage.html" data-tip="Homepage"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-house"/></svg><span>Homepage</span></a>
+      <a class="side__link" data-nav="pages" href="pages.html" data-tip="Pages &amp; banners"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-file-text"/></svg><span>Pages &amp; banners</span></a>
+      <a class="side__link" data-nav="journal" href="journal.html" data-tip="Journal"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-book-open"/></svg><span>Journal</span></a>
+      <a class="side__link" data-nav="testimonials" href="testimonials.html" data-tip="Testimonials"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-quote"/></svg><span>Testimonials</span></a>
+      <a class="side__link" data-nav="media" href="media.html" data-tip="Media library"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-images"/></svg><span>Media library</span></a>
+
+      <p class="side__group">Customers</p>
+      <a class="side__link" data-nav="enquiries" href="enquiries.html" data-tip="Enquiries"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-inbox"/></svg><span>Enquiries</span><span class="side__count side__count--new" aria-label="3 new">3</span></a>
+      <a class="side__link" data-nav="appointments" href="appointments.html" data-tip="Appointments"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-calendar-check"/></svg><span>Appointments</span></a>
+      <a class="side__link" data-nav="subscribers" href="subscribers.html" data-tip="Subscribers"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-mail"/></svg><span>Subscribers</span></a>
+
+      <p class="side__group">Marketing</p>
+      <a class="side__link" data-nav="offers" href="offers.html" data-tip="Offers &amp; announcements"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-megaphone"/></svg><span>Offers &amp; announcements</span></a>
+
+      <p class="side__group">System</p>
+      <a class="side__link" data-nav="settings" href="settings.html" data-tip="Settings"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-settings"/></svg><span>Settings</span></a>
+      <a class="side__link" data-nav="users" href="users.html" data-tip="Users &amp; roles"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-users"/></svg><span>Users &amp; roles</span></a>
+    </nav>
+    <div class="side__foot">
+      <a class="side__link side__link--site" href="../index.html" target="_blank" rel="noopener" data-tip="View website"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-external-link"/></svg><span>View website</span></a>
+    </div>
+  </aside>
+  <div class="side-scrim" data-sidebar-close hidden></div>
+
+  <div class="adm__main">
+    <header class="top">
+      <button type="button" class="icon-btn top__toggle" data-sidebar-toggle aria-controls="sidebar" aria-label="Show or hide the menu"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-panel-left"/></svg></button>
+      <label class="top__search">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-search"/></svg>
+        <span class="sr-only">Search the admin</span>
+        <input type="search" placeholder="Search products, enquiries, pages…" data-global-search>
+        <kbd>Ctrl K</kbd>
+      </label>
+      <div class="top__end">
+        <span class="preview-pill" tabindex="0" data-tip="Every screen and button works so you can review the design. Nothing is saved until the backend is connected." data-tip-pos="bottom"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-eye"/></svg><span>Design preview</span></span>
+        <a class="btn btn--outline btn--sm top__site" href="../index.html" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-external-link"/></svg><span>View website</span></a>
+        <div class="dropdown">
+          <button type="button" class="icon-btn top__bell" data-menu-trigger aria-haspopup="true" aria-expanded="false" aria-label="Notifications, 3 unread"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-bell"/></svg><span class="top__dot" aria-hidden="true"></span></button>
+          <div class="menu menu--notices" data-menu hidden>
+            <div class="menu__head"><span>Notifications</span><button type="button" class="link-btn" data-toast="All marked as read">Mark all as read</button></div>
+            <div class="menu__list">
+            <a class="notice is-unread" href="enquiries.html"><span class="notice__icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-inbox"/></svg></span><span><span class="notice__text">New enquiry from Ananya Parekh about the Royal Heritage Necklace</span><span class="notice__when">12 min ago</span></span></a>
+            <a class="notice is-unread" href="appointments.html"><span class="notice__icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-calendar-check"/></svg></span><span><span class="notice__text">Hetal Desai confirmed her bridal consultation for today, 11:30 AM</span><span class="notice__when">1 hr ago</span></span></a>
+            <a class="notice is-unread" href="enquiries.html"><span class="notice__icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-inbox"/></svg></span><span><span class="notice__text">New enquiry from Kunal Shah about the Diamond Tennis Bracelet</span><span class="notice__when">3 hrs ago</span></span></a>
+            <a class="notice" href="products.html?flags=photos"><span class="notice__icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-image"/></svg></span><span><span class="notice__text">4 mangalsutra pieces are still waiting for photographs</span><span class="notice__when">Yesterday</span></span></a>
+            <a class="notice" href="subscribers.html"><span class="notice__icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-mail"/></svg></span><span><span class="notice__text">58 people subscribed to the newsletter this month</span><span class="notice__when">2 days ago</span></span></a>
+            </div>
+          </div>
+        </div>
+        <div class="dropdown">
+          <button type="button" class="top__user" data-menu-trigger aria-haspopup="menu" aria-expanded="false">
+            <span class="avatar avatar--t3" aria-hidden="true">RM</span>
+            <span class="top__user-text"><span class="top__user-name">Rohan Mehta</span><span class="top__user-role">Owner</span></span>
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chevron-down"/></svg>
+          </button>
+          <div class="menu" data-menu role="menu" hidden>
+            <a role="menuitem" href="users.html"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-user-round"/></svg>Your profile</a>
+            <a role="menuitem" href="settings.html"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-settings"/></svg>Settings</a>
+            <a role="menuitem" href="../index.html" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-external-link"/></svg>View website</a>
+            <hr>
+            <a role="menuitem" href="login.html"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-log-out"/></svg>Sign out</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="adm__content" id="content">
+      <header class="ph">
+        <div>
+          <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Dashboard</a><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chevron-right"/></svg><span aria-current="page">Products</span></nav>
+          <h1 class="ph__title">Products</h1>
+          <p class="ph__desc">46 pieces in 8 categories, exactly as they appear on the website.</p>
+        </div>
+        <div class="ph__actions">
+          <button type="button" class="btn btn--outline" data-toast="Export started" data-toast-text="products.csv downloads once the backend is connected."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-download"/></svg> Export</button>
+          <a class="btn btn--gold" href="product-new.html"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-plus"/></svg> Add product</a>
+        </div>
+      </header>
+
+      <section class="card" data-list-scope>
+        <div class="card__chips chips"><button type="button" class="chip is-active" data-list-chip="flags" data-value="" aria-pressed="true">All pieces<span class="chip__count">46</span></button><button type="button" class="chip" data-list-chip="flags" data-value="featured" aria-pressed="false">Featured<span class="chip__count">8</span></button><button type="button" class="chip" data-list-chip="flags" data-value="new" aria-pressed="false">New<span class="chip__count">16</span></button><button type="button" class="chip" data-list-chip="flags" data-value="photos" aria-pressed="false">Needs photos<span class="chip__count">4</span></button></div>
+        <div class="toolbar">
+          <label class="search"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-search"/></svg><span class="sr-only">Search products</span><input class="input" type="search" placeholder="Search by name, metal or style…" data-list-search></label>
+          <select class="select" data-list-filter="category" aria-label="Category"><option value="">All categories</option><option value="rings">Rings</option><option value="necklaces">Necklaces</option><option value="earrings">Earrings</option><option value="bangles">Bangles</option><option value="bracelets">Bracelets</option><option value="pendants">Pendants</option><option value="mangalsutra">Mangalsutra</option><option value="bridal">Bridal</option></select>
+          <select class="select" data-list-filter="metal" aria-label="Metal"><option value="">All metals</option><option>Gold</option><option>Diamond</option></select>
+          <select class="select" data-list-filter="style" aria-label="Style"><option value="">All styles</option><option>Classic</option><option>Traditional</option><option>Modern</option><option>Bridal</option></select>
+          <label class="sort"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow-up-down"/></svg><span class="sr-only">Sort by</span>
+            <select class="select select--bare" data-list-sort>
+              <option value="">Catalogue order</option>
+              <option value="updated:desc">Recently edited</option>
+              <option value="price:asc">Price, low to high</option>
+              <option value="price:desc">Price, high to low</option>
+              <option value="name:asc">Name, A to Z</option>
+            </select>
+          </label>
+        </div>
+        <div class="bulkbar" data-bulkbar hidden>
+          <span class="bulkbar__count"><strong data-bulk-count>0</strong> selected</span>
+          <button type="button" class="btn btn--ghost btn--sm" data-toast="Products published"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-eye"/></svg> Publish</button>
+          <button type="button" class="btn btn--ghost btn--sm" data-toast="Products hidden" data-toast-text="They stay in the catalogue but are not shown on the website."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-eye-off"/></svg> Hide</button>
+          <button type="button" class="btn btn--ghost btn--sm" data-toast="Products moved" data-toast-text="Choose the new category once the backend is connected."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-folder"/></svg> Move</button>
+          <button type="button" class="btn btn--ghost btn--sm" data-confirm="Delete the selected products?" data-confirm-text="They will be removed from the website and the catalogue. This can't be undone." data-confirm-action="Delete" data-done="Products deleted"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg> Delete</button>
+          <button type="button" class="btn btn--ghost btn--sm bulkbar__clear" data-bulk-clear>Clear selection</button>
+        </div>
+        <div class="table-wrap">
+          <table class="table">
+            <thead>
+              <tr>
+                <th class="col-check"><input class="check" type="checkbox" data-check-all aria-label="Select every product on this page"></th>
+                <th scope="col">Product</th>
+                <th scope="col">Category</th>
+                <th scope="col">Metal</th>
+                <th scope="col" class="num">Price</th>
+                <th scope="col">Status</th>
+                <th scope="col">Last edited</th>
+                <th scope="col" class="col-actions"><span class="sr-only">Actions</span></th>
+              </tr>
+            </thead>
+            <tbody data-list data-per-page="10">
+              <tr data-item data-search="classic solitaire ring rings diamond classic mangalam signature 18k" data-category="rings" data-metal="Diamond" data-style="Classic" data-flags="new" data-sort-price="18500" data-sort-name="Classic Solitaire Ring" data-sort-updated="1790361000000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select Classic Solitaire Ring"></td>
+                <td><a class="cell-main" href="product-edit.html?slug=classic-solitaire-ring"><img class="thumb" src="../assets/images/products/ring-pearl-ruby-sm.jpg" alt="" loading="lazy" width="48" height="48"><span><span class="cell-title">Classic Solitaire Ring</span><span class="cell-sub">Mangalam Signature</span><span class="tags"><span class="tag">New</span></span></span></a></td>
+                <td>Rings</td>
+                <td class="nowrap">18K Diamond</td>
+                <td class="num">₹ 18,500</td>
+                <td><span class="badge badge--ok">Published</span></td>
+                <td class="cell-muted nowrap">26 Sep 2026</td>
+                <td class="col-actions"><div class="row-actions">
+                  <a class="icon-btn icon-btn--sm" href="product-edit.html?slug=classic-solitaire-ring" aria-label="Edit Classic Solitaire Ring" data-tip="Edit"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pencil"/></svg></a>
+                  <div class="dropdown"><button type="button" class="icon-btn icon-btn--sm" data-menu-trigger aria-haspopup="menu" aria-expanded="false" aria-label="More actions for Classic Solitaire Ring"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ellipsis"/></svg></button><div class="menu" data-menu role="menu" hidden><a role="menuitem" href="../product.html?slug=classic-solitaire-ring" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-external-link"/></svg>View on website</a><button type="button" role="menuitem" data-toast="Product duplicated" data-toast-text="“Classic Solitaire Ring (copy)” was added as a draft."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-copy"/></svg>Duplicate</button><button type="button" role="menuitem" data-toast="Product hidden" data-toast-text="“Classic Solitaire Ring” is no longer shown on the website."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-eye-off"/></svg>Hide from website</button><hr><button type="button" role="menuitem" class="is-danger" data-confirm="Delete “Classic Solitaire Ring”?" data-confirm-text="It will be removed from the website and the catalogue. This can't be undone." data-confirm-action="Delete" data-done="Product deleted"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg>Delete</button></div></div>
+                </div></td>
+              </tr>
+              <tr data-item data-search="heritage gold ring rings gold traditional mangalam signature 22k" data-category="rings" data-metal="Gold" data-style="Traditional" data-flags="new" data-sort-price="32250" data-sort-name="Heritage Gold Ring" data-sort-updated="1789929000000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select Heritage Gold Ring"></td>
+                <td><a class="cell-main" href="product-edit.html?slug=heritage-gold-ring"><img class="thumb" src="../assets/images/products/ring-antique-gold-sm.jpg" alt="" loading="lazy" width="48" height="48"><span><span class="cell-title">Heritage Gold Ring</span><span class="cell-sub">Mangalam Signature</span><span class="tags"><span class="tag">New</span></span></span></a></td>
+                <td>Rings</td>
+                <td class="nowrap">22K Gold</td>
+                <td class="num">₹ 32,250</td>
+                <td><span class="badge badge--ok">Published</span></td>
+                <td class="cell-muted nowrap">21 Sep 2026</td>
+                <td class="col-actions"><div class="row-actions">
+                  <a class="icon-btn icon-btn--sm" href="product-edit.html?slug=heritage-gold-ring" aria-label="Edit Heritage Gold Ring" data-tip="Edit"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pencil"/></svg></a>
+                  <div class="dropdown"><button type="button" class="icon-btn icon-btn--sm" data-menu-trigger aria-haspopup="menu" aria-expanded="false" aria-label="More actions for Heritage Gold Ring"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ellipsis"/></svg></button><div class="menu" data-menu role="menu" hidden><a role="menuitem" href="../product.html?slug=heritage-gold-ring" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-external-link"/></svg>View on website</a><button type="button" role="menuitem" data-toast="Product duplicated" data-toast-text="“Heritage Gold Ring (copy)” was added as a draft."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-copy"/></svg>Duplicate</button><button type="button" role="menuitem" data-toast="Product hidden" data-toast-text="“Heritage Gold Ring” is no longer shown on the website."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-eye-off"/></svg>Hide from website</button><hr><button type="button" role="menuitem" class="is-danger" data-confirm="Delete “Heritage Gold Ring”?" data-confirm-text="It will be removed from the website and the catalogue. This can't be undone." data-confirm-action="Delete" data-done="Product deleted"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg>Delete</button></div></div>
+                </div></td>
+              </tr>
+              <tr data-item data-search="diamond halo ring rings diamond classic mangalam signature 18k" data-category="rings" data-metal="Diamond" data-style="Classic" data-flags="featured" data-sort-price="46000" data-sort-name="Diamond Halo Ring" data-sort-updated="1789497000000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select Diamond Halo Ring"></td>
+                <td><a class="cell-main" href="product-edit.html?slug=diamond-halo-ring"><img class="thumb" src="../assets/images/products/ring-sage-polki-sm.jpg" alt="" loading="lazy" width="48" height="48"><span><span class="cell-title">Diamond Halo Ring</span><span class="cell-sub">Mangalam Signature</span><span class="tags"><span class="tag tag--gold">Featured</span></span></span></a></td>
+                <td>Rings</td>
+                <td class="nowrap">18K Diamond</td>
+                <td class="num">₹ 46,000</td>
+                <td><span class="badge badge--ok">Published</span></td>
+                <td class="cell-muted nowrap">16 Sep 2026</td>
+                <td class="col-actions"><div class="row-actions">
+                  <a class="icon-btn icon-btn--sm" href="product-edit.html?slug=diamond-halo-ring" aria-label="Edit Diamond Halo Ring" data-tip="Edit"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pencil"/></svg></a>
+                  <div class="dropdown"><button type="button" class="icon-btn icon-btn--sm" data-menu-trigger aria-haspopup="menu" aria-expanded="false" aria-label="More actions for Diamond Halo Ring"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ellipsis"/></svg></button><div class="menu" data-menu role="menu" hidden><a role="menuitem" href="../product.html?slug=diamond-halo-ring" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-external-link"/></svg>View on website</a><button type="button" role="menuitem" data-toast="Product duplicated" data-toast-text="“Diamond Halo Ring (copy)” was added as a draft."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-copy"/></svg>Duplicate</button><button type="button" role="menuitem" data-toast="Product hidden" data-toast-text="“Diamond Halo Ring” is no longer shown on the website."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-eye-off"/></svg>Hide from website</button><hr><button type="button" role="menuitem" class="is-danger" data-confirm="Delete “Diamond Halo Ring”?" data-confirm-text="It will be removed from the website and the catalogue. This can't be undone." data-confirm-action="Delete" data-done="Product deleted"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg>Delete</button></div></div>
+                </div></td>
+              </tr>
+              <tr data-item data-search="rose gold band rings gold classic mangalam signature 18k" data-category="rings" data-metal="Gold" data-style="Classic" data-flags="" data-sort-price="59750" data-sort-name="Rose Gold Band" data-sort-updated="1789065000000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select Rose Gold Band"></td>
+                <td><a class="cell-main" href="product-edit.html?slug=rose-gold-band"><img class="thumb" src="../assets/images/products/ring-ruby-dome-sm.jpg" alt="" loading="lazy" width="48" height="48"><span><span class="cell-title">Rose Gold Band</span><span class="cell-sub">Mangalam Signature</span></span></a></td>
+                <td>Rings</td>
+                <td class="nowrap">18K Gold</td>
+                <td class="num">₹ 59,750</td>
+                <td><span class="badge badge--ok">Published</span></td>
+                <td class="cell-muted nowrap">11 Sep 2026</td>
+                <td class="col-actions"><div class="row-actions">
+                  <a class="icon-btn icon-btn--sm" href="product-edit.html?slug=rose-gold-band" aria-label="Edit Rose Gold Band" data-tip="Edit"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pencil"/></svg></a>
+                  <div class="dropdown"><button type="button" class="icon-btn icon-btn--sm" data-menu-trigger aria-haspopup="menu" aria-expanded="false" aria-label="More actions for Rose Gold Band"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ellipsis"/></svg></button><div class="menu" data-menu role="menu" hidden><a role="menuitem" href="../product.html?slug=rose-gold-band" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-external-link"/></svg>View on website</a><button type="button" role="menuitem" data-toast="Product duplicated" data-toast-text="“Rose Gold Band (copy)” was added as a draft."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-copy"/></svg>Duplicate</button><button type="button" role="menuitem" data-toast="Product hidden" data-toast-text="“Rose Gold Band” is no longer shown on the website."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-eye-off"/></svg>Hide from website</button><hr><button type="button" role="menuitem" class="is-danger" data-confirm="Delete “Rose Gold Band”?" data-confirm-text="It will be removed from the website and the catalogue. This can't be undone." data-confirm-action="Delete" data-done="Product deleted"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg>Delete</button></div></div>
+                </div></td>
+              </tr>
+              <tr data-item data-search="elegant everyday ring rings gold modern mangalam signature 22k" data-category="rings" data-metal="Gold" data-style="Modern" data-flags="" data-sort-price="73500" data-sort-name="Elegant Everyday Ring" data-sort-updated="1788633000000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select Elegant Everyday Ring"></td>
+                <td><a class="cell-main" href="product-edit.html?slug=elegant-everyday-ring"><img class="thumb" src="../assets/images/products/ring-pearl-dome-sm.jpg" alt="" loading="lazy" width="48" height="48"><span><span class="cell-title">Elegant Everyday Ring</span><span class="cell-sub">Mangalam Signature</span></span></a></td>
+                <td>Rings</td>
+                <td class="nowrap">22K Gold</td>
+                <td class="num">₹ 73,500</td>
+                <td><span class="badge badge--ok">Published</span></td>
+                <td class="cell-muted nowrap">6 Sep 2026</td>
+                <td class="col-actions"><div class="row-actions">
+                  <a class="icon-btn icon-btn--sm" href="product-edit.html?slug=elegant-everyday-ring" aria-label="Edit Elegant Everyday Ring" data-tip="Edit"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pencil"/></svg></a>
+                  <div class="dropdown"><button type="button" class="icon-btn icon-btn--sm" data-menu-trigger aria-haspopup="menu" aria-expanded="false" aria-label="More actions for Elegant Everyday Ring"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ellipsis"/></svg></button><div class="menu" data-menu role="menu" hidden><a role="menuitem" href="../product.html?slug=elegant-everyday-ring" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-external-link"/></svg>View on website</a><button type="button" role="menuitem" data-toast="Product duplicated" data-toast-text="“Elegant Everyday Ring (copy)” was added as a draft."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-copy"/></svg>Duplicate</button><button type="button" role="menuitem" data-toast="Product hidden" data-toast-text="“Elegant Everyday Ring” is no longer shown on the website."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-eye-off"/></svg>Hide from website</button><hr><button type="button" role="menuitem" class="is-danger" data-confirm="Delete “Elegant Everyday Ring”?" data-confirm-text="It will be removed from the website and the catalogue. This can't be undone." data-confirm-action="Delete" data-done="Product deleted"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg>Delete</button></div></div>
+                </div></td>
+              </tr>
+              <tr data-item data-search="traditional gujarati ring rings gold traditional mangalam signature 22k" data-category="rings" data-metal="Gold" data-style="Traditional" data-flags="" data-sort-price="87250" data-sort-name="Traditional Gujarati Ring" data-sort-updated="1788201000000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select Traditional Gujarati Ring"></td>
+                <td><a class="cell-main" href="product-edit.html?slug=traditional-gujarati-ring"><img class="thumb" src="../assets/images/products/ring-kundan-pearl-sm.jpg" alt="" loading="lazy" width="48" height="48"><span><span class="cell-title">Traditional Gujarati Ring</span><span class="cell-sub">Mangalam Signature</span></span></a></td>
+                <td>Rings</td>
+                <td class="nowrap">22K Gold</td>
+                <td class="num">₹ 87,250</td>
+                <td><span class="badge badge--ok">Published</span></td>
+                <td class="cell-muted nowrap">1 Sep 2026</td>
+                <td class="col-actions"><div class="row-actions">
+                  <a class="icon-btn icon-btn--sm" href="product-edit.html?slug=traditional-gujarati-ring" aria-label="Edit Traditional Gujarati Ring" data-tip="Edit"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pencil"/></svg></a>
+                  <div class="dropdown"><button type="button" class="icon-btn icon-btn--sm" data-menu-trigger aria-haspopup="menu" aria-expanded="false" aria-label="More actions for Traditional Gujarati Ring"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ellipsis"/></svg></button><div class="menu" data-menu role="menu" hidden><a role="menuitem" href="../product.html?slug=traditional-gujarati-ring" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-external-link"/></svg>View on website</a><button type="button" role="menuitem" data-toast="Product duplicated" data-toast-text="“Traditional Gujarati Ring (copy)” was added as a draft."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-copy"/></svg>Duplicate</button><button type="button" role="menuitem" data-toast="Product hidden" data-toast-text="“Traditional Gujarati Ring” is no longer shown on the website."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-eye-off"/></svg>Hide from website</button><hr><button type="button" role="menuitem" class="is-danger" data-confirm="Delete “Traditional Gujarati Ring”?" data-confirm-text="It will be removed from the website and the catalogue. This can't be undone." data-confirm-action="Delete" data-done="Product deleted"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg>Delete</button></div></div>
+                </div></td>
+              </tr>
+              <tr data-item data-search="statement ring rings gold classic mangalam signature 22k" data-category="rings" data-metal="Gold" data-style="Classic" data-flags="featured" data-sort-price="101000" data-sort-name="Statement Ring" data-sort-updated="1787769000000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select Statement Ring"></td>
+                <td><a class="cell-main" href="product-edit.html?slug=statement-ring"><img class="thumb" src="../assets/images/products/ring-cocktail-sm.jpg" alt="" loading="lazy" width="48" height="48"><span><span class="cell-title">Statement Ring</span><span class="cell-sub">Mangalam Signature</span><span class="tags"><span class="tag tag--gold">Featured</span></span></span></a></td>
+                <td>Rings</td>
+                <td class="nowrap">22K Gold</td>
+                <td class="num">₹ 1,01,000</td>
+                <td><span class="badge badge--ok">Published</span></td>
+                <td class="cell-muted nowrap">27 Aug 2026</td>
+                <td class="col-actions"><div class="row-actions">
+                  <a class="icon-btn icon-btn--sm" href="product-edit.html?slug=statement-ring" aria-label="Edit Statement Ring" data-tip="Edit"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pencil"/></svg></a>
+                  <div class="dropdown"><button type="button" class="icon-btn icon-btn--sm" data-menu-trigger aria-haspopup="menu" aria-expanded="false" aria-label="More actions for Statement Ring"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ellipsis"/></svg></button><div class="menu" data-menu role="menu" hidden><a role="menuitem" href="../product.html?slug=statement-ring" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-external-link"/></svg>View on website</a><button type="button" role="menuitem" data-toast="Product duplicated" data-toast-text="“Statement Ring (copy)” was added as a draft."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-copy"/></svg>Duplicate</button><button type="button" role="menuitem" data-toast="Product hidden" data-toast-text="“Statement Ring” is no longer shown on the website."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-eye-off"/></svg>Hide from website</button><hr><button type="button" role="menuitem" class="is-danger" data-confirm="Delete “Statement Ring”?" data-confirm-text="It will be removed from the website and the catalogue. This can't be undone." data-confirm-action="Delete" data-done="Product deleted"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg>Delete</button></div></div>
+                </div></td>
+              </tr>
+              <tr data-item data-search="floral diamond ring rings diamond classic mangalam signature 18k" data-category="rings" data-metal="Diamond" data-style="Classic" data-flags="" data-sort-price="114750" data-sort-name="Floral Diamond Ring" data-sort-updated="1790274600000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select Floral Diamond Ring"></td>
+                <td><a class="cell-main" href="product-edit.html?slug=floral-diamond-ring"><img class="thumb" src="../assets/images/products/ring-kundan-floral-sm.jpg" alt="" loading="lazy" width="48" height="48"><span><span class="cell-title">Floral Diamond Ring</span><span class="cell-sub">Mangalam Signature</span></span></a></td>
+                <td>Rings</td>
+                <td class="nowrap">18K Diamond</td>
+                <td class="num">₹ 1,14,750</td>
+                <td><span class="badge badge--ok">Published</span></td>
+                <td class="cell-muted nowrap">25 Sep 2026</td>
+                <td class="col-actions"><div class="row-actions">
+                  <a class="icon-btn icon-btn--sm" href="product-edit.html?slug=floral-diamond-ring" aria-label="Edit Floral Diamond Ring" data-tip="Edit"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pencil"/></svg></a>
+                  <div class="dropdown"><button type="button" class="icon-btn icon-btn--sm" data-menu-trigger aria-haspopup="menu" aria-expanded="false" aria-label="More actions for Floral Diamond Ring"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ellipsis"/></svg></button><div class="menu" data-menu role="menu" hidden><a role="menuitem" href="../product.html?slug=floral-diamond-ring" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-external-link"/></svg>View on website</a><button type="button" role="menuitem" data-toast="Product duplicated" data-toast-text="“Floral Diamond Ring (copy)” was added as a draft."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-copy"/></svg>Duplicate</button><button type="button" role="menuitem" data-toast="Product hidden" data-toast-text="“Floral Diamond Ring” is no longer shown on the website."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-eye-off"/></svg>Hide from website</button><hr><button type="button" role="menuitem" class="is-danger" data-confirm="Delete “Floral Diamond Ring”?" data-confirm-text="It will be removed from the website and the catalogue. This can't be undone." data-confirm-action="Delete" data-done="Product deleted"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg>Delete</button></div></div>
+                </div></td>
+              </tr>
+              <tr data-item data-search="royal heritage necklace necklaces gold traditional mangalam signature 22k" data-category="necklaces" data-metal="Gold" data-style="Traditional" data-flags="featured new" data-sort-price="28000" data-sort-name="Royal Heritage Necklace" data-sort-updated="1789842600000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select Royal Heritage Necklace"></td>
+                <td><a class="cell-main" href="product-edit.html?slug=royal-heritage-necklace"><img class="thumb" src="../assets/images/products/necklace-emerald-plaque-sm.jpg" alt="" loading="lazy" width="48" height="48"><span><span class="cell-title">Royal Heritage Necklace</span><span class="cell-sub">Mangalam Signature</span><span class="tags"><span class="tag tag--gold">Featured</span><span class="tag">New</span></span></span></a></td>
+                <td>Necklaces</td>
+                <td class="nowrap">22K Gold</td>
+                <td class="num">₹ 28,000</td>
+                <td><span class="badge badge--ok">Published</span></td>
+                <td class="cell-muted nowrap">20 Sep 2026</td>
+                <td class="col-actions"><div class="row-actions">
+                  <a class="icon-btn icon-btn--sm" href="product-edit.html?slug=royal-heritage-necklace" aria-label="Edit Royal Heritage Necklace" data-tip="Edit"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pencil"/></svg></a>
+                  <div class="dropdown"><button type="button" class="icon-btn icon-btn--sm" data-menu-trigger aria-haspopup="menu" aria-expanded="false" aria-label="More actions for Royal Heritage Necklace"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ellipsis"/></svg></button><div class="menu" data-menu role="menu" hidden><a role="menuitem" href="../product.html?slug=royal-heritage-necklace" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-external-link"/></svg>View on website</a><button type="button" role="menuitem" data-toast="Product duplicated" data-toast-text="“Royal Heritage Necklace (copy)” was added as a draft."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-copy"/></svg>Duplicate</button><button type="button" role="menuitem" data-toast="Product hidden" data-toast-text="“Royal Heritage Necklace” is no longer shown on the website."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-eye-off"/></svg>Hide from website</button><hr><button type="button" role="menuitem" class="is-danger" data-confirm="Delete “Royal Heritage Necklace”?" data-confirm-text="It will be removed from the website and the catalogue. This can't be undone." data-confirm-action="Delete" data-done="Product deleted"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg>Delete</button></div></div>
+                </div></td>
+              </tr>
+              <tr data-item data-search="temple gold necklace necklaces gold traditional mangalam signature 22k" data-category="necklaces" data-metal="Gold" data-style="Traditional" data-flags="new" data-sort-price="41750" data-sort-name="Temple Gold Necklace" data-sort-updated="1789410600000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select Temple Gold Necklace"></td>
+                <td><a class="cell-main" href="product-edit.html?slug=temple-gold-necklace"><img class="thumb" src="../assets/images/products/necklace-temple-gold-sm.jpg" alt="" loading="lazy" width="48" height="48"><span><span class="cell-title">Temple Gold Necklace</span><span class="cell-sub">Mangalam Signature</span><span class="tags"><span class="tag">New</span></span></span></a></td>
+                <td>Necklaces</td>
+                <td class="nowrap">22K Gold</td>
+                <td class="num">₹ 41,750</td>
+                <td><span class="badge badge--ok">Published</span></td>
+                <td class="cell-muted nowrap">15 Sep 2026</td>
+                <td class="col-actions"><div class="row-actions">
+                  <a class="icon-btn icon-btn--sm" href="product-edit.html?slug=temple-gold-necklace" aria-label="Edit Temple Gold Necklace" data-tip="Edit"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pencil"/></svg></a>
+                  <div class="dropdown"><button type="button" class="icon-btn icon-btn--sm" data-menu-trigger aria-haspopup="menu" aria-expanded="false" aria-label="More actions for Temple Gold Necklace"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ellipsis"/></svg></button><div class="menu" data-menu role="menu" hidden><a role="menuitem" href="../product.html?slug=temple-gold-necklace" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-external-link"/></svg>View on website</a><button type="button" role="menuitem" data-toast="Product duplicated" data-toast-text="“Temple Gold Necklace (copy)” was added as a draft."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-copy"/></svg>Duplicate</button><button type="button" role="menuitem" data-toast="Product hidden" data-toast-text="“Temple Gold Necklace” is no longer shown on the website."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-eye-off"/></svg>Hide from website</button><hr><button type="button" role="menuitem" class="is-danger" data-confirm="Delete “Temple Gold Necklace”?" data-confirm-text="It will be removed from the website and the catalogue. This can't be undone." data-confirm-action="Delete" data-done="Product deleted"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg>Delete</button></div></div>
+                </div></td>
+              </tr>
+              <tr data-item data-search="diamond collar necklace necklaces diamond classic mangalam signature 18k" data-category="necklaces" data-metal="Diamond" data-style="Classic" data-flags="" data-sort-price="55500" data-sort-name="Diamond Collar Necklace" data-sort-updated="1788978600000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select Diamond Collar Necklace"></td>
+                <td><a class="cell-main" href="product-edit.html?slug=diamond-collar-necklace"><img class="thumb" src="../assets/images/products/necklace-diamond-sm.jpg" alt="" loading="lazy" width="48" height="48"><span><span class="cell-title">Diamond Collar Necklace</span><span class="cell-sub">Mangalam Signature</span></span></a></td>
+                <td>Necklaces</td>
+                <td class="nowrap">18K Diamond</td>
+                <td class="num">₹ 55,500</td>
+                <td><span class="badge badge--ok">Published</span></td>
+                <td class="cell-muted nowrap">10 Sep 2026</td>
+                <td class="col-actions"><div class="row-actions">
+                  <a class="icon-btn icon-btn--sm" href="product-edit.html?slug=diamond-collar-necklace" aria-label="Edit Diamond Collar Necklace" data-tip="Edit"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pencil"/></svg></a>
+                  <div class="dropdown"><button type="button" class="icon-btn icon-btn--sm" data-menu-trigger aria-haspopup="menu" aria-expanded="false" aria-label="More actions for Diamond Collar Necklace"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ellipsis"/></svg></button><div class="menu" data-menu role="menu" hidden><a role="menuitem" href="../product.html?slug=diamond-collar-necklace" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-external-link"/></svg>View on website</a><button type="button" role="menuitem" data-toast="Product duplicated" data-toast-text="“Diamond Collar Necklace (copy)” was added as a draft."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-copy"/></svg>Duplicate</button><button type="button" role="menuitem" data-toast="Product hidden" data-toast-text="“Diamond Collar Necklace” is no longer shown on the website."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-eye-off"/></svg>Hide from website</button><hr><button type="button" role="menuitem" class="is-danger" data-confirm="Delete “Diamond Collar Necklace”?" data-confirm-text="It will be removed from the website and the catalogue. This can't be undone." data-confirm-action="Delete" data-done="Product deleted"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg>Delete</button></div></div>
+                </div></td>
+              </tr>
+              <tr data-item data-search="bridal necklace set necklaces gold bridal mangalam signature 22k" data-category="necklaces" data-metal="Gold" data-style="Bridal" data-flags="" data-sort-price="69250" data-sort-name="Bridal Necklace Set" data-sort-updated="1788546600000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select Bridal Necklace Set"></td>
+                <td><a class="cell-main" href="product-edit.html?slug=bridal-necklace-set"><img class="thumb" src="../assets/images/products/necklace-polki-pearl-sm.jpg" alt="" loading="lazy" width="48" height="48"><span><span class="cell-title">Bridal Necklace Set</span><span class="cell-sub">Mangalam Signature</span></span></a></td>
+                <td>Necklaces</td>
+                <td class="nowrap">22K Gold</td>
+                <td class="num">₹ 69,250</td>
+                <td><span class="badge badge--ok">Published</span></td>
+                <td class="cell-muted nowrap">5 Sep 2026</td>
+                <td class="col-actions"><div class="row-actions">
+                  <a class="icon-btn icon-btn--sm" href="product-edit.html?slug=bridal-necklace-set" aria-label="Edit Bridal Necklace Set" data-tip="Edit"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pencil"/></svg></a>
+                  <div class="dropdown"><button type="button" class="icon-btn icon-btn--sm" data-menu-trigger aria-haspopup="menu" aria-expanded="false" aria-label="More actions for Bridal Necklace Set"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ellipsis"/></svg></button><div class="menu" data-menu role="menu" hidden><a role="menuitem" href="../product.html?slug=bridal-necklace-set" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-external-link"/></svg>View on website</a><button type="button" role="menuitem" data-toast="Product duplicated" data-toast-text="“Bridal Necklace Set (copy)” was added as a draft."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-copy"/></svg>Duplicate</button><button type="button" role="menuitem" data-toast="Product hidden" data-toast-text="“Bridal Necklace Set” is no longer shown on the website."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-eye-off"/></svg>Hide from website</button><hr><button type="button" role="menuitem" class="is-danger" data-confirm="Delete “Bridal Necklace Set”?" data-confirm-text="It will be removed from the website and the catalogue. This can't be undone." data-confirm-action="Delete" data-done="Product deleted"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg>Delete</button></div></div>
+                </div></td>
+              </tr>
+              <tr data-item data-search="antique gold necklace necklaces gold traditional mangalam signature 22k" data-category="necklaces" data-metal="Gold" data-style="Traditional" data-flags="" data-sort-price="83000" data-sort-name="Antique Gold Necklace" data-sort-updated="1788114600000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select Antique Gold Necklace"></td>
+                <td><a class="cell-main" href="product-edit.html?slug=antique-gold-necklace"><img class="thumb" src="../assets/images/products/necklace-antique-gold-sm.jpg" alt="" loading="lazy" width="48" height="48"><span><span class="cell-title">Antique Gold Necklace</span><span class="cell-sub">Mangalam Signature</span></span></a></td>
+                <td>Necklaces</td>
+                <td class="nowrap">22K Gold</td>
+                <td class="num">₹ 83,000</td>
+                <td><span class="badge badge--ok">Published</span></td>
+                <td class="cell-muted nowrap">31 Aug 2026</td>
+                <td class="col-actions"><div class="row-actions">
+                  <a class="icon-btn icon-btn--sm" href="product-edit.html?slug=antique-gold-necklace" aria-label="Edit Antique Gold Necklace" data-tip="Edit"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pencil"/></svg></a>
+                  <div class="dropdown"><button type="button" class="icon-btn icon-btn--sm" data-menu-trigger aria-haspopup="menu" aria-expanded="false" aria-label="More actions for Antique Gold Necklace"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ellipsis"/></svg></button><div class="menu" data-menu role="menu" hidden><a role="menuitem" href="../product.html?slug=antique-gold-necklace" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-external-link"/></svg>View on website</a><button type="button" role="menuitem" data-toast="Product duplicated" data-toast-text="“Antique Gold Necklace (copy)” was added as a draft."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-copy"/></svg>Duplicate</button><button type="button" role="menuitem" data-toast="Product hidden" data-toast-text="“Antique Gold Necklace” is no longer shown on the website."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-eye-off"/></svg>Hide from website</button><hr><button type="button" role="menuitem" class="is-danger" data-confirm="Delete “Antique Gold Necklace”?" data-confirm-text="It will be removed from the website and the catalogue. This can't be undone." data-confirm-action="Delete" data-done="Product deleted"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg>Delete</button></div></div>
+                </div></td>
+              </tr>
+              <tr data-item data-search="gujarati heritage necklace necklaces gold traditional mangalam signature 22k" data-category="necklaces" data-metal="Gold" data-style="Traditional" data-flags="" data-sort-price="96750" data-sort-name="Gujarati Heritage Necklace" data-sort-updated="1787682600000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select Gujarati Heritage Necklace"></td>
+                <td><a class="cell-main" href="product-edit.html?slug=gujarati-heritage-necklace"><img class="thumb" src="../assets/images/products/necklace-gold-collar-sm.jpg" alt="" loading="lazy" width="48" height="48"><span><span class="cell-title">Gujarati Heritage Necklace</span><span class="cell-sub">Mangalam Signature</span></span></a></td>
+                <td>Necklaces</td>
+                <td class="nowrap">22K Gold</td>
+                <td class="num">₹ 96,750</td>
+                <td><span class="badge badge--ok">Published</span></td>
+                <td class="cell-muted nowrap">26 Aug 2026</td>
+                <td class="col-actions"><div class="row-actions">
+                  <a class="icon-btn icon-btn--sm" href="product-edit.html?slug=gujarati-heritage-necklace" aria-label="Edit Gujarati Heritage Necklace" data-tip="Edit"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pencil"/></svg></a>
+                  <div class="dropdown"><button type="button" class="icon-btn icon-btn--sm" data-menu-trigger aria-haspopup="menu" aria-expanded="false" aria-label="More actions for Gujarati Heritage Necklace"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ellipsis"/></svg></button><div class="menu" data-menu role="menu" hidden><a role="menuitem" href="../product.html?slug=gujarati-heritage-necklace" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-external-link"/></svg>View on website</a><button type="button" role="menuitem" data-toast="Product duplicated" data-toast-text="“Gujarati Heritage Necklace (copy)” was added as a draft."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-copy"/></svg>Duplicate</button><button type="button" role="menuitem" data-toast="Product hidden" data-toast-text="“Gujarati Heritage Necklace” is no longer shown on the website."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-eye-off"/></svg>Hide from website</button><hr><button type="button" role="menuitem" class="is-danger" data-confirm="Delete “Gujarati Heritage Necklace”?" data-confirm-text="It will be removed from the website and the catalogue. This can't be undone." data-confirm-action="Delete" data-done="Product deleted"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg>Delete</button></div></div>
+                </div></td>
+              </tr>
+              <tr data-item data-search="classic jhumka earrings gold traditional mangalam signature 22k" data-category="earrings" data-metal="Gold" data-style="Traditional" data-flags="featured new" data-sort-price="37500" data-sort-name="Classic Jhumka" data-sort-updated="1790188200000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select Classic Jhumka"></td>
+                <td><a class="cell-main" href="product-edit.html?slug=classic-jhumka"><img class="thumb" src="../assets/images/products/earring-jhumka-sm.jpg" alt="" loading="lazy" width="48" height="48"><span><span class="cell-title">Classic Jhumka</span><span class="cell-sub">Mangalam Signature</span><span class="tags"><span class="tag tag--gold">Featured</span><span class="tag">New</span></span></span></a></td>
+                <td>Earrings</td>
+                <td class="nowrap">22K Gold</td>
+                <td class="num">₹ 37,500</td>
+                <td><span class="badge badge--ok">Published</span></td>
+                <td class="cell-muted nowrap">24 Sep 2026</td>
+                <td class="col-actions"><div class="row-actions">
+                  <a class="icon-btn icon-btn--sm" href="product-edit.html?slug=classic-jhumka" aria-label="Edit Classic Jhumka" data-tip="Edit"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pencil"/></svg></a>
+                  <div class="dropdown"><button type="button" class="icon-btn icon-btn--sm" data-menu-trigger aria-haspopup="menu" aria-expanded="false" aria-label="More actions for Classic Jhumka"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ellipsis"/></svg></button><div class="menu" data-menu role="menu" hidden><a role="menuitem" href="../product.html?slug=classic-jhumka" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-external-link"/></svg>View on website</a><button type="button" role="menuitem" data-toast="Product duplicated" data-toast-text="“Classic Jhumka (copy)” was added as a draft."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-copy"/></svg>Duplicate</button><button type="button" role="menuitem" data-toast="Product hidden" data-toast-text="“Classic Jhumka” is no longer shown on the website."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-eye-off"/></svg>Hide from website</button><hr><button type="button" role="menuitem" class="is-danger" data-confirm="Delete “Classic Jhumka”?" data-confirm-text="It will be removed from the website and the catalogue. This can't be undone." data-confirm-action="Delete" data-done="Product deleted"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg>Delete</button></div></div>
+                </div></td>
+              </tr>
+              <tr data-item data-search="diamond drop earrings earrings diamond classic mangalam signature 18k" data-category="earrings" data-metal="Diamond" data-style="Classic" data-flags="new" data-sort-price="51250" data-sort-name="Diamond Drop Earrings" data-sort-updated="1789756200000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select Diamond Drop Earrings"></td>
+                <td><a class="cell-main" href="product-edit.html?slug=diamond-drop-earrings"><img class="thumb" src="../assets/images/products/earring-diamond-sm.jpg" alt="" loading="lazy" width="48" height="48"><span><span class="cell-title">Diamond Drop Earrings</span><span class="cell-sub">Mangalam Signature</span><span class="tags"><span class="tag">New</span></span></span></a></td>
+                <td>Earrings</td>
+                <td class="nowrap">18K Diamond</td>
+                <td class="num">₹ 51,250</td>
+                <td><span class="badge badge--ok">Published</span></td>
+                <td class="cell-muted nowrap">19 Sep 2026</td>
+                <td class="col-actions"><div class="row-actions">
+                  <a class="icon-btn icon-btn--sm" href="product-edit.html?slug=diamond-drop-earrings" aria-label="Edit Diamond Drop Earrings" data-tip="Edit"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pencil"/></svg></a>
+                  <div class="dropdown"><button type="button" class="icon-btn icon-btn--sm" data-menu-trigger aria-haspopup="menu" aria-expanded="false" aria-label="More actions for Diamond Drop Earrings"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ellipsis"/></svg></button><div class="menu" data-menu role="menu" hidden><a role="menuitem" href="../product.html?slug=diamond-drop-earrings" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-external-link"/></svg>View on website</a><button type="button" role="menuitem" data-toast="Product duplicated" data-toast-text="“Diamond Drop Earrings (copy)” was added as a draft."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-copy"/></svg>Duplicate</button><button type="button" role="menuitem" data-toast="Product hidden" data-toast-text="“Diamond Drop Earrings” is no longer shown on the website."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-eye-off"/></svg>Hide from website</button><hr><button type="button" role="menuitem" class="is-danger" data-confirm="Delete “Diamond Drop Earrings”?" data-confirm-text="It will be removed from the website and the catalogue. This can't be undone." data-confirm-action="Delete" data-done="Product deleted"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg>Delete</button></div></div>
+                </div></td>
+              </tr>
+              <tr data-item data-search="traditional gujarati earrings earrings gold traditional mangalam signature 22k" data-category="earrings" data-metal="Gold" data-style="Traditional" data-flags="" data-sort-price="65000" data-sort-name="Traditional Gujarati Earrings" data-sort-updated="1789324200000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select Traditional Gujarati Earrings"></td>
+                <td><a class="cell-main" href="product-edit.html?slug=traditional-gujarati-earrings"><img class="thumb" src="../assets/images/products/earring-emerald-plaque-sm.jpg" alt="" loading="lazy" width="48" height="48"><span><span class="cell-title">Traditional Gujarati Earrings</span><span class="cell-sub">Mangalam Signature</span></span></a></td>
+                <td>Earrings</td>
+                <td class="nowrap">22K Gold</td>
+                <td class="num">₹ 65,000</td>
+                <td><span class="badge badge--ok">Published</span></td>
+                <td class="cell-muted nowrap">14 Sep 2026</td>
+                <td class="col-actions"><div class="row-actions">
+                  <a class="icon-btn icon-btn--sm" href="product-edit.html?slug=traditional-gujarati-earrings" aria-label="Edit Traditional Gujarati Earrings" data-tip="Edit"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pencil"/></svg></a>
+                  <div class="dropdown"><button type="button" class="icon-btn icon-btn--sm" data-menu-trigger aria-haspopup="menu" aria-expanded="false" aria-label="More actions for Traditional Gujarati Earrings"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ellipsis"/></svg></button><div class="menu" data-menu role="menu" hidden><a role="menuitem" href="../product.html?slug=traditional-gujarati-earrings" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-external-link"/></svg>View on website</a><button type="button" role="menuitem" data-toast="Product duplicated" data-toast-text="“Traditional Gujarati Earrings (copy)” was added as a draft."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-copy"/></svg>Duplicate</button><button type="button" role="menuitem" data-toast="Product hidden" data-toast-text="“Traditional Gujarati Earrings” is no longer shown on the website."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-eye-off"/></svg>Hide from website</button><hr><button type="button" role="menuitem" class="is-danger" data-confirm="Delete “Traditional Gujarati Earrings”?" data-confirm-text="It will be removed from the website and the catalogue. This can't be undone." data-confirm-action="Delete" data-done="Product deleted"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg>Delete</button></div></div>
+                </div></td>
+              </tr>
+              <tr data-item data-search="gold chandbali earrings gold traditional mangalam signature 22k" data-category="earrings" data-metal="Gold" data-style="Traditional" data-flags="" data-sort-price="78750" data-sort-name="Gold Chandbali" data-sort-updated="1788892200000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select Gold Chandbali"></td>
+                <td><a class="cell-main" href="product-edit.html?slug=gold-chandbali"><img class="thumb" src="../assets/images/products/earring-chandbali-sm.jpg" alt="" loading="lazy" width="48" height="48"><span><span class="cell-title">Gold Chandbali</span><span class="cell-sub">Mangalam Signature</span></span></a></td>
+                <td>Earrings</td>
+                <td class="nowrap">22K Gold</td>
+                <td class="num">₹ 78,750</td>
+                <td><span class="badge badge--ok">Published</span></td>
+                <td class="cell-muted nowrap">9 Sep 2026</td>
+                <td class="col-actions"><div class="row-actions">
+                  <a class="icon-btn icon-btn--sm" href="product-edit.html?slug=gold-chandbali" aria-label="Edit Gold Chandbali" data-tip="Edit"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pencil"/></svg></a>
+                  <div class="dropdown"><button type="button" class="icon-btn icon-btn--sm" data-menu-trigger aria-haspopup="menu" aria-expanded="false" aria-label="More actions for Gold Chandbali"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ellipsis"/></svg></button><div class="menu" data-menu role="menu" hidden><a role="menuitem" href="../product.html?slug=gold-chandbali" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-external-link"/></svg>View on website</a><button type="button" role="menuitem" data-toast="Product duplicated" data-toast-text="“Gold Chandbali (copy)” was added as a draft."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-copy"/></svg>Duplicate</button><button type="button" role="menuitem" data-toast="Product hidden" data-toast-text="“Gold Chandbali” is no longer shown on the website."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-eye-off"/></svg>Hide from website</button><hr><button type="button" role="menuitem" class="is-danger" data-confirm="Delete “Gold Chandbali”?" data-confirm-text="It will be removed from the website and the catalogue. This can't be undone." data-confirm-action="Delete" data-done="Product deleted"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg>Delete</button></div></div>
+                </div></td>
+              </tr>
+              <tr data-item data-search="contemporary studs earrings gold modern mangalam signature 22k" data-category="earrings" data-metal="Gold" data-style="Modern" data-flags="" data-sort-price="92500" data-sort-name="Contemporary Studs" data-sort-updated="1788460200000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select Contemporary Studs"></td>
+                <td><a class="cell-main" href="product-edit.html?slug=contemporary-studs"><img class="thumb" src="../assets/images/products/earring-polki-studs-sm.jpg" alt="" loading="lazy" width="48" height="48"><span><span class="cell-title">Contemporary Studs</span><span class="cell-sub">Mangalam Signature</span></span></a></td>
+                <td>Earrings</td>
+                <td class="nowrap">22K Gold</td>
+                <td class="num">₹ 92,500</td>
+                <td><span class="badge badge--ok">Published</span></td>
+                <td class="cell-muted nowrap">4 Sep 2026</td>
+                <td class="col-actions"><div class="row-actions">
+                  <a class="icon-btn icon-btn--sm" href="product-edit.html?slug=contemporary-studs" aria-label="Edit Contemporary Studs" data-tip="Edit"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pencil"/></svg></a>
+                  <div class="dropdown"><button type="button" class="icon-btn icon-btn--sm" data-menu-trigger aria-haspopup="menu" aria-expanded="false" aria-label="More actions for Contemporary Studs"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ellipsis"/></svg></button><div class="menu" data-menu role="menu" hidden><a role="menuitem" href="../product.html?slug=contemporary-studs" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-external-link"/></svg>View on website</a><button type="button" role="menuitem" data-toast="Product duplicated" data-toast-text="“Contemporary Studs (copy)” was added as a draft."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-copy"/></svg>Duplicate</button><button type="button" role="menuitem" data-toast="Product hidden" data-toast-text="“Contemporary Studs” is no longer shown on the website."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-eye-off"/></svg>Hide from website</button><hr><button type="button" role="menuitem" class="is-danger" data-confirm="Delete “Contemporary Studs”?" data-confirm-text="It will be removed from the website and the catalogue. This can't be undone." data-confirm-action="Delete" data-done="Product deleted"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg>Delete</button></div></div>
+                </div></td>
+              </tr>
+              <tr data-item data-search="bridal jhumka earrings gold bridal mangalam signature 22k" data-category="earrings" data-metal="Gold" data-style="Bridal" data-flags="" data-sort-price="106250" data-sort-name="Bridal Jhumka" data-sort-updated="1788028200000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select Bridal Jhumka"></td>
+                <td><a class="cell-main" href="product-edit.html?slug=bridal-jhumka"><img class="thumb" src="../assets/images/products/earring-gold-jhumka-sm.jpg" alt="" loading="lazy" width="48" height="48"><span><span class="cell-title">Bridal Jhumka</span><span class="cell-sub">Mangalam Signature</span></span></a></td>
+                <td>Earrings</td>
+                <td class="nowrap">22K Gold</td>
+                <td class="num">₹ 1,06,250</td>
+                <td><span class="badge badge--ok">Published</span></td>
+                <td class="cell-muted nowrap">30 Aug 2026</td>
+                <td class="col-actions"><div class="row-actions">
+                  <a class="icon-btn icon-btn--sm" href="product-edit.html?slug=bridal-jhumka" aria-label="Edit Bridal Jhumka" data-tip="Edit"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pencil"/></svg></a>
+                  <div class="dropdown"><button type="button" class="icon-btn icon-btn--sm" data-menu-trigger aria-haspopup="menu" aria-expanded="false" aria-label="More actions for Bridal Jhumka"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ellipsis"/></svg></button><div class="menu" data-menu role="menu" hidden><a role="menuitem" href="../product.html?slug=bridal-jhumka" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-external-link"/></svg>View on website</a><button type="button" role="menuitem" data-toast="Product duplicated" data-toast-text="“Bridal Jhumka (copy)” was added as a draft."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-copy"/></svg>Duplicate</button><button type="button" role="menuitem" data-toast="Product hidden" data-toast-text="“Bridal Jhumka” is no longer shown on the website."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-eye-off"/></svg>Hide from website</button><hr><button type="button" role="menuitem" class="is-danger" data-confirm="Delete “Bridal Jhumka”?" data-confirm-text="It will be removed from the website and the catalogue. This can't be undone." data-confirm-action="Delete" data-done="Product deleted"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg>Delete</button></div></div>
+                </div></td>
+              </tr>
+              <tr data-item data-search="heritage gold bangles bangles gold traditional mangalam signature 22k" data-category="bangles" data-metal="Gold" data-style="Traditional" data-flags="featured new" data-sort-price="47000" data-sort-name="Heritage Gold Bangles" data-sort-updated="1787596200000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select Heritage Gold Bangles"></td>
+                <td><a class="cell-main" href="product-edit.html?slug=heritage-gold-bangles"><img class="thumb" src="../assets/images/products/bangles-kada-pair-sm.jpg" alt="" loading="lazy" width="48" height="48"><span><span class="cell-title">Heritage Gold Bangles</span><span class="cell-sub">Mangalam Signature</span><span class="tags"><span class="tag tag--gold">Featured</span><span class="tag">New</span></span></span></a></td>
+                <td>Bangles</td>
+                <td class="nowrap">22K Gold</td>
+                <td class="num">₹ 47,000</td>
+                <td><span class="badge badge--ok">Published</span></td>
+                <td class="cell-muted nowrap">25 Aug 2026</td>
+                <td class="col-actions"><div class="row-actions">
+                  <a class="icon-btn icon-btn--sm" href="product-edit.html?slug=heritage-gold-bangles" aria-label="Edit Heritage Gold Bangles" data-tip="Edit"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pencil"/></svg></a>
+                  <div class="dropdown"><button type="button" class="icon-btn icon-btn--sm" data-menu-trigger aria-haspopup="menu" aria-expanded="false" aria-label="More actions for Heritage Gold Bangles"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ellipsis"/></svg></button><div class="menu" data-menu role="menu" hidden><a role="menuitem" href="../product.html?slug=heritage-gold-bangles" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-external-link"/></svg>View on website</a><button type="button" role="menuitem" data-toast="Product duplicated" data-toast-text="“Heritage Gold Bangles (copy)” was added as a draft."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-copy"/></svg>Duplicate</button><button type="button" role="menuitem" data-toast="Product hidden" data-toast-text="“Heritage Gold Bangles” is no longer shown on the website."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-eye-off"/></svg>Hide from website</button><hr><button type="button" role="menuitem" class="is-danger" data-confirm="Delete “Heritage Gold Bangles”?" data-confirm-text="It will be removed from the website and the catalogue. This can't be undone." data-confirm-action="Delete" data-done="Product deleted"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg>Delete</button></div></div>
+                </div></td>
+              </tr>
+              <tr data-item data-search="diamond kada bangles diamond classic mangalam signature 18k" data-category="bangles" data-metal="Diamond" data-style="Classic" data-flags="new" data-sort-price="60750" data-sort-name="Diamond Kada" data-sort-updated="1790101800000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select Diamond Kada"></td>
+                <td><a class="cell-main" href="product-edit.html?slug=diamond-kada"><img class="thumb" src="../assets/images/products/bangle-pave-cuff-sm.jpg" alt="" loading="lazy" width="48" height="48"><span><span class="cell-title">Diamond Kada</span><span class="cell-sub">Mangalam Signature</span><span class="tags"><span class="tag">New</span></span></span></a></td>
+                <td>Bangles</td>
+                <td class="nowrap">18K Diamond</td>
+                <td class="num">₹ 60,750</td>
+                <td><span class="badge badge--ok">Published</span></td>
+                <td class="cell-muted nowrap">23 Sep 2026</td>
+                <td class="col-actions"><div class="row-actions">
+                  <a class="icon-btn icon-btn--sm" href="product-edit.html?slug=diamond-kada" aria-label="Edit Diamond Kada" data-tip="Edit"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pencil"/></svg></a>
+                  <div class="dropdown"><button type="button" class="icon-btn icon-btn--sm" data-menu-trigger aria-haspopup="menu" aria-expanded="false" aria-label="More actions for Diamond Kada"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ellipsis"/></svg></button><div class="menu" data-menu role="menu" hidden><a role="menuitem" href="../product.html?slug=diamond-kada" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-external-link"/></svg>View on website</a><button type="button" role="menuitem" data-toast="Product duplicated" data-toast-text="“Diamond Kada (copy)” was added as a draft."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-copy"/></svg>Duplicate</button><button type="button" role="menuitem" data-toast="Product hidden" data-toast-text="“Diamond Kada” is no longer shown on the website."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-eye-off"/></svg>Hide from website</button><hr><button type="button" role="menuitem" class="is-danger" data-confirm="Delete “Diamond Kada”?" data-confirm-text="It will be removed from the website and the catalogue. This can't be undone." data-confirm-action="Delete" data-done="Product deleted"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg>Delete</button></div></div>
+                </div></td>
+              </tr>
+              <tr data-item data-search="traditional kada set bangles gold traditional mangalam signature 22k" data-category="bangles" data-metal="Gold" data-style="Traditional" data-flags="" data-sort-price="74500" data-sort-name="Traditional Kada Set" data-sort-updated="1789669800000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select Traditional Kada Set"></td>
+                <td><a class="cell-main" href="product-edit.html?slug=traditional-kada-set"><img class="thumb" src="../assets/images/products/bangles-filigree-kada-sm.jpg" alt="" loading="lazy" width="48" height="48"><span><span class="cell-title">Traditional Kada Set</span><span class="cell-sub">Mangalam Signature</span></span></a></td>
+                <td>Bangles</td>
+                <td class="nowrap">22K Gold</td>
+                <td class="num">₹ 74,500</td>
+                <td><span class="badge badge--ok">Published</span></td>
+                <td class="cell-muted nowrap">18 Sep 2026</td>
+                <td class="col-actions"><div class="row-actions">
+                  <a class="icon-btn icon-btn--sm" href="product-edit.html?slug=traditional-kada-set" aria-label="Edit Traditional Kada Set" data-tip="Edit"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pencil"/></svg></a>
+                  <div class="dropdown"><button type="button" class="icon-btn icon-btn--sm" data-menu-trigger aria-haspopup="menu" aria-expanded="false" aria-label="More actions for Traditional Kada Set"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ellipsis"/></svg></button><div class="menu" data-menu role="menu" hidden><a role="menuitem" href="../product.html?slug=traditional-kada-set" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-external-link"/></svg>View on website</a><button type="button" role="menuitem" data-toast="Product duplicated" data-toast-text="“Traditional Kada Set (copy)” was added as a draft."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-copy"/></svg>Duplicate</button><button type="button" role="menuitem" data-toast="Product hidden" data-toast-text="“Traditional Kada Set” is no longer shown on the website."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-eye-off"/></svg>Hide from website</button><hr><button type="button" role="menuitem" class="is-danger" data-confirm="Delete “Traditional Kada Set”?" data-confirm-text="It will be removed from the website and the catalogue. This can't be undone." data-confirm-action="Delete" data-done="Product deleted"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg>Delete</button></div></div>
+                </div></td>
+              </tr>
+              <tr data-item data-search="antique bangles bangles gold traditional mangalam signature 22k" data-category="bangles" data-metal="Gold" data-style="Traditional" data-flags="" data-sort-price="88250" data-sort-name="Antique Bangles" data-sort-updated="1789237800000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select Antique Bangles"></td>
+                <td><a class="cell-main" href="product-edit.html?slug=antique-bangles"><img class="thumb" src="../assets/images/products/bangle-gold-cuff-sm.jpg" alt="" loading="lazy" width="48" height="48"><span><span class="cell-title">Antique Bangles</span><span class="cell-sub">Mangalam Signature</span></span></a></td>
+                <td>Bangles</td>
+                <td class="nowrap">22K Gold</td>
+                <td class="num">₹ 88,250</td>
+                <td><span class="badge badge--ok">Published</span></td>
+                <td class="cell-muted nowrap">13 Sep 2026</td>
+                <td class="col-actions"><div class="row-actions">
+                  <a class="icon-btn icon-btn--sm" href="product-edit.html?slug=antique-bangles" aria-label="Edit Antique Bangles" data-tip="Edit"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pencil"/></svg></a>
+                  <div class="dropdown"><button type="button" class="icon-btn icon-btn--sm" data-menu-trigger aria-haspopup="menu" aria-expanded="false" aria-label="More actions for Antique Bangles"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ellipsis"/></svg></button><div class="menu" data-menu role="menu" hidden><a role="menuitem" href="../product.html?slug=antique-bangles" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-external-link"/></svg>View on website</a><button type="button" role="menuitem" data-toast="Product duplicated" data-toast-text="“Antique Bangles (copy)” was added as a draft."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-copy"/></svg>Duplicate</button><button type="button" role="menuitem" data-toast="Product hidden" data-toast-text="“Antique Bangles” is no longer shown on the website."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-eye-off"/></svg>Hide from website</button><hr><button type="button" role="menuitem" class="is-danger" data-confirm="Delete “Antique Bangles”?" data-confirm-text="It will be removed from the website and the catalogue. This can't be undone." data-confirm-action="Delete" data-done="Product deleted"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg>Delete</button></div></div>
+                </div></td>
+              </tr>
+              <tr data-item data-search="bridal bangle set bangles gold bridal mangalam signature 22k" data-category="bangles" data-metal="Gold" data-style="Bridal" data-flags="" data-sort-price="102000" data-sort-name="Bridal Bangle Set" data-sort-updated="1788805800000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select Bridal Bangle Set"></td>
+                <td><a class="cell-main" href="product-edit.html?slug=bridal-bangle-set"><img class="thumb" src="../assets/images/products/bangles-bridal-ivory-sm.jpg" alt="" loading="lazy" width="48" height="48"><span><span class="cell-title">Bridal Bangle Set</span><span class="cell-sub">Mangalam Signature</span></span></a></td>
+                <td>Bangles</td>
+                <td class="nowrap">22K Gold</td>
+                <td class="num">₹ 1,02,000</td>
+                <td><span class="badge badge--ok">Published</span></td>
+                <td class="cell-muted nowrap">8 Sep 2026</td>
+                <td class="col-actions"><div class="row-actions">
+                  <a class="icon-btn icon-btn--sm" href="product-edit.html?slug=bridal-bangle-set" aria-label="Edit Bridal Bangle Set" data-tip="Edit"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pencil"/></svg></a>
+                  <div class="dropdown"><button type="button" class="icon-btn icon-btn--sm" data-menu-trigger aria-haspopup="menu" aria-expanded="false" aria-label="More actions for Bridal Bangle Set"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ellipsis"/></svg></button><div class="menu" data-menu role="menu" hidden><a role="menuitem" href="../product.html?slug=bridal-bangle-set" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-external-link"/></svg>View on website</a><button type="button" role="menuitem" data-toast="Product duplicated" data-toast-text="“Bridal Bangle Set (copy)” was added as a draft."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-copy"/></svg>Duplicate</button><button type="button" role="menuitem" data-toast="Product hidden" data-toast-text="“Bridal Bangle Set” is no longer shown on the website."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-eye-off"/></svg>Hide from website</button><hr><button type="button" role="menuitem" class="is-danger" data-confirm="Delete “Bridal Bangle Set”?" data-confirm-text="It will be removed from the website and the catalogue. This can't be undone." data-confirm-action="Delete" data-done="Product deleted"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg>Delete</button></div></div>
+                </div></td>
+              </tr>
+              <tr data-item data-search="diamond tennis bracelet bracelets diamond classic mangalam signature 18k" data-category="bracelets" data-metal="Diamond" data-style="Classic" data-flags="featured new" data-sort-price="56500" data-sort-name="Diamond Tennis Bracelet" data-sort-updated="1788373800000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select Diamond Tennis Bracelet"></td>
+                <td><a class="cell-main" href="product-edit.html?slug=diamond-tennis-bracelet"><img class="thumb" src="../assets/images/products/bracelet-rose-diamond-2-sm.jpg" alt="" loading="lazy" width="48" height="48"><span><span class="cell-title">Diamond Tennis Bracelet</span><span class="cell-sub">Mangalam Signature</span><span class="tags"><span class="tag tag--gold">Featured</span><span class="tag">New</span></span></span></a></td>
+                <td>Bracelets</td>
+                <td class="nowrap">18K Diamond</td>
+                <td class="num">₹ 56,500</td>
+                <td><span class="badge badge--ok">Published</span></td>
+                <td class="cell-muted nowrap">3 Sep 2026</td>
+                <td class="col-actions"><div class="row-actions">
+                  <a class="icon-btn icon-btn--sm" href="product-edit.html?slug=diamond-tennis-bracelet" aria-label="Edit Diamond Tennis Bracelet" data-tip="Edit"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pencil"/></svg></a>
+                  <div class="dropdown"><button type="button" class="icon-btn icon-btn--sm" data-menu-trigger aria-haspopup="menu" aria-expanded="false" aria-label="More actions for Diamond Tennis Bracelet"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ellipsis"/></svg></button><div class="menu" data-menu role="menu" hidden><a role="menuitem" href="../product.html?slug=diamond-tennis-bracelet" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-external-link"/></svg>View on website</a><button type="button" role="menuitem" data-toast="Product duplicated" data-toast-text="“Diamond Tennis Bracelet (copy)” was added as a draft."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-copy"/></svg>Duplicate</button><button type="button" role="menuitem" data-toast="Product hidden" data-toast-text="“Diamond Tennis Bracelet” is no longer shown on the website."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-eye-off"/></svg>Hide from website</button><hr><button type="button" role="menuitem" class="is-danger" data-confirm="Delete “Diamond Tennis Bracelet”?" data-confirm-text="It will be removed from the website and the catalogue. This can't be undone." data-confirm-action="Delete" data-done="Product deleted"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg>Delete</button></div></div>
+                </div></td>
+              </tr>
+              <tr data-item data-search="gold chain bracelet bracelets gold classic mangalam signature 22k" data-category="bracelets" data-metal="Gold" data-style="Classic" data-flags="new" data-sort-price="70250" data-sort-name="Gold Chain Bracelet" data-sort-updated="1787941800000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select Gold Chain Bracelet"></td>
+                <td><a class="cell-main" href="product-edit.html?slug=gold-chain-bracelet"><img class="thumb" src="../assets/images/products/bracelet-gold-bar-sm.jpg" alt="" loading="lazy" width="48" height="48"><span><span class="cell-title">Gold Chain Bracelet</span><span class="cell-sub">Mangalam Signature</span><span class="tags"><span class="tag">New</span></span></span></a></td>
+                <td>Bracelets</td>
+                <td class="nowrap">22K Gold</td>
+                <td class="num">₹ 70,250</td>
+                <td><span class="badge badge--ok">Published</span></td>
+                <td class="cell-muted nowrap">29 Aug 2026</td>
+                <td class="col-actions"><div class="row-actions">
+                  <a class="icon-btn icon-btn--sm" href="product-edit.html?slug=gold-chain-bracelet" aria-label="Edit Gold Chain Bracelet" data-tip="Edit"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pencil"/></svg></a>
+                  <div class="dropdown"><button type="button" class="icon-btn icon-btn--sm" data-menu-trigger aria-haspopup="menu" aria-expanded="false" aria-label="More actions for Gold Chain Bracelet"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ellipsis"/></svg></button><div class="menu" data-menu role="menu" hidden><a role="menuitem" href="../product.html?slug=gold-chain-bracelet" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-external-link"/></svg>View on website</a><button type="button" role="menuitem" data-toast="Product duplicated" data-toast-text="“Gold Chain Bracelet (copy)” was added as a draft."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-copy"/></svg>Duplicate</button><button type="button" role="menuitem" data-toast="Product hidden" data-toast-text="“Gold Chain Bracelet” is no longer shown on the website."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-eye-off"/></svg>Hide from website</button><hr><button type="button" role="menuitem" class="is-danger" data-confirm="Delete “Gold Chain Bracelet”?" data-confirm-text="It will be removed from the website and the catalogue. This can't be undone." data-confirm-action="Delete" data-done="Product deleted"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg>Delete</button></div></div>
+                </div></td>
+              </tr>
+              <tr data-item data-search="elegant daily bracelet bracelets gold modern mangalam signature 22k" data-category="bracelets" data-metal="Gold" data-style="Modern" data-flags="" data-sort-price="84000" data-sort-name="Elegant Daily Bracelet" data-sort-updated="1787509800000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select Elegant Daily Bracelet"></td>
+                <td><a class="cell-main" href="product-edit.html?slug=elegant-daily-bracelet"><img class="thumb" src="../assets/images/products/bracelet-pearl-kundan-sm.jpg" alt="" loading="lazy" width="48" height="48"><span><span class="cell-title">Elegant Daily Bracelet</span><span class="cell-sub">Mangalam Signature</span></span></a></td>
+                <td>Bracelets</td>
+                <td class="nowrap">22K Gold</td>
+                <td class="num">₹ 84,000</td>
+                <td><span class="badge badge--ok">Published</span></td>
+                <td class="cell-muted nowrap">24 Aug 2026</td>
+                <td class="col-actions"><div class="row-actions">
+                  <a class="icon-btn icon-btn--sm" href="product-edit.html?slug=elegant-daily-bracelet" aria-label="Edit Elegant Daily Bracelet" data-tip="Edit"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pencil"/></svg></a>
+                  <div class="dropdown"><button type="button" class="icon-btn icon-btn--sm" data-menu-trigger aria-haspopup="menu" aria-expanded="false" aria-label="More actions for Elegant Daily Bracelet"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ellipsis"/></svg></button><div class="menu" data-menu role="menu" hidden><a role="menuitem" href="../product.html?slug=elegant-daily-bracelet" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-external-link"/></svg>View on website</a><button type="button" role="menuitem" data-toast="Product duplicated" data-toast-text="“Elegant Daily Bracelet (copy)” was added as a draft."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-copy"/></svg>Duplicate</button><button type="button" role="menuitem" data-toast="Product hidden" data-toast-text="“Elegant Daily Bracelet” is no longer shown on the website."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-eye-off"/></svg>Hide from website</button><hr><button type="button" role="menuitem" class="is-danger" data-confirm="Delete “Elegant Daily Bracelet”?" data-confirm-text="It will be removed from the website and the catalogue. This can't be undone." data-confirm-action="Delete" data-done="Product deleted"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg>Delete</button></div></div>
+                </div></td>
+              </tr>
+              <tr data-item data-search="charm bracelet bracelets gold classic mangalam signature 22k" data-category="bracelets" data-metal="Gold" data-style="Classic" data-flags="" data-sort-price="97750" data-sort-name="Charm Bracelet" data-sort-updated="1790015400000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select Charm Bracelet"></td>
+                <td><a class="cell-main" href="product-edit.html?slug=charm-bracelet"><img class="thumb" src="../assets/images/products/bracelet-meenakari-sm.jpg" alt="" loading="lazy" width="48" height="48"><span><span class="cell-title">Charm Bracelet</span><span class="cell-sub">Mangalam Signature</span></span></a></td>
+                <td>Bracelets</td>
+                <td class="nowrap">22K Gold</td>
+                <td class="num">₹ 97,750</td>
+                <td><span class="badge badge--ok">Published</span></td>
+                <td class="cell-muted nowrap">22 Sep 2026</td>
+                <td class="col-actions"><div class="row-actions">
+                  <a class="icon-btn icon-btn--sm" href="product-edit.html?slug=charm-bracelet" aria-label="Edit Charm Bracelet" data-tip="Edit"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pencil"/></svg></a>
+                  <div class="dropdown"><button type="button" class="icon-btn icon-btn--sm" data-menu-trigger aria-haspopup="menu" aria-expanded="false" aria-label="More actions for Charm Bracelet"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ellipsis"/></svg></button><div class="menu" data-menu role="menu" hidden><a role="menuitem" href="../product.html?slug=charm-bracelet" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-external-link"/></svg>View on website</a><button type="button" role="menuitem" data-toast="Product duplicated" data-toast-text="“Charm Bracelet (copy)” was added as a draft."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-copy"/></svg>Duplicate</button><button type="button" role="menuitem" data-toast="Product hidden" data-toast-text="“Charm Bracelet” is no longer shown on the website."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-eye-off"/></svg>Hide from website</button><hr><button type="button" role="menuitem" class="is-danger" data-confirm="Delete “Charm Bracelet”?" data-confirm-text="It will be removed from the website and the catalogue. This can't be undone." data-confirm-action="Delete" data-done="Product deleted"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg>Delete</button></div></div>
+                </div></td>
+              </tr>
+              <tr data-item data-search="statement bracelet bracelets gold classic mangalam signature 22k" data-category="bracelets" data-metal="Gold" data-style="Classic" data-flags="" data-sort-price="111500" data-sort-name="Statement Bracelet" data-sort-updated="1789583400000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select Statement Bracelet"></td>
+                <td><a class="cell-main" href="product-edit.html?slug=statement-bracelet"><img class="thumb" src="../assets/images/products/bracelet-polki-emerald-sm.jpg" alt="" loading="lazy" width="48" height="48"><span><span class="cell-title">Statement Bracelet</span><span class="cell-sub">Mangalam Signature</span></span></a></td>
+                <td>Bracelets</td>
+                <td class="nowrap">22K Gold</td>
+                <td class="num">₹ 1,11,500</td>
+                <td><span class="badge badge--ok">Published</span></td>
+                <td class="cell-muted nowrap">17 Sep 2026</td>
+                <td class="col-actions"><div class="row-actions">
+                  <a class="icon-btn icon-btn--sm" href="product-edit.html?slug=statement-bracelet" aria-label="Edit Statement Bracelet" data-tip="Edit"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pencil"/></svg></a>
+                  <div class="dropdown"><button type="button" class="icon-btn icon-btn--sm" data-menu-trigger aria-haspopup="menu" aria-expanded="false" aria-label="More actions for Statement Bracelet"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ellipsis"/></svg></button><div class="menu" data-menu role="menu" hidden><a role="menuitem" href="../product.html?slug=statement-bracelet" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-external-link"/></svg>View on website</a><button type="button" role="menuitem" data-toast="Product duplicated" data-toast-text="“Statement Bracelet (copy)” was added as a draft."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-copy"/></svg>Duplicate</button><button type="button" role="menuitem" data-toast="Product hidden" data-toast-text="“Statement Bracelet” is no longer shown on the website."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-eye-off"/></svg>Hide from website</button><hr><button type="button" role="menuitem" class="is-danger" data-confirm="Delete “Statement Bracelet”?" data-confirm-text="It will be removed from the website and the catalogue. This can't be undone." data-confirm-action="Delete" data-done="Product deleted"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg>Delete</button></div></div>
+                </div></td>
+              </tr>
+              <tr data-item data-search="classic gold pendant pendants gold classic mangalam signature 22k" data-category="pendants" data-metal="Gold" data-style="Classic" data-flags="new" data-sort-price="66000" data-sort-name="Classic Gold Pendant" data-sort-updated="1789151400000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select Classic Gold Pendant"></td>
+                <td><a class="cell-main" href="product-edit.html?slug=classic-gold-pendant"><img class="thumb" src="../assets/images/products/pendant-medallion-sm.jpg" alt="" loading="lazy" width="48" height="48"><span><span class="cell-title">Classic Gold Pendant</span><span class="cell-sub">Mangalam Signature</span><span class="tags"><span class="tag">New</span></span></span></a></td>
+                <td>Pendants</td>
+                <td class="nowrap">22K Gold</td>
+                <td class="num">₹ 66,000</td>
+                <td><span class="badge badge--ok">Published</span></td>
+                <td class="cell-muted nowrap">12 Sep 2026</td>
+                <td class="col-actions"><div class="row-actions">
+                  <a class="icon-btn icon-btn--sm" href="product-edit.html?slug=classic-gold-pendant" aria-label="Edit Classic Gold Pendant" data-tip="Edit"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pencil"/></svg></a>
+                  <div class="dropdown"><button type="button" class="icon-btn icon-btn--sm" data-menu-trigger aria-haspopup="menu" aria-expanded="false" aria-label="More actions for Classic Gold Pendant"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ellipsis"/></svg></button><div class="menu" data-menu role="menu" hidden><a role="menuitem" href="../product.html?slug=classic-gold-pendant" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-external-link"/></svg>View on website</a><button type="button" role="menuitem" data-toast="Product duplicated" data-toast-text="“Classic Gold Pendant (copy)” was added as a draft."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-copy"/></svg>Duplicate</button><button type="button" role="menuitem" data-toast="Product hidden" data-toast-text="“Classic Gold Pendant” is no longer shown on the website."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-eye-off"/></svg>Hide from website</button><hr><button type="button" role="menuitem" class="is-danger" data-confirm="Delete “Classic Gold Pendant”?" data-confirm-text="It will be removed from the website and the catalogue. This can't be undone." data-confirm-action="Delete" data-done="Product deleted"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg>Delete</button></div></div>
+                </div></td>
+              </tr>
+              <tr data-item data-search="diamond solitaire pendant pendants diamond classic mangalam signature 18k" data-category="pendants" data-metal="Diamond" data-style="Classic" data-flags="new" data-sort-price="79750" data-sort-name="Diamond Solitaire Pendant" data-sort-updated="1788719400000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select Diamond Solitaire Pendant"></td>
+                <td><a class="cell-main" href="product-edit.html?slug=diamond-solitaire-pendant"><img class="thumb" src="../assets/images/products/pendant-peacock-2-sm.jpg" alt="" loading="lazy" width="48" height="48"><span><span class="cell-title">Diamond Solitaire Pendant</span><span class="cell-sub">Mangalam Signature</span><span class="tags"><span class="tag">New</span></span></span></a></td>
+                <td>Pendants</td>
+                <td class="nowrap">18K Diamond</td>
+                <td class="num">₹ 79,750</td>
+                <td><span class="badge badge--ok">Published</span></td>
+                <td class="cell-muted nowrap">7 Sep 2026</td>
+                <td class="col-actions"><div class="row-actions">
+                  <a class="icon-btn icon-btn--sm" href="product-edit.html?slug=diamond-solitaire-pendant" aria-label="Edit Diamond Solitaire Pendant" data-tip="Edit"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pencil"/></svg></a>
+                  <div class="dropdown"><button type="button" class="icon-btn icon-btn--sm" data-menu-trigger aria-haspopup="menu" aria-expanded="false" aria-label="More actions for Diamond Solitaire Pendant"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ellipsis"/></svg></button><div class="menu" data-menu role="menu" hidden><a role="menuitem" href="../product.html?slug=diamond-solitaire-pendant" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-external-link"/></svg>View on website</a><button type="button" role="menuitem" data-toast="Product duplicated" data-toast-text="“Diamond Solitaire Pendant (copy)” was added as a draft."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-copy"/></svg>Duplicate</button><button type="button" role="menuitem" data-toast="Product hidden" data-toast-text="“Diamond Solitaire Pendant” is no longer shown on the website."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-eye-off"/></svg>Hide from website</button><hr><button type="button" role="menuitem" class="is-danger" data-confirm="Delete “Diamond Solitaire Pendant”?" data-confirm-text="It will be removed from the website and the catalogue. This can't be undone." data-confirm-action="Delete" data-done="Product deleted"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg>Delete</button></div></div>
+                </div></td>
+              </tr>
+              <tr data-item data-search="heritage pendant pendants gold traditional mangalam signature 22k" data-category="pendants" data-metal="Gold" data-style="Traditional" data-flags="" data-sort-price="93500" data-sort-name="Heritage Pendant" data-sort-updated="1788287400000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select Heritage Pendant"></td>
+                <td><a class="cell-main" href="product-edit.html?slug=heritage-pendant"><img class="thumb" src="../assets/images/products/pendant-peacock-sm.jpg" alt="" loading="lazy" width="48" height="48"><span><span class="cell-title">Heritage Pendant</span><span class="cell-sub">Mangalam Signature</span></span></a></td>
+                <td>Pendants</td>
+                <td class="nowrap">22K Gold</td>
+                <td class="num">₹ 93,500</td>
+                <td><span class="badge badge--ok">Published</span></td>
+                <td class="cell-muted nowrap">2 Sep 2026</td>
+                <td class="col-actions"><div class="row-actions">
+                  <a class="icon-btn icon-btn--sm" href="product-edit.html?slug=heritage-pendant" aria-label="Edit Heritage Pendant" data-tip="Edit"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pencil"/></svg></a>
+                  <div class="dropdown"><button type="button" class="icon-btn icon-btn--sm" data-menu-trigger aria-haspopup="menu" aria-expanded="false" aria-label="More actions for Heritage Pendant"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ellipsis"/></svg></button><div class="menu" data-menu role="menu" hidden><a role="menuitem" href="../product.html?slug=heritage-pendant" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-external-link"/></svg>View on website</a><button type="button" role="menuitem" data-toast="Product duplicated" data-toast-text="“Heritage Pendant (copy)” was added as a draft."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-copy"/></svg>Duplicate</button><button type="button" role="menuitem" data-toast="Product hidden" data-toast-text="“Heritage Pendant” is no longer shown on the website."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-eye-off"/></svg>Hide from website</button><hr><button type="button" role="menuitem" class="is-danger" data-confirm="Delete “Heritage Pendant”?" data-confirm-text="It will be removed from the website and the catalogue. This can't be undone." data-confirm-action="Delete" data-done="Product deleted"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg>Delete</button></div></div>
+                </div></td>
+              </tr>
+              <tr data-item data-search="minimal gold pendant pendants gold modern mangalam signature 22k" data-category="pendants" data-metal="Gold" data-style="Modern" data-flags="" data-sort-price="107250" data-sort-name="Minimal Gold Pendant" data-sort-updated="1787855400000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select Minimal Gold Pendant"></td>
+                <td><a class="cell-main" href="product-edit.html?slug=minimal-gold-pendant"><img class="thumb" src="../assets/images/products/pendant-tassel-sm.jpg" alt="" loading="lazy" width="48" height="48"><span><span class="cell-title">Minimal Gold Pendant</span><span class="cell-sub">Mangalam Signature</span></span></a></td>
+                <td>Pendants</td>
+                <td class="nowrap">22K Gold</td>
+                <td class="num">₹ 1,07,250</td>
+                <td><span class="badge badge--ok">Published</span></td>
+                <td class="cell-muted nowrap">28 Aug 2026</td>
+                <td class="col-actions"><div class="row-actions">
+                  <a class="icon-btn icon-btn--sm" href="product-edit.html?slug=minimal-gold-pendant" aria-label="Edit Minimal Gold Pendant" data-tip="Edit"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pencil"/></svg></a>
+                  <div class="dropdown"><button type="button" class="icon-btn icon-btn--sm" data-menu-trigger aria-haspopup="menu" aria-expanded="false" aria-label="More actions for Minimal Gold Pendant"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ellipsis"/></svg></button><div class="menu" data-menu role="menu" hidden><a role="menuitem" href="../product.html?slug=minimal-gold-pendant" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-external-link"/></svg>View on website</a><button type="button" role="menuitem" data-toast="Product duplicated" data-toast-text="“Minimal Gold Pendant (copy)” was added as a draft."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-copy"/></svg>Duplicate</button><button type="button" role="menuitem" data-toast="Product hidden" data-toast-text="“Minimal Gold Pendant” is no longer shown on the website."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-eye-off"/></svg>Hide from website</button><hr><button type="button" role="menuitem" class="is-danger" data-confirm="Delete “Minimal Gold Pendant”?" data-confirm-text="It will be removed from the website and the catalogue. This can't be undone." data-confirm-action="Delete" data-done="Product deleted"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg>Delete</button></div></div>
+                </div></td>
+              </tr>
+              <tr data-item data-search="classic mangalsutra mangalsutra gold classic sacred bonds 22k" data-category="mangalsutra" data-metal="Gold" data-style="Classic" data-flags="new photos" data-sort-price="75500" data-sort-name="Classic Mangalsutra" data-sort-updated="1790361000000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select Classic Mangalsutra"></td>
+                <td><a class="cell-main" href="product-edit.html?slug=classic-mangalsutra"><img class="thumb" src="../assets/images/products/mangalsutra.jpg" alt="" loading="lazy" width="48" height="48"><span><span class="cell-title">Classic Mangalsutra</span><span class="cell-sub">Sacred Bonds</span><span class="tags"><span class="tag">New</span><span class="tag tag--warn">Needs photos</span></span></span></a></td>
+                <td>Mangalsutra</td>
+                <td class="nowrap">22K Gold</td>
+                <td class="num">₹ 75,500</td>
+                <td><span class="badge badge--ok">Published</span></td>
+                <td class="cell-muted nowrap">26 Sep 2026</td>
+                <td class="col-actions"><div class="row-actions">
+                  <a class="icon-btn icon-btn--sm" href="product-edit.html?slug=classic-mangalsutra" aria-label="Edit Classic Mangalsutra" data-tip="Edit"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pencil"/></svg></a>
+                  <div class="dropdown"><button type="button" class="icon-btn icon-btn--sm" data-menu-trigger aria-haspopup="menu" aria-expanded="false" aria-label="More actions for Classic Mangalsutra"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ellipsis"/></svg></button><div class="menu" data-menu role="menu" hidden><a role="menuitem" href="../product.html?slug=classic-mangalsutra" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-external-link"/></svg>View on website</a><button type="button" role="menuitem" data-toast="Product duplicated" data-toast-text="“Classic Mangalsutra (copy)” was added as a draft."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-copy"/></svg>Duplicate</button><button type="button" role="menuitem" data-toast="Product hidden" data-toast-text="“Classic Mangalsutra” is no longer shown on the website."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-eye-off"/></svg>Hide from website</button><hr><button type="button" role="menuitem" class="is-danger" data-confirm="Delete “Classic Mangalsutra”?" data-confirm-text="It will be removed from the website and the catalogue. This can't be undone." data-confirm-action="Delete" data-done="Product deleted"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg>Delete</button></div></div>
+                </div></td>
+              </tr>
+              <tr data-item data-search="diamond mangalsutra mangalsutra diamond classic sacred bonds 18k" data-category="mangalsutra" data-metal="Diamond" data-style="Classic" data-flags="new photos" data-sort-price="89250" data-sort-name="Diamond Mangalsutra" data-sort-updated="1789929000000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select Diamond Mangalsutra"></td>
+                <td><a class="cell-main" href="product-edit.html?slug=diamond-mangalsutra"><img class="thumb" src="../assets/images/products/mangalsutra.jpg" alt="" loading="lazy" width="48" height="48"><span><span class="cell-title">Diamond Mangalsutra</span><span class="cell-sub">Sacred Bonds</span><span class="tags"><span class="tag">New</span><span class="tag tag--warn">Needs photos</span></span></span></a></td>
+                <td>Mangalsutra</td>
+                <td class="nowrap">18K Diamond</td>
+                <td class="num">₹ 89,250</td>
+                <td><span class="badge badge--ok">Published</span></td>
+                <td class="cell-muted nowrap">21 Sep 2026</td>
+                <td class="col-actions"><div class="row-actions">
+                  <a class="icon-btn icon-btn--sm" href="product-edit.html?slug=diamond-mangalsutra" aria-label="Edit Diamond Mangalsutra" data-tip="Edit"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pencil"/></svg></a>
+                  <div class="dropdown"><button type="button" class="icon-btn icon-btn--sm" data-menu-trigger aria-haspopup="menu" aria-expanded="false" aria-label="More actions for Diamond Mangalsutra"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ellipsis"/></svg></button><div class="menu" data-menu role="menu" hidden><a role="menuitem" href="../product.html?slug=diamond-mangalsutra" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-external-link"/></svg>View on website</a><button type="button" role="menuitem" data-toast="Product duplicated" data-toast-text="“Diamond Mangalsutra (copy)” was added as a draft."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-copy"/></svg>Duplicate</button><button type="button" role="menuitem" data-toast="Product hidden" data-toast-text="“Diamond Mangalsutra” is no longer shown on the website."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-eye-off"/></svg>Hide from website</button><hr><button type="button" role="menuitem" class="is-danger" data-confirm="Delete “Diamond Mangalsutra”?" data-confirm-text="It will be removed from the website and the catalogue. This can't be undone." data-confirm-action="Delete" data-done="Product deleted"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg>Delete</button></div></div>
+                </div></td>
+              </tr>
+              <tr data-item data-search="modern mangalsutra mangalsutra gold modern sacred bonds 22k" data-category="mangalsutra" data-metal="Gold" data-style="Modern" data-flags="photos" data-sort-price="103000" data-sort-name="Modern Mangalsutra" data-sort-updated="1789497000000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select Modern Mangalsutra"></td>
+                <td><a class="cell-main" href="product-edit.html?slug=modern-mangalsutra"><img class="thumb" src="../assets/images/products/mangalsutra.jpg" alt="" loading="lazy" width="48" height="48"><span><span class="cell-title">Modern Mangalsutra</span><span class="cell-sub">Sacred Bonds</span><span class="tags"><span class="tag tag--warn">Needs photos</span></span></span></a></td>
+                <td>Mangalsutra</td>
+                <td class="nowrap">22K Gold</td>
+                <td class="num">₹ 1,03,000</td>
+                <td><span class="badge badge--ok">Published</span></td>
+                <td class="cell-muted nowrap">16 Sep 2026</td>
+                <td class="col-actions"><div class="row-actions">
+                  <a class="icon-btn icon-btn--sm" href="product-edit.html?slug=modern-mangalsutra" aria-label="Edit Modern Mangalsutra" data-tip="Edit"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pencil"/></svg></a>
+                  <div class="dropdown"><button type="button" class="icon-btn icon-btn--sm" data-menu-trigger aria-haspopup="menu" aria-expanded="false" aria-label="More actions for Modern Mangalsutra"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ellipsis"/></svg></button><div class="menu" data-menu role="menu" hidden><a role="menuitem" href="../product.html?slug=modern-mangalsutra" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-external-link"/></svg>View on website</a><button type="button" role="menuitem" data-toast="Product duplicated" data-toast-text="“Modern Mangalsutra (copy)” was added as a draft."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-copy"/></svg>Duplicate</button><button type="button" role="menuitem" data-toast="Product hidden" data-toast-text="“Modern Mangalsutra” is no longer shown on the website."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-eye-off"/></svg>Hide from website</button><hr><button type="button" role="menuitem" class="is-danger" data-confirm="Delete “Modern Mangalsutra”?" data-confirm-text="It will be removed from the website and the catalogue. This can't be undone." data-confirm-action="Delete" data-done="Product deleted"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg>Delete</button></div></div>
+                </div></td>
+              </tr>
+              <tr data-item data-search="traditional gold mangalsutra mangalsutra gold traditional sacred bonds 22k" data-category="mangalsutra" data-metal="Gold" data-style="Traditional" data-flags="photos" data-sort-price="116750" data-sort-name="Traditional Gold Mangalsutra" data-sort-updated="1789065000000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select Traditional Gold Mangalsutra"></td>
+                <td><a class="cell-main" href="product-edit.html?slug=traditional-gold-mangalsutra"><img class="thumb" src="../assets/images/products/mangalsutra.jpg" alt="" loading="lazy" width="48" height="48"><span><span class="cell-title">Traditional Gold Mangalsutra</span><span class="cell-sub">Sacred Bonds</span><span class="tags"><span class="tag tag--warn">Needs photos</span></span></span></a></td>
+                <td>Mangalsutra</td>
+                <td class="nowrap">22K Gold</td>
+                <td class="num">₹ 1,16,750</td>
+                <td><span class="badge badge--ok">Published</span></td>
+                <td class="cell-muted nowrap">11 Sep 2026</td>
+                <td class="col-actions"><div class="row-actions">
+                  <a class="icon-btn icon-btn--sm" href="product-edit.html?slug=traditional-gold-mangalsutra" aria-label="Edit Traditional Gold Mangalsutra" data-tip="Edit"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pencil"/></svg></a>
+                  <div class="dropdown"><button type="button" class="icon-btn icon-btn--sm" data-menu-trigger aria-haspopup="menu" aria-expanded="false" aria-label="More actions for Traditional Gold Mangalsutra"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ellipsis"/></svg></button><div class="menu" data-menu role="menu" hidden><a role="menuitem" href="../product.html?slug=traditional-gold-mangalsutra" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-external-link"/></svg>View on website</a><button type="button" role="menuitem" data-toast="Product duplicated" data-toast-text="“Traditional Gold Mangalsutra (copy)” was added as a draft."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-copy"/></svg>Duplicate</button><button type="button" role="menuitem" data-toast="Product hidden" data-toast-text="“Traditional Gold Mangalsutra” is no longer shown on the website."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-eye-off"/></svg>Hide from website</button><hr><button type="button" role="menuitem" class="is-danger" data-confirm="Delete “Traditional Gold Mangalsutra”?" data-confirm-text="It will be removed from the website and the catalogue. This can't be undone." data-confirm-action="Delete" data-done="Product deleted"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg>Delete</button></div></div>
+                </div></td>
+              </tr>
+              <tr data-item data-search="rajwadi bridal necklace set bridal gold bridal the bridal edit 22k" data-category="bridal" data-metal="Gold" data-style="Bridal" data-flags="featured new" data-sort-price="85000" data-sort-name="Rajwadi Bridal Necklace Set" data-sort-updated="1788633000000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select Rajwadi Bridal Necklace Set"></td>
+                <td><a class="cell-main" href="product-edit.html?slug=rajwadi-bridal-necklace-set"><img class="thumb" src="../assets/images/products/bridal-polki-set-sm.jpg" alt="" loading="lazy" width="48" height="48"><span><span class="cell-title">Rajwadi Bridal Necklace Set</span><span class="cell-sub">The Bridal Edit</span><span class="tags"><span class="tag tag--gold">Featured</span><span class="tag">New</span></span></span></a></td>
+                <td>Bridal</td>
+                <td class="nowrap">22K Gold</td>
+                <td class="num">₹ 85,000</td>
+                <td><span class="badge badge--ok">Published</span></td>
+                <td class="cell-muted nowrap">6 Sep 2026</td>
+                <td class="col-actions"><div class="row-actions">
+                  <a class="icon-btn icon-btn--sm" href="product-edit.html?slug=rajwadi-bridal-necklace-set" aria-label="Edit Rajwadi Bridal Necklace Set" data-tip="Edit"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pencil"/></svg></a>
+                  <div class="dropdown"><button type="button" class="icon-btn icon-btn--sm" data-menu-trigger aria-haspopup="menu" aria-expanded="false" aria-label="More actions for Rajwadi Bridal Necklace Set"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ellipsis"/></svg></button><div class="menu" data-menu role="menu" hidden><a role="menuitem" href="../product.html?slug=rajwadi-bridal-necklace-set" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-external-link"/></svg>View on website</a><button type="button" role="menuitem" data-toast="Product duplicated" data-toast-text="“Rajwadi Bridal Necklace Set (copy)” was added as a draft."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-copy"/></svg>Duplicate</button><button type="button" role="menuitem" data-toast="Product hidden" data-toast-text="“Rajwadi Bridal Necklace Set” is no longer shown on the website."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-eye-off"/></svg>Hide from website</button><hr><button type="button" role="menuitem" class="is-danger" data-confirm="Delete “Rajwadi Bridal Necklace Set”?" data-confirm-text="It will be removed from the website and the catalogue. This can't be undone." data-confirm-action="Delete" data-done="Product deleted"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg>Delete</button></div></div>
+                </div></td>
+              </tr>
+              <tr data-item data-search="maharani bridal jhumka bridal gold bridal the bridal edit 22k" data-category="bridal" data-metal="Gold" data-style="Bridal" data-flags="new" data-sort-price="98750" data-sort-name="Maharani Bridal Jhumka" data-sort-updated="1788201000000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select Maharani Bridal Jhumka"></td>
+                <td><a class="cell-main" href="product-edit.html?slug=maharani-bridal-jhumka"><img class="thumb" src="../assets/images/products/earring-chandelier-sm.jpg" alt="" loading="lazy" width="48" height="48"><span><span class="cell-title">Maharani Bridal Jhumka</span><span class="cell-sub">The Bridal Edit</span><span class="tags"><span class="tag">New</span></span></span></a></td>
+                <td>Bridal</td>
+                <td class="nowrap">22K Gold</td>
+                <td class="num">₹ 98,750</td>
+                <td><span class="badge badge--ok">Published</span></td>
+                <td class="cell-muted nowrap">1 Sep 2026</td>
+                <td class="col-actions"><div class="row-actions">
+                  <a class="icon-btn icon-btn--sm" href="product-edit.html?slug=maharani-bridal-jhumka" aria-label="Edit Maharani Bridal Jhumka" data-tip="Edit"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pencil"/></svg></a>
+                  <div class="dropdown"><button type="button" class="icon-btn icon-btn--sm" data-menu-trigger aria-haspopup="menu" aria-expanded="false" aria-label="More actions for Maharani Bridal Jhumka"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ellipsis"/></svg></button><div class="menu" data-menu role="menu" hidden><a role="menuitem" href="../product.html?slug=maharani-bridal-jhumka" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-external-link"/></svg>View on website</a><button type="button" role="menuitem" data-toast="Product duplicated" data-toast-text="“Maharani Bridal Jhumka (copy)” was added as a draft."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-copy"/></svg>Duplicate</button><button type="button" role="menuitem" data-toast="Product hidden" data-toast-text="“Maharani Bridal Jhumka” is no longer shown on the website."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-eye-off"/></svg>Hide from website</button><hr><button type="button" role="menuitem" class="is-danger" data-confirm="Delete “Maharani Bridal Jhumka”?" data-confirm-text="It will be removed from the website and the catalogue. This can't be undone." data-confirm-action="Delete" data-done="Product deleted"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg>Delete</button></div></div>
+                </div></td>
+              </tr>
+              <tr data-item data-search="heritage bridal bangles bridal gold bridal the bridal edit 22k" data-category="bridal" data-metal="Gold" data-style="Bridal" data-flags="" data-sort-price="112500" data-sort-name="Heritage Bridal Bangles" data-sort-updated="1787769000000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select Heritage Bridal Bangles"></td>
+                <td><a class="cell-main" href="product-edit.html?slug=heritage-bridal-bangles"><img class="thumb" src="../assets/images/products/bangles-kundan-kada-sm.jpg" alt="" loading="lazy" width="48" height="48"><span><span class="cell-title">Heritage Bridal Bangles</span><span class="cell-sub">The Bridal Edit</span></span></a></td>
+                <td>Bridal</td>
+                <td class="nowrap">22K Gold</td>
+                <td class="num">₹ 1,12,500</td>
+                <td><span class="badge badge--ok">Published</span></td>
+                <td class="cell-muted nowrap">27 Aug 2026</td>
+                <td class="col-actions"><div class="row-actions">
+                  <a class="icon-btn icon-btn--sm" href="product-edit.html?slug=heritage-bridal-bangles" aria-label="Edit Heritage Bridal Bangles" data-tip="Edit"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pencil"/></svg></a>
+                  <div class="dropdown"><button type="button" class="icon-btn icon-btn--sm" data-menu-trigger aria-haspopup="menu" aria-expanded="false" aria-label="More actions for Heritage Bridal Bangles"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ellipsis"/></svg></button><div class="menu" data-menu role="menu" hidden><a role="menuitem" href="../product.html?slug=heritage-bridal-bangles" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-external-link"/></svg>View on website</a><button type="button" role="menuitem" data-toast="Product duplicated" data-toast-text="“Heritage Bridal Bangles (copy)” was added as a draft."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-copy"/></svg>Duplicate</button><button type="button" role="menuitem" data-toast="Product hidden" data-toast-text="“Heritage Bridal Bangles” is no longer shown on the website."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-eye-off"/></svg>Hide from website</button><hr><button type="button" role="menuitem" class="is-danger" data-confirm="Delete “Heritage Bridal Bangles”?" data-confirm-text="It will be removed from the website and the catalogue. This can't be undone." data-confirm-action="Delete" data-done="Product deleted"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg>Delete</button></div></div>
+                </div></td>
+              </tr>
+              <tr data-item data-search="saat phere bridal set bridal gold bridal the bridal edit 22k" data-category="bridal" data-metal="Gold" data-style="Bridal" data-flags="featured" data-sort-price="126250" data-sort-name="Saat Phere Bridal Set" data-sort-updated="1790274600000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select Saat Phere Bridal Set"></td>
+                <td><a class="cell-main" href="product-edit.html?slug=saat-phere-bridal-set"><img class="thumb" src="../assets/images/products/bridal-lehenga-sm.jpg" alt="" loading="lazy" width="48" height="48"><span><span class="cell-title">Saat Phere Bridal Set</span><span class="cell-sub">The Bridal Edit</span><span class="tags"><span class="tag tag--gold">Featured</span></span></span></a></td>
+                <td>Bridal</td>
+                <td class="nowrap">22K Gold</td>
+                <td class="num">₹ 1,26,250</td>
+                <td><span class="badge badge--ok">Published</span></td>
+                <td class="cell-muted nowrap">25 Sep 2026</td>
+                <td class="col-actions"><div class="row-actions">
+                  <a class="icon-btn icon-btn--sm" href="product-edit.html?slug=saat-phere-bridal-set" aria-label="Edit Saat Phere Bridal Set" data-tip="Edit"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pencil"/></svg></a>
+                  <div class="dropdown"><button type="button" class="icon-btn icon-btn--sm" data-menu-trigger aria-haspopup="menu" aria-expanded="false" aria-label="More actions for Saat Phere Bridal Set"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ellipsis"/></svg></button><div class="menu" data-menu role="menu" hidden><a role="menuitem" href="../product.html?slug=saat-phere-bridal-set" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-external-link"/></svg>View on website</a><button type="button" role="menuitem" data-toast="Product duplicated" data-toast-text="“Saat Phere Bridal Set (copy)” was added as a draft."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-copy"/></svg>Duplicate</button><button type="button" role="menuitem" data-toast="Product hidden" data-toast-text="“Saat Phere Bridal Set” is no longer shown on the website."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-eye-off"/></svg>Hide from website</button><hr><button type="button" role="menuitem" class="is-danger" data-confirm="Delete “Saat Phere Bridal Set”?" data-confirm-text="It will be removed from the website and the catalogue. This can't be undone." data-confirm-action="Delete" data-done="Product deleted"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg>Delete</button></div></div>
+                </div></td>
+              </tr>
+              <tr data-item data-search="polki bridal choker bridal gold bridal the bridal edit 22k" data-category="bridal" data-metal="Gold" data-style="Bridal" data-flags="" data-sort-price="140000" data-sort-name="Polki Bridal Choker" data-sort-updated="1789842600000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select Polki Bridal Choker"></td>
+                <td><a class="cell-main" href="product-edit.html?slug=polki-bridal-choker"><img class="thumb" src="../assets/images/products/bridal-emerald-choker-sm.jpg" alt="" loading="lazy" width="48" height="48"><span><span class="cell-title">Polki Bridal Choker</span><span class="cell-sub">The Bridal Edit</span></span></a></td>
+                <td>Bridal</td>
+                <td class="nowrap">22K Gold</td>
+                <td class="num">₹ 1,40,000</td>
+                <td><span class="badge badge--ok">Published</span></td>
+                <td class="cell-muted nowrap">20 Sep 2026</td>
+                <td class="col-actions"><div class="row-actions">
+                  <a class="icon-btn icon-btn--sm" href="product-edit.html?slug=polki-bridal-choker" aria-label="Edit Polki Bridal Choker" data-tip="Edit"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pencil"/></svg></a>
+                  <div class="dropdown"><button type="button" class="icon-btn icon-btn--sm" data-menu-trigger aria-haspopup="menu" aria-expanded="false" aria-label="More actions for Polki Bridal Choker"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ellipsis"/></svg></button><div class="menu" data-menu role="menu" hidden><a role="menuitem" href="../product.html?slug=polki-bridal-choker" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-external-link"/></svg>View on website</a><button type="button" role="menuitem" data-toast="Product duplicated" data-toast-text="“Polki Bridal Choker (copy)” was added as a draft."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-copy"/></svg>Duplicate</button><button type="button" role="menuitem" data-toast="Product hidden" data-toast-text="“Polki Bridal Choker” is no longer shown on the website."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-eye-off"/></svg>Hide from website</button><hr><button type="button" role="menuitem" class="is-danger" data-confirm="Delete “Polki Bridal Choker”?" data-confirm-text="It will be removed from the website and the catalogue. This can't be undone." data-confirm-action="Delete" data-done="Product deleted"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg>Delete</button></div></div>
+                </div></td>
+              </tr>
+              <tr data-item data-search="gujarati rani haar bridal gold traditional the bridal edit 22k" data-category="bridal" data-metal="Gold" data-style="Traditional" data-flags="" data-sort-price="153750" data-sort-name="Gujarati Rani Haar" data-sort-updated="1789410600000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select Gujarati Rani Haar"></td>
+                <td><a class="cell-main" href="product-edit.html?slug=gujarati-rani-haar"><img class="thumb" src="../assets/images/products/bridal-rani-haar-sm.jpg" alt="" loading="lazy" width="48" height="48"><span><span class="cell-title">Gujarati Rani Haar</span><span class="cell-sub">The Bridal Edit</span></span></a></td>
+                <td>Bridal</td>
+                <td class="nowrap">22K Gold</td>
+                <td class="num">₹ 1,53,750</td>
+                <td><span class="badge badge--ok">Published</span></td>
+                <td class="cell-muted nowrap">15 Sep 2026</td>
+                <td class="col-actions"><div class="row-actions">
+                  <a class="icon-btn icon-btn--sm" href="product-edit.html?slug=gujarati-rani-haar" aria-label="Edit Gujarati Rani Haar" data-tip="Edit"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pencil"/></svg></a>
+                  <div class="dropdown"><button type="button" class="icon-btn icon-btn--sm" data-menu-trigger aria-haspopup="menu" aria-expanded="false" aria-label="More actions for Gujarati Rani Haar"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ellipsis"/></svg></button><div class="menu" data-menu role="menu" hidden><a role="menuitem" href="../product.html?slug=gujarati-rani-haar" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-external-link"/></svg>View on website</a><button type="button" role="menuitem" data-toast="Product duplicated" data-toast-text="“Gujarati Rani Haar (copy)” was added as a draft."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-copy"/></svg>Duplicate</button><button type="button" role="menuitem" data-toast="Product hidden" data-toast-text="“Gujarati Rani Haar” is no longer shown on the website."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-eye-off"/></svg>Hide from website</button><hr><button type="button" role="menuitem" class="is-danger" data-confirm="Delete “Gujarati Rani Haar”?" data-confirm-text="It will be removed from the website and the catalogue. This can't be undone." data-confirm-action="Delete" data-done="Product deleted"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg>Delete</button></div></div>
+                </div></td>
+              </tr>
+              <tr data-item data-search="bridal maang tikka bridal gold bridal the bridal edit 22k" data-category="bridal" data-metal="Gold" data-style="Bridal" data-flags="" data-sort-price="167500" data-sort-name="Bridal Maang Tikka" data-sort-updated="1788978600000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select Bridal Maang Tikka"></td>
+                <td><a class="cell-main" href="product-edit.html?slug=bridal-maang-tikka"><img class="thumb" src="../assets/images/products/bridal-tikka-sm.jpg" alt="" loading="lazy" width="48" height="48"><span><span class="cell-title">Bridal Maang Tikka</span><span class="cell-sub">The Bridal Edit</span></span></a></td>
+                <td>Bridal</td>
+                <td class="nowrap">22K Gold</td>
+                <td class="num">₹ 1,67,500</td>
+                <td><span class="badge badge--ok">Published</span></td>
+                <td class="cell-muted nowrap">10 Sep 2026</td>
+                <td class="col-actions"><div class="row-actions">
+                  <a class="icon-btn icon-btn--sm" href="product-edit.html?slug=bridal-maang-tikka" aria-label="Edit Bridal Maang Tikka" data-tip="Edit"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pencil"/></svg></a>
+                  <div class="dropdown"><button type="button" class="icon-btn icon-btn--sm" data-menu-trigger aria-haspopup="menu" aria-expanded="false" aria-label="More actions for Bridal Maang Tikka"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ellipsis"/></svg></button><div class="menu" data-menu role="menu" hidden><a role="menuitem" href="../product.html?slug=bridal-maang-tikka" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-external-link"/></svg>View on website</a><button type="button" role="menuitem" data-toast="Product duplicated" data-toast-text="“Bridal Maang Tikka (copy)” was added as a draft."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-copy"/></svg>Duplicate</button><button type="button" role="menuitem" data-toast="Product hidden" data-toast-text="“Bridal Maang Tikka” is no longer shown on the website."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-eye-off"/></svg>Hide from website</button><hr><button type="button" role="menuitem" class="is-danger" data-confirm="Delete “Bridal Maang Tikka”?" data-confirm-text="It will be removed from the website and the catalogue. This can't be undone." data-confirm-action="Delete" data-done="Product deleted"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg>Delete</button></div></div>
+                </div></td>
+              </tr>
+              <tr data-item data-search="royal bridal nath bridal gold bridal the bridal edit 22k" data-category="bridal" data-metal="Gold" data-style="Bridal" data-flags="" data-sort-price="181250" data-sort-name="Royal Bridal Nath" data-sort-updated="1788546600000">
+                <td class="col-check"><input class="check" type="checkbox" data-check-row aria-label="Select Royal Bridal Nath"></td>
+                <td><a class="cell-main" href="product-edit.html?slug=royal-bridal-nath"><img class="thumb" src="../assets/images/products/bridal-nath-sm.jpg" alt="" loading="lazy" width="48" height="48"><span><span class="cell-title">Royal Bridal Nath</span><span class="cell-sub">The Bridal Edit</span></span></a></td>
+                <td>Bridal</td>
+                <td class="nowrap">22K Gold</td>
+                <td class="num">₹ 1,81,250</td>
+                <td><span class="badge badge--ok">Published</span></td>
+                <td class="cell-muted nowrap">5 Sep 2026</td>
+                <td class="col-actions"><div class="row-actions">
+                  <a class="icon-btn icon-btn--sm" href="product-edit.html?slug=royal-bridal-nath" aria-label="Edit Royal Bridal Nath" data-tip="Edit"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pencil"/></svg></a>
+                  <div class="dropdown"><button type="button" class="icon-btn icon-btn--sm" data-menu-trigger aria-haspopup="menu" aria-expanded="false" aria-label="More actions for Royal Bridal Nath"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ellipsis"/></svg></button><div class="menu" data-menu role="menu" hidden><a role="menuitem" href="../product.html?slug=royal-bridal-nath" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-external-link"/></svg>View on website</a><button type="button" role="menuitem" data-toast="Product duplicated" data-toast-text="“Royal Bridal Nath (copy)” was added as a draft."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-copy"/></svg>Duplicate</button><button type="button" role="menuitem" data-toast="Product hidden" data-toast-text="“Royal Bridal Nath” is no longer shown on the website."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-eye-off"/></svg>Hide from website</button><hr><button type="button" role="menuitem" class="is-danger" data-confirm="Delete “Royal Bridal Nath”?" data-confirm-text="It will be removed from the website and the catalogue. This can't be undone." data-confirm-action="Delete" data-done="Product deleted"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg>Delete</button></div></div>
+                </div></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="empty" data-list-empty hidden>
+          <span class="empty__icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-search"/></svg></span>
+          <p class="empty__title">No pieces match</p>
+          <p>Try another word, or clear the filters.</p>
+          <button type="button" class="btn btn--outline btn--sm" data-list-reset>Clear filters</button>
+        </div>
+        <div class="pager" data-pager></div>
+      </section>
+
+    </main>
+  </div>
+  <!-- Confirmation for anything that removes something (filled in by admin.js from the button's data-confirm) -->
+  <dialog class="dialog dialog--sm" id="confirm-dialog" aria-labelledby="confirm-title" aria-describedby="confirm-text">
+    <form method="dialog" class="dialog__panel dialog__panel--confirm">
+      <span class="dialog__badge"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash-2"/></svg></span>
+      <h2 class="dialog__title" id="confirm-title" data-confirm-title>Delete this item?</h2>
+      <p class="dialog__text" id="confirm-text" data-confirm-text>This can't be undone.</p>
+      <div class="dialog__actions">
+        <button type="submit" class="btn btn--outline" value="cancel" autofocus>Cancel</button>
+        <button type="submit" class="btn btn--danger" value="ok" data-confirm-ok>Delete</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Toasts stand in for saving: they say what would happen, and that it was a preview -->
+  <div class="toasts" data-toasts aria-live="polite"></div>
+  <template id="toast-template">
+    <div class="toast" role="status">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-circle-check"/></svg>
+      <div><p class="toast__title"></p><p class="toast__text"></p></div>
+      <button type="button" class="toast__close" aria-label="Dismiss"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-x"/></svg></button>
+    </div>
+  </template>
+
+  <script src="../assets/js/admin.js"></script>
+</body>
+</html>
