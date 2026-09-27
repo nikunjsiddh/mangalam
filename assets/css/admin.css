@@ -755,8 +755,8 @@ a.cell-main:hover .cell-title { color: var(--gold-deep); }
 .post__foot { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 12px 14px 14px 18px; }
 
 .qcards { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
-.qcard { position: relative; display: flex; flex-direction: column; gap: 18px; padding: 30px 22px 16px; cursor: grab; }
-.qcard::before { content: "\201C"; position: absolute; top: 2px; left: 18px; font-family: var(--font-display); font-size: 84px; line-height: 1; color: var(--gold-soft); opacity: 0.7; pointer-events: none; }
+.qcard { position: relative; display: flex; flex-direction: column; gap: 18px; padding: 50px 22px 16px; cursor: grab; }
+.qcard::before { content: "\201C"; position: absolute; top: 4px; left: 18px; font-family: var(--font-display); font-size: 72px; line-height: 1; color: var(--gold-soft); opacity: 0.75; pointer-events: none; }
 .qcard__grip { position: absolute; top: 12px; right: 12px; }
 .qcard__quote { position: relative; flex: 1; font-family: var(--font-display); font-size: 21px; font-style: italic; line-height: 1.45; color: var(--ink); }
 .qcard__who { display: flex; align-items: center; gap: 12px; }
@@ -858,11 +858,11 @@ a.cell-main:hover .cell-title { color: var(--gold-deep); }
 .cal__day.is-out .cal__num { color: var(--faint); }
 .cal__num { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; font-size: 12.5px; font-weight: 500; color: var(--ink-soft); }
 .cal__day.is-today .cal__num { background: var(--wine-deep); color: var(--gold-pale); }
-.appt { display: flex; align-items: center; gap: 4px; width: 100%; min-width: 0; padding: 4px 6px; border-left: 3px solid var(--gold); border-radius: 6px; background: var(--gold-pale); color: #5C4500; font-size: 11.5px; line-height: 1.3; text-align: left; transition: filter 0.15s; }
+.appt { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 1px 4px; width: 100%; min-width: 0; padding: 4px 6px; border-left: 3px solid var(--gold); border-radius: 6px; background: var(--gold-pale); color: #5C4500; font-size: 11.5px; line-height: 1.3; text-align: left; transition: filter 0.15s; }
 .appt:hover { filter: brightness(0.95); }
 .appt .icon { width: 12px; height: 12px; stroke-width: 2.2; }
-.appt__time { flex-shrink: 0; font-weight: 600; }
-.appt__name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.appt__time { font-weight: 600; }
+.appt__name { grid-column: 1 / -1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .appt--pending { border-left-color: #D39B2A; background: var(--warn-bg); color: var(--warn); }
 .appt--completed { border-left-color: #B9AC9D; background: #EFEAE3; color: var(--muted); }
 .appt--cancelled { border-left-color: var(--border-strong); background: transparent; color: var(--faint); }

@@ -57,6 +57,26 @@ npm run build
 - **Colours and fonts:** the tokens at the top of `assets/css/mangalam.css`
 - **Offer popup:** the wording is in `src/partials/offer.html`; the percentage and the button's link are `offerPercent` / `offerHref` in the `site` object of `src/build.mjs`; the timing is `OFFER_DELAY` / `OFFER_SECONDS` in `assets/js/main.js`
 
+## Admin panel (design preview)
+
+Open **http://localhost/mangalam/admin/** (the sign-in page is `admin/login.html`; any email and password opens the dashboard).
+
+The admin is a front-end design only — there is no database yet. Every screen and control works so the design can be reviewed: menus, drawers and dialogs open (edit buttons fill them from the row you clicked), lists search, filter, sort and page, rows can be selected and dragged into a new order, photos preview when chosen, and the offer editor previews as you type. Anything that would change data shows a toast saying it was a preview; that is where the backend's requests go once it is connected.
+
+| Screen | File |
+| --- | --- |
+| Dashboard — key figures, enquiries chart, pieces by category, latest enquiries, appointments, things needing attention | `admin/index.html` |
+| Products — list with filters and bulk actions; add / edit form with photos, price, specifications and search listing | `products.html`, `product-new.html`, `product-edit.html?slug=…` |
+| Categories, Collections | `categories.html`, `collections.html` |
+| Homepage — section order, hero text and shop-the-look pins, featured pieces, bridal panels | `homepage.html` |
+| Pages & banners, Journal (list and story editor), Testimonials, Media library | `pages.html`, `journal.html`, `article-new.html`, `article-edit.html?slug=…`, `testimonials.html`, `media.html` |
+| Enquiries, Appointments, Subscribers | `enquiries.html`, `appointments.html`, `subscribers.html` |
+| Offers & announcements, Settings, Users & roles | `offers.html`, `settings.html`, `users.html` |
+
+Products, categories, collections, pages, the journal, testimonials, media, the offer and the settings are read from the website's own data, so they always match the site. Customers, bookings, subscribers, the team and the dashboard figures are samples in `src/admin/sample-data.mjs`.
+
+Like the website, the admin pages are generated: edit `src/admin/` (layouts, partials, `pages/`, and `build.mjs` for the lists and tables), `assets/css/admin.css` and `assets/js/admin.js`, then run `npm run build`.
+
 ## Offer popup
 
 On a visitor's first page the offer opens by itself 1.5 seconds after the page has loaded. A gold line along its foot counts down 7 seconds (it pauses while the pointer is over the offer), then the offer folds into the small "30% off" tab at the middle of the right edge. The tab stays on every page; clicking it opens the offer again, and then it stays open until closed. The offer opens by itself only once per visit — to see it again while testing, open the site in a new browser tab.

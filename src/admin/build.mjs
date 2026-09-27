@@ -644,7 +644,7 @@ export function buildAdmin({ ROOT, MJ, ICONS, site, collections, hotspots, annou
                 <td class="col-actions"><div class="row-actions"><button type="button" class="icon-btn icon-btn--sm" data-confirm="Remove ${email}?" data-confirm-text="They will stop receiving the newsletter and be removed from this list." data-confirm-action="Remove" data-done="Subscriber removed" aria-label="Remove ${email}">${icon("trash-2")}</button></div></td>
               </tr>`;
   }).join("");
-  const unsubscribed = subscribers.filter((s) => s[3] === "unsubscribed").length;
+  const unsubscribed = subscribers.filter((s) => s[3] === "unsubscribed" && s[2] <= 30).length;
 
   /* ---------- Offer & announcements ---------- */
   const offerTpl = readFileSync(join(ROOT, "src/partials/offer.html"), "utf8");
