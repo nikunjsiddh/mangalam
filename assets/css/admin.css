@@ -155,8 +155,13 @@ fieldset { border: 0; min-width: 0; }
 .top {
   position: sticky; top: 0; z-index: 30; display: flex; align-items: center; gap: 14px;
   height: var(--top-h); padding: 0 28px 0 18px;
-  background: rgba(251, 248, 242, 0.86); -webkit-backdrop-filter: saturate(1.4) blur(14px); backdrop-filter: saturate(1.4) blur(14px);
   border-bottom: 1px solid var(--border);
+}
+/* The frosted glass is a layer behind the bar, not on the bar itself: a backdrop-filter on the bar would make it
+   the frame for its fixed-position menus (profile, notifications) and push them off screen by the sidebar's width */
+.top::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: rgba(251, 248, 242, 0.86); -webkit-backdrop-filter: saturate(1.4) blur(14px); backdrop-filter: saturate(1.4) blur(14px);
 }
 .top__search {
   display: flex; align-items: center; gap: 10px; flex: 0 1 420px; height: 40px; padding: 0 8px 0 12px;
@@ -199,7 +204,11 @@ kbd { padding: 2px 6px; border: 1px solid var(--border-strong); border-radius: 5
 .ph__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
 .ph--sticky {
   position: sticky; top: var(--top-h); z-index: 20; margin: -28px -32px 24px; padding: 18px 32px 16px;
-  background: rgba(246, 241, 233, 0.94); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.ph--sticky::before { /* frosted layer behind, for the same reason as .top::before */
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: rgba(246, 241, 233, 0.94); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
 }
 
 .grid { display: grid; gap: 20px; margin-bottom: 20px; }
