@@ -1,0 +1,29 @@
+  <div class="auth__art">
+    <img src="../assets/images/campaign/hero.jpg" alt="" class="auth__photo">
+    <div class="auth__art-inner">
+      <a class="auth__brand" href="../index.html" aria-label="Mangalam Jewellers — website"><span class="logo logo--full" aria-hidden="true"></span></a>
+      <p class="auth__quote">Some jewellery is worn.<br>Some jewellery is <em>remembered.</em></p>
+      <p class="auth__meta">Surat · Since 1962</p>
+    </div>
+  </div>
+
+  <main class="auth__panel">
+    <form class="auth__form" data-welcome novalidate{{formHidden}}>
+      <input type="hidden" name="token" value="{{token}}">
+      <span class="logo logo--emblem auth__emblem" aria-hidden="true"></span>
+      <p class="auth__eyebrow">Mangalam admin</p>
+      <h1 class="auth__title">Welcome, {{name}}</h1>
+      <p class="auth__lead">Choose a password for <strong>{{email}}</strong>. You will use it with your email to sign in.</p>
+      <label class="field"><span class="field__label">New password</span><span class="input-group input-group--lg"><input class="input" type="password" name="password" minlength="8" autocomplete="new-password" required><button type="button" class="input-group__btn" data-password-toggle aria-label="Show password" aria-pressed="false">{{icon:eye}}</button></span><span class="hint">At least 8 characters.</span></label>
+      <label class="field"><span class="field__label">Type it again</span><input class="input input--lg" type="password" name="confirm" minlength="8" autocomplete="new-password" required></label>
+      <p class="auth__error" data-login-error role="alert" hidden></p>
+      <button type="submit" class="btn btn--gold btn--lg btn--block">Save and sign in {{icon:arrow-right}}</button>
+    </form>
+    <div class="auth__form"{{expiredHidden}}>
+      <span class="logo logo--emblem auth__emblem" aria-hidden="true"></span>
+      <p class="auth__eyebrow">Mangalam admin</p>
+      <h1 class="auth__title">This link has expired</h1>
+      <p class="auth__lead">Links for choosing a password work for 7 days, once. Ask the owner to make you a new one from Users &amp; roles.</p>
+      <a class="btn btn--outline btn--lg btn--block" href="login.html">Go to sign in</a>
+    </div>
+  </main>

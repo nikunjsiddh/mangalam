@@ -1,12 +1,16 @@
 /* Mangalam Jewellers — admin panel behaviour.
  *
- * The admin is a design for now: every control works so the screens can be reviewed, but nothing is
- * saved. Anything that would change data shows a toast saying what would happen; once a backend is
- * connected, those toasts are where its requests go.
+ * Every change is sent to admin/api.php, which saves it in the database:
+ *   <form data-save="product.save">            the form's fields (plus editor text, photos and chosen rows)
+ *   <button data-post="…" data-params='{…}'>   a single action, after a confirmation when it has data-confirm
+ *   <input data-change-post="…">               saved as soon as it changes (switches, status menus)
+ *   <… data-sortable data-sort-post="…">       the new order, after dragging
+ *   <… data-bulk-post="…">                     the rows ticked in the table
+ * The answer says what to show (a toast, a link to share) and whether to reload or open another page.
  *
  * Sidebar, menus, tooltips, dialogs and drawers (filled in from the button that opens them),
  * confirmations, toasts, tabs, list search / filters / sorting / pages, row selection, drag to
- * reorder, photo previews, the text editor, live previews, charts, and the enquiries, media,
+ * reorder, photo uploads, the text editor, live previews, charts, and the enquiries, media,
  * homepage, offer, settings and sign-in screens.
  */
 (function () {
@@ -19,18 +23,22 @@
   var page = document.body.getAttribute("data-page");
   var params = new URLSearchParams(location.search);
   var wide = window.matchMedia("(min-width: 1100px)");
-  var MJ = window.MJ;
   var iconHTML = function (name) { return '<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-' + name + '"/></svg>'; };
+  var csrfMeta = $('meta[name="csrf-token"]');
+  var CSRF = csrfMeta ? csrfMeta.getAttribute("content") : "";
+  var FLASH = "mj-admin-flash";
 
   /* ---------- Toasts ---------- */
   var toastBox = $("[data-toasts]"), toastTemplate = $("#toast-template");
-  function toast(title, text) {
+  function toast(title, text, isError) {
     if (!toastBox || !toastTemplate) return;
     var el = toastTemplate.content.firstElementChild.cloneNode(true);
     $(".toast__title", el).textContent = title;
-    $(".toast__text", el).textContent = text || "Design preview — nothing was saved.";
+    $(".toast__text", el).textContent = text || "";
+    $(".toast__text", el).hidden = !text;
+    el.classList.toggle("toast--error", !!isError);
     toastBox.appendChild(el);
-    var timer = setTimeout(dismiss, 4800);
+    var timer = setTimeout(dismiss, isError ? 8000 : 4800);
     function dismiss() {
       clearTimeout(timer);
       el.classList.add("is-leaving");
@@ -39,6 +47,12 @@
     $(".toast__close", el).addEventListener("click", dismiss);
     while (toastBox.children.length > 3) toastBox.firstElementChild.remove();
   }
+  // A toast that waits for the next page (after saving reloads or opens another screen)
+  try {
+    var flash = JSON.parse(sessionStorage.getItem(FLASH) || "null");
+    sessionStorage.removeItem(FLASH);
+    if (flash) setTimeout(function () { toast(flash.title, flash.text); }, 150);
+  } catch (err) { /* storage unavailable */ }
 
   document.addEventListener("click", function (e) {
     var el = e.target.closest("[data-toast]");
@@ -46,9 +60,87 @@
     if (el.tagName === "A") e.preventDefault();
     toast(el.getAttribute("data-toast"), el.getAttribute("data-toast-text"));
   });
+
+  /* ---------- Talking to the server ---------- */
+  function send(action, data) {
+    var body = data instanceof FormData ? data : new FormData();
+    if (!(data instanceof FormData) && data) Object.keys(data).forEach(function (key) { appendValue(body, key, data[key]); });
+    body.set("action", action);
+    return fetch("api.php", { method: "POST", body: body, credentials: "same-origin", headers: { "X-CSRF-Token": CSRF, Accept: "application/json" } })
+      .then(function (r) { return r.json().catch(function () { return { ok: false, error: "The server answered in a way the admin did not understand (" + r.status + ")." }; }); })
+      .catch(function () { return { ok: false, error: "Could not reach the server. Check the connection and try again." }; });
+  }
+  function appendValue(body, key, value) {
+    if (Array.isArray(value)) value.forEach(function (v) { body.append(key + "[]", v); });
+    else if (typeof value === "boolean") { if (value) body.append(key, "1"); }
+    else if (value !== null && value !== undefined) body.append(key, value);
+  }
+  // What happens after the server answers: a toast now, or after the page it sends us to
+  function respond(res, fallbackTitle) {
+    if (!res || !res.ok) {
+      toast((res && res.error) ? "Not saved" : "Something went wrong", (res && res.error) || "Please try again.", true);
+      if (res && res.redirect && !res.ok) setTimeout(function () { location.href = res.redirect; }, 1500);
+      return false;
+    }
+    var title = res.message || fallbackTitle || "Saved";
+    if (res.link) { showLink(res); return true; }
+    if (res.redirect || res.reload) {
+      try { sessionStorage.setItem(FLASH, JSON.stringify({ title: title, text: res.text || "" })); } catch (err) { toast(title, res.text); }
+      if (res.redirect) location.href = res.redirect; else location.reload();
+      return true;
+    }
+    toast(title, res.text);
+    return true;
+  }
+  var linkDialog = $("#link-dialog"), reloadAfterLink = false;
+  function showLink(res) {
+    if (!linkDialog) { toast(res.message, res.link); return; }
+    $("[data-link-title]", linkDialog).textContent = res.linkTitle || res.message || "Share this link";
+    $("[data-link-text]", linkDialog).textContent = res.linkText || "";
+    $("[data-link-value]", linkDialog).value = res.link;
+    reloadAfterLink = !!res.reload;
+    linkDialog.showModal();
+    $("[data-link-value]", linkDialog).select();
+  }
+  if (linkDialog) linkDialog.addEventListener("close", function () { if (reloadAfterLink) location.reload(); });
+  function paramsOf(el) {
+    try { return JSON.parse(el.getAttribute("data-params") || "{}"); } catch (err) { return {}; }
+  }
+  function busy(el, on) {
+    if (!el) return;
+    el.disabled = on;
+    el.classList.toggle("is-busy", on);
+  }
+  // Ticked rows in a table (their data-id)
+  function checkedIds(scope) {
+    return $$("[data-check-row]", scope || document).filter(function (c) { return c.checked; })
+      .map(function (c) { return c.closest("[data-id]").getAttribute("data-id"); });
+  }
+  function runPost(el) {
+    var action = el.getAttribute("data-post") || el.getAttribute("data-bulk-post");
+    var params = paramsOf(el);
+    if (el.hasAttribute("data-bulk-post")) {
+      params.ids = checkedIds(el.closest("[data-list-scope]"));
+      if (!params.ids.length) { toast("Tick some rows first"); return; }
+    }
+    busy(el, true);
+    send(action, params).then(function (res) { busy(el, false); respond(res); });
+  }
+  document.addEventListener("click", function (e) {
+    var el = e.target.closest("[data-post], [data-bulk-post]");
+    if (!el || el.hasAttribute("data-confirm") || el.tagName === "INPUT" || el.tagName === "SELECT") return;
+    e.preventDefault();
+    runPost(el);
+  });
+  // Switches and menus that save as soon as they change
   document.addEventListener("change", function (e) {
-    var el = e.target.closest("[data-change-toast]");
-    if (el) toast(el.getAttribute("data-change-toast"), el.getAttribute("data-change-toast-text"));
+    var el = e.target.closest("[data-change-post]");
+    if (!el) return;
+    var params = paramsOf(el);
+    params.value = el.type === "checkbox" ? (el.checked ? "1" : "") : el.value;
+    send(el.getAttribute("data-change-post"), params).then(function (res) {
+      if (!respond(res) && el.type === "checkbox") el.checked = !el.checked;
+    });
   });
 
   /* ---------- Sidebar ---------- */
@@ -160,9 +252,17 @@
     $$("[data-slug-target]", form).forEach(function (t) { t.toggleAttribute("data-touched", Boolean(t.value)); });
     $$("input, textarea, select", form).forEach(function (f) { f.dispatchEvent(new Event("input", { bubbles: true })); });
   }
+  // Image paths are stored relative to the website; the admin sits one folder down
+  var siteSrc = function (v) { return /^(https?:|blob:|data:|\.\.\/|\/)/.test(v) ? v : "../" + v; };
   function fillDialog(dialog, data) {
     var form = $("form", dialog);
-    if (form) form.reset();
+    if (form) {
+      form.reset();
+      // Hidden fields keep their value through a reset, so clear the ones that belong to one item
+      $$("[data-reset]", form).forEach(function (f) { f.value = ""; });
+      if (form._files) form._files = [];
+      $$("[data-upload-list]", form).forEach(function (l) { l.textContent = ""; });
+    }
     $$(".field.is-invalid", dialog).forEach(function (f) { f.classList.remove("is-invalid"); });
     $$("[data-fill-text]", dialog).forEach(function (el) {
       var v = data[el.getAttribute("data-fill-text")];
@@ -170,7 +270,12 @@
     });
     $$("[data-fill-src]", dialog).forEach(function (img) {
       var v = data[img.getAttribute("data-fill-src")];
-      if (v) { img.src = v; img.hidden = false; } else { img.removeAttribute("src"); img.hidden = true; }
+      if (v) { img.src = siteSrc(v); img.hidden = false; } else { img.removeAttribute("src"); img.hidden = true; }
+    });
+    // Buttons for an existing item only (e.g. Delete): they carry its id
+    $$("[data-fill-id]", dialog).forEach(function (btn) {
+      btn.hidden = !data.id;
+      btn.setAttribute("data-params", JSON.stringify({ id: data.id || 0 }));
     });
     if (!form) return;
     Object.keys(data).forEach(function (key) { setField(form, key, data[key]); });
@@ -182,8 +287,7 @@
       var dialog = document.getElementById(opener.getAttribute("data-dialog-open"));
       if (!dialog) return;
       var data = opener.getAttribute("data-fill");
-      if (data) fillDialog(dialog, JSON.parse(data));
-      else { var form = $("form", dialog); if (form) { form.reset(); refreshFields(form); } }
+      fillDialog(dialog, data ? JSON.parse(data) : {});
       dialog.showModal();
       return;
     }
@@ -216,15 +320,23 @@
     confirmFrom = null;
     if (!trigger || confirmDialog.returnValue !== "ok") return;
     var host = trigger.closest("dialog");
-    if (host && host.open) host.close();
+    if (host && host.open && host !== confirmDialog) host.close();
+    if (trigger.hasAttribute("data-post") || trigger.hasAttribute("data-bulk-post")) { runPost(trigger); return; }
     trigger.dispatchEvent(new CustomEvent("admin:confirmed", { bubbles: true }));
     toast(trigger.getAttribute("data-done") || "Done");
   });
 
-  /* ---------- Forms: check what is required, then show what saving would do ---------- */
-  $$("form[data-demo]").forEach(function (form) {
+  /* ---------- Forms: check what is required, then save ---------- */
+  function markInvalid(form, names) {
+    (names || []).forEach(function (name) {
+      var f = form.elements.namedItem(name);
+      if (f && f.closest) { var field = f.closest(".field, .check-row"); if (field) field.classList.add("is-invalid"); }
+    });
+  }
+  $$("form[data-save]").forEach(function (form) {
     form.addEventListener("submit", function (e) {
       e.preventDefault();
+      var submitter = e.submitter;
       var missing = $$("[required]", form).filter(function (f) {
         if (f.disabled || !f.getClientRects().length) return false;
         return f.type === "checkbox" ? !f.checked : !f.value.trim();
@@ -232,15 +344,28 @@
       if (missing.length) {
         missing.forEach(function (f) { var field = f.closest(".field, .check-row"); if (field) field.classList.add("is-invalid"); });
         missing[0].focus();
-        toast("Please fill in the highlighted fields", "They are needed before this can be saved.");
+        toast("Please fill in the highlighted fields", "They are needed before this can be saved.", true);
         return;
       }
-      var dialog = form.closest("dialog");
-      if (dialog) dialog.close();
-      if (form.classList.contains("composer")) form.reset();
-      var bar = $("[data-savebar]", form);
-      if (bar) bar.hidden = true;
-      toast(form.getAttribute("data-toast") || "Saved", form.getAttribute("data-toast-text"));
+      var data = new FormData(form);
+      if (submitter && submitter.name) data.set(submitter.name, submitter.value);
+      // The text editors, photos waiting to upload, and the rows chosen in the table behind a dialog
+      $$(".rte__area[data-name]", form).forEach(function (area) { data.set(area.getAttribute("data-name"), area.innerHTML); });
+      (form._files || []).forEach(function (file) { data.append("files[]", file); });
+      if (form.hasAttribute("data-bulk-form")) checkedIds().forEach(function (id) { data.append("ids[]", id); });
+      var buttons = $$("[type=submit]", form);
+      buttons.forEach(function (b) { busy(b, true); });
+      send(form.getAttribute("data-save"), data).then(function (res) {
+        buttons.forEach(function (b) { busy(b, false); });
+        if (res && !res.ok) markInvalid(form, res.fields);
+        if (!respond(res, form.getAttribute("data-toast"))) return;
+        if (res.redirect || res.reload) return;
+        var dialog = form.closest("dialog");
+        if (dialog) dialog.close();
+        if (form.classList.contains("composer")) form.reset();
+        var bar = $("[data-savebar]", form);
+        if (bar) bar.hidden = true;
+      });
     });
   });
   document.addEventListener("input", function (e) {
@@ -385,6 +510,19 @@
     table.addEventListener("change", function (e) { if (e.target.matches("[data-check-row]")) sync(); });
     table.addEventListener("admin:listchange", sync);
     if (bar) $("[data-bulk-clear]", bar).addEventListener("click", function () { boxes().forEach(function (c) { c.checked = false; }); sync(); });
+    // Exports of the ticked rows only
+    if (bar) $$("[data-bulk-export]", bar).forEach(function (link) {
+      var base = link.getAttribute("href");
+      link.addEventListener("click", function () { link.href = base + "&ids=" + checkedIds(scope).join(","); });
+    });
+  });
+  // A dialog that acts on the ticked rows (e.g. Move to another category)
+  document.addEventListener("click", function (e) {
+    var btn = e.target.closest("[data-bulk-dialog]");
+    if (!btn) return;
+    var dialog = document.getElementById(btn.getAttribute("data-bulk-dialog"));
+    if (!checkedIds(btn.closest("[data-list-scope]")).length) { toast("Tick some rows first"); return; }
+    if (dialog) dialog.showModal();
   });
 
   /* ---------- Web addresses, character counts and live previews ---------- */
@@ -413,28 +551,68 @@
     });
   });
 
-  /* ---------- Photos: they preview here; uploading needs the backend ---------- */
+  /* ---------- Photos: uploaded straight away (or with the form, in the media library) ---------- */
   var thumbTemplate = document.createElement("template");
-  thumbTemplate.innerHTML = '<li class="gthumb" data-sort-item draggable="true"><img alt="" draggable="false"><span class="gthumb__tag" data-gthumb-tag></span>' +
+  thumbTemplate.innerHTML = '<li class="gthumb" data-sort-item draggable="true"><img alt="" draggable="false"><input type="hidden" name="gallery[]"><span class="gthumb__tag" data-gthumb-tag></span>' +
     '<button type="button" class="gthumb__remove" data-remove-closest=".gthumb" aria-label="Remove photo">' + iconHTML("x") + "</button></li>";
-  function galleryThumb(src) {
+  function galleryThumb(src, path) {
     var li = thumbTemplate.content.firstElementChild.cloneNode(true);
     li.querySelector("img").src = src;
+    var hidden = li.querySelector("input");
+    if (path) hidden.value = path; else hidden.remove();
     return li;
   }
   function relabelGallery(list) {
     $$("[data-gthumb-tag]", list).forEach(function (tag, i) { tag.textContent = i === 0 ? "Main" : i === 1 ? "On hover" : ""; });
   }
   function renumber(list) { $$("[data-position]", list).forEach(function (el, i) { el.textContent = i + 1; }); }
+  function uploadImage(file, folder) {
+    var data = new FormData();
+    data.append("file", file);
+    data.append("folder", folder || "campaign");
+    return send("upload.image", data);
+  }
 
   $$("[data-dropzone]").forEach(function (zone) {
     var input = $("input[type=file]", zone);
-    var target = $(input.getAttribute("data-upload-into"), zone.closest("form") || document);
+    var form = zone.closest("form");
+    var target = $(input.getAttribute("data-upload-into"), form || document);
+    var deferred = input.hasAttribute("data-defer");
     function add(files) {
       var images = Array.prototype.filter.call(files, function (f) { return /^image\//.test(f.type); });
-      images.forEach(function (file) { target.appendChild(galleryThumb(URL.createObjectURL(file))); });
+      if (!images.length) return;
+      if (deferred) {
+        // Kept with the form and sent when it is submitted
+        form._files = (form._files || []).concat(images);
+        images.forEach(function (file) { var li = galleryThumb(URL.createObjectURL(file)); li._file = file; target.appendChild(li); });
+        return;
+      }
+      zone.classList.add("is-busy");
+      var pending = images.length, done = 0;
+      images.forEach(function (file) {
+        var li = galleryThumb(URL.createObjectURL(file));
+        li.classList.add("is-uploading");
+        target.appendChild(li);
+        uploadImage(file, input.getAttribute("data-upload-folder")).then(function (res) {
+          li.classList.remove("is-uploading");
+          if (res && res.ok) {
+            var hidden = document.createElement("input");
+            hidden.type = "hidden"; hidden.name = "gallery[]"; hidden.value = res.path;
+            li.insertBefore(hidden, li.querySelector("[data-gthumb-tag]"));
+            li.querySelector("img").src = res.thumb;
+            done++;
+          } else {
+            li.remove();
+            toast("“" + file.name + "” was not uploaded", (res && res.error) || "Please try again.", true);
+          }
+          if (--pending === 0) {
+            zone.classList.remove("is-busy");
+            if (target.hasAttribute("data-gallery")) relabelGallery(target);
+            if (done) toast(done === 1 ? "Photo uploaded" : done + " photos uploaded", "Save the product to keep them with it.");
+          }
+        });
+      });
       if (target.hasAttribute("data-gallery")) relabelGallery(target);
-      if (images.length) toast(images.length === 1 ? "Photo added" : images.length + " photos added", "Previewed here only — uploading starts once the backend is connected.");
     }
     ["dragenter", "dragover"].forEach(function (type) { zone.addEventListener(type, function (e) { e.preventDefault(); zone.classList.add("is-over"); }); });
     ["dragleave", "drop"].forEach(function (type) { zone.addEventListener(type, function () { zone.classList.remove("is-over"); }); });
@@ -442,16 +620,30 @@
     input.addEventListener("change", function () { add(input.files); input.value = ""; });
   });
 
+  // Replace buttons beside a photograph: upload it, show it, and remember its address for saving
   document.addEventListener("change", function (e) {
     var input = e.target.closest("[data-image-input]");
     if (!input || !input.files || !input.files[0]) return;
+    var file = input.files[0];
     var holder = input.closest(".image-field, .panel-edit__media, .hero-edit__photo");
     var img = holder && $("[data-image-preview]", holder);
-    if (img) { img.src = URL.createObjectURL(input.files[0]); img.hidden = false; }
+    var value = holder && $("[data-image-value]", holder);
+    var before = img ? img.getAttribute("src") : null;
+    if (img) { img.src = URL.createObjectURL(file); img.hidden = false; }
     var note = holder && $(".image-field__empty", holder);
     if (note) note.hidden = true;
     input.value = "";
-    toast("Photo replaced", "Previewed here only — uploading starts once the backend is connected.");
+    if (holder) holder.classList.add("is-busy");
+    uploadImage(file, input.getAttribute("data-upload-folder")).then(function (res) {
+      if (holder) holder.classList.remove("is-busy");
+      if (res && res.ok) {
+        if (value) value.value = res.path;
+        toast("Photo uploaded", "Save to use it here.");
+      } else {
+        if (img) { if (before) img.src = before; else { img.removeAttribute("src"); img.hidden = true; } }
+        toast("The photo was not uploaded", (res && res.error) || "Please try again.", true);
+      }
+    });
   });
 
   document.addEventListener("click", function (e) {
@@ -460,6 +652,8 @@
     var item = btn.closest(btn.getAttribute("data-remove-closest"));
     if (!item) return;
     var list = item.parentElement;
+    var owner = item.closest("form");
+    if (item._file && owner && owner._files) owner._files = owner._files.filter(function (f) { return f !== item._file; });
     item.remove();
     if (list.hasAttribute("data-gallery")) relabelGallery(list);
     renumber(list);
@@ -499,7 +693,11 @@
       if (list.hasAttribute("data-gallery")) relabelGallery(list);
       renumber(list);
       list.dispatchEvent(new CustomEvent("admin:reordered", { bubbles: true }));
-      if (list.getAttribute("data-sort-toast")) toast(list.getAttribute("data-sort-toast"));
+      // Lists that save their order straight away (categories, collections, testimonials)
+      if (list.getAttribute("data-sort-post")) {
+        var ids = $$("[data-sort-item]", list).filter(function (el) { return el.parentElement === list; }).map(function (el) { return el.getAttribute("data-id"); });
+        send(list.getAttribute("data-sort-post"), { ids: ids }).then(function (res) { respond(res); });
+      }
     });
   });
 
@@ -510,7 +708,24 @@
       btn.addEventListener("mousedown", function (e) { e.preventDefault(); }); // keep the selection in the text
       btn.addEventListener("click", function () {
         var cmd = btn.getAttribute("data-cmd"), value = btn.getAttribute("data-value") || null;
-        if (cmd === "insertImage") { toast("Choose a photo", "Photos come from the media library once the backend is connected."); return; }
+        if (cmd === "insertImage") {
+          // Choose a photograph, upload it to the media library, then place it where the cursor was
+          var sel = window.getSelection(), range = sel.rangeCount && area.contains(sel.anchorNode) ? sel.getRangeAt(0).cloneRange() : null;
+          var picker = document.createElement("input");
+          picker.type = "file";
+          picker.accept = "image/*";
+          picker.addEventListener("change", function () {
+            if (!picker.files[0]) return;
+            uploadImage(picker.files[0], "other").then(function (res) {
+              if (!res || !res.ok) { toast("The photo was not uploaded", (res && res.error) || "Please try again.", true); return; }
+              area.focus();
+              if (range) { sel.removeAllRanges(); sel.addRange(range); }
+              document.execCommand("insertImage", false, res.url);
+            });
+          });
+          picker.click();
+          return;
+        }
         area.focus();
         if (cmd === "createLink") { value = window.prompt("Link address", "https://"); if (!value) return; }
         if (cmd === "formatBlock") value = document.queryCommandValue("formatBlock") === value ? "p" : value;
@@ -695,6 +910,8 @@
         } else if (el.tagName === "INPUT" || el.tagName === "TEXTAREA") el.value = value || "";
         else el.textContent = value || "";
       });
+      var del = $("[data-media-delete]", mediaInfo);
+      if (del) del.setAttribute("data-params", JSON.stringify({ id: data.id }));
       if (!wide.matches) mediaInfo.scrollIntoView({ behavior: "smooth", block: "start" });
     });
   }
@@ -709,9 +926,13 @@
   });
 
   /* ---------- Homepage: shop-the-look pins and featured pieces ---------- */
+  // Each piece in the drop-downs carries its thumbnail and details (data-thumb, data-meta)
+  var chosen = function (select) { return select.options[select.selectedIndex]; };
+  var pieceName = function (option) { return option.textContent.replace(/ \(not on the website\)$/, ""); };
   var stage = $("[data-hotspot-stage]"), pinList = $("[data-pin-list]");
   if (stage && pinList) {
-    var pinRowTemplate = $("[data-pin-row]", pinList).cloneNode(true);
+    var pinRowTemplate = document.createElement("template");
+    pinRowTemplate.innerHTML = pinList.getAttribute("data-pin-template").trim();
     var rowFor = function (n) { return $('[data-pin-row="' + n + '"]', pinList); };
     var highlight = function (n) {
       $$(".pin", stage).forEach(function (p) { p.classList.toggle("is-active", p.getAttribute("data-pin") === n); });
@@ -722,8 +943,11 @@
       y = clamp(y, 2, 98);
       pin.style.setProperty("--x", x.toFixed(1) + "%");
       pin.style.setProperty("--y", y.toFixed(1) + "%");
-      var pos = $("[data-pin-pos]", rowFor(pin.getAttribute("data-pin")) || document.createElement("div"));
-      if (pos) pos.textContent = x.toFixed(1) + "% across · " + y.toFixed(1) + "% down";
+      var row = rowFor(pin.getAttribute("data-pin"));
+      if (!row) return;
+      $("[data-pin-pos]", row).textContent = x.toFixed(1) + "% across · " + y.toFixed(1) + "% down";
+      $("[data-pin-x]", row).value = x.toFixed(1);
+      $("[data-pin-y]", row).value = y.toFixed(1);
     };
     stage.addEventListener("pointerdown", function (e) {
       var pin = e.target.closest(".pin");
@@ -758,14 +982,12 @@
     pinList.addEventListener("pointerover", function (e) { var row = e.target.closest("[data-pin-row]"); if (row) highlight(row.getAttribute("data-pin-row")); });
     pinList.addEventListener("change", function (e) {
       var select = e.target.closest("[data-pin-product]");
-      if (!select || !MJ) return;
-      var p = MJ.products.filter(function (x) { return x.slug === select.value; })[0];
+      if (!select) return;
+      var option = chosen(select);
       var row = select.closest("[data-pin-row]"), n = row.getAttribute("data-pin-row");
-      if (p) {
-        $("[data-pin-thumb]", row).src = "../" + p.thumb;
-        var pin = $('.pin[data-pin="' + n + '"]', stage);
-        if (pin) pin.setAttribute("aria-label", "Pin " + n + ", " + p.name + ". Drag to move.");
-      }
+      $("[data-pin-thumb]", row).src = option.getAttribute("data-thumb");
+      var pin = $('.pin[data-pin="' + n + '"]', stage);
+      if (pin) pin.setAttribute("aria-label", "Pin " + n + ", " + pieceName(option) + ". Drag to move.");
     });
     document.addEventListener("admin:confirmed", function (e) {
       var n = e.target.getAttribute && e.target.getAttribute("data-remove-pin");
@@ -777,13 +999,11 @@
     $("[data-add-pin]").addEventListener("click", function () {
       var numbers = $$("[data-pin-row]", pinList).map(function (r) { return Number(r.getAttribute("data-pin-row")); });
       var n = String(Math.max.apply(null, [0].concat(numbers)) + 1);
-      var row = pinRowTemplate.cloneNode(true);
+      var row = pinRowTemplate.content.firstElementChild.cloneNode(true);
       row.setAttribute("data-pin-row", n);
       $(".pinrow__num", row).textContent = n;
       var select = $("select", row);
-      select.selectedIndex = 0;
       select.setAttribute("aria-label", "Piece shown by pin " + n);
-      if (MJ) $("[data-pin-thumb]", row).src = "../" + MJ.products[0].thumb;
       var remove = $("[data-remove-pin]", row);
       remove.setAttribute("data-remove-pin", n);
       remove.setAttribute("data-confirm", "Remove pin " + n + "?");
@@ -794,33 +1014,35 @@
       pin.className = "pin";
       pin.textContent = n;
       pin.setAttribute("data-pin", n);
-      pin.setAttribute("aria-label", "Pin " + n + ". Drag to move.");
+      pin.setAttribute("aria-label", "Pin " + n + ", " + pieceName(chosen(select)) + ". Drag to move.");
       stage.appendChild(pin);
       placePin(pin, 50, 50);
       highlight(n);
-      toast("Pin added", "Drag it onto the jewel it should point to.");
+      toast("Pin added", "Drag it onto the jewel it should point to, then publish.");
     });
   }
 
   var pickAdd = $("[data-pick-add]");
-  if (pickAdd && MJ) pickAdd.addEventListener("click", function () {
+  if (pickAdd) pickAdd.addEventListener("click", function () {
     var select = $("[data-pick-select]"), list = $(".picks");
-    var p = MJ.products.filter(function (x) { return x.slug === select.value; })[0];
-    if (!p) { select.focus(); return; }
+    if (!select.value) { select.focus(); return; }
+    if ($('input[name="featured[]"][value="' + select.value + '"]', list)) { toast("Already featured", "It is in the list above — drag it to change its place."); return; }
+    var option = chosen(select), name = pieceName(option);
     var li = document.createElement("li");
     li.className = "pick";
     li.setAttribute("data-sort-item", "");
     li.draggable = true;
-    li.innerHTML = '<span class="pick__num" data-position></span><img alt="" draggable="false"><span class="pick__text"><span class="pick__name"></span><span class="pick__meta"></span></span>' +
+    li.innerHTML = '<span class="pick__num" data-position></span><input type="hidden" name="featured[]"><img alt="" draggable="false"><span class="pick__text"><span class="pick__name"></span><span class="pick__meta"></span></span>' +
       '<button type="button" class="icon-btn icon-btn--sm" data-remove-closest=".pick">' + iconHTML("x") + "</button>";
-    $("img", li).src = "../" + p.thumb;
-    $(".pick__name", li).textContent = p.name;
-    $(".pick__meta", li).textContent = MJ.capitalize(p.category) + " · " + MJ.formatPrice(p.price);
-    $("button", li).setAttribute("aria-label", "Remove " + p.name + " from featured pieces");
+    $("input", li).value = select.value;
+    $("img", li).src = option.getAttribute("data-thumb");
+    $(".pick__name", li).textContent = name;
+    $(".pick__meta", li).textContent = option.getAttribute("data-meta");
+    $("button", li).setAttribute("aria-label", "Remove " + name + " from featured pieces");
     list.appendChild(li);
     renumber(list);
     select.value = "";
-    toast("Added to featured pieces", p.name + " now appears in the Signature tab.");
+    toast("Added to featured pieces", name + " joins the Signature tab when you publish.");
   });
 
   /* ---------- Offer and announcements ---------- */
@@ -848,7 +1070,6 @@
   var offerToggle = $("[data-offer-toggle]");
   if (offerToggle) offerToggle.addEventListener("change", function () {
     $("[data-offer-preview]").classList.toggle("is-off", !offerToggle.checked);
-    toast(offerToggle.checked ? "Offer switched on" : "Offer switched off", offerToggle.checked ? "It would open on each visitor's first page again." : "Visitors would no longer see the popup or its tab.");
   });
 
   /* ---------- Settings: unsaved changes and opening hours ---------- */
@@ -872,61 +1093,35 @@
   }
   document.addEventListener("change", function (e) { if (e.target.matches("[data-hours-toggle]")) syncHours(e.target); });
 
-  /* ---------- Product and story forms: open the piece named in the address ---------- */
-  function paragraphs(el, texts) {
-    el.textContent = "";
-    texts.forEach(function (t) { var p = document.createElement("p"); p.textContent = t; el.appendChild(p); });
-  }
-  function fillProduct(p, form) {
-    var featured = MJ.featuredSlugs.indexOf(p.slug) !== -1;
-    [["name", p.name], ["slug", p.slug], ["summary", p.description], ["price", p.price], ["metal", p.metal], ["purity", p.purity],
-      ["stone", p.metal === "Diamond" ? "Diamond" : "None"], ["category", p.category], ["style", p.style], ["collection", p.collection],
-      ["isNew", p.isNew], ["featured", featured], ["seoTitle", p.name + " — Mangalam Jewellers"], ["seoDesc", p.description]]
-      .forEach(function (pair) { setField(form, pair[0], pair[1]); });
-    var set = function (key, fn) { $$('[data-fill-product="' + key + '"]').forEach(fn); };
-    set("title", function (el) { el.textContent = p.name; });
-    set("crumb", function (el) { el.textContent = p.name; });
-    set("desc", function (el) { el.textContent = MJ.capitalize(p.category) + " · " + p.purity + " " + p.metal + " · " + MJ.formatPrice(p.price); });
-    set("view", function (el) { el.href = "../product.html?slug=" + p.slug; });
-    set("description", function (el) { paragraphs(el, [p.description, "Every Mangalam piece carries a BIS hallmark and is handcrafted to order in our Surat atelier."]); });
-    set("gallery", function (el) {
-      el.textContent = "";
-      p.gallery.forEach(function (src) { el.appendChild(galleryThumb("../" + MJ.small(src))); });
-      relabelGallery(el);
-    });
-    var map = $("#product-collections");
-    set("collections", function (el) { el.textContent = (map && JSON.parse(map.textContent)[p.slug] || []).join(", ") || "None yet"; });
-    document.title = p.name + " — Mangalam Admin";
-    refreshFields(form);
-  }
-  function fillArticle(a, form) {
-    [["title", a.title], ["slug", a.slug], ["excerpt", a.excerpt], ["category", a.category], ["readTime", parseInt(a.readTime, 10)],
-      ["seoTitle", a.title + " — Mangalam Journal"], ["seoDesc", a.excerpt]].forEach(function (pair) { setField(form, pair[0], pair[1]); });
-    var set = function (key, fn) { $$('[data-fill-article="' + key + '"]').forEach(fn); };
-    set("title", function (el) { el.textContent = a.title; });
-    set("crumb", function (el) { el.textContent = a.title; });
-    set("desc", function (el) { el.textContent = a.category + " · published " + a.date; });
-    set("view", function (el) { el.href = "../article.html?slug=" + a.slug; });
-    set("body", function (el) { paragraphs(el, a.body); });
-    var cover = $(".image-field--cover img", form);
-    if (cover) { cover.src = "../" + a.image; cover.hidden = false; }
-    document.title = a.title + " — Mangalam Admin";
-    refreshFields(form);
-  }
-  var slug = params.get("slug"), editorForm = $("form.editor-page");
-  if (slug && MJ && editorForm && /-edit\.html$/.test(location.pathname)) {
-    if (page === "product-form") {
-      var product = MJ.products.filter(function (x) { return x.slug === slug; })[0];
-      if (product) fillProduct(product, editorForm);
-    } else if (page === "article-form") {
-      var article = MJ.articles.filter(function (x) { return x.slug === slug; })[0];
-      if (article) fillArticle(article, editorForm);
-    }
-  }
+  /* ---------- Enquiries: open the one named in the address on small screens ---------- */
+  if (inbox && params.get("open") && !wide.matches) inbox.classList.add("is-reading");
 
-  /* ---------- Sign in, greeting, search shortcut, Escape ---------- */
+  /* ---------- Dashboard period ---------- */
+  document.addEventListener("change", function (e) {
+    var radio = e.target.closest("[data-period]");
+    if (radio) location.href = "index.html?period=" + radio.value;
+  });
+
+  /* ---------- Sign in, and choosing a password from an invitation ---------- */
+  function authForm(form, action) {
+    var error = $("[data-login-error]", form);
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var button = $("[type=submit]", form);
+      busy(button, true);
+      error.hidden = true;
+      send(action, new FormData(form)).then(function (res) {
+        if (res && res.ok) { location.href = res.redirect || "index.html"; return; }
+        busy(button, false);
+        error.textContent = (res && res.error) || "Something went wrong. Please try again.";
+        error.hidden = false;
+      });
+    });
+  }
   var login = $("[data-login]");
-  if (login) login.addEventListener("submit", function (e) { e.preventDefault(); location.href = "index.html"; });
+  if (login) authForm(login, "auth.login");
+  var welcome = $("[data-welcome]");
+  if (welcome) authForm(welcome, "auth.welcome");
   $$("[data-password-toggle]").forEach(function (btn) {
     btn.addEventListener("click", function () {
       var input = btn.parentElement.querySelector("input");

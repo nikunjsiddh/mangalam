@@ -6,3 +6,8 @@ Thumbs.db
 *.zip
 mangalam product image-*/
 Mangalam Photography*/
+
+# This computer's database settings (made by install.php from app/config.sample.php)
+app/config.php
+# The owner's first password, written by database/install-cli.php
+database/owner-credentials.txt

@@ -1,0 +1,81 @@
+      <header class="ph">
+        <div>
+          <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Dashboard</a>{{icon:chevron-right}}<span aria-current="page">Products</span></nav>
+          <h1 class="ph__title">Products</h1>
+          <p class="ph__desc">{{productCount}} pieces in {{categoryTotal}} categories; {{liveCount}} of them are on the website.</p>
+        </div>
+        <div class="ph__actions">
+          <a class="btn btn--outline" href="api.php?action=export&amp;what=products">{{icon:download}} Export</a>
+          <a class="btn btn--gold" href="product-new.html">{{icon:plus}} Add product</a>
+        </div>
+      </header>
+
+      <section class="card" data-list-scope>
+        <div class="card__chips chips">{{productChips}}</div>
+        <div class="toolbar">
+          <label class="search">{{icon:search}}<span class="sr-only">Search products</span><input class="input" type="search" placeholder="Search by name, metal or style…" data-list-search></label>
+          <select class="select" data-list-filter="category" aria-label="Category"><option value="">All categories</option>{{categoryOptions}}</select>
+          <select class="select" data-list-filter="metal" aria-label="Metal"><option value="">All metals</option><option>Gold</option><option>Diamond</option><option>Rose gold</option><option>Platinum</option><option>Silver</option></select>
+          <select class="select" data-list-filter="style" aria-label="Style"><option value="">All styles</option><option>Classic</option><option>Traditional</option><option>Modern</option><option>Bridal</option></select>
+          <label class="sort">{{icon:arrow-up-down}}<span class="sr-only">Sort by</span>
+            <select class="select select--bare" data-list-sort>
+              <option value="">Catalogue order</option>
+              <option value="updated:desc">Recently edited</option>
+              <option value="price:asc">Price, low to high</option>
+              <option value="price:desc">Price, high to low</option>
+              <option value="name:asc">Name, A to Z</option>
+            </select>
+          </label>
+        </div>
+        <div class="bulkbar" data-bulkbar hidden>
+          <span class="bulkbar__count"><strong data-bulk-count>0</strong> selected</span>
+          <button type="button" class="btn btn--ghost btn--sm" data-bulk-post="product.status" data-params='{"status":"published"}'>{{icon:eye}} Publish</button>
+          <button type="button" class="btn btn--ghost btn--sm" data-bulk-post="product.status" data-params='{"status":"hidden"}'>{{icon:eye-off}} Hide</button>
+          <button type="button" class="btn btn--ghost btn--sm" data-bulk-dialog="move-dialog">{{icon:folder}} Move</button>
+          <a class="btn btn--ghost btn--sm" href="api.php?action=export&amp;what=products" data-bulk-export>{{icon:download}} Export</a>
+          {{bulkDelete}}
+          <button type="button" class="btn btn--ghost btn--sm bulkbar__clear" data-bulk-clear>Clear selection</button>
+        </div>
+        <div class="table-wrap">
+          <table class="table">
+            <thead>
+              <tr>
+                <th class="col-check"><input class="check" type="checkbox" data-check-all aria-label="Select every product on this page"></th>
+                <th scope="col">Product</th>
+                <th scope="col">Category</th>
+                <th scope="col">Metal</th>
+                <th scope="col" class="num">Price</th>
+                <th scope="col">Status</th>
+                <th scope="col">Last edited</th>
+                <th scope="col" class="col-actions"><span class="sr-only">Actions</span></th>
+              </tr>
+            </thead>
+            <tbody data-list data-per-page="10">{{productRows}}
+            </tbody>
+          </table>
+        </div>
+        <div class="empty" data-list-empty hidden>
+          <span class="empty__icon">{{icon:search}}</span>
+          <p class="empty__title">No pieces match</p>
+          <p>Try another word, or clear the filters.</p>
+          <button type="button" class="btn btn--outline btn--sm" data-list-reset>Clear filters</button>
+        </div>
+        <div class="pager" data-pager></div>
+
+        <dialog class="dialog dialog--sm" id="move-dialog" aria-labelledby="move-title">
+          <form class="dialog__panel" data-save="product.move" data-bulk-form>
+            <header class="dialog__head">
+              <div><p class="dialog__eyebrow">Products</p><h2 class="dialog__title" id="move-title">Move to another category</h2></div>
+              <button type="button" class="icon-btn" data-dialog-close aria-label="Close">{{icon:x}}</button>
+            </header>
+            <div class="dialog__body stack">
+              <label class="field"><span class="field__label">New category</span><select class="select" name="category" required>{{moveOptions}}</select></label>
+              <p class="hint">The selected pieces move to this category's page, menu count and filters.</p>
+            </div>
+            <footer class="dialog__foot">
+              <button type="button" class="btn btn--outline" data-dialog-close>Cancel</button>
+              <button type="submit" class="btn btn--primary">{{icon:check}} Move</button>
+            </footer>
+          </form>
+        </dialog>
+      </section>

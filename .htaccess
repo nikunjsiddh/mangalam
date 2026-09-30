@@ -1,0 +1,22 @@
+# Mangalam Jewellers — the website's pages are made by index.php from the database.
+DirectoryIndex index.php
+Options -Indexes
+
+# Browser-tab and home-screen icons
+<IfModule mod_mime.c>
+  AddType application/manifest+json .webmanifest
+  AddType image/x-icon .ico
+</IfModule>
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  # /rings.html, /product.html?slug=… and every other page
+  RewriteRule ^([A-Za-z0-9-]+)\.html$ index.php?route=$1 [QSA,L]
+  # The catalogue, journal and testimonials for the website's scripts
+  RewriteRule ^data\.js$ index.php?route=data.js [QSA,L]
+</IfModule>
+
+# Notes, seed data and raw photo deliveries are not for visitors
+<FilesMatch "\.(md|json|sql|mjs|zip|log|ini)$">
+  Require all denied
+</FilesMatch>

@@ -1,0 +1,2 @@
+# The schema and seed data are read by install.php, never served directly.
+Require all denied

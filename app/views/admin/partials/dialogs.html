@@ -1,0 +1,39 @@
+  <!-- Confirmation for anything that removes something (filled in by admin.js from the button's data-confirm) -->
+  <dialog class="dialog dialog--sm" id="confirm-dialog" aria-labelledby="confirm-title" aria-describedby="confirm-text">
+    <form method="dialog" class="dialog__panel dialog__panel--confirm">
+      <span class="dialog__badge">{{icon:trash-2}}</span>
+      <h2 class="dialog__title" id="confirm-title" data-confirm-title>Delete this item?</h2>
+      <p class="dialog__text" id="confirm-text" data-confirm-text>This can't be undone.</p>
+      <div class="dialog__actions">
+        <button type="submit" class="btn btn--outline" value="cancel" autofocus>Cancel</button>
+        <button type="submit" class="btn btn--danger" value="ok" data-confirm-ok>Delete</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- A link to copy and share: invitations and password resets -->
+  <dialog class="dialog dialog--sm" id="link-dialog" aria-labelledby="link-title" aria-describedby="link-text">
+    <form method="dialog" class="dialog__panel">
+      <header class="dialog__head">
+        <div><p class="dialog__eyebrow">Link</p><h2 class="dialog__title" id="link-title" data-link-title>Share this link</h2></div>
+        <button type="button" class="icon-btn" data-dialog-close aria-label="Close">{{icon:x}}</button>
+      </header>
+      <div class="dialog__body stack">
+        <p class="dialog__text" id="link-text" data-link-text></p>
+        <div class="copy-field"><input class="input input--mono" id="link-value" readonly data-link-value aria-label="Link"><button type="button" class="icon-btn icon-btn--sm" data-copy-from="#link-value" aria-label="Copy link" data-tip="Copy">{{icon:copy}}</button></div>
+      </div>
+      <footer class="dialog__foot">
+        <button type="submit" class="btn btn--primary" value="ok">Done</button>
+      </footer>
+    </form>
+  </dialog>
+
+  <!-- Toasts report what was saved -->
+  <div class="toasts" data-toasts aria-live="polite"></div>
+  <template id="toast-template">
+    <div class="toast" role="status">
+      {{icon:circle-check}}
+      <div><p class="toast__title"></p><p class="toast__text"></p></div>
+      <button type="button" class="toast__close" aria-label="Dismiss">{{icon:x}}</button>
+    </div>
+  </template>

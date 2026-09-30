@@ -1,0 +1,2 @@
+# The application code, templates and configuration are never served directly.
+Require all denied

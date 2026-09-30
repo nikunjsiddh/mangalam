@@ -1,9 +1,0 @@
-{
-  "name": "mangalam-jewellers-template",
-  "version": "2.0.0",
-  "private": true,
-  "description": "Static HTML template of the Mangalam Jewellers website.",
-  "scripts": {
-    "build": "node src/build.mjs"
-  }
-}

@@ -1,0 +1,8 @@
+# Mangalam admin — every screen is made by index.php from the database.
+DirectoryIndex index.php
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteRule ^([A-Za-z0-9-]+)\.html$ index.php?route=$1 [QSA,L]
+</IfModule>

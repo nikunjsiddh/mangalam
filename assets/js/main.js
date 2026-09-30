@@ -8,14 +8,15 @@
   var MJ = window.MJ;
   var icon = window.MJUI.icon;
   var products = MJ.products, articles = MJ.articles;
-  var formatPrice = MJ.formatPrice, capitalize = MJ.capitalize;
+  var formatPrice = MJ.formatPrice, capitalize = MJ.capitalize, categoryName = MJ.categoryName;
+  var SETTINGS = MJ.settings || {}; // Settings › Motion & brand in the admin
   var html = document.documentElement;
   var page = document.body.getAttribute("data-page");
   var params = new URLSearchParams(window.location.search);
   // Windows reports "reduce motion" whenever Settings > Accessibility > Animation effects is off (as the
   // "best performance" setting does), which froze the marquees and most scroll effects on such PCs.
-  // The site now animates for everyone; set this to true to give those visitors a calmer site instead.
-  var CALM_FOR_REDUCED_MOTION = false;
+  // The site animates for everyone unless "A calmer website…" is switched on in the admin.
+  var CALM_FOR_REDUCED_MOTION = !!SETTINGS.calmMotion;
   var reduceMotion = CALM_FOR_REDUCED_MOTION && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (reduceMotion) html.classList.add("reduce-motion");
   var canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
@@ -26,6 +27,11 @@
     return String(v).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; });
   }
   function bySlug(slug) { return products.filter(function (p) { return p.slug === slug; })[0]; }
+  // The price as the piece shows it: struck through beside an offer price, or on request
+  function priceHTML(p) {
+    if (p.showPrice === false) return "Price on request";
+    return p.offerPrice ? formatPrice(p.offerPrice) + ' <s class="price-was">' + formatPrice(p.price) + "</s>" : formatPrice(p.price);
+  }
   function hash(str) { return str.split("").reduce(function (sum, ch) { return sum + ch.charCodeAt(0); }, 0); }
 
   /* ---------- Loader: shown on the first page of a visit ---------- */
@@ -163,7 +169,7 @@
   /* ---------- Smooth wheel scrolling (mouse and trackpad on desktop) ---------- */
   // Each wheel step glides to where it was heading instead of jumping. Keyboard, scrollbar, touch and links
   // scroll natively, and anything else that moves the page takes over from the glide straight away.
-  if (!reduceMotion && canHover) {
+  if (!reduceMotion && canHover && SETTINGS.smoothScroll !== false) {
     var glideTo = 0, glideAt = 0, glideLast = 0, gliding = false;
     var stopGlide = function () { gliding = false; html.style.scrollBehavior = ""; };
     // Wheel over a panel that can still scroll that way (a dialog, a long list) scrolls the panel instead.
@@ -333,9 +339,29 @@
     }
   });
 
-  /* Forms: each shows its own confirmation; nothing is sent (front-end template). */
+  /* Forms: enquiries, appointment requests and newsletter sign-ups are sent to api.php, which saves them
+     for the team (they appear in the admin under Enquiries, Appointments and Subscribers). */
   function successMarkup(title, text) {
     return '<div class="form-success"><span class="form-success__icon">' + icon("check") + "</span><h3>" + esc(title) + "</h3><p>" + esc(text) + "</p></div>";
+  }
+  function sendForm(form, kind) {
+    var data = new FormData(form);
+    data.append("form", kind);
+    return fetch("api.php", { method: "POST", body: data, headers: { Accept: "application/json" } })
+      .then(function (r) { return r.json(); })
+      .catch(function () { return { ok: false, error: "We could not reach Mangalam just now. Please try again, or call us." }; });
+  }
+  function formError(form, text) {
+    var note = $("[data-form-error]", form);
+    if (!note) {
+      note = document.createElement("p");
+      note.className = "form-error";
+      note.setAttribute("data-form-error", "");
+      note.setAttribute("role", "alert");
+      form.appendChild(note);
+    }
+    note.textContent = text || "";
+    note.hidden = !text;
   }
   $$("form[data-success]").forEach(function (form) {
     var holder = document.createElement("div");
@@ -343,12 +369,19 @@
     form.after(holder);
     form.addEventListener("submit", function (e) {
       e.preventDefault();
-      holder.innerHTML = successMarkup(form.getAttribute("data-success"), form.getAttribute("data-success-text"));
-      form.hidden = true;
-      holder.hidden = false;
+      var button = $("[type=submit]", form);
+      if (button) button.disabled = true;
+      formError(form, "");
+      sendForm(form, form.getAttribute("data-form")).then(function (res) {
+        if (button) button.disabled = false;
+        if (!res || !res.ok) { formError(form, (res && res.error) || "Something went wrong. Please try again."); return; }
+        holder.innerHTML = successMarkup(form.getAttribute("data-success"), form.getAttribute("data-success-text"));
+        form.hidden = true;
+        holder.hidden = false;
+      });
     });
     var modal = form.closest("[data-modal]");
-    if (modal) modal.addEventListener("mj:open", function () { form.reset(); form.hidden = false; holder.hidden = true; });
+    if (modal) modal.addEventListener("mj:open", function () { form.reset(); form.hidden = false; holder.hidden = true; formError(form, ""); });
   });
   $$("form[data-close-on-submit]").forEach(function (form) {
     form.addEventListener("submit", function (e) {
@@ -362,22 +395,30 @@
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       var note = $("[data-newsletter-note]", form.parentElement);
-      if (note) { note.textContent = "Thank you — you are on the list for private notes from the house."; note.classList.add("is-success"); }
-      form.reset();
+      sendForm(form, "newsletter").then(function (res) {
+        if (!note) return;
+        note.textContent = res && res.ok ? "Thank you — you are on the list for private notes from the house." : (res && res.error) || "Something went wrong. Please try again.";
+        note.classList.toggle("is-success", !!(res && res.ok));
+        if (res && res.ok) form.reset();
+      });
     });
   });
   $$("input[type=date]").forEach(function (input) { input.min = new Date().toISOString().slice(0, 10); });
 
   /* ---------- Offer: opens by itself once per visit, counts down, then waits in the tab on the right ---------- */
+  // Its wording and timing are set in the admin under Offers & announcements.
   var offer = $('[data-modal="offer"]'), offerTab = $(".offer-tab");
   if (offer && offerTab) {
-    var OFFER_DELAY = 1500; // ms after the page has loaded before it opens
-    var OFFER_SECONDS = 7;  // how long it stays open by itself (the gold line along its foot counts this down)
+    var OFFER_DELAY = Number(offer.getAttribute("data-delay")) || 1500;    // ms after the page has loaded before it opens
+    var OFFER_SECONDS = Number(offer.getAttribute("data-seconds")) || 7;   // how long it stays open by itself (the gold line along its foot counts this down)
+    var OFFER_ONCE = offer.getAttribute("data-once") !== "0";              // open by itself only on the first page of a visit
+    var KEEP_TAB = offer.getAttribute("data-keep-tab") !== "0";            // keep the "Offer" tab on the right of every page
+    var showTab = function () { if (KEEP_TAB) offerTab.classList.add("is-shown"); };
     offer.style.setProperty("--offer-seconds", OFFER_SECONDS + "s");
     offer.addEventListener("mj:open", function () { offerTab.classList.add("is-away"); });
     offer.addEventListener("mj:close", function () {
       offer.classList.remove("is-timed");
-      offerTab.classList.add("is-shown");
+      showTab();
       offerTab.classList.remove("is-away");
     });
     // The countdown pauses while the visitor hovers or tabs into the offer; when it runs out, the offer folds away.
@@ -385,12 +426,12 @@
       if (e.animationName === "offerCountdown") closeModal(offer, false);
     });
     var offerSeen = false;
-    try { offerSeen = !!sessionStorage.getItem("mj-offer"); } catch (e) { /* storage unavailable */ }
+    try { offerSeen = OFFER_ONCE && !!sessionStorage.getItem("mj-offer"); } catch (e) { /* storage unavailable */ }
     afterLoad(function () {
-      if (offerSeen) { offerTab.classList.add("is-shown"); return; }
+      if (offerSeen) { showTab(); return; }
       setTimeout(function () {
         // Something else is already open: leave the offer waiting in its tab.
-        if (stack.length) { offerTab.classList.add("is-shown"); return; }
+        if (stack.length) { showTab(); return; }
         try { sessionStorage.setItem("mj-offer", "1"); } catch (e) { /* storage unavailable */ }
         offer.classList.add("is-timed");
         openModal("offer", null, true);
@@ -436,7 +477,7 @@
       var p = bySlug(slug);
       var url = "product.html?slug=" + p.slug;
       return '<li class="drawer__item"><a href="' + url + '"><img src="' + p.thumb + '" alt="" style="object-position:' + p.imagePosition + '"></a>' +
-        '<div><a class="drawer__name" href="' + url + '">' + esc(p.name) + '</a><p class="drawer__price">' + formatPrice(p.price) + "</p></div>" +
+        '<div><a class="drawer__name" href="' + url + '">' + esc(p.name) + '</a><p class="drawer__price">' + priceHTML(p) + "</p></div>" +
         '<button type="button" class="drawer__remove" data-wish-remove="' + p.slug + '" aria-label="Remove ' + esc(p.name) + ' from wishlist">' + icon("x") + "</button></li>";
     }).join("");
   }
@@ -448,7 +489,7 @@
     var words = searchInput.value.trim().toLowerCase().split(/\s+/).filter(Boolean);
     if (!words.length) { searchResults.hidden = true; searchResults.innerHTML = ""; return; }
     var results = products.filter(function (p) {
-      var hay = (p.name + " " + p.category + " " + p.metal + " " + p.style + " " + p.collection + " " + p.purity).toLowerCase();
+      var hay = (p.name + " " + p.category + " " + categoryName(p.category) + " " + p.metal + " " + p.style + " " + p.collection + " " + p.purity + " " + (p.stone || "")).toLowerCase();
       return words.every(function (w) { return hay.indexOf(w) !== -1; });
     }).slice(0, 10);
     searchResults.hidden = false;
@@ -456,8 +497,8 @@
       ? results.map(function (p) {
         return '<a class="search__result" href="product.html?slug=' + p.slug + '">' +
           '<img src="' + p.thumb + '" alt="" style="object-position:' + p.imagePosition + '">' +
-          '<span><span class="search__result-name">' + esc(p.name) + '</span><span class="search__result-meta">' + p.category + " · " + p.metal + "</span></span>" +
-          '<span class="search__result-price">' + formatPrice(p.price) + "</span></a>";
+          '<span><span class="search__result-name">' + esc(p.name) + '</span><span class="search__result-meta">' + esc(categoryName(p.category)) + " · " + esc(p.metal) + "</span></span>" +
+          '<span class="search__result-price">' + priceHTML(p) + "</span></a>";
       }).join("")
       : '<div class="search__empty"><p>No pieces found</p><p>Try another style — ring, jhumka, diamond or bridal.</p></div>';
   }
@@ -497,9 +538,9 @@
         "</div>" +
       "</div>" +
       '<div class="pcard__body">' +
-        '<p class="pcard__meta">' + capitalize(p.category) + " · " + p.purity + " " + p.metal + "</p>" +
+        '<p class="pcard__meta">' + esc(categoryName(p.category)) + " · " + p.purity + " " + esc(p.metal) + "</p>" +
         '<h3 class="pcard__name"><a href="' + url + '">' + esc(p.name) + "</a></h3>" +
-        '<p class="pcard__price">' + formatPrice(p.price) + "</p>" +
+        '<p class="pcard__price">' + priceHTML(p) + "</p>" +
       "</div></article>";
   }
   function renderCards(el, list) {
@@ -896,11 +937,14 @@
         ];
       var related = products.filter(function (p) { return p.category === product.category && p.slug !== product.slug; }).slice(0, 4);
       var name = esc(product.name);
-      var stone = product.metal === "Diamond" ? "Diamond" : "Gold work";
+      var catName = esc(categoryName(product.category));
+      var stone = product.stone && product.stone !== "None" ? esc(product.stone) : product.metal === "Diamond" ? "Diamond" : "Gold work";
+      var canEnquire = product.enquire !== false;
+      var details = product.details || name + " is part of " + esc(product.collection) + ". Crafted in " + product.purity + " " + (product.metal === "Diamond" ? "gold with diamonds" : "gold") + " and handcrafted to order in our Surat atelier by master karigars. Every piece carries a BIS hallmark — your assurance of its purity.";
 
       productRoot.innerHTML =
         '<div class="container">' +
-          '<nav class="breadcrumb breadcrumb--dark" aria-label="Breadcrumb"><a href="index.html">Home</a><span class="breadcrumb__sep"></span><a href="jewellery.html">Jewellery</a><span class="breadcrumb__sep"></span><a href="' + product.category + '.html">' + capitalize(product.category) + '</a><span class="breadcrumb__sep"></span><span aria-current="page">' + name + "</span></nav>" +
+          '<nav class="breadcrumb breadcrumb--dark" aria-label="Breadcrumb"><a href="index.html">Home</a><span class="breadcrumb__sep"></span><a href="jewellery.html">Jewellery</a><span class="breadcrumb__sep"></span>' + (product.category ? '<a href="' + product.category + '.html">' + catName + '</a><span class="breadcrumb__sep"></span>' : "") + '<span aria-current="page">' + name + "</span></nav>" +
           '<div class="product__grid">' +
             '<div class="gallery">' +
               '<div class="gallery__thumbs">' + views.map(function (v, i) {
@@ -915,17 +959,17 @@
             '<div class="pinfo">' +
               '<p class="pinfo__collection">' + esc(product.collection) + "</p>" +
               '<h1 class="pinfo__name">' + name + "</h1>" +
-              '<p class="pinfo__price">' + formatPrice(product.price) + "<span>" + product.purity + " · " + esc(product.metal) + "</span></p>" +
+              '<p class="pinfo__price">' + priceHTML(product) + "<span>" + product.purity + " · " + esc(product.metal) + "</span></p>" +
               '<p class="pinfo__desc">' + esc(product.description) + "</p>" +
-              '<dl class="specs"><div><dt>Gold purity</dt><dd>' + product.purity + "</dd></div><div><dt>Stone</dt><dd>" + stone + "</dd></div><div><dt>Category</dt><dd>" + product.category + "</dd></div></dl>" +
+              '<dl class="specs"><div><dt>Gold purity</dt><dd>' + product.purity + "</dd></div><div><dt>Stone</dt><dd>" + stone + "</dd></div><div><dt>Category</dt><dd>" + catName + "</dd></div></dl>" +
               '<div class="pinfo__actions">' +
-                '<button type="button" class="btn btn--primary" data-open="enquire">' + icon("message-circle") + " Enquire now</button>" +
+                (canEnquire ? '<button type="button" class="btn btn--primary" data-open="enquire">' + icon("message-circle") + " Enquire now</button>" : '<button type="button" class="btn btn--primary" data-open="appointment">' + icon("calendar") + " Book a viewing</button>") +
                 '<button type="button" class="btn btn--outline" data-wish="' + product.slug + '" data-wish-text aria-pressed="false">' + icon("heart") + ' <span data-wish-label>Add to wishlist</span></button>' +
               "</div>" +
               '<p class="pinfo__try">' + icon("calendar") + ' Prefer to see it in person? <button type="button" data-open="appointment">Book a private viewing</button></p>' +
               '<ul class="assure"><li>' + icon("shield-check") + "BIS hallmarked</li><li>" + icon("sparkles") + "Handcrafted in Surat</li><li>" + icon("truck") + "Insured delivery</li></ul>" +
               '<div class="accordion">' +
-                '<details open><summary>Product details' + icon("plus") + '</summary><div class="accordion__body">' + name + " is part of " + esc(product.collection) + ". Crafted in " + product.purity + " " + (product.metal === "Diamond" ? "gold with diamonds" : "gold") + " and handcrafted to order in our Surat atelier by master karigars. Every piece carries a BIS hallmark — your assurance of its purity.</div></details>" +
+                '<details open><summary>Product details' + icon("plus") + '</summary><div class="accordion__body">' + details + "</div></details>" +
                 '<details><summary>Caring for your jewel' + icon("plus") + '</summary><div class="accordion__body">Keep gold away from perfume and chlorine, wipe it gently with a soft cloth after wear, and store each piece separately. Bring it home to us once a year and our karigars will clean, inspect and re-polish it.</div></details>' +
                 '<details><summary>Delivery &amp; appointments' + icon("plus") + '</summary><div class="accordion__body">Insured delivery across India. Prefer to see it first? Book a private appointment at Mangalam House, Ring Road, Surat — our concierge will confirm your time.</div></details>' +
               "</div>" +
@@ -933,12 +977,12 @@
           "</div>" +
           (related.length
             ? '<section class="related"><header class="section-head section-head--split"><div><p class="eyebrow">Complete the look</p><h2 class="section-title">You may also <em>love</em></h2></div>' +
-              '<a class="link-arrow" href="' + product.category + '.html">More ' + product.category + " " + icon("arrow-right") + "</a></header>" +
+              '<a class="link-arrow" href="' + product.category + '.html">More ' + catName.toLowerCase() + " " + icon("arrow-right") + "</a></header>" +
               '<div class="product-grid" data-related></div></section>'
             : "") +
         "</div>" +
-        '<div class="mobile-buy"><div><strong>' + formatPrice(product.price) + "</strong></div>" +
-          '<button type="button" class="btn btn--primary btn--sm" data-open="enquire">' + icon("message-circle") + " Enquire</button></div>";
+        '<div class="mobile-buy"><div><strong>' + priceHTML(product) + "</strong></div>" +
+          (canEnquire ? '<button type="button" class="btn btn--primary btn--sm" data-open="enquire">' + icon("message-circle") + " Enquire</button>" : '<button type="button" class="btn btn--primary btn--sm" data-open="appointment">' + icon("calendar") + " Book a viewing</button>") + "</div>";
       document.body.classList.add("has-mobile-buy");
 
       $$(SPLIT, productRoot).forEach(splitWords);
@@ -981,6 +1025,8 @@
         $("[data-product-name]", enquire).textContent = product.name;
         var message = $("textarea", enquire);
         message.defaultValue = "I would like to know more about the " + product.name + ".";
+        var about = $("input[name=product]", enquire);
+        if (about) about.value = about.defaultValue = product.slug;
       }
     }
   }
@@ -1027,7 +1073,8 @@
         "</header>" +
         '<div class="container article-cover"><div class="article-cover__img"><img src="' + article.image + '" alt="' + esc(article.title) + '" style="object-position:' + article.imagePosition + '"></div></div>' +
         '<div class="container container--narrow article-body">' +
-          '<div class="prose">' + article.body.map(function (para, i) { return "<p" + (i ? "" : ' class="dropcap"') + ">" + esc(para) + "</p>"; }).join("") + "</div>" +
+          // The story is HTML from the admin's editor (cleaned when it was saved); its first paragraph opens with a drop cap
+          '<div class="prose">' + String(article.body || "").replace(/<p>/, '<p class="dropcap">') + "</div>" +
           '<div class="article-share">' +
             '<a class="link-arrow" href="journal.html">' + icon("arrow-left") + " All articles</a>" +
             '<div class="article-share__links">' +

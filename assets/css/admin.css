@@ -538,6 +538,17 @@ a.cell-main:hover .cell-title { color: var(--gold-deep); }
 .toast__close:hover { background: rgba(251, 248, 242, 0.1); color: var(--ivory); }
 .toast__close .icon { width: 15px; height: 15px; }
 .toast.is-leaving { animation: toastOut 0.25s ease forwards; }
+.toast--error { border-color: rgba(229, 115, 115, 0.5); }
+.toast--error > .icon { color: #F2A0A0; }
+
+/* Waiting for the server: buttons, uploads and photo fields */
+.is-busy { cursor: progress; }
+.btn.is-busy { opacity: 0.65; pointer-events: none; }
+.dropzone.is-busy, .image-field.is-busy, .panel-edit__media.is-busy, .hero-edit__photo.is-busy { opacity: 0.7; pointer-events: none; }
+.gthumb.is-uploading img { opacity: 0.45; filter: grayscale(0.6); }
+.gthumb.is-uploading::after { content: "Uploading…"; position: absolute; inset: auto 0 8px; text-align: center; font-size: 11px; font-weight: 500; color: var(--ink); }
+.auth__error { margin: -4px 0 0; padding: 10px 12px; border-radius: 10px; background: #FBEAEA; font-size: 13.5px; color: #8A2323; }
+.notice--none, .agenda__none { padding: 14px 12px; font-size: 13px; color: var(--muted); list-style: none; }
 
 /* ---------- 10. Photos: uploads, galleries, image fields ---------- */
 .dropzone { position: relative; display: grid; justify-items: center; gap: 6px; padding: 26px 20px; border: 1.5px dashed #CDBB9C; border-radius: var(--r); background: var(--surface-2); text-align: center; color: var(--muted); cursor: pointer; transition: border-color 0.2s, background-color 0.2s; }

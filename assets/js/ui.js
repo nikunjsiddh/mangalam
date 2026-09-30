@@ -1,5 +1,5 @@
 /* Mangalam Jewellers — icon set (Lucide, stroke icons).
- * Used in the browser (window.MJUI.icon) and by src/build.mjs when pages are generated.
+ * Used in the browser (window.MJUI.icon) and by the PHP templates (app/lib/template.php reads this list).
  */
 (function (root) {
   "use strict";
