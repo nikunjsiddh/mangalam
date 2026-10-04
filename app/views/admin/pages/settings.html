@@ -76,13 +76,29 @@
           <section class="card" role="tabpanel" id="panel-notify" aria-labelledby="tab-notify" hidden>
             <header class="card__head"><div><h2 class="card__title">Notifications</h2><p class="card__sub">Who hears about what, by email.</p></div></header>
             <div class="card__body stack">
-              <label class="switch switch--text"><input type="checkbox" name="mail_enabled"{{mailEnabled}}><span class="switch__track" aria-hidden="true"></span><span>Send emails from the website (needs a mail server — turn on once the site is hosted)</span></label>
+              {{mailStatus}}
+              <label class="switch switch--text"><input type="checkbox" name="mail_enabled"{{mailEnabled}}><span class="switch__track" aria-hidden="true"></span><span>Send emails from the website</span></label>
               <label class="field"><span class="field__label">Send to</span><input class="input" name="notify_email" value="{{notifyEmail}}"><span class="hint">Separate several addresses with commas.</span></label>
+              <fieldset class="fieldset">
+                <legend>Mail server (SMTP)</legend>
+                <div class="form-grid">
+                  <label class="field"><span class="field__label">Server</span><input class="input" name="smtp_host" value="{{smtpHost}}" placeholder="smtp.gmail.com" maxlength="190" autocomplete="off" spellcheck="false"></label>
+                  <div class="form-grid">
+                    <label class="field"><span class="field__label">Port</span><input class="input" name="smtp_port" value="{{smtpPort}}" inputmode="numeric" maxlength="5"></label>
+                    <label class="field"><span class="field__label">Security</span><select class="select" name="smtp_secure"><option value="tls"{{smtpTls}}>TLS (587)</option><option value="ssl"{{smtpSsl}}>SSL (465)</option><option value="none"{{smtpNone}}>None (25)</option></select></label>
+                  </div>
+                  <label class="field"><span class="field__label">Username</span><input class="input" name="smtp_user" value="{{smtpUser}}" placeholder="you@gmail.com" maxlength="190" autocomplete="off" spellcheck="false"></label>
+                  <label class="field"><span class="field__label">Password</span><input class="input" type="password" name="smtp_pass" value="" placeholder="{{smtpPassHint}}" autocomplete="new-password"></label>
+                  <label class="field span-2"><span class="field__label">Send from <span class="field__aside">Optional</span></span><input class="input" type="email" name="mail_from" value="{{mailFrom}}" placeholder="The username above" maxlength="190"></label>
+                </div>
+                <p class="hint">Gmail: server smtp.gmail.com, TLS 587, your Gmail address, and an <a class="link" href="https://myaccount.google.com/apppasswords" target="_blank" rel="noopener">App Password</a> (needs 2-Step Verification) — not your normal password.</p>
+                <div><button type="button" class="btn btn--outline btn--sm" data-mail-test>{{icon:send}} Send a test email</button></div>
+              </fieldset>
               <div class="toggle-list">
                 <label class="switch switch--text"><input type="checkbox" name="notify_enquiry"{{notifyEnquiry}}><span class="switch__track" aria-hidden="true"></span><span>A new enquiry arrives</span></label>
                 <label class="switch switch--text"><input type="checkbox" name="notify_appointment"{{notifyAppointment}}><span class="switch__track" aria-hidden="true"></span><span>Someone asks for an appointment</span></label>
                 <label class="switch switch--text"><input type="checkbox" name="notify_subscriber"{{notifySubscriber}}><span class="switch__track" aria-hidden="true"></span><span>Someone subscribes to the newsletter</span></label>
-                <label class="switch switch--text"><input type="checkbox" name="notify_summary"{{notifySummary}}><span class="switch__track" aria-hidden="true"></span><span>A morning summary of the day's appointments</span></label>
+                <label class="switch switch--text"><input type="checkbox" name="notify_summary"{{notifySummary}}><span class="switch__track" aria-hidden="true"></span><span>A morning summary of the day's appointments (around 7 AM)</span></label>
               </div>
               <p class="note">{{icon:info}}<span>Everything also appears in the admin — in Enquiries, Appointments, Subscribers and the bell — whether or not emails are sent.</span></p>
             </div>

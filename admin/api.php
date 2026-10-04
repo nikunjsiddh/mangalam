@@ -5,6 +5,7 @@ require dirname(__DIR__) . '/app/bootstrap.php';
 require_installed();
 require APP_DIR . '/admin/render.php';
 require APP_DIR . '/admin/actions.php';
+upgrade_schema();
 
 start_session();
 header('X-Frame-Options: SAMEORIGIN');

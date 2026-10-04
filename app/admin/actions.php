@@ -7,7 +7,7 @@
 /** Which permission each action needs ('' = anyone signed in) */
 const ACTION_PERMISSIONS = [
     'profile.save' => '', 'notices.read' => '', 'upload.image' => '',
-    'product.save' => 'products.edit', 'product.duplicate' => 'products.edit', 'product.status' => 'products.edit', 'product.move' => 'products.edit', 'product.delete' => 'products.delete',
+    'product.save' => 'products.edit', 'upload.model' => 'products.edit', 'product.duplicate' => 'products.edit', 'product.status' => 'products.edit', 'product.move' => 'products.edit', 'product.delete' => 'products.delete',
     'category.save' => 'products.edit', 'category.delete' => 'products.edit', 'category.reorder' => 'products.edit', 'category.menu' => 'products.edit',
     'collection.save' => 'products.edit', 'collection.delete' => 'products.edit', 'collection.reorder' => 'products.edit', 'collection.home' => 'products.edit',
     'home.save' => 'content.edit', 'page.save' => 'content.edit',
@@ -17,7 +17,7 @@ const ACTION_PERMISSIONS = [
     'enquiry.status' => 'enquiries.reply', 'enquiry.reply' => 'enquiries.reply', 'enquiry.delete' => 'enquiries.reply',
     'appointment.save' => 'appointments.edit', 'appointment.delete' => 'appointments.edit',
     'subscriber.add' => 'subscribers.export', 'subscriber.status' => 'subscribers.export', 'subscriber.delete' => 'subscribers.export',
-    'offer.save' => 'offers.edit', 'settings.save' => 'settings.edit',
+    'offer.save' => 'offers.edit', 'settings.save' => 'settings.edit', 'settings.mailtest' => 'settings.edit',
     'user.invite' => 'users.manage', 'user.link' => 'users.manage', 'user.role' => 'users.manage', 'user.delete' => 'users.manage', 'user.permissions' => 'users.manage',
 ];
 
@@ -147,6 +147,15 @@ function act_upload_image(array $me): array
     return ['message' => 'Photo uploaded', 'text' => $m['name'] . ' is in the media library.', 'path' => $m['path'], 'url' => asset($m['path']), 'thumb' => asset($thumb)];
 }
 
+/** A .glb model for a product's 3D view: kept in assets/models and saved with the product */
+function act_upload_model(array $me): array
+{
+    $files = uploaded_files('file');
+    if (!$files) fail('Choose a .glb 3D model to upload.');
+    $path = store_model($files[0]);
+    return ['message' => '3D model uploaded', 'text' => 'Save the product to keep it.', 'path' => $path, 'url' => asset($path), 'name' => basename($path), 'size' => file_size_label((int) filesize(ROOT_DIR . '/' . $path))];
+}
+
 function act_media_upload(array $me): array
 {
     $files = uploaded_files('files');
@@ -198,6 +207,12 @@ function act_product_save(array $me): array
     if (!in_array($status, ['published', 'draft', 'hidden'], true)) $status = 'draft';
     $huid = strtoupper(preg_replace('/[^A-Za-z0-9]/', '', (string) input('huid')));
     if ($huid !== '' && strlen($huid) !== 6) fail('A HUID is 6 letters and numbers.', ['huid']);
+    // The 3D view & customiser (assets/js/admin-3d.js keeps its settings in one JSON field)
+    $view3dIn = json_decode((string) ($_POST['view3d'] ?? ''), true);
+    $view3d = view3d_config($view3dIn);
+    if ($view3d && $view3d['enabled'] && ($view3dIn['source'] ?? '') === 'model' && $view3d['source'] !== 'model') {
+        fail('The 3D model could not be found. Upload it again, or choose one of the house designs.');
+    }
     $gallery = [];
     foreach (input_array('gallery') as $path) {
         $path = clean_image_path($path);
@@ -216,6 +231,7 @@ function act_product_save(array $me): array
         'is_new' => input_bool('isNew'), 'show_price' => input_bool('showPrice'), 'allow_enquiry' => input_bool('enquiries'),
         'status' => $status, 'publish_on' => date_in('publishDate'),
         'seo_title' => text_in('seoTitle', 160), 'seo_desc' => text_in('seoDesc', 255),
+        'view3d' => $view3d ? json_encode($view3d, JSON_UNESCAPED_SLASHES) : null,
     ];
     $featured = input_bool('featured');
     if (!$old || ($featured !== ((int) $old['featured_order'] > 0))) {
@@ -546,7 +562,7 @@ function act_enquiry_reply(array $me): array
     insert('enquiry_replies', ['enquiry_id' => $en['id'], 'author' => $me['name'], 'message' => $message, 'emailed' => $sent ? 1 : 0]);
     update('enquiries', ['status' => 'replied'], ['id' => $en['id']]);
     $first = explode(' ', trim($en['name']))[0];
-    return ['message' => $sent ? 'Reply sent' : 'Reply saved', 'text' => $sent ? $first . ' will receive it by email.' : 'Emails are off in Settings › Notifications — use “Open in email” to send it to ' . $first . '.', 'redirect' => 'enquiries.html?open=' . $en['id']];
+    return ['message' => $sent ? 'Reply sent' : 'Reply saved', 'text' => $sent ? $first . ' will receive it by email.' : rtrim(mail_error(), '.') . ' — use “Open in email” to send it to ' . $first . '.', 'redirect' => 'enquiries.html?open=' . $en['id']];
 }
 
 function act_enquiry_delete(array $me): array
@@ -666,11 +682,45 @@ function act_settings_save(array $me): array
         'indexable' => input_bool('indexable'), 'notify_email' => implode(', ', $notify),
         'notify_enquiry' => input_bool('notify_enquiry'), 'notify_appointment' => input_bool('notify_appointment'),
         'notify_subscriber' => input_bool('notify_subscriber'), 'notify_summary' => input_bool('notify_summary'), 'mail_enabled' => input_bool('mail_enabled'),
+    ] + mail_settings_in() + [
         'loader' => input_bool('loader'), 'smooth_scroll' => input_bool('smooth_scroll'), 'calm_motion' => input_bool('calm_motion'),
         'maintenance' => input_bool('maintenance'), 'maintenance_message' => text_in('maintenance_message', 400),
     ]);
     update('pages', ['seo_title' => text_in('home_title', 160), 'seo_desc' => text_in('home_desc', 255)], ['page_key' => 'index']);
     return ['message' => 'Settings saved', 'text' => input_bool('maintenance') ? 'The maintenance page is on — visitors see it instead of the website.' : 'The website shows the new details straight away.'];
+}
+
+/** The mail server fields of Settings › Notifications, checked (a blank password keeps the saved one) */
+function mail_settings_in(): array
+{
+    $host = strtolower(text_in('smtp_host', 190));
+    if ($host !== '' && !preg_match('/^[a-z0-9.-]+$/', $host)) fail('The mail server is a name like smtp.gmail.com.', ['smtp_host']);
+    $port = input_int('smtp_port', 0);
+    if ($host !== '' && ($port < 1 || $port > 65535)) fail('The port is a number, usually 587 or 465.', ['smtp_port']);
+    $from = mb_strtolower(text_in('mail_from', 190));
+    if ($from !== '' && !valid_email($from)) fail('Please check the “send from” address.', ['mail_from']);
+    $pass = (string) ($_POST['smtp_pass'] ?? '');
+    // Google shows App Passwords as "abcd efgh ijkl mnop"; the spaces are not part of it
+    if (preg_match('/^([a-z]{4} ){3}[a-z]{4}$/i', trim($pass))) $pass = str_replace(' ', '', trim($pass));
+    $secure = in_array(input('smtp_secure'), ['tls', 'ssl', 'none'], true) ? input('smtp_secure') : 'tls';
+    if ($port === 465) $secure = 'ssl';
+    elseif ($port === 587 && $secure === 'ssl') $secure = 'tls';
+    return [
+        'smtp_host' => $host, 'smtp_port' => $port ?: 587, 'smtp_secure' => $secure,
+        'smtp_user' => text_in('smtp_user', 190), 'smtp_pass' => $pass !== '' ? $pass : (string) setting('smtp_pass', ''), 'mail_from' => $from,
+    ];
+}
+
+function act_settings_mailtest(array $me): array
+{
+    $c = mail_settings_in();
+    $to = trim((string) input('notify_email')) ?: $me['email'];
+    $override = ['host' => $c['smtp_host'], 'port' => $c['smtp_port'], 'secure' => $c['smtp_secure'], 'user' => $c['smtp_user'], 'pass' => $c['smtp_pass'], 'from' => $c['mail_from']];
+    $sent = send_mail($to, 'Test email from ' . setting('store_name', 'Mangalam Jewellers'),
+        "This is a test from the website's Settings › Notifications.\n\nIf you can read this, enquiries, appointment requests and the morning summary will reach this inbox.\n\nSent by " . $me['name'] . ' on ' . date('j F Y, g:i A') . '.',
+        '', $override, true);
+    if (!$sent) fail(mail_error());
+    return ['message' => 'Test email sent', 'text' => 'Check the inbox of ' . $to . (setting('mail_enabled', false) ? '.' : ' — then switch on “Send emails from the website” and save.')];
 }
 
 /* ---------- Team ---------- */

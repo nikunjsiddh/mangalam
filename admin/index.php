@@ -3,6 +3,7 @@
 require dirname(__DIR__) . '/app/bootstrap.php';
 require_installed();
 require APP_DIR . '/admin/render.php';
+upgrade_schema();
 
 start_session();
 header('Content-Type: text/html; charset=utf-8');
@@ -41,6 +42,8 @@ try {
         redirect(home_screen($me));
     }
     echo render_admin_page($route);
+    flush();
+    maybe_send_daily_summary();
 } catch (Throwable $e) {
     http_response_code(500);
     error_log('Mangalam admin: ' . $e);

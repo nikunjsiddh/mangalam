@@ -279,6 +279,19 @@ function html_for_editor(?string $html): string
     return preg_replace('/(<img[^>]+src=")(assets\/)/i', '$1../$2', (string) $html);
 }
 
+/** A first guess at a piece's 3D settings, from its name, metal and stone (the editor can refine it from the photo) */
+function view3d_guess(?array $p): array
+{
+    $name = mb_strtolower((string) ($p['name'] ?? ''));
+    $type = 'solitaire';
+    foreach (['halo' => 'halo', 'trilogy' => 'trilogy', 'three stone' => 'trilogy', 'three-stone' => 'trilogy', 'eternity' => 'eternity', 'band' => 'band', 'wedding' => 'band'] as $word => $design) {
+        if (str_contains($name, $word)) { $type = $design; break; }
+    }
+    $metal = ['Rose gold' => 'rose', 'Platinum' => 'platinum', 'Silver' => 'white'][$p['metal'] ?? ''] ?? 'yellow';
+    $stone = ['Ruby' => 'ruby', 'Emerald' => 'emerald'][$p['stone'] ?? ''] ?? 'diamond';
+    return view3d_config(['enabled' => false, 'design' => ['type' => $type], 'metal' => $metal, 'stone' => $stone]);
+}
+
 function page_product_form(?array $p): array
 {
     $edit = $p !== null;
@@ -321,6 +334,9 @@ function page_product_form(?array $p): array
         'showPriceChecked' => checked(!$edit || $p['show_price']),
         'enquiriesChecked' => checked(!$edit || $p['allow_enquiry']),
         'galleryThumbs' => $edit ? implode('', array_map('gallery_thumb', $p['gallery'], array_keys($p['gallery']))) : '',
+        'view3dValue' => e(json_encode(view3d_config($p['view3d'] ?? null) ?? view3d_guess($p), JSON_UNESCAPED_SLASHES)),
+        'view3dChecked' => checked((bool) (view3d_config($p['view3d'] ?? null)['enabled'] ?? false)),
+        'viewerVersion' => asset_version('assets/js/viewer3d.js'), 'admin3dVersion' => asset_version('assets/js/admin-3d.js'),
         'deleteCard' => $edit && can('products.delete') ? '
           <section class="card card--danger">
             <div class="card__body">
@@ -861,6 +877,18 @@ function page_offers(): array
 
 /* ---------- Settings ---------- */
 
+/** Whether the website can actually send emails yet, for the top of Settings › Notifications */
+function mail_status_note(): string
+{
+    $on = (bool) setting('mail_enabled', false);
+    $host = trim((string) setting('smtp_host', ''));
+    if (!$on) $text = '<strong>Emails are off.</strong> Nothing is emailed until “Send emails from the website” is switched on and saved.';
+    elseif ($host === '') $text = '<strong>No mail server yet.</strong> Without one, PHP mail() is used — on XAMPP it has nowhere to send, so emails are lost. Fill in the mail server below.';
+    else $text = '<strong>Emails go through ' . e($host) . '.</strong> Use “Send a test email” after any change.';
+    $ready = $on && $host !== '';
+    return '<p class="note' . ($ready ? '' : ' note--warn') . '">' . ai($ready ? 'circle-check' : 'triangle-alert') . '<span>' . $text . '</span></p>';
+}
+
 function page_settings(): array
 {
     $hours = implode('', array_map(function ($h) {
@@ -887,6 +915,10 @@ function page_settings(): array
         'homeTitle' => e($home['seo_title']), 'homeDesc' => e($home['seo_desc']), 'indexableChecked' => $b('indexable', true),
         'notifyEmail' => $s('notify_email'), 'notifyEnquiry' => $b('notify_enquiry', true), 'notifyAppointment' => $b('notify_appointment', true),
         'notifySubscriber' => $b('notify_subscriber'), 'notifySummary' => $b('notify_summary', true), 'mailEnabled' => $b('mail_enabled'),
+        'smtpHost' => $s('smtp_host'), 'smtpPort' => $s('smtp_port', 587), 'smtpUser' => $s('smtp_user'), 'mailFrom' => $s('mail_from'),
+        'smtpPassHint' => setting('smtp_pass', '') !== '' ? 'Saved — leave blank to keep it' : 'For Gmail: an App Password',
+        'smtpTls' => setting('smtp_secure', 'tls') === 'tls' ? ' selected' : '', 'smtpSsl' => setting('smtp_secure') === 'ssl' ? ' selected' : '', 'smtpNone' => setting('smtp_secure') === 'none' ? ' selected' : '',
+        'mailStatus' => mail_status_note(),
         'loaderChecked' => $b('loader', true), 'smoothChecked' => $b('smooth_scroll', true), 'calmChecked' => $b('calm_motion'),
         'maintenanceChecked' => $b('maintenance'), 'maintenanceMessage' => $s('maintenance_message'),
     ];

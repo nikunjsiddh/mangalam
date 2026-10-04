@@ -50,7 +50,7 @@ Sign in at `admin/login.html`. Each screen saves straight to the database; the w
 | Screen | What it manages |
 | --- | --- |
 | Dashboard | Enquiries per week, upcoming appointments, pieces on the website, subscribers, and what needs attention — all counted from the database (choose 7 days, 30 days, 90 days or 12 months) |
-| Products | Add, edit, duplicate, hide, publish, move and delete pieces (one at a time or ticked together), upload and reorder photos (drag to reorder; the first is the main photo, the second shows on hover), price and offer price, specifications, HUID, search listing, publish date. Export to CSV |
+| Products | Add, edit, duplicate, hide, publish, move and delete pieces (one at a time or ticked together), upload and reorder photos (drag to reorder; the first is the main photo, the second shows on hover), price and offer price, specifications, HUID, search listing, publish date, and the 3D view & customiser (below). Export to CSV |
 | Categories | Add, edit, reorder (drag), show or hide in the menu, menu image and page banner, page heading and introduction, delete |
 | Collections | Add, edit, reorder, show on the homepage; each gathers its pieces by a rule (category, metal or style) |
 | Homepage | Section order and visibility, hero photograph, headline, introduction and figures, shop-the-look pins (drag onto the photo), the featured pieces (Signature tab) and the four bridal panels. Changes go live when you press *Publish changes* |
@@ -99,6 +99,12 @@ assets/js/main.js         the website's behaviour: loader, menus, dialogs, wishl
 assets/js/admin.js        the admin's behaviour: lists, dialogs, drag to reorder, uploads, editors, charts,
                           and sending changes to admin/api.php
 assets/js/ui.js           the icon set (shared by the browser and the PHP templates)
+assets/js/viewer3d.js     the 3D jewel viewer (three.js): the house ring designs, uploaded .glb models, metals,
+                          stones and effects — shared by the two files below
+assets/js/product3d.js    "View in 3D & customise" on product pages (loaded only when a visitor opens it)
+assets/js/admin-3d.js     the product editor's 3D card: live preview beside the photo, matching, .glb upload
+assets/models/            3D models (.glb) uploaded in the product editor
+demo/jewellery-3d/        a stand-alone scroll-story showcase of the 3D ring studio (/demo/jewellery-3d/)
 assets/images/            brand/ (logo files), campaign/ (the shoot), products/ (each piece, with -sm copies),
                           uploads/ (images uploaded to the Other folder), icons/ (home-screen and install icons)
 favicon.ico, assets/images/favicon.svg, site.webmanifest
@@ -111,7 +117,17 @@ The templates use `{{name}}` for a value, `{{icon:name}}` for an icon and `{{> p
 
 ### Database tables
 
-`products`, `product_images`, `categories`, `collections`, `hotspots` (shop-the-look pins), `pages`, `articles`, `testimonials`, `media`, `settings` (contact details, hours, offer, announcements, homepage hero and sections, switches — JSON values), `enquiries`, `enquiry_replies`, `appointments`, `subscribers`, `users`, `role_permissions`.
+`products` (`view3d` holds the 3D view settings as JSON), `product_images`, `categories`, `collections`, `hotspots` (shop-the-look pins), `pages`, `articles`, `testimonials`, `media`, `settings` (contact details, hours, offer, announcements, homepage hero and sections, switches — JSON values), `enquiries`, `enquiry_replies`, `appointments`, `subscribers`, `users`, `role_permissions`.
+
+## 3D view & customiser
+
+In **Products › edit a piece › 3D view & customiser** the team can show a ring in 3D on its page, where visitors turn it, zoom in, try the other metals and stones the team allows, save a picture, and send an enquiry that names the design they chose ("… in white gold with blue sapphire, as I designed it in the 3D view").
+
+- **A house ring design** (Solitaire, Halo, Trilogy, Eternity, Plain band) is drawn in code, with sliders for the stone size and band width and 4 or 6 claws. The 3D preview sits beside the main photo so the team can match the two by eye. *Match from photo & details* fills in the ring type from the name ("halo", "eternity", "band"…), the metal and stone from the Metal and Main stone fields, and uses the photo for what those leave open (white or yellow metal for a diamond piece, the colour of a mixed stone).
+- **My 3D model (.glb)** shows the exact piece. Ask the CAD designer (Matrix, RhinoGold, Blender…) for a binary glTF 2.0 export up to 30 MB, with the metal and the stones as separate materials: metallic materials become the metal and glass-like (transmissive) ones, or materials named diamond / gem / stone / ruby…, become the stones, so visitors can change both. A model made by an AI photo-to-3D service also uploads, but it usually comes as one textured piece, so its metal and stones cannot be changed.
+- A normal photograph cannot be turned into an accurate 3D model automatically; that is why a design is matched to the photo, or a model is uploaded.
+
+The viewer loads three.js from cdn.jsdelivr.net (with integrity checks) only when a visitor opens it, so it needs an internet connection. The `view3d` column is added to an existing database the first time the admin is opened (`upgrade_schema()` in `app/lib/db.php`).
 
 ## Offer popup
 

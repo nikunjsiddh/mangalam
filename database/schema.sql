@@ -47,6 +47,7 @@ CREATE TABLE products (
   making_charges DECIMAL(6,2) NULL,
   huid           VARCHAR(6)   NULL,
   image_position VARCHAR(40)  NOT NULL DEFAULT 'center',
+  view3d         TEXT         NULL,                      -- the 3D view & customiser (JSON; see view3d_config() in app/lib/content.php)
   is_new         TINYINT(1)   NOT NULL DEFAULT 0,
   featured_order INT          NOT NULL DEFAULT 0,        -- 0 = not featured; otherwise its place in the Signature tab
   show_price     TINYINT(1)   NOT NULL DEFAULT 1,

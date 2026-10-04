@@ -25,7 +25,7 @@ try {
                 'name' => $name, 'email' => $email, 'phone' => $phone, 'message' => $message,
                 'source' => $product ? 'product' : 'contact', 'product_id' => $product['id'] ?? null, 'topic' => $product ? '' : $topic,
             ]);
-            if (setting('notify_enquiry', true)) notify_team('New enquiry from ' . $name, ($product ? 'About: ' . $product['name'] : 'Topic: ' . $topic) . "\n\n$message\n\n$name · $email · $phone");
+            if (setting('notify_enquiry', true)) notify_team('New enquiry from ' . $name, ($product ? 'About: ' . $product['name'] : 'Topic: ' . $topic) . "\n\n$message\n\n$name · $email · $phone", $email);
             json_response(['ok' => true]);
 
         case 'appointment':
@@ -35,7 +35,7 @@ try {
             if ($date < today()) fail('Please choose a day from today onwards.');
             $interest = in_array(input('interest'), INTERESTS, true) ? input('interest') : INTERESTS[0];
             insert('appointments', ['name' => $name, 'email' => $email, 'phone' => $phone, 'date' => $date->format('Y-m-d'), 'interest' => $interest, 'status' => 'pending', 'source' => 'website']);
-            if (setting('notify_appointment', true)) notify_team('Appointment request from ' . $name, "$interest on " . $date->format('l j F Y') . "\n\n$name · $phone · $email");
+            if (setting('notify_appointment', true)) notify_team('Appointment request from ' . $name, "$interest on " . $date->format('l j F Y') . "\n\n$name · $phone · $email", $email);
             json_response(['ok' => true]);
 
         case 'newsletter':

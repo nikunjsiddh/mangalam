@@ -32,6 +32,8 @@ try {
     }
     header('Content-Type: text/html; charset=utf-8');
     echo render_site_page($page);
+    flush();
+    maybe_send_daily_summary();
 } catch (Throwable $e) {
     http_response_code(500);
     error_log('Mangalam: ' . $e);

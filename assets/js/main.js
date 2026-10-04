@@ -949,10 +949,13 @@
             '<div class="gallery">' +
               '<div class="gallery__thumbs">' + views.map(function (v, i) {
                 return '<button type="button" class="gallery__thumb" data-view="' + i + '" aria-label="View image ' + (i + 1) + '" aria-current="' + (i === 0) + '"><img src="' + v.thumb + '" alt="" style="object-position:' + v.pos + ";scale:" + v.scale + '"></button>';
-              }).join("") + "</div>" +
+              }).join("") +
+                (product.view3d ? '<button type="button" class="gallery__thumb gallery__thumb--3d" data-view3d aria-label="View in 3D">' + icon("box") + "<span>3D</span></button>" : "") +
+              "</div>" +
               '<div class="gallery__main" data-zoom>' +
                 '<img data-main-image src="' + views[0].src + '" alt="' + name + '" style="object-position:' + views[0].pos + '">' +
                 wishButton(product, "pcard__wish") +
+                (product.view3d ? '<button type="button" class="gallery__3d" data-view3d>' + icon("box") + "View in 3D &amp; customise</button>" : "") +
                 (canHover ? '<span class="gallery__hint">' + icon("zoom-in") + "Hover to zoom</span>" : "") +
               "</div>" +
             "</div>" +
@@ -1028,6 +1031,30 @@
         var about = $("input[name=product]", enquire);
         if (about) about.value = about.defaultValue = product.slug;
       }
+
+      // View in 3D: the viewer (assets/js/product3d.js, which brings three.js) loads the first time it is opened
+      $$("[data-view3d]", productRoot).forEach(function (btn) {
+        btn.addEventListener("click", function (e) {
+          e.stopPropagation();
+          btn.classList.add("is-loading");
+          import("mangalam/product3d").then(function (m) {
+            btn.classList.remove("is-loading");
+            return m.open3D(product, {
+              trigger: btn,
+              // "Enquire about this design" opens the enquiry form with the chosen metal and stone in the message
+              onEnquire: function (text) {
+                var name = canEnquire ? "enquire" : "appointment";
+                openModal(name, btn); // opening resets the form, so the message goes in after
+                var area = $('[data-modal="' + name + '"] textarea');
+                if (area) area.value = text;
+              },
+            });
+          }).catch(function (err) {
+            btn.classList.remove("is-loading");
+            console.error(err);
+          });
+        });
+      });
     }
   }
 

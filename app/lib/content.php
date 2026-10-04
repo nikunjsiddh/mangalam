@@ -93,21 +93,145 @@ function hours_long_html(): string
 
 /* ---------- Email (only when "Send emails from the website" is on in Settings › Notifications) ---------- */
 
-function send_mail(string $to, string $subject, string $body, string $replyTo = ''): bool
+/** The mail server settings; $override (the Settings form, for a test email) wins over what is saved */
+function mail_config(array $override = []): array
 {
-    if (!setting('mail_enabled', false) || $to === '') return false;
-    $from = (string) setting('email', 'care@mangalamjewellers.in');
-    $headers = 'From: ' . mb_encode_mimeheader((string) setting('store_name', 'Mangalam Jewellers')) . " <$from>\r\n"
-        . ($replyTo ? "Reply-To: $replyTo\r\n" : '')
-        . "MIME-Version: 1.0\r\nContent-Type: text/plain; charset=UTF-8\r\nContent-Transfer-Encoding: 8bit";
-    return @mail($to, mb_encode_mimeheader($subject), $body, $headers);
+    $c = [
+        'host' => trim((string) setting('smtp_host', '')), 'port' => (int) setting('smtp_port', 587),
+        'secure' => (string) setting('smtp_secure', 'tls'), 'user' => trim((string) setting('smtp_user', '')),
+        'pass' => (string) setting('smtp_pass', ''), 'from' => trim((string) setting('mail_from', '')),
+    ];
+    foreach ($override as $k => $v) if ($v !== null && $v !== '') $c[$k] = $v;
+    // Gmail and most hosts only send "From" the signed-in address
+    if ($c['from'] === '') $c['from'] = valid_email($c['user']) ? $c['user'] : (string) setting('email', 'care@mangalamjewellers.in');
+    return $c;
 }
 
-/** Tells the team about something that arrived from the website */
-function notify_team(string $subject, string $body): bool
+/** Why the last email was not sent ('' when it was) */
+function mail_error(?string $set = null): string
 {
-    $to = trim((string) setting('notify_email', setting('email', '')));
-    return send_mail($to, 'Mangalam website: ' . $subject, $body . "\n\n— Sent by the website. Open the admin to reply.");
+    static $error = '';
+    if ($set !== null) $error = $set;
+    return $error;
+}
+
+function send_mail(string $to, string $subject, string $body, string $replyTo = '', array $override = [], bool $force = false): bool
+{
+    mail_error('');
+    if (!$force && !setting('mail_enabled', false)) { mail_error('Sending emails is off in Settings › Notifications.'); return false; }
+    $recipients = array_values(array_filter(array_map('trim', explode(',', $to)), 'valid_email'));
+    if (!$recipients) { mail_error('There is no email address to send to.'); return false; }
+    $c = mail_config($override);
+    $name = (string) setting('store_name', 'Mangalam Jewellers');
+    $headers = [
+        'From' => mb_encode_mimeheader($name) . ' <' . $c['from'] . '>',
+        'Reply-To' => $replyTo !== '' && valid_email($replyTo) ? $replyTo : '',
+        'MIME-Version' => '1.0', 'Content-Type' => 'text/plain; charset=UTF-8', 'Content-Transfer-Encoding' => '8bit',
+    ];
+    $body = str_replace(["\r\n", "\r"], "\n", $body);
+    try {
+        if ($c['host'] !== '') {
+            smtp_send($c, $recipients, mb_encode_mimeheader($subject), $body, $headers);
+            return true;
+        }
+        // No mail server set: PHP's own mail() (works on most hosting; on XAMPP it needs an SMTP server)
+        $lines = [];
+        foreach ($headers as $k => $v) if ($v !== '') $lines[] = "$k: $v";
+        $sent = @mail(implode(', ', $recipients), mb_encode_mimeheader($subject), str_replace("\n", "\r\n", $body), implode("\r\n", $lines));
+        if (!$sent) throw new RuntimeException('The server could not send it with PHP mail(). Add your mail server (for example Gmail) under Settings › Notifications.');
+        return true;
+    } catch (Throwable $e) {
+        mail_error($e->getMessage());
+        error_log('Mangalam email to ' . implode(', ', $recipients) . ' not sent: ' . $e->getMessage());
+        return false;
+    }
+}
+
+/** A plain SMTP conversation (SSL on 465, STARTTLS on 587), with AUTH LOGIN when a user is set */
+function smtp_send(array $c, array $to, string $subject, string $body, array $headers): void
+{
+    $secure = in_array($c['secure'], ['ssl', 'tls', 'none'], true) ? $c['secure'] : 'tls';
+    $port = (int) $c['port'] ?: ($secure === 'ssl' ? 465 : 587);
+    // Port 465 is encrypted from the first byte (SSL); 587 starts plain and switches with STARTTLS
+    if ($port === 465) $secure = 'ssl';
+    elseif ($port === 587 && $secure === 'ssl') $secure = 'tls';
+    $context = stream_context_create(['ssl' => ['verify_peer' => true, 'verify_peer_name' => true, 'SNI_enabled' => true, 'peer_name' => $c['host']]]);
+    $fp = @stream_socket_client(($secure === 'ssl' ? 'ssl://' : 'tcp://') . $c['host'] . ':' . $port, $errno, $errstr, 15, STREAM_CLIENT_CONNECT, $context);
+    if (!$fp) throw new RuntimeException("Could not connect to {$c['host']}:$port ($errstr). Check the server name and port.");
+    stream_set_timeout($fp, 20);
+    $read = function () use ($fp): array {
+        $text = '';
+        while (($line = fgets($fp, 1024)) !== false) {
+            $text .= $line;
+            if (strlen($line) < 4 || $line[3] === ' ') break;
+        }
+        // One line for messages: "530-5.7.0 Authentication…\r\n530 5.7.0 …" → "5.7.0 Authentication… 5.7.0 …"
+        return [(int) substr($text, 0, 3), trim(preg_replace(['/(^|\n)\d{3}[ -]/', '/\s+/'], [' ', ' '], $text))];
+    };
+    $cmd = function (string $line, array $ok, string $what = '') use ($fp, $read): string {
+        if ($line !== '') fwrite($fp, $line . "\r\n");
+        [$code, $text] = $read();
+        if (!in_array($code, $ok, true)) throw new RuntimeException(($what ?: 'The mail server refused the email') . ': ' . ($text ?: 'no answer'));
+        return $text;
+    };
+    try {
+        $cmd('', [220], 'The mail server did not greet us');
+        $me = preg_replace('/[^a-z0-9.-]/i', '', (string) ($_SERVER['SERVER_NAME'] ?? '')) ?: 'localhost';
+        $ehlo = $cmd("EHLO $me", [250]);
+        if ($secure === 'tls') {
+            if (stripos($ehlo, 'STARTTLS') === false) throw new RuntimeException('The mail server does not offer TLS on this port — try port 465 with SSL.');
+            $cmd('STARTTLS', [220]);
+            if (!@stream_socket_enable_crypto($fp, true, STREAM_CRYPTO_METHOD_TLSv1_2_CLIENT | STREAM_CRYPTO_METHOD_TLSv1_3_CLIENT)) throw new RuntimeException('Could not start a secure connection with the mail server.');
+            $ehlo = $cmd("EHLO $me", [250]);
+        }
+        if ($c['user'] !== '') {
+            $refused = 'The mail server refused the username or password' . (stripos($c['host'], 'gmail') !== false ? ' — Gmail only accepts a current App Password made on this same account' : '');
+            // AUTH PLAIN when offered (one step), otherwise AUTH LOGIN
+            if (preg_match('/\bAUTH[ =].*?(?<![\w-])PLAIN(?![\w-])/i', $ehlo)) {
+                $cmd('AUTH PLAIN ' . base64_encode("\0" . $c['user'] . "\0" . $c['pass']), [235], $refused);
+            } else {
+                $cmd('AUTH LOGIN', [334], 'The mail server does not accept a sign-in');
+                $cmd(base64_encode($c['user']), [334], 'The mail server refused the username');
+                $cmd(base64_encode($c['pass']), [235], $refused);
+            }
+        }
+        $cmd('MAIL FROM:<' . $c['from'] . '>', [250], 'The mail server refused the sender ' . $c['from']);
+        foreach ($to as $rcpt) $cmd("RCPT TO:<$rcpt>", [250, 251], 'The mail server refused ' . $rcpt);
+        $cmd('DATA', [354]);
+        $head = 'Date: ' . date('r') . "\r\nTo: " . implode(', ', $to) . "\r\nSubject: $subject\r\n"
+            . 'Message-ID: <' . bin2hex(random_bytes(12)) . '@' . (explode('@', $c['from'])[1] ?? 'localhost') . ">\r\n";
+        foreach ($headers as $k => $v) if ($v !== '') $head .= "$k: $v\r\n";
+        // Lines starting with a dot are doubled so they don't end the message early
+        $data = preg_replace('/^\./m', '..', str_replace("\n", "\r\n", $body));
+        $cmd($head . "\r\n" . $data . "\r\n.", [250], 'The mail server did not accept the email');
+        fwrite($fp, "QUIT\r\n");
+    } finally {
+        fclose($fp);
+    }
+}
+
+/** Tells the team about something that arrived from the website; replies go to the visitor */
+function notify_team(string $subject, string $body, string $replyTo = ''): bool
+{
+    $to = trim((string) setting('notify_email', '')) ?: (string) setting('email', '');
+    return send_mail($to, 'Mangalam website: ' . $subject, $body . "\n\n— Sent by the website. Open the admin to reply.", $replyTo);
+}
+
+/** Once a day, from 7 AM: today's appointments to the team (sent by the first page someone opens after that) */
+function maybe_send_daily_summary(): void
+{
+    try {
+        $today = date('Y-m-d');
+        if ((int) date('G') < 7 || !setting('mail_enabled', false) || !setting('notify_summary', true) || setting('summary_sent_on', '') === $today) return;
+        save_settings(['summary_sent_on' => $today]);
+        $list = rows("SELECT * FROM appointments WHERE date = ? AND status <> 'cancelled' ORDER BY time = '', STR_TO_DATE(time, '%h:%i %p'), id", [$today]);
+        $lines = array_map(fn ($a) => ($a['time'] ?: 'Time to confirm') . ' — ' . $a['name'] . ' · ' . $a['interest']
+            . ($a['phone'] ? ' · ' . $a['phone'] : '') . ($a['consultant'] ? ' · with ' . $a['consultant'] : '') . ($a['status'] === 'pending' ? ' (not yet confirmed)' : ''), $list);
+        $body = $list ? implode("\n", $lines) : 'No appointments today.';
+        notify_team(count($list) . ' appointment' . (count($list) === 1 ? '' : 's') . ' today, ' . date('l j F'), $body);
+    } catch (Throwable $e) {
+        error_log('Mangalam daily summary: ' . $e->getMessage());
+    }
 }
 
 /** Contact details and links shared by every page of the website */
@@ -233,7 +357,57 @@ function product_public(array $p): array
         'stone' => $p['stone'],
         'collection' => $p['line'],
         'isNew' => (bool) $p['is_new'],
+        'view3d' => ($v = view3d_config($p['view3d'] ?? null)) && $v['enabled'] ? $v : null,
     ];
+}
+
+/* ---------- The 3D view: a house ring design or an uploaded .glb model (assets/js/viewer3d.js draws both) ---------- */
+
+const VIEW3D_DESIGNS = ['solitaire', 'halo', 'trilogy', 'eternity', 'band'];
+const VIEW3D_METALS = ['yellow', 'rose', 'white', 'platinum'];
+const VIEW3D_STONES = ['diamond', 'ruby', 'emerald', 'sapphire', 'pukhraj', 'amethyst'];
+
+/**
+ * A product's 3D settings (products.view3d), checked and complete — or null when it has none.
+ * Visitors can choose among `metals` and `stones`; `metal` and `stone` are what the piece first shows.
+ * @param mixed $raw the stored JSON, or the decoded array
+ */
+function view3d_config($raw): ?array
+{
+    $v = is_array($raw) ? $raw : json_decode((string) $raw, true);
+    if (!is_array($v)) return null;
+    $pick = fn ($x, array $list) => in_array($x, $list, true) ? $x : $list[0];
+    $num = fn ($x, float $min, float $max) => is_numeric($x) ? round(max($min, min($max, (float) $x)), 2) : 1.0;
+    $choices = function ($x, array $list, string $default) {
+        $chosen = array_values(array_intersect($list, is_array($x) ? $x : $list));
+        return array_values(array_intersect($list, array_merge($chosen, [$default]))); // the first look is always offered
+    };
+    $d = is_array($v['design'] ?? null) ? $v['design'] : [];
+    $model = clean_model_path($v['model'] ?? '');
+    $metal = $pick($v['metal'] ?? '', VIEW3D_METALS);
+    $stone = $pick($v['stone'] ?? '', VIEW3D_STONES);
+    return [
+        'enabled' => !empty($v['enabled']),
+        'source' => ($v['source'] ?? '') === 'model' && $model !== '' ? 'model' : 'design',
+        'design' => [
+            'type' => $pick($d['type'] ?? '', VIEW3D_DESIGNS),
+            'stoneSize' => $num($d['stoneSize'] ?? 1, 0.7, 1.4),
+            'bandWidth' => $num($d['bandWidth'] ?? 1, 0.7, 1.5),
+            'prongs' => (int) ($d['prongs'] ?? 6) === 4 ? 4 : 6,
+        ],
+        'model' => $model,
+        'metal' => $metal,
+        'stone' => $stone,
+        'metals' => $choices($v['metals'] ?? null, VIEW3D_METALS, $metal),
+        'stones' => $choices($v['stones'] ?? null, VIEW3D_STONES, $stone),
+    ];
+}
+
+/** A 3D model's address if it is one of ours and still on disk (assets/models/….glb), otherwise '' */
+function clean_model_path($path): string
+{
+    $path = trim((string) $path);
+    return preg_match('#^assets/models/[a-z0-9][a-z0-9-]*\.glb$#', $path) && is_file(ROOT_DIR . '/' . $path) ? $path : '';
 }
 
 /* ---------- Collections: each gathers its pieces by a rule ---------- */

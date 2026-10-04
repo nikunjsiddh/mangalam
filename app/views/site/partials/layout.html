@@ -21,6 +21,23 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&amp;family=Jost:wght@300;400;500;600&amp;family=Noto+Serif+Gujarati:wght@400;500&amp;display=swap">
   <link rel="stylesheet" href="assets/css/mangalam.css?v={{cssVersion}}">
+  <!-- "View in 3D" on product pages: three.js and the viewer load only when a visitor opens it -->
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/",
+        "mangalam/viewer3d": "./assets/js/viewer3d.js?v={{viewerVersion}}",
+        "mangalam/product3d": "./assets/js/product3d.js?v={{product3dVersion}}"
+      },
+      "integrity": {
+        "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js": "sha384-qOubuRxWZ0I7rXTjcuhcKNHKvPM7q0ztN8/82sJnxnyKS0OXTeB5FsIcysc2T9EY",
+        "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/controls/OrbitControls.js": "sha384-aJoe4qqS/DgF2jh9njAuvA6QIveJYoCuYOfYjdFY8P3eawzmc9bEQ40jq2TvOyuP",
+        "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/loaders/GLTFLoader.js": "sha384-VoIGt4hjsBN2DcfqRsMnLLSUBl1bpLaVmkZ4MO/qESaCNDuISU6ScEtXt1/j3IyF",
+        "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/utils/BufferGeometryUtils.js": "sha384-wOjwauvHlJO7K6APr7FmMGH2nupQa3Ndzas9bJZhsAMOK055efJud8ns4aYmASKv"
+      }
+    }
+  </script>
   <script>document.documentElement.classList.add("js"); try { if (sessionStorage.getItem("mj-loaded")) document.documentElement.classList.add("mj-seen"); } catch (e) {}</script>
   <noscript><style>.header { background: #2E0A16; }</style></noscript>
 </head>

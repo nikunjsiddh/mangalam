@@ -6,6 +6,8 @@ Options -Indexes
 <IfModule mod_mime.c>
   AddType application/manifest+json .webmanifest
   AddType image/x-icon .ico
+  # 3D models for the product pages' 3D view
+  AddType model/gltf-binary .glb
 </IfModule>
 
 <IfModule mod_rewrite.c>

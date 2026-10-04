@@ -1093,6 +1093,33 @@
   }
   document.addEventListener("change", function (e) { if (e.target.matches("[data-hours-toggle]")) syncHours(e.target); });
 
+  // Port and security go together: 587 ↔ TLS, 465 ↔ SSL, 25 ↔ none
+  var PORT_OF = { tls: "587", ssl: "465", none: "25" };
+  document.addEventListener("change", function (e) {
+    var form = e.target.form, t = e.target;
+    if (!form || (t.name !== "smtp_secure" && t.name !== "smtp_port")) return;
+    var port = form.elements.namedItem("smtp_port"), secure = form.elements.namedItem("smtp_secure");
+    if (t === secure && (!port.value.trim() || /^(587|465|25)$/.test(port.value.trim()))) port.value = PORT_OF[secure.value];
+    if (t === port) Object.keys(PORT_OF).forEach(function (k) { if (PORT_OF[k] === port.value.trim()) secure.value = k; });
+  });
+
+  // A test email with the mail server as typed (before saving), to the "Send to" addresses
+  $$("[data-mail-test]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var form = btn.closest("form"), data = new FormData();
+      ["notify_email", "smtp_host", "smtp_port", "smtp_secure", "smtp_user", "smtp_pass", "mail_from"].forEach(function (name) {
+        var f = form.elements.namedItem(name);
+        if (f) data.set(name, f.value);
+      });
+      busy(btn, true);
+      send("settings.mailtest", data).then(function (res) {
+        busy(btn, false);
+        if (res && !res.ok) { toast("Test email not sent", res.error || "Please try again.", true); return; }
+        respond(res);
+      });
+    });
+  });
+
   /* ---------- Enquiries: open the one named in the address on small screens ---------- */
   if (inbox && params.get("open") && !wide.matches) inbox.classList.add("is-reading");
 

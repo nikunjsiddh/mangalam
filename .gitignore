@@ -11,3 +11,5 @@ Mangalam Photography*/
 app/config.php
 # The owner's first password, written by database/install-cli.php
 database/owner-credentials.txt
+# Database exports for the live site (sign-ins, enquiries and subscribers)
+database/export/

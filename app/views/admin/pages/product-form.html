@@ -71,6 +71,102 @@
               </div>
             </section>
 
+            <section class="card v3d-card" data-view3d-card>
+              <header class="card__head">
+                <div><h2 class="card__title">3D view &amp; customiser</h2><p class="card__sub">Show the piece in 3D on its page, and let visitors try other metals and stones. Match a house ring design to the photo, or upload a 3D model.</p></div>
+                <label class="switch"><input type="checkbox" data-v3d-enabled{{view3dChecked}}><span class="switch__track" aria-hidden="true"></span><span>Show on the website</span></label>
+              </header>
+              <input type="hidden" name="view3d" value="{{view3dValue}}" data-v3d-value>
+              <div class="card__body v3d-card__body">
+                <div class="v3d-compare">
+                  <figure class="v3d-compare__photo">
+                    <img data-v3d-photo alt="" hidden>
+                    <span class="v3d-compare__empty" data-v3d-nophoto>{{icon:image}}Add a photo above to compare it with the 3D view</span>
+                    <figcaption class="v3d-compare__tag">Photo</figcaption>
+                  </figure>
+                  <div class="v3d-compare__stage">
+                    <canvas data-v3d-canvas aria-label="3D preview — drag to turn it"></canvas>
+                    <span class="v3d-compare__tag v3d-compare__tag--light">3D preview</span>
+                    <p class="v3d-compare__status" data-v3d-status>Loading the 3D preview…</p>
+                    <div class="v3d-compare__tools">
+                      <button type="button" class="v3d-tool" data-v3d-tool="turn" aria-pressed="true" aria-label="Turntable" data-tip="Turntable">{{icon:refresh-cw}}</button>
+                      <button type="button" class="v3d-tool" data-v3d-tool="reset" aria-label="Reset the view" data-tip="Reset the view">{{icon:undo-2}}</button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="v3d-match">
+                  <button type="button" class="btn btn--outline btn--sm" data-v3d-match>{{icon:sparkles}} Match from photo &amp; details</button>
+                  <p class="hint" data-v3d-match-note>Picks the ring type from the name and the metal and stone from the details above, using the main photo where they leave it open.</p>
+                </div>
+
+                <div class="field">
+                  <span class="field__label" id="v3d-source-label">Show it as</span>
+                  <div class="seg" role="radiogroup" aria-labelledby="v3d-source-label">
+                    <label><input type="radio" name="v3d-source" value="design" data-v3d-source><span>A house ring design</span></label>
+                    <label><input type="radio" name="v3d-source" value="model" data-v3d-source><span>My 3D model (.glb)</span></label>
+                  </div>
+                </div>
+
+                <div class="stack" data-v3d-panel="design">
+                  <div class="field">
+                    <span class="field__label" id="v3d-design-label">Ring design</span>
+                    <div class="v3d-designs" role="radiogroup" aria-labelledby="v3d-design-label" data-v3d-designs></div>
+                  </div>
+                  <div class="form-grid">
+                    <label class="field" data-v3d-stone-field><span class="field__label">Stone size <output class="v3d-out" data-v3d-out="stoneSize"></output></span><input class="v3d-range" type="range" min="0.7" max="1.4" step="0.05" data-v3d-range="stoneSize"></label>
+                    <label class="field"><span class="field__label">Band width <output class="v3d-out" data-v3d-out="bandWidth"></output></span><input class="v3d-range" type="range" min="0.7" max="1.5" step="0.05" data-v3d-range="bandWidth"></label>
+                    <div class="field" data-v3d-prongs-field>
+                      <span class="field__label" id="v3d-prongs-label">Claws holding the stone</span>
+                      <div class="seg" role="radiogroup" aria-labelledby="v3d-prongs-label">
+                        <label><input type="radio" name="v3d-prongs" value="4" data-v3d-prongs><span>4 claws</span></label>
+                        <label><input type="radio" name="v3d-prongs" value="6" data-v3d-prongs><span>6 claws</span></label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="stack" data-v3d-panel="model" hidden>
+                  <label class="dropzone" data-v3d-dropzone>
+                    <span class="dropzone__icon">{{icon:box}}</span>
+                    <span class="dropzone__title">Drop a .glb 3D model here, or <u>browse</u></span>
+                    <span class="dropzone__hint">Binary glTF from your CAD or 3D designer, up to 30 MB. Metallic materials become the metal and glass-like ones the stones, so visitors can change both.</span>
+                    <input type="file" accept=".glb,model/gltf-binary" data-v3d-file>
+                  </label>
+                  <div class="note" data-v3d-model-info hidden>{{icon:box}}<span><strong data-v3d-model-name></strong> <span data-v3d-model-text></span></span></div>
+                </div>
+
+                <div class="form-grid">
+                  <label class="field"><span class="field__label">Shown first in</span><select class="select" data-v3d-select="metal"></select></label>
+                  <label class="field" data-v3d-stone-field><span class="field__label">With the stone</span><select class="select" data-v3d-select="stone"></select></label>
+                </div>
+                <div class="field">
+                  <span class="field__label">Visitors can choose these metals</span>
+                  <div class="v3d-choices" data-v3d-choices="metals"></div>
+                </div>
+                <div class="field" data-v3d-stone-field>
+                  <span class="field__label">… and these stones</span>
+                  <div class="v3d-choices" data-v3d-choices="stones"></div>
+                </div>
+              </div>
+            </section>
+            <script type="importmap">
+              {
+                "imports": {
+                  "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
+                  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/",
+                  "mangalam/viewer3d": "../assets/js/viewer3d.js?v={{viewerVersion}}"
+                },
+                "integrity": {
+                  "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js": "sha384-qOubuRxWZ0I7rXTjcuhcKNHKvPM7q0ztN8/82sJnxnyKS0OXTeB5FsIcysc2T9EY",
+                  "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/controls/OrbitControls.js": "sha384-aJoe4qqS/DgF2jh9njAuvA6QIveJYoCuYOfYjdFY8P3eawzmc9bEQ40jq2TvOyuP",
+                  "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/loaders/GLTFLoader.js": "sha384-VoIGt4hjsBN2DcfqRsMnLLSUBl1bpLaVmkZ4MO/qESaCNDuISU6ScEtXt1/j3IyF",
+                  "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/utils/BufferGeometryUtils.js": "sha384-wOjwauvHlJO7K6APr7FmMGH2nupQa3Ndzas9bJZhsAMOK055efJud8ns4aYmASKv"
+                }
+              }
+            </script>
+            <script type="module" src="../assets/js/admin-3d.js?v={{admin3dVersion}}"></script>
+
             <section class="card">
               <header class="card__head"><h2 class="card__title">Price &amp; specifications</h2></header>
               <div class="card__body form-grid">

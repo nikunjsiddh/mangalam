@@ -7,7 +7,8 @@
       <h2 id="enquire-title" class="modal__title mt-1">About this piece</h2>
       <p id="enquire-desc" class="modal__desc">Ask about the <strong data-product-name>piece</strong> — sizing, customisation or a private viewing.</p>
       <form class="form" data-form="enquiry" data-success="Thank you." data-success-text="Your message has been received — our concierge will reply within one business day.">
-        <input type="hidden" name="product" value=""><span class="field__label">Your name</span></label>
+        <input type="hidden" name="product" value="">
+        <label class="field"><input class="field__input" name="name" required maxlength="120" placeholder=" " autocomplete="name"><span class="field__label">Your name</span></label>
         <div class="form__row">
           <label class="field"><input class="field__input" type="email" name="email" required maxlength="190" placeholder=" " autocomplete="email"><span class="field__label">Email address</span></label>
           <label class="field"><input class="field__input" type="tel" name="phone" maxlength="40" placeholder=" " autocomplete="tel"><span class="field__label">Phone (optional)</span></label>

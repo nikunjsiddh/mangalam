@@ -72,6 +72,13 @@ function update(string $table, array $data, array $where): int
     return q('UPDATE `' . $table . '` SET ' . implode(', ', $set) . ' WHERE ' . implode(' AND ', $cond), $params)->rowCount();
 }
 
+/** Brings a database installed from an older schema.sql up to date (run by the admin; each step checks first) */
+function upgrade_schema(): void
+{
+    // Products › 3D view & customiser
+    if (!val("SHOW COLUMNS FROM products LIKE 'view3d'")) q('ALTER TABLE products ADD COLUMN view3d TEXT NULL AFTER image_position');
+}
+
 /** "?, ?, ?" for an IN (…) list */
 function placeholders(array $values): string
 {

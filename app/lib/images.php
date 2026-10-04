@@ -144,6 +144,35 @@ function file_size_label(int $bytes): string
     return $bytes >= 1048576 ? number_format($bytes / 1048576, 1) . ' MB' : round($bytes / 1024) . ' KB';
 }
 
+const MODEL_DIR = 'assets/models';
+const MAX_MODEL_BYTES = 30 * 1024 * 1024;
+
+/**
+ * Saves an uploaded 3D model (binary glTF, .glb) for a product's 3D view.
+ * @return string its address, e.g. assets/models/heritage-ring.glb
+ */
+function store_model(array $file): string
+{
+    if (($file['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_OK) {
+        $tooBig = in_array($file['error'], [UPLOAD_ERR_INI_SIZE, UPLOAD_ERR_FORM_SIZE], true);
+        fail($tooBig ? '“' . $file['name'] . '” is larger than the server accepts (' . ini_get('upload_max_filesize') . ').' : 'The upload of “' . $file['name'] . '” did not arrive. Please try again.');
+    }
+    if (!is_uploaded_file($file['tmp_name'])) fail('That upload could not be read.');
+    if ($file['size'] > MAX_MODEL_BYTES) fail('“' . $file['name'] . '” is larger than 30 MB. Ask your 3D designer for a lighter export (Draco or fewer polygons).');
+    // A .glb starts with "glTF" and its version (2)
+    $head = (string) file_get_contents($file['tmp_name'], false, null, 0, 8);
+    if (strlen($head) < 8 || substr($head, 0, 4) !== 'glTF' || unpack('V', substr($head, 4, 4))[1] !== 2) {
+        fail('“' . $file['name'] . '” is not a .glb 3D model. Export the piece as binary glTF 2.0 (.glb) and upload that.');
+    }
+    if (!is_dir(ROOT_DIR . '/' . MODEL_DIR)) mkdir(ROOT_DIR . '/' . MODEL_DIR, 0775, true);
+    $base = slugify(pathinfo($file['name'], PATHINFO_FILENAME)) ?: 'model';
+    $name = "$base.glb";
+    for ($i = 2; file_exists(ROOT_DIR . '/' . MODEL_DIR . "/$name"); $i++) $name = "$base-$i.glb";
+    $rel = MODEL_DIR . "/$name";
+    if (!move_uploaded_file($file['tmp_name'], ROOT_DIR . '/' . $rel)) fail('The model could not be saved. Check that ' . MODEL_DIR . ' can be written to.');
+    return $rel;
+}
+
 /** Only paths inside the website's image folders are accepted from forms */
 function clean_image_path($path): string
 {

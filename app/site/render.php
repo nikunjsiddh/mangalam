@@ -298,6 +298,7 @@ function render_site_page(array $p): string
         'offer' => offer_is_live() ? render_template(read_view('site', 'partials/offer.html'), $vars + offer_vars(), 'site', $icon) : '',
         'dataVersion' => content_version(),
         'cssVersion' => asset_version('assets/css/mangalam.css'), 'jsVersion' => asset_version('assets/js/main.js'), 'uiVersion' => asset_version('assets/js/ui.js'),
+        'viewerVersion' => asset_version('assets/js/viewer3d.js'), 'product3dVersion' => asset_version('assets/js/product3d.js'),
     ], 'site', $icon);
     if (!empty($p['nav'])) $out = str_replace('data-nav="' . $p['nav'] . '"', 'data-nav="' . $p['nav'] . '" aria-current="page"', $out);
     return $out;
