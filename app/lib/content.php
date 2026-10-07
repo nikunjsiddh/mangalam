@@ -2,7 +2,16 @@
 /* Reading the catalogue, journal and settings from the database, in the shapes the website and admin use. */
 
 const METALS = ['Gold', 'Diamond', 'Rose gold', 'Platinum', 'Silver'];
-const PURITIES = ['24K', '22K', '18K', '14K'];
+// The introduction on Shop by metal pages (jewellery.html?metal=…)
+const METAL_LEADS = [
+    'Gold' => 'Gold jewellery handcrafted in our Surat atelier — heritage, bridal and everyday pieces, every one BIS hallmarked.',
+    'Diamond' => 'Diamond jewellery set by hand — necklaces, earrings, bangles and bracelets that catch the light.',
+    'Rose gold' => 'Rose gold pieces with a soft, warm glow.',
+    'Platinum' => 'Platinum pieces, cool and enduring.',
+    'Silver' => 'Silver jewellery finished with the same care as our gold — fine 999 and sterling 925 silver pieces.',
+];
+// Gold in carats; silver in parts per thousand (999 fine, 925 sterling)
+const PURITIES = ['24K', '22K', '18K', '14K', '999', '925'];
 const STONES = ['None', 'Diamond', 'Polki', 'Kundan', 'Ruby', 'Emerald', 'Pearl', 'Mixed'];
 const STYLES = ['Classic', 'Traditional', 'Modern', 'Bridal'];
 const LINES = ['Mangalam Signature', 'The Bridal Edit', 'Sacred Bonds'];

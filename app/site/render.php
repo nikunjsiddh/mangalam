@@ -66,7 +66,7 @@ function home_fragments(): array
       <a class="cat-arch" href="' . e($c['slug']) . '.html" data-reveal>
         <span class="cat-arch__frame"><span class="cat-arch__img"><img src="' . e($c['image']) . '" alt="" loading="lazy" width="900" height="1200"></span></span>
         <span class="cat-arch__name">' . e($c['name']) . '</span>
-        <span class="cat-arch__count">' . count_live(fn ($p) => $p['category'] === $c['slug']) . ' designs</span>
+        <span class="cat-arch__count">' . plural(count_live(fn ($p) => $p['category'] === $c['slug']), 'design') . '</span>
       </a>', nav_categories()));
 
     $bento = implode('', array_map(fn ($c) => '
@@ -118,7 +118,7 @@ function home_fragments(): array
     $tickerItems = implode('', array_map(fn ($w) => '<li>' . $w . '</li>', ['Gold', 'Diamond', 'Polki', 'Kundan', 'Temple', 'Bridal', 'Heritage']));
 
     // The choker shown in the closer-look photograph
-    $closer = product_by_slug('polki-bridal-choker') ?? ($live[0] ?? null);
+    $closer = product_by_slug('emerald-kundan-bridal-choker') ?? product_by_slug('polki-bridal-choker') ?? ($live[0] ?? null);
 
     $heroImage = (string) setting('hero_image', 'assets/images/campaign/hero.jpg');
     $heroStats = implode("\n", array_map(fn ($s) => '            <li><strong>' . e($s[0]) . '</strong><span>' . e($s[1]) . '</span></li>', (array) setting('hero_stats', [])));
@@ -131,7 +131,7 @@ function home_fragments(): array
           </a>', array_keys($panels)));
 
     return [
-        'heroHotspots' => implode("\n          ", $pins), 'sparkles' => $sparkles, 'categoryArches' => $categoryArches, 'bento' => $bento,
+        'heroHotspots' => implode("\n          ", $pins), 'sparkles' => $sparkles, 'categoryArches' => $categoryArches, 'categoryCount' => (string) count(nav_categories()), 'bento' => $bento,
         'testimonialSlides' => $testimonialSlides, 'testimonialDots' => $testimonialDots, 'journalMag' => $journalMag,
         'instaTiles' => $instaTiles, 'tickerItems' => $tickerItems,
         'closerName' => $closer ? e($closer['name']) : '', 'closerPrice' => $closer ? product_price_text($closer) : '', 'closerSlug' => $closer ? e($closer['slug']) : '',
@@ -241,6 +241,16 @@ function site_page(string $route): ?array
             return ['page' => 'collections', 'nav' => 'collections', 'main' => 'collections', 'vars' => ['collectionCards' => collection_cards()] + page_vars('collections')] + $seo('collections');
         case 'jewellery':
             $pg = page_row('jewellery');
+            // Shop by metal (jewellery.html?metal=Silver): the same page, headed for that metal
+            $metal = null;
+            foreach (METALS as $m) if (strcasecmp($m, trim((string) ($_GET['metal'] ?? ''))) === 0) $metal = $m;
+            if ($metal) {
+                $label = $metal . ' jewellery';
+                return ['page' => 'catalog', 'nav' => 'jewellery', 'main' => 'catalog', 'modals' => ['modal-filters'], 'vars' => [
+                    'category' => '', 'crumb' => e($label), 'heading' => star($metal . ' *jewellery*'), 'lead' => e(METAL_LEADS[$metal] ?? $pg['lead']),
+                    'heroImage' => e($pg['banner']), 'total' => (string) count_live(fn ($p) => $p['metal'] === $metal), 'chips' => catalog_chips(''),
+                ], 'title' => $metal . ' Jewellery — Mangalam Jewellers', 'description' => METAL_LEADS[$metal] ?? (string) $pg['lead']];
+            }
             return ['page' => 'catalog', 'nav' => 'jewellery', 'main' => 'catalog', 'modals' => ['modal-filters'], 'vars' => [
                 'category' => '', 'crumb' => 'All jewellery', 'heading' => star((string) $pg['heading']), 'lead' => e($pg['lead']),
                 'heroImage' => e($pg['banner']), 'total' => (string) count(products(true)), 'chips' => catalog_chips(''),

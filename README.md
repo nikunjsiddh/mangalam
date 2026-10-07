@@ -33,13 +33,13 @@ The installer switches itself off once the site is installed.
 
 ## What the installer imports
 
-`database/seed.json` holds the website's content as it was before the database existed (read from the old `assets/js/data.js`, `src/build.mjs` and the page templates), and `database/schema.sql` the tables. The installer imports:
+`database/seed.json` holds the website's content as it was before the database existed (read from the old `assets/js/data.js`, `src/build.mjs` and the page templates), with the catalogue as corrected from the product shoot in October 2026, and `database/schema.sql` the tables. The installer imports:
 
 | | |
 | --- | --- |
-| Catalogue | 46 products with their 94 photographs, prices, metals, purity, style, collection line and New / Featured labels; 8 categories with their menu images, banners, headings and introductions; 6 collections and their rules; the 4 shop-the-look pins |
+| Catalogue | 49 pieces with their 120 photographs, prices, metals, purity, style, collection line, publish status and New / Featured labels; 9 categories with their menu images, banners, headings and introductions; 6 collections and their rules; the 4 shop-the-look pins |
 | Website | 6 journal stories, 3 testimonials, the heading, introduction, banner and search listing of every page, the homepage hero, figures, bridal panels and section order, the offer popup and the announcement bar, contact details, opening hours and social links |
-| Media library | Every photograph and logo in `assets/images/` (130 files) |
+| Media library | Every photograph and logo in `assets/images/` (182 files) |
 | Team | The owner's account, and the role permissions from the design |
 | Sample data (optional) | The enquiries, appointments, subscribers and colleagues shown in the admin design — for seeing the screens full; delete them before going live |
 
@@ -91,6 +91,7 @@ app/views/site/           the website's templates: partials/ (layout, header, fo
 app/views/admin/          the admin's templates: layouts, partials/, pages/, and its icons
 database/schema.sql       the tables
 database/seed.json        the website's original content, imported by the installer
+database/updates/         changes for a database that is already installed (run once on the live site; see below)
 database/installer.php    the installation itself (used by install.php and install-cli.php)
 assets/css/mangalam.css   the website's design system — colours, type, components, animations
 assets/css/admin.css      the admin's styles
@@ -135,12 +136,24 @@ On a visitor's first page the offer opens by itself (1.5 seconds after the page 
 
 The logo is applied with CSS masks (`.brand-logo`, `.brand-emblem`, `.brand-full`, `.ornament`), which gives it the animated metallic gold finish. It needs the site to be served over http(s) — as it is through XAMPP — rather than opened as a local file.
 
+## Updating the live site (catalogue, October 2026)
+
+The live database already has its own enquiries, appointments and team, so it is updated rather than reinstalled:
+
+1. Upload `assets/images/products/`, `assets/images/campaign/` and the changed code (`app/`, `assets/css/`, `assets/js/`, `database/`).
+2. In Hostinger › phpMyAdmin, open the website's database and import `database/updates/2026-10-08-catalogue.sql`.
+
+The update finds every piece by its web address, so it is safe to run more than once; it leaves enquiries, appointments, subscribers, users, prices and weights as they are.
+
 ## Notes
 
 - The website's account and bag panels are design only; there are no customer accounts or online payments.
 - The wishlist is saved in the visitor's browser (localStorage).
 - Phone number, email, address and social links are placeholders carried over from the original template — change them in **Settings**.
-- The photographs come from the client's two shoots. The campaign photos were converted from Adobe RGB to sRGB so their colour holds in every browser; the product photos arrived straight from the camera and were given levels and a midtone lift (several were very dark). Only the mangalsutra pieces and the atelier (`mangalam-craft.jpg`) still use the earlier artwork — neither was part of the shoots.
+- The photographs come from the client's shoots. The campaign photos were converted from Adobe RGB to sRGB so their colour holds in every browser; the product photos arrived straight from the camera and were given levels and a midtone lift (several were very dark). Only the atelier (`mangalam-craft.jpg`) still uses the earlier artwork — it was not part of the shoots.
+- Each piece shows only its own photographs, the first as the main photo and the second on hover. The Rajwadi bridal set, the peacock kadas and the rose-gold diamond drop necklace were filmed but not photographed, so their photos are sharp frames taken from the shoot videos (1080 px, enlarged to 1200).
+- **Shop by metal.** Silver (like gold and diamond) is a metal, not a category: silver pieces sit in their own category (a silver chain under Chains, a silver coin watch under Watches) with *Metal* set to Silver and *Purity* 999 or 925. *Jewellery › Shop by metal › Silver jewellery* (`jewellery.html?metal=Silver`) lists them all with its own heading; Gold and Diamond work the same way.
+- Pieces with *Show price* off read “Price on request” and are left out of the price filters. The pieces added from the October shoot start that way; the prices and weights of the earlier pieces are placeholders from the original template — enter the real ones in **Products** before launch.
 
 ## Scroll animations
 

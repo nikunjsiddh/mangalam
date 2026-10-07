@@ -24,7 +24,8 @@ function mj_install(array $opts): array
     if (function_exists('opcache_invalidate')) opcache_invalidate(APP_DIR . '/config.php', true);
     config(true);
 
-    $pdo = db();
+    // A fresh connection: checking for an earlier installation may already have connected to the old database
+    $pdo = db(true);
     // 3. The tables
     $schema = file_get_contents(__DIR__ . '/schema.sql');
     foreach (array_filter(array_map('trim', preg_split('/;\s*$/m', preg_replace('/--\s.*$/m', '', $schema)))) as $statement) {
@@ -56,7 +57,8 @@ function mj_install(array $opts): array
                 'slug' => $p['slug'], 'name' => $p['name'], 'category_id' => $catIds[$p['category']] ?? null, 'price' => $p['price'],
                 'metal' => $p['metal'], 'purity' => $p['purity'], 'stone' => $p['stone'], 'style' => $p['style'], 'line' => $p['line'],
                 'summary' => $p['summary'], 'details' => $p['details'], 'image_position' => $p['imagePosition'], 'is_new' => $p['isNew'],
-                'featured_order' => $p['featuredOrder'], 'status' => 'published', 'sort_order' => $p['sort'],
+                'featured_order' => $p['featuredOrder'], 'status' => $p['status'] ?? 'published', 'sort_order' => $p['sort'],
+                'show_price' => $p['showPrice'] ?? true, 'seo_desc' => $p['seoDesc'] ?? '',
             ]);
             $productIds[$p['slug']] = $id;
             foreach ($p['gallery'] as $i => $path) {

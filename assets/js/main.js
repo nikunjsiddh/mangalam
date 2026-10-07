@@ -826,9 +826,12 @@
       sort: "featured",
     };
     var PRICES = [["all", "All prices"], ["under", "Under ₹25,000"], ["mid", "₹25,000 – ₹50,000"], ["high", "Above ₹50,000"]];
+    // Pieces whose price is "on request" only show under "All prices", and sort after the priced ones
     var inPrice = function (p, key) {
+      if (key !== "all" && p.showPrice === false) return false;
       return key === "all" || (key === "under" && p.price < 25000) || (key === "mid" && p.price >= 25000 && p.price <= 50000) || (key === "high" && p.price > 50000);
     };
+    var priceRank = function (p, dir) { return p.showPrice === false ? Infinity : dir * p.price; };
 
     var group = function (title, body) {
       return '<div class="filter-group"><p class="filter-group__title">' + title + "</p>" + body + "</div>";
@@ -839,7 +842,7 @@
       return '<label class="check"><input type="checkbox" data-filter="' + kind + '" value="' + value + '"><span class="check__box">' + icon("check") + "</span>" + value + '<span class="check__count">' + count + "</span></label>";
     };
     var panelHTML = function (panel) {
-      return group("Metal", ["Gold", "Diamond"].map(function (v) { return checkRow("metal", v); }).join("")) +
+      return group("Metal", ["Gold", "Diamond", "Rose gold", "Platinum", "Silver"].map(function (v) { return checkRow("metal", v); }).join("")) +
         group("Price", PRICES.map(function (pr) {
           return '<label class="check check--radio"><input type="radio" name="price-' + panel + '" value="' + pr[0] + '" data-price><span class="check__box"></span>' + pr[1] + "</label>";
         }).join("")) +
@@ -854,7 +857,11 @@
           && inPrice(p, state.price);
       });
       return list.slice().sort(function (a, b) {
-        return state.sort === "low" ? a.price - b.price : state.sort === "high" ? b.price - a.price : state.sort === "new" ? Number(b.isNew) - Number(a.isNew) : 0;
+        if (state.sort === "low" || state.sort === "high") {
+          var dir = state.sort === "low" ? 1 : -1, ra = priceRank(a, dir), rb = priceRank(b, dir);
+          return ra === rb ? 0 : ra < rb ? -1 : 1;
+        }
+        return state.sort === "new" ? Number(b.isNew) - Number(a.isNew) : 0;
       });
     };
 
@@ -938,9 +945,14 @@
       var related = products.filter(function (p) { return p.category === product.category && p.slug !== product.slug; }).slice(0, 4);
       var name = esc(product.name);
       var catName = esc(categoryName(product.category));
-      var stone = product.stone && product.stone !== "None" ? esc(product.stone) : product.metal === "Diamond" ? "Diamond" : "Gold work";
+      var isSilver = product.metal === "Silver";
+      var stone = product.stone && product.stone !== "None" ? esc(product.stone) : product.metal === "Diamond" ? "Diamond" : isSilver ? "Silver work" : "Gold work";
       var canEnquire = product.enquire !== false;
-      var details = product.details || name + " is part of " + esc(product.collection) + ". Crafted in " + product.purity + " " + (product.metal === "Diamond" ? "gold with diamonds" : "gold") + " and handcrafted to order in our Surat atelier by master karigars. Every piece carries a BIS hallmark — your assurance of its purity.";
+      var material = isSilver ? product.purity + " silver" : product.purity + " " + (product.metal === "Diamond" ? "gold with diamonds" : product.metal === "Rose gold" ? "rose gold" : "gold");
+      var details = product.details || name + " is part of " + esc(product.collection) + ". Crafted in " + material + " and handcrafted to order in our Surat atelier by master karigars. Every piece carries a BIS hallmark — your assurance of its purity.";
+      var care = isSilver
+        ? "Silver darkens naturally with air and moisture. Keep it in its pouch, away from perfume and water, and wipe it with a soft polishing cloth after wear. Bring it home to us and our karigars will clean and re-polish it."
+        : "Keep gold away from perfume and chlorine, wipe it gently with a soft cloth after wear, and store each piece separately. Bring it home to us once a year and our karigars will clean, inspect and re-polish it.";
 
       productRoot.innerHTML =
         '<div class="container">' +
@@ -964,7 +976,7 @@
               '<h1 class="pinfo__name">' + name + "</h1>" +
               '<p class="pinfo__price">' + priceHTML(product) + "<span>" + product.purity + " · " + esc(product.metal) + "</span></p>" +
               '<p class="pinfo__desc">' + esc(product.description) + "</p>" +
-              '<dl class="specs"><div><dt>Gold purity</dt><dd>' + product.purity + "</dd></div><div><dt>Stone</dt><dd>" + stone + "</dd></div><div><dt>Category</dt><dd>" + catName + "</dd></div></dl>" +
+              '<dl class="specs"><div><dt>' + (isSilver ? "Silver purity" : "Gold purity") + "</dt><dd>" + product.purity + "</dd></div><div><dt>Stone</dt><dd>" + stone + "</dd></div><div><dt>Category</dt><dd>" + catName + "</dd></div></dl>" +
               '<div class="pinfo__actions">' +
                 (canEnquire ? '<button type="button" class="btn btn--primary" data-open="enquire">' + icon("message-circle") + " Enquire now</button>" : '<button type="button" class="btn btn--primary" data-open="appointment">' + icon("calendar") + " Book a viewing</button>") +
                 '<button type="button" class="btn btn--outline" data-wish="' + product.slug + '" data-wish-text aria-pressed="false">' + icon("heart") + ' <span data-wish-label>Add to wishlist</span></button>' +
@@ -973,7 +985,7 @@
               '<ul class="assure"><li>' + icon("shield-check") + "BIS hallmarked</li><li>" + icon("sparkles") + "Handcrafted in Surat</li><li>" + icon("truck") + "Insured delivery</li></ul>" +
               '<div class="accordion">' +
                 '<details open><summary>Product details' + icon("plus") + '</summary><div class="accordion__body">' + details + "</div></details>" +
-                '<details><summary>Caring for your jewel' + icon("plus") + '</summary><div class="accordion__body">Keep gold away from perfume and chlorine, wipe it gently with a soft cloth after wear, and store each piece separately. Bring it home to us once a year and our karigars will clean, inspect and re-polish it.</div></details>' +
+                '<details><summary>Caring for your jewel' + icon("plus") + '</summary><div class="accordion__body">' + care + "</div></details>" +
                 '<details><summary>Delivery &amp; appointments' + icon("plus") + '</summary><div class="accordion__body">Insured delivery across India. Prefer to see it first? Book a private appointment at Mangalam House, Ring Road, Surat — our concierge will confirm your time.</div></details>' +
               "</div>" +
             "</div>" +

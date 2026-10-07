@@ -1,10 +1,11 @@
 <?php
 /* The database connection and a few query helpers (PDO, prepared statements everywhere). */
 
-function db(): PDO
+/** The connection to the configured database; $reconnect drops it and connects again (after app/config.php changes) */
+function db(bool $reconnect = false): PDO
 {
     static $pdo = null;
-    if ($pdo === null) {
+    if ($pdo === null || $reconnect) {
         $c = config()['db'] ?? null;
         if (!$c) throw new RuntimeException('The database is not configured (app/config.php is missing).');
         $pdo = db_connect($c);
