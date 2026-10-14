@@ -52,10 +52,13 @@
     try { sessionStorage.setItem("mj-loaded", "1"); } catch (e) { /* storage unavailable */ }
   }
   if (loader && !html.classList.contains("mj-seen")) {
+    // Lifts as soon as the first photograph (the hero or the page's banner) can be shown — not after every image
+    // on the page — once the short brand animation has played, and never later than 2 seconds.
     var started = Date.now();
-    var whenReady = function () { setTimeout(finishLoading, Math.max(0, 1400 - (Date.now() - started))); };
-    if (document.readyState === "complete") whenReady(); else window.addEventListener("load", whenReady);
-    setTimeout(finishLoading, 3000);
+    var whenReady = function () { setTimeout(finishLoading, Math.max(0, 900 - (Date.now() - started))); };
+    var firstPhoto = document.querySelector(".hero__img, .page-hero__bg");
+    if (firstPhoto && firstPhoto.decode) firstPhoto.decode().then(whenReady, whenReady); else whenReady();
+    setTimeout(finishLoading, 2000);
   } else {
     if (loader) loader.remove();
     requestAnimationFrame(finishLoading);
@@ -341,8 +344,10 @@
 
   /* Forms: enquiries, appointment requests and newsletter sign-ups are sent to api.php, which saves them
      for the team (they appear in the admin under Enquiries, Appointments and Subscribers). */
-  function successMarkup(title, text) {
-    return '<div class="form-success"><span class="form-success__icon">' + icon("check") + "</span><h3>" + esc(title) + "</h3><p>" + esc(text) + "</p></div>";
+  function successMarkup(title, text, conversation) {
+    return '<div class="form-success"><span class="form-success__icon">' + icon("check") + "</span><h3>" + esc(title) + "</h3><p>" + esc(text) + "</p>" +
+      // An enquiry gets its own private page, where our reply appears and the visitor can write again
+      (conversation ? '<a class="btn btn--outline btn--sm" href="' + esc(conversation) + '">Follow your conversation ' + icon("arrow-right") + "</a>" : "") + "</div>";
   }
   function sendForm(form, kind) {
     var data = new FormData(form);
@@ -375,13 +380,32 @@
       sendForm(form, form.getAttribute("data-form")).then(function (res) {
         if (button) button.disabled = false;
         if (!res || !res.ok) { formError(form, (res && res.error) || "Something went wrong. Please try again."); return; }
-        holder.innerHTML = successMarkup(form.getAttribute("data-success"), form.getAttribute("data-success-text"));
+        holder.innerHTML = successMarkup(form.getAttribute("data-success"), form.getAttribute("data-success-text"), res.conversation);
         form.hidden = true;
         holder.hidden = false;
       });
     });
     var modal = form.closest("[data-modal]");
     if (modal) modal.addEventListener("mj:open", function () { form.reset(); form.hidden = false; holder.hidden = true; formError(form, ""); });
+  });
+  // A customer writing on their conversation page: the page opens again with their message in place
+  $$("form[data-conversation]").forEach(function (form) {
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var button = $("[type=submit]", form);
+      if (button) button.disabled = true;
+      formError(form, "");
+      sendForm(form, "conversation").then(function (res) {
+        if (!res || !res.ok) {
+          if (button) button.disabled = false;
+          formError(form, (res && res.error) || "Something went wrong. Please try again.");
+          return;
+        }
+        form.classList.add("is-sent");
+        location.replace(location.pathname + location.search + "#reply");
+        location.reload();
+      });
+    });
   });
   $$("form[data-close-on-submit]").forEach(function (form) {
     form.addEventListener("submit", function (e) {
@@ -530,6 +554,8 @@
             ? '<img class="pcard__img pcard__img--alt pcard__img--second" src="' + MJ.small(second) + '" alt="" loading="lazy" width="600" height="600">'
             : '<img class="pcard__img pcard__img--alt" src="' + p.thumb + '" alt="" loading="lazy" width="600" height="600" style="object-position:' + ALT_VIEWS[hash(p.slug) % ALT_VIEWS.length] + '">') +
           (p.isNew ? '<span class="pcard__badge">New</span>' : "") +
+          (p.spin ? '<span class="pcard__badge pcard__badge--3d">' + icon("rotate-3d") + "360°" + (p.view3d ? " · 3D" : "") + "</span>"
+            : p.view3d ? '<span class="pcard__badge pcard__badge--3d">' + icon("box") + "3D</span>" : "") +
         "</a>" +
         wishButton(p, "pcard__wish") +
         '<div class="pcard__actions">' +
@@ -684,18 +710,52 @@
 
   /* ---------- Home ---------- */
   if (page === "home") {
-    /* Featured pieces with tabs */
+    /* Signature showcase: the handpicked pieces first, then every other piece in the house — or one category,
+       or what's new. A row or two shows at first; "Show more" brings the next pieces in. */
     var featuredGrid = $("[data-featured]");
-    var sets = {
-      all: MJ.featuredSlugs.map(bySlug).filter(Boolean),
-      gold: products.filter(function (p) { return p.metal === "Gold" && p.category !== "bridal"; }).slice(0, 8),
-      diamond: products.filter(function (p) { return p.metal === "Diamond"; }).slice(0, 8),
-      bridal: products.filter(function (p) { return p.category === "bridal"; }).slice(0, 8),
-      new: products.filter(function (p) { return p.isNew; }).slice(0, 8),
-    };
     if (featuredGrid) {
-      renderCards(featuredGrid, sets.all);
+      var PAGE = 8;
+      var signature = MJ.featuredSlugs.map(bySlug).filter(Boolean);
+      var sets = {
+        all: signature.concat(products.filter(function (p) { return signature.indexOf(p) === -1; })),
+        new: products.filter(function (p) { return p.isNew; }),
+      };
+      MJ.categories.forEach(function (slug) { sets[slug] = products.filter(function (p) { return p.category === slug; }); });
+      var moreBtn = $("[data-showcase-more]"), moreLabel = $("[data-showcase-more-label]");
+      var countEl = $("[data-showcase-count]"), bar = $("[data-showcase-bar]"), allLink = $("[data-showcase-all]");
+      var list = sets.all, shown = 0;
+      var showMore = function () {
+        var next = list.slice(shown, shown + PAGE);
+        featuredGrid.insertAdjacentHTML("beforeend", next.map(productCard).join(""));
+        shown += next.length;
+        syncWish();
+        watch(featuredGrid);
+        var left = list.length - shown;
+        if (countEl) countEl.textContent = "Showing " + shown + " of " + list.length + (list.length === 1 ? " design" : " designs");
+        if (bar) bar.style.transform = "scaleX(" + (list.length ? shown / list.length : 1) + ")";
+        if (moreBtn) moreBtn.hidden = left <= 0;
+        if (moreLabel) moreLabel.textContent = "Show " + Math.min(PAGE, left) + " more";
+      };
+      var showList = function (tab) {
+        list = sets[tab.getAttribute("data-tab")] || sets.all;
+        shown = 0;
+        featuredGrid.innerHTML = "";
+        featuredGrid.setAttribute("aria-labelledby", tab.id);
+        showMore();
+        if (allLink) {
+          allLink.href = tab.getAttribute("data-href") || "jewellery.html";
+          allLink.firstChild.nodeValue = "View all " + (tab.getAttribute("data-label") || "jewellery") + " ";
+        }
+      };
+      if (moreBtn) moreBtn.addEventListener("click", function () {
+        var first = featuredGrid.children.length;
+        showMore();
+        // Keyboard users carry on from the first new piece
+        var link = featuredGrid.children[first] && $(".pcard__name a", featuredGrid.children[first]);
+        if (link && moreBtn.hidden) link.focus({ preventScroll: true });
+      });
       var tabs = $$("[data-tab]");
+      showList(tabs[0]);
       var selectTab = function (tab, focus) {
         tabs.forEach(function (t) {
           var on = t === tab;
@@ -703,9 +763,11 @@
           t.tabIndex = on ? 0 : -1;
         });
         if (focus) tab.focus();
+        // Keep the chosen tab in view on the scrolling rail (phones)
+        tab.scrollIntoView({ block: "nearest", inline: "nearest", behavior: reduceMotion ? "auto" : "smooth" });
         featuredGrid.classList.add("is-swapping");
         setTimeout(function () {
-          renderCards(featuredGrid, sets[tab.getAttribute("data-tab")] || sets.all);
+          showList(tab);
           featuredGrid.classList.remove("is-swapping");
         }, reduceMotion ? 0 : 320);
       };
@@ -735,8 +797,11 @@
       var lens = $(".loupe", stage);
       var img = $("img", stage);
       var Z = 2.6, R = 95;
-      lens.style.backgroundImage = 'url("' + img.getAttribute("src") + '")';
-      stage.addEventListener("mouseenter", function () { stage.classList.add("is-zooming"); });
+      stage.addEventListener("mouseenter", function () {
+        // The lens borrows the photograph the page already loaded (lazily), rather than fetching it up front
+        if (!lens.style.backgroundImage) lens.style.backgroundImage = 'url("' + (img.currentSrc || img.getAttribute("src")) + '")';
+        stage.classList.add("is-zooming");
+      });
       stage.addEventListener("mouseleave", function () { stage.classList.remove("is-zooming"); });
       stage.addEventListener("mousemove", function (e) {
         var r = stage.getBoundingClientRect();
@@ -962,11 +1027,14 @@
               '<div class="gallery__thumbs">' + views.map(function (v, i) {
                 return '<button type="button" class="gallery__thumb" data-view="' + i + '" aria-label="View image ' + (i + 1) + '" aria-current="' + (i === 0) + '"><img src="' + v.thumb + '" alt="" style="object-position:' + v.pos + ";scale:" + v.scale + '"></button>';
               }).join("") +
+                (product.spin ? '<button type="button" class="gallery__thumb gallery__thumb--spin" data-spin-open aria-current="false" aria-label="Turn it in 360°"><img src="' + product.spin.frames[product.spin.start] + '" alt="" loading="lazy"><span>' + icon("rotate-3d") + "360°</span></button>" : "") +
                 (product.view3d ? '<button type="button" class="gallery__thumb gallery__thumb--3d" data-view3d aria-label="View in 3D">' + icon("box") + "<span>3D</span></button>" : "") +
               "</div>" +
               '<div class="gallery__main" data-zoom>' +
                 '<img data-main-image src="' + views[0].src + '" alt="' + name + '" style="object-position:' + views[0].pos + '">' +
+                (product.spin ? '<div class="gallery__spin-stage" data-spin-stage hidden></div>' : "") +
                 wishButton(product, "pcard__wish") +
+                (product.spin ? '<button type="button" class="gallery__spin" data-spin-open>' + icon("rotate-3d") + "Turn 360°</button>" : "") +
                 (product.view3d ? '<button type="button" class="gallery__3d" data-view3d>' + icon("box") + "View in 3D &amp; customise</button>" : "") +
                 (canHover ? '<span class="gallery__hint">' + icon("zoom-in") + "Hover to zoom</span>" : "") +
               "</div>" +
@@ -1013,6 +1081,7 @@
         thumb.addEventListener("pointerenter", preload, { once: true });
         thumb.addEventListener("focus", preload, { once: true });
         thumb.addEventListener("click", function () {
+          closeSpin();
           mainImage.style.opacity = "0";
           setTimeout(function () {
             mainImage.src = views[i].src;
@@ -1024,9 +1093,47 @@
         });
       });
 
+      // The 360° view: the piece photographed as it turns, in place of the main photograph
+      // (assets/js/spin360.js loads the first time it is opened; ?view=360 opens it straight away)
+      var spinStage = $("[data-spin-stage]", productRoot), spinView = null;
+      function openSpin(trigger) {
+        if (!spinStage) return;
+        var stage = spinStage.parentElement;
+        stage.classList.add("is-spin");
+        stage.classList.remove("is-zoom");
+        spinStage.hidden = false;
+        thumbs.forEach(function (t) { t.setAttribute("aria-current", "false"); });
+        $$("[data-spin-open]", productRoot).forEach(function (b) { if (b.hasAttribute("aria-current")) b.setAttribute("aria-current", "true"); });
+        if (spinView) { spinView.focus(); return; }
+        if (trigger) trigger.classList.add("is-loading");
+        import("mangalam/spin360").then(function (m) {
+          if (trigger) trigger.classList.remove("is-loading");
+          spinView = m.createSpin(spinStage, {
+            frames: product.spin.frames, loop: product.spin.loop, reverse: product.spin.reverse,
+            autoplay: product.spin.autoplay && !reduceMotion, seconds: product.spin.seconds, start: product.spin.start,
+          }, { label: product.name });
+          if (trigger) spinView.focus();
+        }).catch(function (err) {
+          if (trigger) trigger.classList.remove("is-loading");
+          closeSpin();
+          console.error(err);
+        });
+      }
+      function closeSpin() {
+        if (!spinStage || spinStage.hidden) return;
+        spinStage.hidden = true;
+        spinStage.parentElement.classList.remove("is-spin");
+        if (spinView) spinView.pause();
+        $$("[data-spin-open][aria-current]", productRoot).forEach(function (b) { b.setAttribute("aria-current", "false"); });
+      }
+      $$("[data-spin-open]", productRoot).forEach(function (btn) {
+        btn.addEventListener("click", function (e) { e.stopPropagation(); openSpin(btn); });
+      });
+      if (spinStage && params.get("view") === "360") openSpin(null);
+
       var zoom = $("[data-zoom]", productRoot);
       if (canHover) {
-        zoom.addEventListener("mouseenter", function () { zoom.classList.add("is-zoom"); });
+        zoom.addEventListener("mouseenter", function () { if (!zoom.classList.contains("is-spin")) zoom.classList.add("is-zoom"); });
         zoom.addEventListener("mouseleave", function () { zoom.classList.remove("is-zoom"); });
         zoom.addEventListener("mousemove", function (e) {
           var r = zoom.getBoundingClientRect();
@@ -1139,6 +1246,135 @@
       pageHero = $(".page-hero", articleRoot);
       $$(SPLIT, articleRoot).forEach(splitWords);
       watch(articleRoot);
+    }
+  }
+
+  /* ---------- Offers: category filter, countdowns and the photo gallery ---------- */
+  // The offers and their photographs are rendered by the server (app/site/render.php, offers_fragments);
+  // each gallery's list of photographs sits in the page as JSON for the lightbox.
+  if (page === "offers") {
+    var offerItems = $$("[data-offer-item]");
+    var offerFilters = $$("[data-offer-filter]");
+    var filterOffers = function (cat, fromClick) {
+      if (!offerFilters.some(function (f) { return f.getAttribute("data-offer-filter") === cat; })) cat = "all";
+      offerFilters.forEach(function (f) {
+        var on = f.getAttribute("data-offer-filter") === cat;
+        f.classList.toggle("is-active", on);
+        f.setAttribute("aria-pressed", String(on));
+        if (on && fromClick) f.scrollIntoView({ block: "nearest", inline: "nearest", behavior: reduceMotion ? "auto" : "smooth" });
+      });
+      offerItems.forEach(function (el) { el.hidden = cat !== "all" && el.getAttribute("data-cat") !== cat; });
+      if (!fromClick) return;
+      try { history.replaceState(null, "", cat === "all" ? window.location.pathname : "?category=" + cat); } catch (e) { /* not allowed here */ }
+      var list = $("[data-offer-list]");
+      if (list && list.getBoundingClientRect().top < 0) list.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" });
+    };
+    offerFilters.forEach(function (f) {
+      f.addEventListener("click", function () { filterOffers(f.getAttribute("data-offer-filter"), true); });
+    });
+    if (params.get("category")) filterOffers(params.get("category"), false);
+
+    // Ends in … days, hrs, min, sec (each offer runs to the end of its last day, Indian time)
+    var timers = $$(".offer-timer[data-ends]");
+    var tickTimers = function () {
+      var now = Date.now();
+      timers.forEach(function (t) {
+        var left = Math.max(0, Math.floor((Date.parse(t.getAttribute("data-ends")) - now) / 1000));
+        var units = { d: Math.floor(left / 86400), h: Math.floor(left % 86400 / 3600), m: Math.floor(left % 3600 / 60), s: left % 60 };
+        Object.keys(units).forEach(function (k) {
+          var el = $('[data-unit="' + k + '"]', t);
+          var v = k === "d" ? String(units[k]) : ("0" + units[k]).slice(-2);
+          if (el && el.textContent !== v) el.textContent = v;
+        });
+        t.classList.toggle("is-ending", left < 3 * 86400);
+      });
+    };
+    if (timers.length) { tickTimers(); setInterval(tickTimers, 1000); }
+
+    // The gallery: every photograph of an offer, with its piece's name and price where it shows one
+    var galleries = [];
+    try { galleries = JSON.parse(($("#offer-galleries") || {}).textContent || "[]"); } catch (e) { galleries = []; }
+    var lb = $('[data-modal="lightbox"]');
+    if (lb && galleries.length) {
+      var lbImg = $("[data-lb-img]", lb), lbThumbs = $("[data-lb-thumbs]", lb), lbStage = $("[data-lb-stage]", lb);
+      var lbLink = $("[data-lb-link]", lb), lbShop = $("[data-lb-shop]", lb);
+      var gallery = null, at = 0, swapTimer = null;
+      var showShot = function (i) {
+        var shots = gallery.shots;
+        at = (i + shots.length) % shots.length;
+        var shot = shots[at];
+        $("[data-lb-count]", lb).textContent = at + 1;
+        $("[data-lb-caption]", lb).textContent = shot.caption;
+        $("[data-lb-sub]", lb).textContent = shot.sub;
+        lbLink.hidden = !shot.href;
+        if (shot.href) lbLink.href = shot.href;
+        $$("[data-lb-thumb]", lbThumbs).forEach(function (b, j) {
+          b.setAttribute("aria-current", String(j === at));
+          if (j === at) b.scrollIntoView({ block: "nearest", inline: "center", behavior: reduceMotion ? "auto" : "smooth" });
+        });
+        // Fade the old photograph out, and the new one in once it has loaded
+        clearTimeout(swapTimer);
+        lbImg.classList.add("is-changing");
+        var next = new Image();
+        var reveal = function () {
+          swapTimer = setTimeout(function () {
+            if (gallery.shots[at] !== shot) return;
+            lbImg.src = shot.src;
+            lbImg.alt = shot.caption;
+            requestAnimationFrame(function () { lbImg.classList.remove("is-changing"); });
+          }, reduceMotion ? 0 : 160);
+        };
+        next.onload = next.onerror = reveal;
+        next.src = shot.src;
+        // Fetch the neighbours too, so stepping through feels instant
+        [at + 1, at - 1].forEach(function (k) { new Image().src = shots[(k + shots.length) % shots.length].src; });
+      };
+      var openGallery = function (g, i, trigger) {
+        gallery = galleries[g];
+        if (!gallery || !gallery.shots.length) return;
+        $("[data-lb-title]", lb).textContent = gallery.title;
+        $("[data-lb-deal]", lb).textContent = gallery.category + " · " + gallery.deal;
+        $("[data-lb-total]", lb).textContent = gallery.shots.length;
+        lbShop.href = gallery.href;
+        $$("[data-lb-step]", lb).forEach(function (b) { b.hidden = gallery.shots.length < 2; });
+        lbThumbs.hidden = gallery.shots.length < 2;
+        lbThumbs.innerHTML = gallery.shots.map(function (s, j) {
+          return '<button type="button" class="lightbox__thumb" data-lb-thumb="' + j + '" aria-label="Photo ' + (j + 1) + ": " + esc(s.caption) + '" aria-current="false"><img src="' + esc(s.thumb) + '" alt="" loading="lazy"></button>';
+        }).join("");
+        lbImg.removeAttribute("src");
+        openModal("lightbox", trigger);
+        showShot(i || 0);
+      };
+      document.addEventListener("click", function (e) {
+        var opener = e.target.closest("[data-gallery-open]");
+        if (opener) {
+          e.preventDefault();
+          openGallery(Number(opener.getAttribute("data-gallery-open")), Number(opener.getAttribute("data-gallery-at")) || 0, opener);
+          return;
+        }
+        if (!gallery || lb.hidden) return;
+        var step = e.target.closest("[data-lb-step]");
+        if (step) { showShot(at + Number(step.getAttribute("data-lb-step"))); return; }
+        var thumb = e.target.closest("[data-lb-thumb]");
+        if (thumb) { showShot(Number(thumb.getAttribute("data-lb-thumb"))); return; }
+        // A click on the dark space around the photograph closes the gallery
+        if (e.target === lbStage || e.target.classList.contains("lightbox__figure")) closeModal(lb);
+      });
+      document.addEventListener("keydown", function (e) {
+        if (!gallery || !stack.length || stack[stack.length - 1].modal !== lb) return;
+        if (e.key === "ArrowRight") { e.preventDefault(); showShot(at + 1); }
+        else if (e.key === "ArrowLeft") { e.preventDefault(); showShot(at - 1); }
+      });
+      // Swipe on touch screens
+      var swipeX = null, swipeY = 0;
+      lbStage.addEventListener("pointerdown", function (e) { if (e.pointerType !== "mouse") { swipeX = e.clientX; swipeY = e.clientY; } });
+      lbStage.addEventListener("pointerup", function (e) {
+        if (swipeX === null) return;
+        var dx = e.clientX - swipeX, dy = e.clientY - swipeY;
+        swipeX = null;
+        if (Math.abs(dx) > 44 && Math.abs(dx) > Math.abs(dy) && gallery.shots.length > 1) showShot(at + (dx < 0 ? 1 : -1));
+      });
+      lbStage.addEventListener("pointercancel", function () { swipeX = null; });
     }
   }
 

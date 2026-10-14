@@ -1,11 +1,11 @@
 /* Mangalam Jewellers — the 3D jewel viewer, shared by the website's product page (assets/js/product3d.js) and
- * the admin's product editor (assets/js/admin-3d.js).
+ * the admin (assets/js/admin-3d.js: the product editor's 3D card and Catalogue › 3D jewellery).
  *
- * A piece is either one of the house ring designs, built in code (band, claws, faceted stones), or a .glb model
- * uploaded in the admin. Either way its metal and stones can be changed: the designs are made of our own
- * materials, and in a model the metallic materials become the metal and the glass-like ones become stones.
- * Every change plays a small show — the ring turns, light sweeps across the metal, the stones flash and gold
- * dust bursts from the stone. */
+ * A piece is either one of the house designs, built in code — rings, kangans and bangles, earrings (a pair) and
+ * pendants (on a chain), each in several styles — or a .glb model uploaded in the admin. Either way its metal and
+ * stones can be changed: the designs are made of our own materials, and in a model the metallic materials become
+ * the metal and the glass-like ones become stones. Every change plays a small show — the piece turns, light
+ * sweeps across the metal, the stones flash and gold dust bursts from the stone. */
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
@@ -13,14 +13,36 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 const TAU = Math.PI * 2;
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-/* ---------- 1. The choices (the ids are what products.view3d stores; app/lib/content.php checks them) ---------- */
-export const DESIGNS = [
-  { id: 'solitaire', name: 'Solitaire', sub: 'One stone, claw set', stone: true, prongs: true },
-  { id: 'halo', name: 'Halo', sub: 'Ringed with small stones', stone: true, prongs: false },
-  { id: 'trilogy', name: 'Trilogy', sub: 'Three stones', stone: true, prongs: true },
-  { id: 'eternity', name: 'Eternity', sub: 'Stones all the way round', stone: true, prongs: false },
-  { id: 'band', name: 'Plain band', sub: 'Wedding band', stone: false, prongs: false },
+/* ---------- 1. The choices (the ids are what products.view3d stores; view3d_config() in app/lib/content.php checks them) ---------- */
+// width: what the width slider changes; size: what a visitor is asked for when "Ask for their size" is on
+export const KINDS = [
+  { id: 'ring', name: 'Ring', sub: 'Rings and bands', width: 'Band width', size: { label: 'Ring size', list: ['6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24'] } },
+  { id: 'bangle', name: 'Kangan & bangle', sub: 'Kangans, kadas, bangles', width: 'Kangan width', size: { label: 'Bangle size', list: ['2.2', '2.4', '2.6', '2.8', '2.10'] } },
+  { id: 'earring', name: 'Earrings', sub: 'Shown as a pair', width: 'Earring size', size: null },
+  { id: 'pendant', name: 'Pendant', sub: 'On a fine chain', width: 'Pendant size', size: { label: 'Chain length', list: ['16 in', '18 in', '20 in', '22 in'] } },
 ];
+export const DESIGNS = [
+  { id: 'solitaire', kind: 'ring', name: 'Solitaire', sub: 'One stone, claw set', stone: true, prongs: true },
+  { id: 'halo', kind: 'ring', name: 'Halo', sub: 'Ringed with small stones', stone: true, prongs: false },
+  { id: 'trilogy', kind: 'ring', name: 'Trilogy', sub: 'Three stones', stone: true, prongs: true },
+  { id: 'eternity', kind: 'ring', name: 'Eternity', sub: 'Stones all the way round', stone: true, prongs: false },
+  { id: 'band', kind: 'ring', name: 'Plain band', sub: 'Wedding band', stone: false, prongs: false },
+  { id: 'kada', kind: 'bangle', name: 'Plain kada', sub: 'Polished, beaded edges', stone: false, prongs: false },
+  { id: 'diamond-kangan', kind: 'bangle', name: 'Diamond kangan', sub: 'Stones all the way round', stone: true, prongs: false },
+  { id: 'kundan-kada', kind: 'bangle', name: 'Kundan kada', sub: 'Large stones in gold cups', stone: true, prongs: false },
+  { id: 'twisted', kind: 'bangle', name: 'Twisted rope', sub: 'Two strands, twisted', stone: false, prongs: false },
+  { id: 'cuff', kind: 'bangle', name: 'Open cuff', sub: 'Pavé, a stone at each end', stone: true, prongs: true },
+  { id: 'stud', kind: 'earring', name: 'Solitaire studs', sub: 'One stone, claw set', stone: true, prongs: true },
+  { id: 'halo-stud', kind: 'earring', name: 'Halo studs', sub: 'Ringed with small stones', stone: true, prongs: false },
+  { id: 'drop', kind: 'earring', name: 'Drops', sub: 'An oval stone below a stud', stone: true, prongs: false },
+  { id: 'hoop', kind: 'earring', name: 'Hoops', sub: 'Stones along the front', stone: true, prongs: false },
+  { id: 'jhumka', kind: 'earring', name: 'Jhumkas', sub: 'A bell with hanging pearls', stone: true, prongs: false },
+  { id: 'solitaire-pendant', kind: 'pendant', name: 'Solitaire', sub: 'One stone, claw set', stone: true, prongs: true },
+  { id: 'halo-pendant', kind: 'pendant', name: 'Halo', sub: 'Ringed with small stones', stone: true, prongs: false },
+  { id: 'heart', kind: 'pendant', name: 'Open heart', sub: 'Stones along a heart', stone: true, prongs: false },
+  { id: 'drop-pendant', kind: 'pendant', name: 'Drop', sub: 'An oval stone, diamond above', stone: true, prongs: false },
+];
+export const designsOf = kind => DESIGNS.filter(d => d.kind === kind);
 export const METALS = [
   { id: 'yellow', name: 'Yellow gold', sub: '22 karat', color: '#f5c362', rough: 0.13 },
   { id: 'rose', name: 'Rose gold', sub: '18 karat', color: '#f2ae95', rough: 0.14 },
@@ -41,6 +63,20 @@ export const DESIGN_ICONS = {
   trilogy: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"><circle cx="24" cy="32" r="11"/><path d="M20 10h8l3 4-7 7-7-7z"/><path d="M8 16h6l2 3-5 4.5L6 19zM34 16h6l2 3-5 4.5-5-4.5z"/></svg>',
   eternity: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="24" cy="24" r="14"/><circle cx="24" cy="24" r="10"/><g stroke-dasharray="1.6 3.2" stroke-width="3"><circle cx="24" cy="24" r="12"/></g></svg>',
   band: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.3"><ellipse cx="24" cy="24" rx="15" ry="15"/><ellipse cx="24" cy="24" rx="11" ry="11"/><path d="M13 14c3-2 6-3 11-3" stroke-linecap="round" opacity=".6"/></svg>',
+  kada: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.3"><ellipse cx="24" cy="24" rx="18" ry="10"/><ellipse cx="24" cy="24" rx="15" ry="7.5"/><g stroke-dasharray="1 2.4" stroke-width="2"><ellipse cx="24" cy="24" rx="19.6" ry="11.4"/></g></svg>',
+  'diamond-kangan': '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.3"><ellipse cx="24" cy="24" rx="18" ry="10"/><ellipse cx="24" cy="24" rx="14" ry="7"/><g stroke-dasharray="1.4 2.6" stroke-width="3"><ellipse cx="24" cy="24" rx="16" ry="8.5"/></g></svg>',
+  'kundan-kada': '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.3"><ellipse cx="24" cy="24" rx="18" ry="10"/><ellipse cx="24" cy="24" rx="14" ry="7"/><circle cx="24" cy="32.5" r="2.6"/><circle cx="13" cy="30" r="2.2"/><circle cx="35" cy="30" r="2.2"/><circle cx="8" cy="24" r="1.8"/><circle cx="40" cy="24" r="1.8"/></svg>',
+  twisted: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M6 24c3-6 6-6 9 0s6 6 9 0 6-6 9 0 6 6 9 0"/><path d="M6 24c3 6 6 6 9 0s6-6 9 0 6 6 9 0 6-6 9 0" opacity=".6"/><ellipse cx="24" cy="24" rx="19" ry="11" stroke-dasharray="2 3" opacity=".4"/></svg>',
+  cuff: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M14 36a15 15 0 1 1 20 0"/><path d="M17 33a11 11 0 1 1 14 0"/><circle cx="15" cy="36.5" r="2.6"/><circle cx="33" cy="36.5" r="2.6"/></svg>',
+  stud: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"><circle cx="14" cy="24" r="6.5"/><circle cx="34" cy="24" r="6.5"/><path d="M11 21h6l1.5 2.5-4.5 4-4.5-4zM31 21h6l1.5 2.5-4.5 4-4.5-4z"/></svg>',
+  'halo-stud': '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="14" cy="24" r="3.4"/><circle cx="34" cy="24" r="3.4"/><circle cx="14" cy="24" r="7" stroke-dasharray="1.6 2"/><circle cx="34" cy="24" r="7" stroke-dasharray="1.6 2"/></svg>',
+  drop: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="14" cy="10" r="2.6"/><circle cx="34" cy="10" r="2.6"/><path d="M14 13v6M34 13v6"/><ellipse cx="14" cy="29" rx="5" ry="8"/><ellipse cx="34" cy="29" rx="5" ry="8"/></svg>',
+  hoop: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="14" cy="26" r="9"/><circle cx="34" cy="26" r="9"/><g stroke-dasharray="1.2 2.2" stroke-width="2.6"><path d="M5.5 28a9 9 0 0 0 17 0M25.5 28a9 9 0 0 0 17 0"/></g></svg>',
+  jhumka: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"><circle cx="14" cy="9" r="3.2"/><circle cx="34" cy="9" r="3.2"/><path d="M14 13c-2 0-3 2-3.5 5-.6 4-3 7-4.5 9h16c-1.5-2-3.9-5-4.5-9-.5-3-1.5-5-3.5-5zM34 13c-2 0-3 2-3.5 5-.6 4-3 7-4.5 9h16c-1.5-2-3.9-5-4.5-9-.5-3-1.5-5-3.5-5z"/><g stroke-dasharray="0.1 3.2" stroke-width="2.6" stroke-linecap="round"><path d="M7 31h14M27 31h14"/></g></svg>',
+  'solitaire-pendant': '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"><path d="M8 4c4 10 10 16 16 18 6-2 12-8 16-18" stroke-dasharray="1.4 1.6"/><circle cx="24" cy="23" r="2"/><path d="M18 28h12l3.5 4.5L24 42l-9.5-9.5z"/><path d="M14.5 32.5h19"/></svg>',
+  'halo-pendant': '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M8 4c4 10 10 16 16 18 6-2 12-8 16-18" stroke-dasharray="1.4 1.6"/><circle cx="24" cy="23" r="2"/><circle cx="24" cy="33" r="4.4"/><circle cx="24" cy="33" r="8" stroke-dasharray="1.6 2"/></svg>',
+  heart: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"><path d="M8 4c4 10 10 16 16 18 6-2 12-8 16-18" stroke-dasharray="1.4 1.6"/><path d="M24 29c-2-3-9-3-9 3 0 5 6 8 9 11 3-3 9-6 9-11 0-6-7-6-9-3z"/><path d="M24 32.5c-1.5-1.8-5.5-1.6-5.5 1.6 0 2.8 3.4 4.9 5.5 6.9 2.1-2 5.5-4.1 5.5-6.9 0-3.2-4-3.4-5.5-1.6z" stroke-dasharray="1 1.6"/></svg>',
+  'drop-pendant': '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M8 4c4 10 10 16 16 18 6-2 12-8 16-18" stroke-dasharray="1.4 1.6"/><circle cx="24" cy="24" r="2.4"/><ellipse cx="24" cy="36" rx="5.5" ry="8"/></svg>',
 };
 export const find = (list, id) => list.find(o => o.id === id) || list[0];
 
@@ -87,28 +123,30 @@ function makeGemGeometry(n = 16) {
 const GEM = shared(makeGemGeometry());
 const SPHERE = shared(new THREE.SphereGeometry(1, 20, 14));
 
-// The shank: a rounded-square profile swept around the finger. The ring stands in the XY plane (its hole faces
-// the camera), the top is at +Y, and `taper` slims it towards the setting.
+// The shank: a rounded-square profile swept around the finger (or wrist). The ring stands in the XY plane (its
+// hole faces the camera), the top is at +Y, and `taper` slims it towards the setting. An `arc` shorter than a full
+// turn, starting at angle `start`, leaves it open (a cuff); its ends are then left for the caller to finish.
 const R_IN = 0.86;
-function makeBand({ thick = 0.13, width = 0.3, taper = 0, round = 3.4, segs = 256, prof = 40 } = {}) {
+function makeBand({ thick = 0.13, width = 0.3, taper = 0, round = 3.4, segs = 256, prof = 40, rIn = R_IN, arc = TAU, start = 0 } = {}) {
   const atTop = phi => Math.max(0, Math.sin(phi)) ** 2;
   const thickAt = phi => thick * (1 - taper * 0.35 * atTop(phi));
   const widthAt = phi => width * (1 - taper * atTop(phi));
-  const pos = new Float32Array(segs * prof * 3);
+  const closed = arc >= TAU - 1e-6, rows = closed ? segs : segs + 1;
+  const pos = new Float32Array(rows * prof * 3);
   let p = 0;
-  for (let i = 0; i < segs; i++) {
-    const phi = (i / segs) * TAU, th = thickAt(phi), wd = widthAt(phi), cp = Math.cos(phi), sp = Math.sin(phi);
+  for (let i = 0; i < rows; i++) {
+    const phi = start + (i / segs) * arc, th = thickAt(phi), wd = widthAt(phi), cp = Math.cos(phi), sp = Math.sin(phi);
     for (let j = 0; j < prof; j++) {
       const t = (j / prof) * TAU, c = Math.cos(t), s = Math.sin(t);
       const u = Math.sign(c) * Math.abs(c) ** (2 / round), v = Math.sign(s) * Math.abs(s) ** (2 / round);
-      const r = R_IN + th * (u * 0.5 + 0.5);
+      const r = rIn + th * (u * 0.5 + 0.5);
       pos[p++] = r * cp; pos[p++] = r * sp; pos[p++] = v * wd * 0.5;
     }
   }
   const idx = [];
   for (let i = 0; i < segs; i++) {
     for (let j = 0; j < prof; j++) {
-      const i2 = (i + 1) % segs, j2 = (j + 1) % prof;
+      const i2 = closed ? (i + 1) % segs : i + 1, j2 = (j + 1) % prof;
       const a = i * prof + j, b = i2 * prof + j, c = i2 * prof + j2, d = i * prof + j2;
       idx.push(a, b, d, b, c, d);
     }
@@ -117,12 +155,14 @@ function makeBand({ thick = 0.13, width = 0.3, taper = 0, round = 3.4, segs = 25
   g.setAttribute('position', new THREE.BufferAttribute(pos, 3));
   g.setIndex(idx);
   g.computeVertexNormals();
-  if (g.attributes.normal.getY((segs / 4) * prof) < 0) { // the outer face at the top must face up
+  // The outer face (j = 0) must face away from the centre
+  const mid = Math.floor(rows / 2), midPhi = start + (mid / segs) * arc;
+  if (g.attributes.normal.getX(mid * prof) * Math.cos(midPhi) + g.attributes.normal.getY(mid * prof) * Math.sin(midPhi) < 0) {
     for (let k = 0; k < idx.length; k += 3) [idx[k + 1], idx[k + 2]] = [idx[k + 2], idx[k + 1]];
     g.setIndex(idx);
     g.computeVertexNormals();
   }
-  return { geometry: g, outerAt: phi => R_IN + thickAt(phi), widthAt };
+  return { geometry: g, outerAt: phi => rIn + thickAt(phi), widthAt, thickAt, rIn };
 }
 
 function glintTexture() {
@@ -346,6 +386,8 @@ export function createViewer(canvas, options = {}) {
 
   const metalMat = new THREE.MeshStandardMaterial({ color: METALS[0].color, metalness: 1, roughness: METALS[0].rough, envMapIntensity: 1.35 });
   const gemMat = makeGemMaterial(cubeRT.texture);
+  // Pearls (the jhumka's) keep their own lustre whatever the metal and stone
+  const pearlMat = new THREE.MeshPhysicalMaterial({ color: '#f6efe4', roughness: 0.24, metalness: 0, clearcoat: 1, clearcoatRoughness: 0.1, sheen: 0.7, sheenColor: new THREE.Color('#ffe6f0'), envMapIntensity: 1.2 });
   const glintMat = new THREE.SpriteMaterial({ map: glintTexture(), color: 0xfff6e6, blending: THREE.AdditiveBlending, depthTest: false, depthWrite: false, transparent: true, toneMapped: false });
   const floorMat = new THREE.MeshBasicMaterial({ map: radialTexture(), transparent: true, depthWrite: false, toneMapped: false });
   const floor = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), floorMat);
@@ -479,14 +521,17 @@ export function createViewer(canvas, options = {}) {
   };
   const crownNormal = (a, f) => { const k = f * 0.5 <= 0.28 ? 0 : 0.75; return new THREE.Vector3(Math.cos(a) * k, 1, Math.sin(a) * k); };
 
-  // A stone in a claw setting, raised `lift` above the band at angle `phi` (π/2 is the top of the ring)
-  function mount(ctx, band, { phi = Math.PI / 2, D, lift, prongs = 4, rail = true, base = false, glints = 3 }) {
+  const _m = new THREE.Matrix4(), _mb = new THREE.Matrix4(), _q = new THREE.Quaternion(), _up = new THREE.Vector3(0, 1, 0), _dir = new THREE.Vector3(), _pos = new THREE.Vector3(), _scl = new THREE.Vector3();
+  const FRONT = new THREE.Vector3(0, 0, 1), _qFront = new THREE.Quaternion().setFromUnitVectors(_up, FRONT);
+  const mesh = (geometry, material) => new THREE.Mesh(geometry, material);
+  // Turns a part built table-up (+Y) so it faces the viewer (+Z): earrings and pendants
+  const faceFront = o => { o.rotation.x = Math.PI / 2; return o; };
+
+  // A stone in a claw setting, in its own frame: table up (+Y), girdle at the origin, the claws reaching `lift` down
+  function clawHead(ctx, { D, lift, prongs = 4, rail = true, base = false, glints = 3 }) {
     const g = D / 2, pr = Math.max(0.016, 0.04 * D), a0 = prongs === 6 ? Math.PI / 6 : Math.PI / 4;
     const h = new THREE.Group();
-    const rr = band.outerAt(phi) + lift;
-    h.position.set(Math.cos(phi) * rr, Math.sin(phi) * rr, 0);
-    h.rotation.z = phi - Math.PI / 2;
-    const stone = new THREE.Mesh(GEM, gemMat);
+    const stone = mesh(GEM, gemMat);
     stone.scale.setScalar(D);
     h.add(stone);
     for (let k = 0; k < prongs; k++) {
@@ -494,20 +539,20 @@ export function createViewer(canvas, options = {}) {
       const at = (r, y) => new THREE.Vector3(r * c, y, r * s);
       const tip = at(0.86 * g, 0.095 * D);
       const path = new THREE.CatmullRomCurve3([at(0.26 * g, -lift - 0.05), at(0.5 * g, -0.33 * D), at(g + pr * 0.6, -0.03 * D), at(0.98 * g + pr * 0.4, 0.05 * D), tip]);
-      h.add(new THREE.Mesh(new THREE.TubeGeometry(path, 48, pr, 10), metalMat));
-      const cap = new THREE.Mesh(SPHERE, metalMat);
+      h.add(mesh(new THREE.TubeGeometry(path, 48, pr, 10), metalMat));
+      const cap = mesh(SPHERE, metalMat);
       cap.position.copy(tip);
       cap.scale.setScalar(pr * 1.2);
       h.add(cap);
     }
     if (rail) {
-      const t = new THREE.Mesh(new THREE.TorusGeometry(0.76 * g, pr * 0.72, 10, 80), metalMat);
+      const t = mesh(new THREE.TorusGeometry(0.76 * g, pr * 0.72, 10, 80), metalMat);
       t.rotation.x = Math.PI / 2;
       t.position.y = -0.19 * D;
       h.add(t);
     }
     if (base) {
-      const t = new THREE.Mesh(new THREE.TorusGeometry(0.36 * g, pr * 0.8, 10, 64), metalMat);
+      const t = mesh(new THREE.TorusGeometry(0.36 * g, pr * 0.8, 10, 64), metalMat);
       t.rotation.x = Math.PI / 2;
       t.position.y = -lift + 0.025;
       h.add(t);
@@ -516,62 +561,135 @@ export function createViewer(canvas, options = {}) {
       const a = Math.random() * TAU, f = 0.15 + Math.random() * 0.75;
       addGlint(ctx, h, crownPoint(D, a, f), crownNormal(a, f), D * 0.9);
     }
-    ctx.group.add(h);
     return h;
   }
-
-  const _m = new THREE.Matrix4(), _q = new THREE.Quaternion(), _up = new THREE.Vector3(0, 1, 0), _dir = new THREE.Vector3(), _pos = new THREE.Vector3(), _scl = new THREE.Vector3();
-  // Small stones set into the outer face of the band at the angles given, with a bead either side
-  function pave(ctx, band, angles, D) {
+  // The same, raised `lift` above a band at angle `phi` (π/2 is the top)
+  function mount(ctx, band, { phi = Math.PI / 2, lift, parent = ctx.group, ...rest }) {
+    const h = clawHead(ctx, { lift, ...rest });
+    const rr = band.outerAt(phi) + lift;
+    h.position.set(Math.cos(phi) * rr, Math.sin(phi) * rr, 0);
+    h.rotation.z = phi - Math.PI / 2;
+    parent.add(h);
+    return h;
+  }
+  // A ring of small stones `hd` across round a centre stone of radius `g`, in that stone's frame; returns its radius
+  function halo(ctx, parent, g, hd = 0.088) {
+    const hr = g + hd * 0.75, n = Math.round((TAU * hr) / (hd * 1.18));
+    const stones = new THREE.InstancedMesh(GEM, gemMat, n);
+    const beads = new THREE.InstancedMesh(SPHERE, metalMat, n);
+    for (let k = 0; k < n; k++) {
+      const a = (k / n) * TAU, c = Math.cos(a), sn = Math.sin(a);
+      _q.setFromUnitVectors(_up, _dir.set(c * 0.28, 1, sn * 0.28).normalize());
+      stones.setMatrixAt(k, _m.compose(_pos.set(c * hr, -0.006, sn * hr), _q, _scl.setScalar(hd)));
+      const b = a + Math.PI / n;
+      beads.setMatrixAt(k, _m.compose(_pos.set(Math.cos(b) * hr, 0.012, Math.sin(b) * hr), _q.identity(), _scl.setScalar(hd * 0.142)));
+      if (k % 5 === 0) addGlint(ctx, parent, new THREE.Vector3(c * hr, 0.03, sn * hr), new THREE.Vector3(c * 0.28, 1, sn * 0.28), hd * 3.6);
+    }
+    const seatGeo = new THREE.TorusGeometry(hr, hd * 0.52, 12, 96);
+    seatGeo.rotateX(Math.PI / 2);
+    const seat = mesh(seatGeo, metalMat);
+    seat.scale.y = 0.55;
+    seat.position.y = -hd * 0.51;
+    parent.add(stones, beads, seat);
+    return hr;
+  }
+  // Small stones set into the outer face of a band at the angles given (a row `z` off the middle), a bead either side
+  function pave(ctx, band, angles, D, { z = 0, parent = ctx.group, beads = true } = {}) {
     const stones = new THREE.InstancedMesh(GEM, gemMat, angles.length);
-    const beads = new THREE.InstancedMesh(SPHERE, metalMat, angles.length * 2);
+    const beadMesh = beads ? new THREE.InstancedMesh(SPHERE, metalMat, angles.length * 2) : null;
     angles.forEach((phi, i) => {
-      const r = band.outerAt(phi), z = D * 0.5 + 0.014;
+      const r = band.outerAt(phi), zb = D * 0.5 + 0.014;
       _dir.set(Math.cos(phi), Math.sin(phi), 0);
       _q.setFromUnitVectors(_up, _dir);
-      stones.setMatrixAt(i, _m.compose(_pos.copy(_dir).multiplyScalar(r - 0.006), _q, _scl.setScalar(D)));
-      beads.setMatrixAt(i * 2, _m.compose(_pos.copy(_dir).multiplyScalar(r + 0.002).setZ(-z), _q, _scl.setScalar(0.012)));
-      beads.setMatrixAt(i * 2 + 1, _m.compose(_pos.copy(_dir).multiplyScalar(r + 0.002).setZ(z), _q, _scl.setScalar(0.012)));
+      stones.setMatrixAt(i, _m.compose(_pos.copy(_dir).multiplyScalar(r - 0.006).setZ(z), _q, _scl.setScalar(D)));
+      if (!beadMesh) return;
+      beadMesh.setMatrixAt(i * 2, _m.compose(_pos.copy(_dir).multiplyScalar(r + 0.002).setZ(z - zb), _q, _scl.setScalar(0.012)));
+      beadMesh.setMatrixAt(i * 2 + 1, _m.compose(_pos.copy(_dir).multiplyScalar(r + 0.002).setZ(z + zb), _q, _scl.setScalar(0.012)));
     });
-    ctx.group.add(stones, beads);
+    parent.add(stones);
+    if (beadMesh) parent.add(beadMesh);
+    return stones;
   }
-  const topAnchor = (ctx, band) => {
+  // Stones facing the viewer at the points given (earrings, pendants)
+  function frontStones(parent, points, D) {
+    const stones = new THREE.InstancedMesh(GEM, gemMat, points.length);
+    points.forEach((p, i) => stones.setMatrixAt(i, _m.compose(_pos.copy(p), _qFront, _scl.setScalar(D))));
+    parent.add(stones);
+    return stones;
+  }
+  // A small stone in a plain rim, facing the viewer
+  function bezelStone(ctx, parent, D, y) {
+    const st = faceFront(mesh(GEM, gemMat));
+    st.scale.setScalar(D);
+    st.position.set(0, y, 0);
+    const rim = mesh(new THREE.TorusGeometry(D * 0.53, Math.max(0.012, D * 0.09), 10, 48), metalMat);
+    rim.position.set(0, y, 0.004);
+    parent.add(st, rim);
+    addGlint(ctx, parent, new THREE.Vector3(D * 0.12, y + D * 0.1, D * 0.2), FRONT, D * 1.6);
+  }
+  // An oval stone `D` wide hanging from `top`, in a rim with four claws; returns the stone's centre
+  function ovalDrop(ctx, parent, D, top) {
+    const H = D * 1.45, cy = top - H / 2 - 0.03;
+    const st = faceFront(mesh(GEM, gemMat));
+    st.scale.set(D, D, H);
+    st.position.set(0, cy, 0);
+    const rim = mesh(new THREE.TorusGeometry(D * 0.52, 0.016, 10, 72), metalMat);
+    rim.scale.y = 1.45;
+    rim.position.set(0, cy, -0.004);
+    const loop = mesh(new THREE.TorusGeometry(0.03, 0.01, 8, 24), metalMat);
+    loop.rotation.y = Math.PI / 2;
+    loop.position.set(0, top - 0.015, 0);
+    parent.add(st, rim, loop);
+    for (const a of [Math.PI / 4, (3 * Math.PI) / 4, (5 * Math.PI) / 4, (7 * Math.PI) / 4]) {
+      const claw = mesh(SPHERE, metalMat);
+      claw.scale.setScalar(0.022);
+      claw.position.set(Math.cos(a) * D * 0.5, cy + Math.sin(a) * H * 0.5, 0.035);
+      parent.add(claw);
+    }
+    for (const [x, y] of [[0.12, 0.22], [-0.18, -0.1], [0.05, -0.3]]) addGlint(ctx, parent, new THREE.Vector3(x * D, cy + y * H, D * 0.24), FRONT, D * 1.2);
+    return new THREE.Vector3(0, cy, 0);
+  }
+  // A fine chain of oval links from `from` to `to`, bowed through `via`; alternate links turn a quarter
+  const LINK = shared(new THREE.TorusGeometry(0.03, 0.0085, 6, 18));
+  function chain(parent, from, via, to) {
+    const curve = new THREE.QuadraticBezierCurve3(from, via, to);
+    const n = Math.max(2, Math.round(curve.getLength() / 0.046));
+    const links = new THREE.InstancedMesh(LINK, metalMat, n);
+    const t = new THREE.Vector3(), a = new THREE.Vector3(), b = new THREE.Vector3(), p = new THREE.Vector3();
+    for (let i = 0; i < n; i++) {
+      curve.getPointAt(i / (n - 1), p);
+      curve.getTangentAt(i / (n - 1), t).normalize();
+      a.crossVectors(t, FRONT);
+      if (a.lengthSq() < 1e-6) a.set(1, 0, 0);
+      a.normalize();
+      b.crossVectors(t, a);
+      if (i % 2) _mb.makeBasis(t, b, a.clone().negate()); else _mb.makeBasis(t, a, b);
+      _mb.scale(_scl.set(1.4, 1, 1)).setPosition(p);
+      links.setMatrixAt(i, _mb);
+    }
+    parent.add(links);
+  }
+  const anchorAt = (parent, x, y, z) => {
     const a = new THREE.Object3D();
-    a.position.set(0, band.outerAt(Math.PI / 2), 0);
-    ctx.group.add(a);
+    a.position.set(x, y, z);
+    parent.add(a);
     return a;
   };
 
-  function buildDesign(d) {
-    const ctx = { group: new THREE.Group(), glints: [] };
+  /* Rings */
+  function buildRing(ctx, d) {
     const s = d.stoneSize, w = d.bandWidth;
     let band, anchor;
     if (d.type === 'halo') {
       band = makeBand({ thick: 0.115, width: 0.21 * w, taper: 0.12, round: 3.2 });
-      ctx.group.add(new THREE.Mesh(band.geometry, metalMat));
+      ctx.group.add(mesh(band.geometry, metalMat));
       const D = 0.44 * s, g = D / 2, lift = 0.43 * D + 0.08;
       anchor = mount(ctx, band, { D, lift, prongs: 4, glints: 4 });
-      const hd = 0.088, hr = g + 0.066, n = Math.round((TAU * hr) / (hd * 1.18));
-      const stones = new THREE.InstancedMesh(GEM, gemMat, n);
-      const beads = new THREE.InstancedMesh(SPHERE, metalMat, n);
-      for (let k = 0; k < n; k++) {
-        const a = (k / n) * TAU, c = Math.cos(a), sn = Math.sin(a);
-        _q.setFromUnitVectors(_up, _dir.set(c * 0.28, 1, sn * 0.28).normalize());
-        stones.setMatrixAt(k, _m.compose(_pos.set(c * hr, -0.006, sn * hr), _q, _scl.setScalar(hd)));
-        const b = a + Math.PI / n;
-        beads.setMatrixAt(k, _m.compose(_pos.set(Math.cos(b) * hr, 0.012, Math.sin(b) * hr), _q.identity(), _scl.setScalar(0.0125)));
-        if (k % 5 === 0) addGlint(ctx, anchor, new THREE.Vector3(c * hr, 0.03, sn * hr), new THREE.Vector3(c * 0.28, 1, sn * 0.28), 0.32);
-      }
-      const seatGeo = new THREE.TorusGeometry(hr, 0.046, 12, 96);
-      seatGeo.rotateX(Math.PI / 2);
-      const seat = new THREE.Mesh(seatGeo, metalMat);
-      seat.scale.y = 0.55;
-      seat.position.y = -0.045;
-      anchor.add(stones, beads, seat);
+      const hr = halo(ctx, anchor, g);
       for (let k = 0; k < 4; k++) {
         const a = (k / 4) * TAU, c = Math.cos(a), sn = Math.sin(a);
         const at = (r, y) => new THREE.Vector3(r * c, y, r * sn);
-        anchor.add(new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3([at(0.2 * g, -lift - 0.04), at(0.62 * hr, -lift * 0.5), at(hr, -0.05)]), 32, 0.016, 8), metalMat));
+        anchor.add(mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3([at(0.2 * g, -lift - 0.04), at(0.62 * hr, -lift * 0.5), at(hr, -0.05)]), 32, 0.016, 8), metalMat));
       }
       const shoulder = [];
       for (const side of [-1, 1]) for (let k = 0; k < 8; k++) shoulder.push(Math.PI / 2 + side * (0.44 + k * 0.1));
@@ -579,32 +697,311 @@ export function createViewer(canvas, options = {}) {
       addGlint(ctx, ctx.group, new THREE.Vector3(Math.cos(1.94) * 1.01, Math.sin(1.94) * 1.01, 0), new THREE.Vector3(Math.cos(1.94), Math.sin(1.94), 0), 0.22);
     } else if (d.type === 'trilogy') {
       band = makeBand({ thick: 0.13, width: 0.27 * w, taper: 0.15, round: 3.4 });
-      ctx.group.add(new THREE.Mesh(band.geometry, metalMat));
+      ctx.group.add(mesh(band.geometry, metalMat));
       const D = 0.5 * s, Ds = 0.32 * s, liftS = 0.43 * Ds + 0.06;
       anchor = mount(ctx, band, { D, lift: 0.43 * D + 0.075, prongs: d.prongs, base: true, glints: 4 });
       const phi = Math.asin(Math.min(0.9, (D / 2 + Ds / 2 + 0.05) / (band.outerAt(Math.PI / 2) + liftS)));
       for (const side of [-1, 1]) mount(ctx, band, { phi: Math.PI / 2 + side * phi, D: Ds, lift: liftS, prongs: 4, glints: 2 });
     } else if (d.type === 'eternity') {
       band = makeBand({ thick: 0.12, width: 0.2 * w, taper: 0, round: 3 });
-      ctx.group.add(new THREE.Mesh(band.geometry, metalMat));
+      ctx.group.add(mesh(band.geometry, metalMat));
       const D = Math.min(0.1 * s, 0.2 * w - 0.05), n = Math.floor((TAU * band.outerAt(0)) / (D * 1.2));
       pave(ctx, band, Array.from({ length: n }, (_, k) => Math.PI / 2 + (k / n) * TAU), D);
       for (let k = 0; k < 5; k++) {
         const phi = Math.PI / 2 + (k - 2) * ((2 * TAU) / n);
         addGlint(ctx, ctx.group, new THREE.Vector3(Math.cos(phi), Math.sin(phi), 0).multiplyScalar(band.outerAt(phi) + 0.03), new THREE.Vector3(Math.cos(phi), Math.sin(phi), 0), D * 2.4);
       }
-      anchor = topAnchor(ctx, band);
+      anchor = anchorAt(ctx.group, 0, band.outerAt(Math.PI / 2), 0);
     } else if (d.type === 'band') {
       band = makeBand({ thick: 0.15, width: 0.42 * w, taper: 0, round: 2.4 });
-      ctx.group.add(new THREE.Mesh(band.geometry, metalMat));
-      anchor = topAnchor(ctx, band);
+      ctx.group.add(mesh(band.geometry, metalMat));
+      anchor = anchorAt(ctx.group, 0, band.outerAt(Math.PI / 2), 0);
     } else {
       band = makeBand({ thick: 0.135, width: 0.3 * w, taper: 0.35, round: 3.6 });
-      ctx.group.add(new THREE.Mesh(band.geometry, metalMat));
+      ctx.group.add(mesh(band.geometry, metalMat));
       const D = 0.62 * s;
       anchor = mount(ctx, band, { D, lift: 0.43 * D + 0.05, prongs: d.prongs, base: true, glints: 6 });
     }
-    ctx.group.userData = { glints: ctx.glints, anchor, design: true };
+    return anchor;
+  }
+
+  /* Kangans and bangles: a band at wrist scale, wider than it is thick; a pair stands side by side */
+  const BANGLE_WIDTH = { kada: 1.35, 'kundan-kada': 1.4, cuff: 1.1 };
+  function buildBangle(ctx, d) {
+    const s = d.stoneSize, width = 0.2 * d.bandWidth * (BANGLE_WIDTH[d.type] || 1);
+    const sparkleAt = (grp, band, angles, size) => angles.forEach(phi => {
+      _dir.set(Math.cos(phi), Math.sin(phi), 0);
+      addGlint(ctx, grp, _dir.clone().multiplyScalar(band.outerAt(phi) + 0.02), _dir, size);
+    });
+    const one = z => {
+      const grp = new THREE.Group();
+      grp.position.z = z;
+      ctx.group.add(grp);
+      let band;
+      if (d.type === 'diamond-kangan') {
+        band = makeBand({ thick: 0.075, width, round: 3.2, segs: 320 });
+        grp.add(mesh(band.geometry, metalMat));
+        const rows = width > 0.17 ? 2 : 1, D = Math.min(0.068 * s, (width / rows) * 0.8), n = Math.floor((TAU * band.outerAt(0)) / (D * 1.16));
+        for (let r = 0; r < rows; r++) {
+          const off = r ? Math.PI / n : 0;
+          pave(ctx, band, Array.from({ length: n }, (_, k) => (k / n) * TAU + off), D, { z: rows === 2 ? (r ? 1 : -1) * D * 0.56 : 0, parent: grp, beads: rows === 1 });
+        }
+        sparkleAt(grp, band, [1.3, 1.62, 1.95, 2.3], D * 2.6);
+      } else if (d.type === 'kundan-kada') {
+        band = makeBand({ thick: 0.09, width, round: 2.6, segs: 320 });
+        grp.add(mesh(band.geometry, metalMat));
+        const n = 12, D = Math.min(0.21 * s, width * 0.8), outer = band.outerAt(0);
+        const stones = new THREE.InstancedMesh(GEM, gemMat, n);
+        const cups = new THREE.InstancedMesh(shared(new THREE.CylinderGeometry(0.5, 0.42, 1, 28)), metalMat, n);
+        const rims = new THREE.InstancedMesh(shared(new THREE.TorusGeometry(0.5, 0.075, 8, 40)), metalMat, n);
+        const beads = new THREE.InstancedMesh(SPHERE, metalMat, n * 3);
+        for (let k = 0; k < n; k++) {
+          const phi = (k / n) * TAU;
+          _dir.set(Math.cos(phi), Math.sin(phi), 0);
+          _q.setFromUnitVectors(_up, _dir);
+          stones.setMatrixAt(k, _m.compose(_pos.copy(_dir).multiplyScalar(outer + D * 0.21), _q, _scl.setScalar(D)));
+          cups.setMatrixAt(k, _m.compose(_pos.copy(_dir).multiplyScalar(outer + D * 0.04), _q, _scl.set(D * 1.16, D * 0.36, D * 1.16)));
+          rims.setMatrixAt(k, _m.compose(_pos.copy(_dir).multiplyScalar(outer + D * 0.19), _q.setFromUnitVectors(FRONT, _dir), _scl.setScalar(D * 1.12)));
+          for (let b = 0; b < 3; b++) {
+            const pb = phi + ((b + 1) / 4) * (TAU / n);
+            beads.setMatrixAt(k * 3 + b, _m.compose(_pos.set(Math.cos(pb), Math.sin(pb), 0).multiplyScalar(outer + 0.004), _q.identity(), _scl.setScalar(b === 1 ? 0.026 : 0.017)));
+          }
+        }
+        grp.add(stones, cups, rims, beads);
+        sparkleAt(grp, { outerAt: () => outer + D * 0.3 }, [Math.PI / 2, Math.PI / 2 + TAU / n, Math.PI / 2 - TAU / n], D * 1.8);
+      } else if (d.type === 'twisted') {
+        const R0 = R_IN + 0.06, rs = 0.052 * d.bandWidth, tube = 0.05 * d.bandWidth, twists = 20;
+        for (const phase of [0, Math.PI]) {
+          const pts = [];
+          for (let i = 0; i < 480; i++) {
+            const phi = (i / 480) * TAU, a = twists * phi + phase, rr = R0 + rs * Math.cos(a);
+            pts.push(new THREE.Vector3(Math.cos(phi) * rr, Math.sin(phi) * rr, rs * Math.sin(a)));
+          }
+          grp.add(mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts, true), 960, tube, 10, true), metalMat));
+        }
+        band = { outerAt: () => R0 + rs + tube };
+        sparkleAt(grp, band, [1.45, 1.9], 0.16);
+      } else if (d.type === 'cuff') {
+        const gap = TAU * 0.17, start = -Math.PI / 2 + gap / 2, arc = TAU - gap, thick = 0.085;
+        band = makeBand({ thick, width, round: 3, arc, start, segs: 300 });
+        grp.add(mesh(band.geometry, metalMat));
+        for (const phi of [start, start + arc]) {
+          const cap = mesh(SPHERE, metalMat);
+          cap.scale.set(thick * 0.56, thick * 0.56, width * 0.5);
+          cap.position.set(Math.cos(phi) * (band.rIn + thick / 2), Math.sin(phi) * (band.rIn + thick / 2), 0);
+          grp.add(cap);
+        }
+        // A stone at each end, tilted forward so it faces the wearer's gaze rather than the floor
+        const Dt = 0.3 * s;
+        for (const phi of [start + 0.36, start + arc - 0.36]) mount(ctx, band, { phi, D: Dt, lift: 0.43 * Dt + 0.03, prongs: d.prongs, base: true, glints: 3, parent: grp }).rotateX(0.75);
+        const Dp = Math.min(0.06 * s, width * 0.42), from = start + 0.62, to = start + arc - 0.62;
+        const n = Math.floor(((to - from) * band.outerAt(0)) / (Dp * 1.18));
+        pave(ctx, band, Array.from({ length: n }, (_, k) => from + ((k + 0.5) / n) * (to - from)), Dp, { parent: grp });
+      } else {
+        const thick = 0.1;
+        band = makeBand({ thick, width, round: 2.1, segs: 320 });
+        grp.add(mesh(band.geometry, metalMat));
+        const bead = 0.02 * d.bandWidth, r = band.rIn + thick * 0.5, n = Math.floor((TAU * r) / (bead * 2.25));
+        const beads = new THREE.InstancedMesh(SPHERE, metalMat, n * 2);
+        for (let k = 0; k < n; k++) {
+          const phi = (k / n) * TAU;
+          for (const side of [0, 1]) beads.setMatrixAt(k * 2 + side, _m.compose(_pos.set(Math.cos(phi) * r, Math.sin(phi) * r, (side ? 1 : -1) * (width / 2 + bead * 0.35)), _q.identity(), _scl.setScalar(bead)));
+        }
+        const rib = mesh(new THREE.TorusGeometry(band.rIn + thick + 0.002, 0.011, 8, 256), metalMat);
+        grp.add(beads, rib);
+        sparkleAt(grp, band, [1.55, 2.1], 0.2);
+      }
+      return band;
+    };
+    const apart = width / 2 + 0.035;
+    const band = d.pair ? (one(-apart), one(apart)) : one(0);
+    ctx.tilt = [0.55, -0.45];
+    return anchorAt(ctx.group, 0, band.outerAt(Math.PI / 2), 0);
+  }
+
+  /* Earrings: a pair facing the viewer, turned a little towards each other; the size slider scales them */
+  function earStud(e, z, back = 0.06) {
+    const post = mesh(new THREE.CylinderGeometry(0.016, 0.016, 0.34, 10), metalMat);
+    post.rotation.x = Math.PI / 2;
+    post.position.z = z - 0.17;
+    e.add(post);
+    if (!back) return;
+    const nut = mesh(new THREE.TorusGeometry(back, back * 0.36, 8, 28), metalMat);
+    nut.scale.set(1.35, 0.85, 1);
+    nut.position.z = z - 0.29;
+    e.add(nut);
+  }
+  function buildEarrings(ctx, d) {
+    const s = d.stoneSize;
+    let anchor = null;
+    const one = side => {
+      const e = new THREE.Group();
+      let gap = 0.5, focus = new THREE.Vector3();
+      if (d.type === 'halo-stud') {
+        const D = 0.3 * s, h = clawHead(ctx, { D, lift: 0.08, prongs: 4, rail: false, glints: 3 });
+        const hr = halo(ctx, h, D / 2, 0.075);
+        e.add(faceFront(h));
+        earStud(e, -0.08);
+        gap = hr + 0.2;
+      } else if (d.type === 'drop') {
+        bezelStone(ctx, e, 0.16, 0);
+        const ring = mesh(new THREE.TorusGeometry(0.032, 0.01, 8, 24), metalMat);
+        ring.rotation.y = Math.PI / 2;
+        ring.position.y = -0.112;
+        const link = mesh(new THREE.CylinderGeometry(0.011, 0.011, 0.2, 8), metalMat);
+        link.position.y = -0.24;
+        e.add(ring, link);
+        focus = ovalDrop(ctx, e, 0.36 * s, -0.34);
+        earStud(e, -0.02, 0.038);
+        gap = 0.26 * s + 0.16;
+      } else if (d.type === 'hoop') {
+        const R = 0.42, tube = 0.045, D = 0.058 * s;
+        const hoop = mesh(new THREE.TorusGeometry(R, tube, 14, 140), metalMat);
+        hoop.position.y = -R;
+        e.add(hoop);
+        const from = -Math.PI + 0.32, to = -0.32, n = Math.floor(((to - from) * R) / (D * 1.12)), pts = [];
+        for (let k = 0; k < n; k++) {
+          const a = from + ((k + 0.5) / n) * (to - from);
+          pts.push(new THREE.Vector3(Math.cos(a) * R, Math.sin(a) * R - R, tube * 0.86));
+        }
+        frontStones(e, pts, D);
+        [2, Math.floor(n / 2), n - 3].forEach(k => pts[k] && addGlint(ctx, e, pts[k].clone().setZ(tube + 0.02), FRONT, D * 2.6));
+        earStud(e, -0.02, 0);
+        focus.set(0, -R * 2 + 0.05, 0);
+        gap = R + 0.12;
+      } else if (d.type === 'jhumka') {
+        // A flower of stones on the stud, a ring, then the bell with a band of stones and pearls round its rim
+        const head = clawHead(ctx, { D: 0.17 * s, lift: 0.06, prongs: 4, rail: false, glints: 2 });
+        e.add(faceFront(head));
+        const petals = [];
+        for (let k = 0; k < 8; k++) petals.push(new THREE.Vector3(Math.cos((k / 8) * TAU) * 0.15, Math.sin((k / 8) * TAU) * 0.15, -0.01));
+        frontStones(e, petals, 0.07);
+        const disc = mesh(SPHERE, metalMat);
+        disc.scale.set(0.2, 0.2, 0.055);
+        disc.position.z = -0.045;
+        const ring = mesh(new THREE.TorusGeometry(0.035, 0.011, 8, 24), metalMat);
+        ring.rotation.y = Math.PI / 2;
+        ring.position.y = -0.245;
+        e.add(disc, ring);
+        const prof = [[0.02, 0], [0.07, -0.02], [0.11, -0.07], [0.15, -0.16], [0.19, -0.27], [0.24, -0.36], [0.29, -0.42], [0.315, -0.445], [0.305, -0.46]];
+        const bellGeo = new THREE.LatheGeometry(prof.reverse().map(([x, y]) => new THREE.Vector2(x, y)), 64);
+        const bell = mesh(bellGeo, metalMat);
+        const top = -0.28;
+        bell.position.y = top;
+        e.add(bell);
+        const n = 12;
+        const stones = new THREE.InstancedMesh(GEM, gemMat, n);
+        for (let k = 0; k < n; k++) {
+          const a = (k / n) * TAU;
+          _dir.set(Math.cos(a), 0.35, Math.sin(a)).normalize();
+          _q.setFromUnitVectors(_up, _dir);
+          stones.setMatrixAt(k, _m.compose(_pos.set(Math.cos(a) * 0.205, top - 0.255, Math.sin(a) * 0.205), _q, _scl.setScalar(0.07)));
+        }
+        const rimBeads = new THREE.InstancedMesh(SPHERE, metalMat, 30);
+        for (let k = 0; k < 30; k++) {
+          const a = (k / 30) * TAU;
+          rimBeads.setMatrixAt(k, _m.compose(_pos.set(Math.cos(a) * 0.31, top - 0.452, Math.sin(a) * 0.31), _q.identity(), _scl.setScalar(0.015)));
+        }
+        const pearls = new THREE.InstancedMesh(SPHERE, pearlMat, 14);
+        for (let k = 0; k < 14; k++) {
+          const a = ((k + 0.5) / 14) * TAU;
+          pearls.setMatrixAt(k, _m.compose(_pos.set(Math.cos(a) * 0.29, top - 0.52, Math.sin(a) * 0.29), _q.identity(), _scl.setScalar(0.034)));
+        }
+        e.add(stones, rimBeads, pearls);
+        addGlint(ctx, e, new THREE.Vector3(0, top - 0.25, 0.23), FRONT, 0.2);
+        earStud(e, -0.06, 0.05);
+        focus.set(0, top - 0.25, 0.2);
+        gap = 0.4;
+      } else {
+        const D = 0.46 * s, h = clawHead(ctx, { D, lift: 0.1, prongs: d.prongs, base: true, glints: 4 });
+        e.add(faceFront(h));
+        earStud(e, -0.1);
+        gap = D * 0.5 + 0.2;
+      }
+      e.scale.setScalar(d.bandWidth);
+      e.position.x = side * gap * d.bandWidth;
+      e.rotation.y = -side * 0.28;
+      ctx.group.add(e);
+      if (!anchor) anchor = anchorAt(e, focus.x, focus.y, focus.z + 0.05);
+    };
+    one(-1);
+    one(1);
+    ctx.tilt = [0.08, 0];
+    return anchor;
+  }
+
+  /* Pendants: the piece hangs from a bail on a fine chain; the size slider scales it */
+  function heartShape(k, scale = 1, cy = 2.5) {
+    // The heart is drawn in a 22 × 19 box with its dip at the top; (x, y) map to ((x − 5)k, (12 − y)k), scaled about (0, cy·k)
+    const P = (x, y) => [(x - 5) * k * scale, ((12 - y) - cy) * k * scale + cy * k];
+    const sh = new THREE.Shape();
+    const curve = (a, b, c) => sh.bezierCurveTo(...P(...a), ...P(...b), ...P(...c));
+    sh.moveTo(...P(5, 5));
+    curve([5, 5], [4, 0], [0, 0]);
+    curve([-6, 0], [-6, 7], [-6, 7]);
+    curve([-6, 11], [-3, 15.4], [5, 19]);
+    curve([12, 15.4], [16, 11], [16, 7]);
+    curve([16, 7], [16, 0], [10, 0]);
+    curve([7, 0], [5, 5], [5, 5]);
+    return sh;
+  }
+  function buildPendant(ctx, d) {
+    const s = d.stoneSize, p = new THREE.Group();
+    let focus = new THREE.Vector3();
+    if (d.type === 'halo-pendant') {
+      const D = 0.3 * s, h = clawHead(ctx, { D, lift: 0.08, prongs: 4, rail: false, glints: 3 });
+      const hr = halo(ctx, h, D / 2, 0.075);
+      faceFront(h).position.y = -(hr + 0.06);
+      const link = mesh(new THREE.CylinderGeometry(0.014, 0.014, 0.08, 8), metalMat);
+      link.position.y = -0.04;
+      p.add(h, link);
+      focus.set(0, h.position.y, 0);
+    } else if (d.type === 'heart') {
+      const k = 0.04, depth = 0.045;
+      const outer = heartShape(k);
+      outer.holes.push(heartShape(k, 0.7));
+      const geo = new THREE.ExtrudeGeometry(outer, { depth, bevelEnabled: true, bevelThickness: 0.014, bevelSize: 0.012, bevelSegments: 3, curveSegments: 64 });
+      geo.translate(0, -7 * k, -depth / 2);
+      p.add(mesh(geo, metalMat));
+      const D = 0.05 * s, mid = heartShape(k, 0.85), dip = new THREE.Vector2(0, 7 * k);
+      const all = mid.getSpacedPoints(Math.floor(mid.getLength() / (D * 1.22)));
+      all.pop();
+      const pts = all.filter(v => v.distanceTo(dip) > D * 1.6).map(v => new THREE.Vector3(v.x, v.y - 7 * k, depth / 2 + 0.016));
+      frontStones(p, pts, D);
+      [0, Math.floor(pts.length / 3), Math.floor((2 * pts.length) / 3)].forEach(i => pts[i] && addGlint(ctx, p, pts[i].clone().setZ(depth + 0.03), FRONT, D * 2.8));
+      focus.set(0, -0.2, 0);
+    } else if (d.type === 'drop-pendant') {
+      bezelStone(ctx, p, 0.13, -0.09);
+      focus = ovalDrop(ctx, p, 0.36 * s, -0.16);
+      const link = mesh(new THREE.CylinderGeometry(0.012, 0.012, 0.04, 8), metalMat);
+      link.position.y = -0.01;
+      p.add(link);
+    } else {
+      const D = 0.42 * s, h = clawHead(ctx, { D, lift: 0.1, prongs: d.prongs, base: false, glints: 5 });
+      faceFront(h).position.y = -(D / 2 + 0.06);
+      const link = mesh(new THREE.CylinderGeometry(0.014, 0.014, 0.08, 8), metalMat);
+      link.position.y = -0.04;
+      p.add(h, link);
+      focus.set(0, h.position.y, 0);
+    }
+    const bail = mesh(new THREE.TorusGeometry(0.07, 0.02, 10, 40), metalMat);
+    bail.rotation.y = Math.PI / 2;
+    bail.position.y = 0.07;
+    p.add(bail);
+    const top = new THREE.Vector3(0, 0.13, 0);
+    chain(p, top, new THREE.Vector3(-0.14, 0.42, 0), new THREE.Vector3(-0.46, 0.86, -0.16));
+    chain(p, top, new THREE.Vector3(0.14, 0.42, 0), new THREE.Vector3(0.46, 0.86, -0.16));
+    p.scale.setScalar(d.bandWidth);
+    ctx.group.add(p);
+    ctx.tilt = [0.06, 0];
+    return anchorAt(p, focus.x, focus.y, focus.z + 0.08);
+  }
+
+  function buildDesign(d) {
+    const ctx = { group: new THREE.Group(), glints: [], tilt: null };
+    const kind = find(DESIGNS, d.type).kind;
+    const anchor = kind === 'bangle' ? buildBangle(ctx, d) : kind === 'earring' ? buildEarrings(ctx, d) : kind === 'pendant' ? buildPendant(ctx, d) : buildRing(ctx, d);
+    ctx.group.userData = { glints: ctx.glints, anchor, design: true, tilt: ctx.tilt || [0.3, -0.5] };
     return ctx.group;
   }
 
@@ -664,7 +1061,8 @@ export function createViewer(canvas, options = {}) {
     const old = piece;
     piece = holder;
     spinner.add(holder);
-    rig.rotation.set(next.userData.design ? 0.3 : 0.12, next.userData.design ? -0.5 : 0, 0);
+    const tilt = next.userData.tilt || [0.12, 0]; // each kind of piece has its own display angle; a model faces front
+    rig.rotation.set(tilt[0], tilt[1], 0);
     _box.setFromObject(holder).getBoundingSphere(_sphere);
     radius = _sphere.radius;
     fit(!old || !animate);
@@ -846,7 +1244,8 @@ export function createViewer(canvas, options = {}) {
 
     /**
      * Shows a piece as its settings describe it.
-     * @param {object} cfg  { source: 'design' | 'model', design: { type, stoneSize, bandWidth, prongs }, modelUrl, metal, stone }
+     * @param {object} cfg  { source: 'design' | 'model', design: { type, stoneSize, bandWidth, prongs, pair }, modelUrl, metal, stone }
+     *                      (design.type names the kind too: a ring, kangan, earring or pendant style)
      * @returns {Promise<object|null>} for a model, how many metal and stone parts were found
      */
     async apply(cfg, { animate = true } = {}) {
@@ -856,7 +1255,7 @@ export function createViewer(canvas, options = {}) {
         current = key;
         let next;
         try {
-          next = useModel ? await buildModel(cfg.modelUrl) : buildDesign({ type: 'solitaire', stoneSize: 1, bandWidth: 1, prongs: 6, ...cfg.design });
+          next = useModel ? await buildModel(cfg.modelUrl) : buildDesign({ type: 'solitaire', stoneSize: 1, bandWidth: 1, prongs: 6, pair: false, ...cfg.design });
         } catch (err) {
           if (current === key) current = '';
           throw err;

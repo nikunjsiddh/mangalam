@@ -10,7 +10,7 @@
  *
  * Sidebar, menus, tooltips, dialogs and drawers (filled in from the button that opens them),
  * confirmations, toasts, tabs, list search / filters / sorting / pages, row selection, drag to
- * reorder, photo uploads, the text editor, live previews, charts, and the enquiries, media,
+ * reorder, photo uploads, the text editor, live previews, charts, and the enquiries (conversations), email templates, media,
  * homepage, offer, settings and sign-in screens.
  */
 (function () {
@@ -277,9 +277,17 @@
       btn.hidden = !data.id;
       btn.setAttribute("data-params", JSON.stringify({ id: data.id || 0 }));
     });
+    // Photo lists (an offer's gallery): one thumbnail per saved photograph
+    $$("[data-fill-gallery]", dialog).forEach(function (list) {
+      list.textContent = "";
+      (data[list.getAttribute("data-fill-gallery")] || []).forEach(function (path) { list.appendChild(galleryThumb(siteSrc(path), path)); });
+      if (list.hasAttribute("data-gallery")) relabelGallery(list);
+    });
     if (!form) return;
     Object.keys(data).forEach(function (key) { setField(form, key, data[key]); });
     refreshFields(form);
+    // Parts that fill themselves (the 3D editor) pick up the item here
+    dialog.dispatchEvent(new CustomEvent("admin:filled", { detail: data }));
   }
   document.addEventListener("click", function (e) {
     var opener = e.target.closest("[data-dialog-open]");
@@ -351,11 +359,18 @@
       if (submitter && submitter.name) data.set(submitter.name, submitter.value);
       // The text editors, photos waiting to upload, and the rows chosen in the table behind a dialog
       $$(".rte__area[data-name]", form).forEach(function (area) { data.set(area.getAttribute("data-name"), area.innerHTML); });
-      (form._files || []).forEach(function (file) { data.append("files[]", file); });
       if (form.hasAttribute("data-bulk-form")) checkedIds().forEach(function (id) { data.append("ids[]", id); });
       var buttons = $$("[type=submit]", form);
       buttons.forEach(function (b) { busy(b, true); });
-      send(form.getAttribute("data-save"), data).then(function (res) {
+      // Photos waiting to upload are scaled to web size first, for the folder they are going into
+      var waiting = form._files || [];
+      var folderInput = $("input[type=file][data-upload-folder]", form);
+      var folder = data.get("folder") || (folderInput && folderInput.getAttribute("data-upload-folder")) || "campaign";
+      Promise.all(waiting.map(function (file) { return webSized(file, folder); })).then(function (ready) {
+        ready.forEach(function (file) { data.append("files[]", file); });
+        if (waiting.length) data.set("original_bytes", waiting.reduce(function (sum, f) { return sum + f.size; }, 0));
+        return send(form.getAttribute("data-save"), data);
+      }).then(function (res) {
         buttons.forEach(function (b) { busy(b, false); });
         if (res && !res.ok) markInvalid(form, res.fields);
         if (!respond(res, form.getAttribute("data-toast"))) return;
@@ -385,6 +400,8 @@
         if (panel) panel.hidden = !on;
       });
       if (focus) tab.focus();
+      // Lists marked data-tab-hash keep the open tab in the address, so a reload (or a link) opens it again
+      if (list.hasAttribute("data-tab-hash")) history.replaceState(null, "", window.location.pathname + window.location.search + "#" + tab.getAttribute("aria-controls"));
     }
     tabs.forEach(function (tab, i) {
       tab.addEventListener("click", function () { select(tab); });
@@ -395,6 +412,10 @@
         select(tabs[(i + step + tabs.length) % tabs.length], true);
       });
     });
+    if (list.hasAttribute("data-tab-hash")) {
+      var opening = tabs.filter(function (t) { return "#" + t.getAttribute("aria-controls") === window.location.hash; })[0];
+      if (opening) select(opening);
+    }
   });
 
   /* ---------- Lists: search, filters, sorting and pages ---------- */
@@ -563,14 +584,62 @@
     return li;
   }
   function relabelGallery(list) {
-    $$("[data-gthumb-tag]", list).forEach(function (tag, i) { tag.textContent = i === 0 ? "Main" : i === 1 ? "On hover" : ""; });
+    var labels = (list.getAttribute("data-gallery-labels") || "Main|On hover").split("|");
+    $$("[data-gthumb-tag]", list).forEach(function (tag, i) { tag.textContent = labels[i] || ""; });
   }
   function renumber(list) { $$("[data-position]", list).forEach(function (el, i) { el.textContent = i + 1; }); }
+
+  // Photographs are scaled to web size here, before they upload, to the same longest sides the server uses
+  // (WEB_SIZES in app/lib/images.php): a 20 MB camera original leaves as half a megabyte, so uploads are quick
+  // and never too large. The server then compresses it again and makes its small and AVIF / WebP copies.
+  var WEB_SIDES = { products: 1200, campaign: 2400, other: 2000 };
+  function webSized(file, folder) {
+    var side = WEB_SIDES[folder];
+    if (!side || !/^image\/(jpeg|png|webp)$/.test(file.type)) return Promise.resolve(file);
+    var url = URL.createObjectURL(file);
+    var img = new Image();
+    img.src = url;
+    // An <img> is drawn the right way up (phone photos are often stored sideways with a note to turn them)
+    return img.decode().then(function () {
+      var scale = Math.min(1, side / Math.max(img.naturalWidth, img.naturalHeight));
+      if (scale === 1 && file.size < 1536 * 1024) return file; // already web-sized and light
+      var canvas = document.createElement("canvas");
+      canvas.width = Math.round(img.naturalWidth * scale);
+      canvas.height = Math.round(img.naturalHeight * scale);
+      var ctx = canvas.getContext("2d");
+      ctx.imageSmoothingQuality = "high";
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      // PNGs with transparency (cut-outs) stay PNG; photographs travel as JPEG
+      var png = file.type === "image/png" && hasTransparency(ctx, canvas);
+      return new Promise(function (resolve) {
+        canvas.toBlob(function (blob) {
+          if (!blob || blob.size >= file.size) { resolve(file); return; }
+          resolve(new File([blob], file.name.replace(/\.\w+$/, "") + (png ? ".png" : ".jpg"), { type: blob.type, lastModified: file.lastModified }));
+        }, png ? "image/png" : "image/jpeg", 0.88);
+      });
+    }).catch(function () { return file; }).then(function (out) { URL.revokeObjectURL(url); return out; });
+  }
+  function hasTransparency(ctx, canvas) {
+    var px = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+    for (var i = 3; i < px.length; i += 4) if (px[i] < 255) return true;
+    return false;
+  }
+  function sizeLabel(bytes) {
+    return bytes >= 1048576 ? (bytes / 1048576).toFixed(1) + " MB" : Math.round(bytes / 1024) + " KB";
+  }
+  // "Compressed from 8.4 MB to 310 KB. " — what visitors will download, against what was chosen
+  function compressedNote(before, after) {
+    return before && after && before > after * 1.1 ? "Compressed from " + sizeLabel(before) + " to " + sizeLabel(after) + ". " : "";
+  }
   function uploadImage(file, folder) {
-    var data = new FormData();
-    data.append("file", file);
-    data.append("folder", folder || "campaign");
-    return send("upload.image", data);
+    folder = folder || "campaign";
+    return webSized(file, folder).then(function (ready) {
+      var data = new FormData();
+      data.append("file", ready);
+      data.append("folder", folder);
+      data.append("original_bytes", file.size);
+      return send("upload.image", data);
+    });
   }
 
   $$("[data-dropzone]").forEach(function (zone) {
@@ -588,7 +657,7 @@
         return;
       }
       zone.classList.add("is-busy");
-      var pending = images.length, done = 0;
+      var pending = images.length, done = 0, before = 0, after = 0;
       images.forEach(function (file) {
         var li = galleryThumb(URL.createObjectURL(file));
         li.classList.add("is-uploading");
@@ -601,6 +670,8 @@
             li.insertBefore(hidden, li.querySelector("[data-gthumb-tag]"));
             li.querySelector("img").src = res.thumb;
             done++;
+            before += res.before || 0;
+            after += res.after || 0;
           } else {
             li.remove();
             toast("“" + file.name + "” was not uploaded", (res && res.error) || "Please try again.", true);
@@ -608,7 +679,7 @@
           if (--pending === 0) {
             zone.classList.remove("is-busy");
             if (target.hasAttribute("data-gallery")) relabelGallery(target);
-            if (done) toast(done === 1 ? "Photo uploaded" : done + " photos uploaded", "Save the product to keep them with it.");
+            if (done) toast(done === 1 ? "Photo uploaded" : done + " photos uploaded", compressedNote(before, after) + (input.getAttribute("data-upload-note") || "Save the product to keep them with it."));
           }
         });
       });
@@ -638,7 +709,7 @@
       if (holder) holder.classList.remove("is-busy");
       if (res && res.ok) {
         if (value) value.value = res.path;
-        toast("Photo uploaded", "Save to use it here.");
+        toast("Photo uploaded", compressedNote(res.before, res.after) + "Save to use it here.");
       } else {
         if (img) { if (before) img.src = before; else { img.removeAttribute("src"); img.hidden = true; } }
         toast("The photo was not uploaded", (res && res.error) || "Please try again.", true);
@@ -857,38 +928,210 @@
     bar.addEventListener("pointerleave", hideTip);
   });
 
-  /* ---------- Enquiries ---------- */
+  /* ---------- Enquiries: the conversations ---------- */
   var inbox = $("[data-inbox]");
+  // A conversation opens at its latest message
+  function showLatest(thread) {
+    var box = $(".inbox__thread", inbox);
+    var last = thread && $(".thread__messages > :last-child", thread);
+    if (!box || !last) return;
+    box.scrollTop = Math.max(0, last.offsetTop - box.clientHeight * 0.4);
+  }
   if (inbox) {
-    var SAVED_REPLIES = {
-      visit: "Thank you for writing to Mangalam, {name}. We would love to show you the piece in person — Mangalam House on Ring Road is open Monday to Saturday, 10:30 AM to 8:30 PM. Shall I book a private viewing for you?",
-      bridal: "Congratulations, {name}! Our bridal consultations are private and unhurried — about ninety minutes with a designer. Tell us two or three dates that suit you and we will prepare pieces before you arrive.",
-      care: "Hello {name}, cleaning and repairs are free for the life of every Mangalam piece. Bring it to Mangalam House any day and our karigars will look at it while you wait.",
-    };
     inbox.addEventListener("click", function (e) {
       var open = e.target.closest("[data-thread-open]");
       if (open) {
-        var id = open.getAttribute("data-thread-open");
+        var id = open.getAttribute("data-thread-open"), shown = null;
         $$("[data-thread-open]", inbox).forEach(function (b) { b.setAttribute("aria-current", String(b === open)); });
-        $$("[data-thread]", inbox).forEach(function (t) { t.hidden = t.getAttribute("data-thread") !== id; });
+        $$("[data-thread]", inbox).forEach(function (t) { t.hidden = t.getAttribute("data-thread") !== id; if (!t.hidden) shown = t; });
         open.classList.remove("is-unread");
         inbox.classList.add("is-reading");
         $(".inbox__thread", inbox).scrollTop = 0;
+        showLatest(shown);
         if (!wide.matches) window.scrollTo(0, inbox.getBoundingClientRect().top + window.scrollY - 80);
       }
       if (e.target.closest("[data-thread-back]")) inbox.classList.remove("is-reading");
     });
-    inbox.addEventListener("change", function (e) {
-      var pick = e.target.closest("[data-saved-reply]");
-      if (!pick || !pick.value) return;
-      var text = $("textarea", pick.closest("form"));
-      text.value = SAVED_REPLIES[pick.value].replace("{name}", text.getAttribute("data-reply-for"));
-      text.focus();
-      pick.value = "";
-    });
+    showLatest($("[data-thread]:not([hidden])", inbox));
   }
 
+  /* ---------- The composer: email, WhatsApp or a note; templates; the email's preview ---------- */
+  // {first_name} and the rest, from the conversation (data-vars) and, in New message, from the fields as they are typed
+  function composerVars(form) {
+    var vars = {};
+    try { vars = JSON.parse(form.getAttribute("data-vars") || "{}"); } catch (err) { /* none */ }
+    var name = $("[data-var-name]", form), product = $("[data-var-product]", form);
+    if (name && name.value.trim()) { vars.name = name.value.trim(); vars.first_name = vars.name.split(/\s+/)[0]; }
+    if (product && product.value) vars.product = product.options[product.selectedIndex].text.replace(/\s*\(not on the website\)$/, "");
+    return vars;
+  }
+  function fillVars(text, vars) {
+    return String(text || "").replace(/\{([a-z_]+)\}/g, function (all, key) {
+      return Object.prototype.hasOwnProperty.call(vars, key) && vars[key] !== "" ? vars[key] : all;
+    });
+  }
+  function composerMode(form) {
+    var picked = $("input[name=channel]:checked", form);
+    return picked ? picked.value : "email";
+  }
+  function showMode(form) {
+    var mode = composerMode(form);
+    $$("[data-for]", form).forEach(function (el) { el.hidden = el.getAttribute("data-for") !== mode; });
+    var text = $("textarea[name=message]", form);
+    if (text && !text.hasAttribute("data-placeholder")) text.setAttribute("data-placeholder", text.placeholder);
+    if (text) text.placeholder = mode === "note" ? "What should the team know? Or what did they say?" : text.getAttribute("data-placeholder");
+  }
+  function applyTemplate(form, select) {
+    var opt = select.options[select.selectedIndex];
+    if (!opt || !opt.value) return;
+    var t = JSON.parse(opt.getAttribute("data-t") || "{}"), vars = composerVars(form), mode = composerMode(form);
+    var text = $("textarea[name=message]", form), heading = fillVars(t.heading, vars), body = fillVars(t.body, vars);
+    // In WhatsApp the heading leads the message (its *stars* show as bold there)
+    text.value = mode === "whatsapp" && heading ? heading + "\n\n" + body : body;
+    var h = form.elements.namedItem("heading");
+    if (h) h.value = heading;
+    var s = form.elements.namedItem("subject");
+    if (s && t.subject) {
+      var ref = (s.value.match(/\s*\[MJ-\d+\]\s*$/) || [""])[0];
+      s.value = fillVars(t.subject, vars).replace(/\s*\[MJ-\d+\]\s*$/, "") + ref;
+    }
+    var id = $("[data-template-id]", form);
+    if (id) id.value = opt.value;
+    text.focus();
+    text.setSelectionRange(0, 0);
+    text.scrollTop = 0;
+  }
+  $$("[data-composer]").forEach(function (form) {
+    showMode(form);
+    form.addEventListener("change", function (e) {
+      if (e.target.name === "channel") showMode(form);
+      if (e.target.matches("[data-template-pick]")) applyTemplate(form, e.target);
+    });
+    form.addEventListener("reset", function () { setTimeout(function () { showMode(form); }, 0); });
+  });
+  // WhatsApp opens with the message written; the form then keeps a copy in the conversation
+  function waNumber(phone) {
+    var d = String(phone || "").replace(/\D/g, "");
+    if (d.length === 11 && d.charAt(0) === "0") d = d.slice(1);
+    if (d.length === 10) d = "91" + d;
+    return d.length >= 11 ? d : "";
+  }
+  document.addEventListener("click", function (e) {
+    var btn = e.target.closest("[data-whatsapp-send]");
+    if (!btn) return;
+    var form = btn.closest("form"), text = $("textarea[name=message]", form).value.trim();
+    if (!text) return; // the form asks for it
+    var phone = $("[data-wa-phone]", form);
+    var number = form.getAttribute("data-wa") || waNumber(phone ? phone.value : "");
+    if (!number) { e.preventDefault(); toast("No WhatsApp number", "Add their mobile number first.", true); return; }
+    window.open("https://wa.me/" + number + "?text=" + encodeURIComponent(fillVars(text, composerVars(form))), "_blank", "noopener");
+  });
+  // The email as the customer will see it, before it is sent
+  var previewDialog = $("#preview-dialog");
+  document.addEventListener("click", function (e) {
+    var btn = e.target.closest("[data-composer-preview]");
+    if (!btn || !previewDialog) return;
+    busy(btn, true);
+    send("enquiry.preview", new FormData(btn.closest("form"))).then(function (res) {
+      busy(btn, false);
+      if (!res || !res.ok) { toast("No preview yet", (res && res.error) || "Please try again.", true); return; }
+      $("[data-preview-subject]", previewDialog).textContent = res.subject;
+      $("[data-preview-to]", previewDialog).textContent = res.to ? "To " + res.to : "";
+      $("[data-preview-frame]", previewDialog).srcdoc = res.html;
+      previewDialog.showModal();
+    });
+  });
+  document.addEventListener("change", function (e) {
+    if (!e.target.matches("[data-preview-size]")) return;
+    var scope = e.target.closest("dialog, .tpl-preview");
+    var wrap = scope && $("[data-preview-frame-wrap]", scope);
+    if (wrap) wrap.classList.toggle("is-phone", e.target.value === "phone");
+  });
+
+  /* ---------- Replies read from the mailbox ---------- */
+  var checkMail = $("[data-check-mail]");
+  if (checkMail) checkMail.addEventListener("click", function () {
+    busy(checkMail, true);
+    send("mail.fetch").then(function (res) { busy(checkMail, false); respond(res); });
+  });
+  // While Enquiries is open, new replies are read every two minutes; they are shown straight away unless something is being written
+  if (inbox && inbox.getAttribute("data-poll-mail")) setInterval(function () {
+    if (document.hidden) return;
+    send("mail.fetch", { quiet: true }).then(function (res) {
+      if (!res || !res.ok || !res.added) return;
+      var writing = $$("[data-composer] textarea").some(function (t) { return t.value.trim(); }) || $$("dialog[open]").length;
+      if (writing) toast(res.message, "Reload the page to see them, once you have sent what you are writing.");
+      else respond({ ok: true, message: res.message, reload: true });
+    });
+  }, 120000);
+
+  /* ---------- Email templates: fields put in at the cursor, and the preview as you type ---------- */
+  var tplEditor = $("[data-template-editor]");
+  if (tplEditor) {
+    var tplFrame = $("[data-template-preview]"), lastField = tplEditor.elements.namedItem("body"), tplTimer = null;
+    tplEditor.addEventListener("focusin", function (e) { if (e.target.matches("[data-field-target]")) lastField = e.target; });
+    $$("[data-insert-field]").forEach(function (chip) {
+      chip.addEventListener("click", function () {
+        var f = lastField, v = chip.getAttribute("data-insert-field");
+        var start = typeof f.selectionStart === "number" ? f.selectionStart : f.value.length, end = typeof f.selectionEnd === "number" ? f.selectionEnd : start;
+        f.value = f.value.slice(0, start) + v + f.value.slice(end);
+        f.focus();
+        f.setSelectionRange(start + v.length, start + v.length);
+        f.dispatchEvent(new Event("input", { bubbles: true }));
+      });
+    });
+    var refreshPreview = function () {
+      send("template.preview", new FormData(tplEditor)).then(function (res) {
+        if (!res || !res.ok) return;
+        var y = 0;
+        try { y = tplFrame.contentWindow.scrollY; } catch (err) { /* not readable */ }
+        tplFrame.addEventListener("load", function () { try { tplFrame.contentWindow.scrollTo(0, y); } catch (err) { /* not readable */ } }, { once: true });
+        tplFrame.srcdoc = res.html;
+        $$("[data-preview-subject]").forEach(function (el) { el.textContent = res.subject; });
+      });
+    };
+    var schedulePreview = function () { clearTimeout(tplTimer); tplTimer = setTimeout(refreshPreview, 450); };
+    tplEditor.addEventListener("input", schedulePreview);
+    tplEditor.addEventListener("change", schedulePreview);
+    // The button's words are only needed when it goes somewhere
+    var tplLink = $("[data-button-link]", tplEditor), tplWords = tplEditor.elements.namedItem("button");
+    var syncButton = function () { tplWords.disabled = !tplLink.value; };
+    tplLink.addEventListener("change", syncButton);
+    syncButton();
+  }
+  $$("[data-template-test]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      busy(btn, true);
+      send("template.test", paramsOf(btn)).then(function (res) {
+        busy(btn, false);
+        if (res && !res.ok) { toast("Test email not sent", res.error || "Please try again.", true); return; }
+        respond(res);
+      });
+    });
+  });
+
   /* ---------- Media library ---------- */
+  // Optimise: light copies for photographs that have none yet, a batch per request until all are done
+  var optimiseBtn = $("[data-optimise]");
+  if (optimiseBtn) optimiseBtn.addEventListener("click", function () {
+    var label = $("[data-optimise-label]", optimiseBtn);
+    var done = 0, saved = 0;
+    busy(optimiseBtn, true);
+    (function step() {
+      send("media.optimise").then(function (res) {
+        if (!res || !res.ok) { busy(optimiseBtn, false); respond(res); return; }
+        done += res.done;
+        saved += res.saved;
+        if (res.left > 0 && res.done > 0) {
+          label.textContent = "Optimising… " + done + " of " + (done + res.left);
+          step();
+          return;
+        }
+        respond({ ok: true, message: "Photographs optimised", text: done + (done === 1 ? " photo" : " photos") + " now reach visitors " + sizeLabel(saved) + " lighter.", reload: true });
+      });
+    })();
+  });
+
   var mediaInfo = $("[data-media-info]");
   if (mediaInfo) {
     $$("[data-media]").forEach(function (t) { t.setAttribute("aria-pressed", "false"); });
@@ -1094,13 +1337,15 @@
   document.addEventListener("change", function (e) { if (e.target.matches("[data-hours-toggle]")) syncHours(e.target); });
 
   // Port and security go together: 587 ↔ TLS, 465 ↔ SSL, 25 ↔ none
-  var PORT_OF = { tls: "587", ssl: "465", none: "25" };
+  // (and for reading replies: 993 ↔ SSL, 143 ↔ TLS)
+  var PORT_OF = { smtp: { tls: "587", ssl: "465", none: "25" }, imap: { ssl: "993", tls: "143" } };
   document.addEventListener("change", function (e) {
-    var form = e.target.form, t = e.target;
-    if (!form || (t.name !== "smtp_secure" && t.name !== "smtp_port")) return;
-    var port = form.elements.namedItem("smtp_port"), secure = form.elements.namedItem("smtp_secure");
-    if (t === secure && (!port.value.trim() || /^(587|465|25)$/.test(port.value.trim()))) port.value = PORT_OF[secure.value];
-    if (t === port) Object.keys(PORT_OF).forEach(function (k) { if (PORT_OF[k] === port.value.trim()) secure.value = k; });
+    var form = e.target.form, t = e.target, m = /^(smtp|imap)_(secure|port)$/.exec(t.name || "");
+    if (!form || !m) return;
+    var ports = PORT_OF[m[1]], port = form.elements.namedItem(m[1] + "_port"), secure = form.elements.namedItem(m[1] + "_secure");
+    var known = Object.keys(ports).map(function (k) { return ports[k]; });
+    if (t === secure && ports[secure.value] && (!port.value.trim() || known.indexOf(port.value.trim()) !== -1)) port.value = ports[secure.value];
+    if (t === port) Object.keys(ports).forEach(function (k) { if (ports[k] === port.value.trim()) secure.value = k; });
   });
 
   // A test email with the mail server as typed (before saving), to the "Send to" addresses
@@ -1115,6 +1360,23 @@
       send("settings.mailtest", data).then(function (res) {
         busy(btn, false);
         if (res && !res.ok) { toast("Test email not sent", res.error || "Please try again.", true); return; }
+        respond(res);
+      });
+    });
+  });
+
+  // Signs in to the mailbox as typed (before saving), to check the Replies by email settings
+  $$("[data-mailbox-test]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var form = btn.closest("form"), data = new FormData();
+      ["imap_host", "imap_port", "imap_secure", "imap_user", "imap_pass", "imap_folder"].forEach(function (name) {
+        var f = form.elements.namedItem(name);
+        if (f) data.set(name, f.value);
+      });
+      busy(btn, true);
+      send("settings.mailboxtest", data).then(function (res) {
+        busy(btn, false);
+        if (res && !res.ok) { toast("Could not open the mailbox", res.error || "Please try again.", true); return; }
         respond(res);
       });
     });

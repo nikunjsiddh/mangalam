@@ -1,8 +1,9 @@
-/* Mangalam Jewellers — "View in 3D" on the product page: the piece in the 3D viewer (assets/js/viewer3d.js),
- * with the metals and stones the team allowed for it (Products › 3D view & customiser in the admin), a picture
- * the visitor can save, and an enquiry that names the design they chose.
+/* Mangalam Jewellers — "View in 3D & customise" on the product page: the piece in the 3D viewer
+ * (assets/js/viewer3d.js) — a ring, kangan, earrings or pendant — with the metals, stones and styles the team
+ * allowed for it, and their size when the team asks for it (Catalogue › 3D jewellery, or Products › 3D view &
+ * customiser in the admin); a picture the visitor can save, and an enquiry that names the design they chose.
  * main.js imports this module the first time a visitor opens the viewer. */
-import { createViewer, METALS, STONES, DESIGNS, find } from 'mangalam/viewer3d';
+import { createViewer, KINDS, METALS, STONES, DESIGNS, DESIGN_ICONS, find } from 'mangalam/viewer3d';
 
 const ICONS = {
   close: '<path d="M18 6 6 18"/><path d="m6 6 12 12"/>',
@@ -36,9 +37,13 @@ function build() {
     </div>
     <aside class="v3d__panel">
       <button type="button" class="v3d__close" data-close aria-label="Close the 3D view">${svg('close')}</button>
-      <p class="v3d__eyebrow">View in 3D</p>
+      <p class="v3d__eyebrow">View in 3D &amp; customise</p>
       <h2 class="v3d__title" id="v3d-title" data-title></h2>
       <p class="v3d__summary" data-summary></p>
+      <div class="v3d__group" data-group="style">
+        <p class="v3d__label">Style <span data-pick="style"></span></p>
+        <div class="v3d__styles" data-options="style" role="group" aria-label="Style"></div>
+      </div>
       <div class="v3d__group" data-group="metal">
         <p class="v3d__label">Metal <span data-pick="metal"></span></p>
         <div class="v3d__swatches" data-options="metal" role="group" aria-label="Metal"></div>
@@ -47,7 +52,12 @@ function build() {
         <p class="v3d__label">Stone <span data-pick="stone"></span></p>
         <div class="v3d__swatches" data-options="stone" role="group" aria-label="Stone"></div>
       </div>
-      <figure class="v3d__photo"><img alt="" data-photo><figcaption>The piece as photographed. Try other metals and stones above — every Mangalam jewel is made to order.</figcaption></figure>
+      <div class="v3d__group" data-group="size">
+        <label class="v3d__label" for="v3d-size" data-size-label>Size</label>
+        <select class="v3d__size" id="v3d-size" data-size></select>
+        <p class="v3d__size-note">Not sure? Choose “I will be measured” and our concierge will size you when you visit.</p>
+      </div>
+      <figure class="v3d__photo"><img alt="" data-photo><figcaption>The piece as photographed. Try the choices above — every Mangalam jewel is made to order.</figcaption></figure>
       <div class="v3d__actions">
         <button type="button" class="btn btn--primary" data-enquire>${svg('enquire')} Enquire about this design</button>
         <button type="button" class="btn btn--outline" data-save>${svg('save')} Save image</button>
@@ -69,6 +79,7 @@ function build() {
     if (e.target.closest('[data-enquire]')) enquire();
     if (e.target.closest('[data-save]')) saveImage();
   });
+  dialog.querySelector('[data-size]').addEventListener('change', e => { chosen.size = e.target.value; sync(); });
   dialog.querySelector('canvas').addEventListener('viewer:interact', () => dialog.querySelector('[data-hint]').classList.add('is-hidden'));
 }
 
@@ -96,11 +107,24 @@ function swatches(kind, ids) {
   }).join('');
 }
 
+// The other styles of the same kind the team lets visitors try
+function styleButtons(ids) {
+  return ids.map(id => {
+    const d = find(DESIGNS, id);
+    return `<button type="button" class="v3d__style" data-kind="style" data-option="${d.id}" aria-pressed="false" title="${esc(d.sub)}">
+      <span class="v3d__style-icon" aria-hidden="true">${DESIGN_ICONS[d.id] || ''}</span><span class="v3d__name">${esc(d.name)}</span></button>`;
+  }).join('');
+}
+
 const label = (kind, id) => find(kind === 'metal' ? METALS : STONES, id);
+const kindOf = () => find(KINDS, current.view3d.kind || 'ring');
+const UNMEASURED = 'I will be measured';
+const styled = () => current.view3d.source === 'design' && (current.view3d.styles || []).length > 1;
+const sized = () => !!(current.view3d.sizes && kindOf().size);
 function hasStones() {
   const v = current.view3d;
   if (v.source === 'model') return !viewer || !viewer.stats || viewer.stats.stones > 0;
-  return find(DESIGNS, v.design.type).stone;
+  return find(DESIGNS, chosen.style || v.design.type).stone;
 }
 function hasMetal() {
   const v = current.view3d;
@@ -108,12 +132,18 @@ function hasMetal() {
 }
 function summary() {
   const m = label('metal', chosen.metal), s = label('stone', chosen.stone);
-  return hasStones() ? `${m.name} · ${s.name}` : m.name;
+  const parts = [hasStones() ? `${m.name} · ${s.name}` : m.name];
+  if (styled()) parts.unshift(find(DESIGNS, chosen.style).name);
+  if (sized() && chosen.size && chosen.size !== UNMEASURED) parts.push(`${kindOf().size.label} ${chosen.size}`);
+  return parts.join(' · ');
 }
 function sync() {
   dialog.querySelectorAll('[data-option]').forEach(b => b.setAttribute('aria-pressed', String(chosen[b.dataset.kind] === b.dataset.option)));
   dialog.querySelector('[data-pick="metal"]').textContent = label('metal', chosen.metal).sub;
   dialog.querySelector('[data-pick="stone"]').textContent = label('stone', chosen.stone).sub;
+  dialog.querySelector('[data-pick="style"]').textContent = styled() ? find(DESIGNS, chosen.style).sub : '';
+  dialog.querySelector('[data-group="style"]').hidden = !styled();
+  dialog.querySelector('[data-group="size"]').hidden = !sized();
   dialog.querySelector('[data-summary]').textContent = summary();
   dialog.querySelector('[data-group="metal"]').hidden = !hasMetal() || current.view3d.metals.length < 2;
   dialog.querySelector('[data-group="stone"]').hidden = !hasStones() || current.view3d.stones.length < 2;
@@ -122,21 +152,29 @@ function sync() {
 function choose(kind, id) {
   chosen[kind] = id;
   if (kind === 'metal') viewer?.setMetal(id);
-  else viewer?.setStone(id);
+  else if (kind === 'stone') viewer?.setStone(id);
+  else if (viewer) {
+    // Another style of the same piece, in the metal and stone already chosen
+    viewer.apply({ ...current.view3d, design: { ...current.view3d.design, type: id }, metal: chosen.metal, stone: chosen.stone }, { animate: true })
+      .then(sync).catch(err => console.error(err));
+  }
   sync();
 }
 
 function enquire() {
   const what = hasStones() ? `${label('metal', chosen.metal).name.toLowerCase()} with ${label('stone', chosen.stone).name.toLowerCase()}` : label('metal', chosen.metal).name.toLowerCase();
+  const style = styled() ? `, in the ${find(DESIGNS, chosen.style).name.toLowerCase()} style` : '';
+  const sizeName = sized() ? kindOf().size.label.toLowerCase() : '';
+  const size = !sized() || !chosen.size ? '' : chosen.size === UNMEASURED ? ` I would like to be measured for my ${sizeName}.` : ` My ${sizeName} is ${chosen.size}.`;
   dialog.close();
-  if (hooks.onEnquire) hooks.onEnquire(`I would like to know more about the ${current.name} in ${what}, as I designed it in the 3D view.`);
+  if (hooks.onEnquire) hooks.onEnquire(`I would like to know more about the ${current.name} in ${what}${style}, as I designed it in the 3D view.${size}`);
 }
 
 function saveImage() {
   if (!viewer) return;
   const a = document.createElement('a');
   a.href = viewer.snapshot({ title: current.name, sub: summary() });
-  a.download = `${current.slug}-${chosen.metal}${hasStones() ? '-' + chosen.stone : ''}.png`;
+  a.download = `${current.slug}${styled() ? '-' + chosen.style : ''}-${chosen.metal}${hasStones() ? '-' + chosen.stone : ''}.png`;
   document.body.append(a);
   a.click();
   a.remove();
@@ -154,8 +192,15 @@ export async function open3D(p, h = {}) {
   current = p;
   const v = p.view3d;
   if (fresh) {
-    chosen = { metal: v.metal, stone: v.stone };
+    chosen = { metal: v.metal, stone: v.stone, style: v.design.type, size: '' };
     dialog.querySelector('[data-title]').textContent = p.name;
+    dialog.querySelector('[data-options="style"]').innerHTML = styleButtons(v.styles || [v.design.type]);
+    const k = find(KINDS, v.kind || 'ring');
+    if (k.size) {
+      dialog.querySelector('[data-size-label]').textContent = k.size.label;
+      dialog.querySelector('[data-size]').innerHTML = `<option value="">Choose your ${esc(k.size.label.toLowerCase())}</option>`
+        + k.size.list.map(s => `<option>${esc(s)}</option>`).join('') + `<option>${UNMEASURED}</option>`;
+    }
     dialog.querySelector('[data-options="metal"]').innerHTML = swatches('metal', v.metals);
     dialog.querySelector('[data-options="stone"]').innerHTML = swatches('stone', v.stones);
     const photo = dialog.querySelector('[data-photo]');

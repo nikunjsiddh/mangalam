@@ -1614,6 +1614,84 @@
       "seoTitle": "Page Not Found — Mangalam Jewellers",
       "seoDesc": "The page you are looking for could not be found.",
       "sort": 10
+    },
+    {
+      "key": "offers",
+      "name": "Offers",
+      "kind": "Page",
+      "heading": "Offers of | the *season*",
+      "lead": "Seasonal savings on our handcrafted gold, diamond and bridal jewellery, chosen category by category. Every piece is BIS hallmarked.",
+      "banner": "assets/images/campaign/banner-all.jpg",
+      "seoTitle": "Jewellery Offers — Mangalam Jewellers",
+      "seoDesc": "This season's offers on rings, necklaces, earrings, bangles and bridal jewellery at Mangalam Jewellers, Surat. Every piece BIS hallmarked.",
+      "sort": 11
+    }
+  ],
+  "offers": [
+    {
+      "category": "bridal",
+      "kicker": "Wedding season 2026",
+      "title": "The bridal *celebration*",
+      "dealType": "upto",
+      "percent": 25,
+      "dealOn": "making charges",
+      "text": "Chokers, rani haars, kadas and complete sets for the bride and her family — handcrafted in our Surat atelier and finished for the wedding day.",
+      "terms": "On bridal sets and pieces above ₹ 1,50,000. Cannot be combined with other offers.",
+      "cta": "Shop the bridal edit",
+      "images": ["assets/images/campaign/banner-bridal.jpg", "assets/images/campaign/coll-bridal.jpg", "assets/images/campaign/panel-sets.jpg", "assets/images/campaign/cat-bridal.jpg", "assets/images/campaign/heritage-1.jpg"],
+      "endsInDays": 66
+    },
+    {
+      "category": "necklaces",
+      "kicker": "Festive season",
+      "title": "Necklaces that *dazzle*",
+      "dealType": "upto",
+      "percent": 20,
+      "dealOn": "making charges",
+      "text": "From delicate everyday chains to temple and kundan statements — find the necklace that lights up every celebration.",
+      "terms": "On gold and diamond necklaces. Gold rate as on the day of billing.",
+      "cta": "",
+      "images": ["assets/images/campaign/banner-necklaces.jpg", "assets/images/campaign/panel-necklaces.jpg", "assets/images/campaign/cat-necklaces.jpg", "assets/images/campaign/coll-heritage.jpg"],
+      "endsInDays": 31
+    },
+    {
+      "category": "earrings",
+      "kicker": "For every glance",
+      "title": "Earrings, *beautifully* priced",
+      "dealType": "flat",
+      "percent": 15,
+      "dealOn": "making charges",
+      "text": "Studs, jhumkas and chandbalis that frame the face — light enough for every day, grand enough for the big days.",
+      "terms": "On all earrings in store and on enquiry.",
+      "cta": "",
+      "images": ["assets/images/campaign/banner-earrings.jpg", "assets/images/campaign/panel-earrings.jpg", "assets/images/campaign/cat-earrings.jpg"],
+      "endsInDays": 21
+    },
+    {
+      "category": "bangles",
+      "kicker": "Stacked with joy",
+      "title": "Bangles & *kadas*",
+      "dealType": "upto",
+      "percent": 18,
+      "dealOn": "making charges",
+      "text": "Filigree, kundan and peacock kadas made in pairs — the sound of celebration, crafted to last for generations.",
+      "terms": "On bangles and kadas sold in pairs.",
+      "cta": "",
+      "images": ["assets/images/campaign/banner-bangles.jpg", "assets/images/campaign/panel-bangles.jpg", "assets/images/campaign/cat-bangles.jpg"],
+      "endsInDays": 45
+    },
+    {
+      "category": "rings",
+      "kicker": "Rings of promise",
+      "title": "A ring for *every vow*",
+      "dealType": "flat",
+      "percent": 10,
+      "dealOn": "",
+      "text": "Solitaires, cocktail rings and bands for engagements, anniversaries and the moments in between.",
+      "terms": "On diamond and gold rings. Not valid on coins and bullion.",
+      "cta": "",
+      "images": ["assets/images/campaign/banner-rings.jpg", "assets/images/campaign/cat-rings.jpg", "assets/images/campaign/coll-diamond.jpg"],
+      "endsInDays": 0
     }
   ],
   "settings": {
@@ -1953,6 +2031,13 @@
         "Invite and remove team members",
         1,
         0,
+        0,
+        0
+      ],
+      [
+        "Edit email templates",
+        1,
+        1,
         0,
         0
       ]

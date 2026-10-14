@@ -1,11 +1,17 @@
-/* Mangalam Jewellers — Products › 3D view & customiser (the product editor's 3D card).
+/* Mangalam Jewellers — the 3D view & customiser (app/views/admin/partials/view3d-editor.html), in the product
+ * editor and in the drawer of Catalogue › 3D jewellery.
  *
  * The card keeps every setting in one hidden field, view3d (JSON), which is saved with the product and checked
- * by view3d_config() in app/lib/content.php. Beside the product's main photo it shows a live 3D preview
- * (assets/js/viewer3d.js), so the team can match a house ring design to the photo — "Match from photo & details"
- * fills in the ring type from the name and the metal and stone from the product's details and photo. A .glb model
- * can be uploaded instead (admin/api.php › upload.model). */
-import { createViewer, DESIGNS, METALS, STONES, DESIGN_ICONS, find } from 'mangalam/viewer3d';
+ * by view3d_config() in app/lib/content.php. A live 3D preview (assets/js/viewer3d.js) sits beside the product's
+ * main photo so the team can match a house design to it — a ring, kangan, earrings or pendant, each in several
+ * styles — and "Match from photo & details" guesses the kind from the category, the style from the name, and the
+ * metal and stone from the details and photo. A .glb model can be uploaded instead (admin/api.php › upload.model).
+ * The team also chooses what visitors may change: metals, stones, other styles of the same kind, and whether they
+ * are asked for their size.
+ *
+ * In the drawer the card is filled from the piece's Edit button (admin.js dispatches admin:filled on the dialog),
+ * or from the product chosen when adding a new 3D piece. */
+import { createViewer, KINDS, DESIGNS, METALS, STONES, DESIGN_ICONS, designsOf, find } from 'mangalam/viewer3d';
 
 const card = document.querySelector('[data-view3d-card]');
 if (card) init(card);
@@ -17,15 +23,27 @@ function init(card) {
   const field = $('[data-v3d-value]');
   const status = $('[data-v3d-status]');
   const CSRF = document.querySelector('meta[name="csrf-token"]')?.content || '';
+  let GUESS = { kinds: {}, words: {} };
+  try { GUESS = JSON.parse(card.dataset.v3dGuess || '{}'); } catch (err) { /* keep the empty lists */ }
+  const DESIGN_LABEL = { ring: 'Ring design', bangle: 'Kangan design', earring: 'Earring style', pendant: 'Pendant design' };
 
-  let cfg = {};
-  try { cfg = JSON.parse(field.value || '{}') || {}; } catch (err) { cfg = {}; }
-  cfg = {
-    enabled: false, source: 'design', model: '', metal: 'yellow', stone: 'diamond',
-    metals: METALS.map(m => m.id), stones: STONES.map(s => s.id),
-    ...cfg,
-    design: { type: 'solitaire', stoneSize: 1, bandWidth: 1, prongs: 6, ...(cfg.design || {}) },
+  // In the drawer, the product being edited: { name, category, metal, stone, photo }
+  let product = null;
+  const normal = raw => {
+    const c = {
+      enabled: false, kind: 'ring', source: 'design', model: '', metal: 'yellow', stone: 'diamond',
+      metals: METALS.map(m => m.id), stones: STONES.map(s => s.id), styles: [], sizes: false,
+      ...(raw || {}),
+    };
+    if (!find(KINDS, c.kind) || find(KINDS, c.kind).id !== c.kind) c.kind = 'ring';
+    const ids = designsOf(c.kind).map(d => d.id);
+    c.design = { type: ids[0], stoneSize: 1, bandWidth: 1, prongs: 6, pair: false, ...(c.design || {}) };
+    if (!ids.includes(c.design.type)) c.design.type = ids[0];
+    c.styles = ids.filter(id => id === c.design.type || (c.styles || []).includes(id));
+    return c;
   };
+  const parse = text => { try { return JSON.parse(text || '{}') || {}; } catch (err) { return {}; } };
+  let cfg = normal(parse(field.value));
   let modelInfo = null; // { name, size } for a model uploaded on this visit
   let viewer = null;
 
@@ -36,18 +54,35 @@ function init(card) {
     if (text) e.textContent = text;
     return e;
   };
-  $('[data-v3d-designs]').replaceChildren(...DESIGNS.map(d => {
-    const label = el('label', 'v3d-design');
-    const input = el('input');
-    Object.assign(input, { type: 'radio', name: 'v3d-design', value: d.id });
-    input.dataset.v3dDesign = '';
-    const icon = el('span', 'v3d-design__icon');
-    icon.innerHTML = DESIGN_ICONS[d.id];
-    const text = el('span', 'v3d-design__text');
-    text.append(el('strong', '', d.name), el('small', '', d.sub));
-    label.append(input, icon, text);
+  $('[data-v3d-kinds]').replaceChildren(...KINDS.map(k => {
+    const label = el('label');
+    const input = Object.assign(el('input'), { type: 'radio', name: 'v3d-kind', value: k.id });
+    input.dataset.v3dKind = '';
+    label.append(input, el('span', '', k.name));
     return label;
   }));
+  function buildDesigns() {
+    $('[data-v3d-designs]').replaceChildren(...designsOf(cfg.kind).map(d => {
+      const label = el('label', 'v3d-design');
+      const input = Object.assign(el('input'), { type: 'radio', name: 'v3d-design', value: d.id });
+      input.dataset.v3dDesign = '';
+      const icon = el('span', 'v3d-design__icon');
+      icon.innerHTML = DESIGN_ICONS[d.id] || '';
+      const text = el('span', 'v3d-design__text');
+      text.append(el('strong', '', d.name), el('small', '', d.sub));
+      label.append(input, icon, text);
+      return label;
+    }));
+    $('[data-v3d-choices="styles"]').replaceChildren(...designsOf(cfg.kind).map(d => {
+      const label = el('label', 'v3d-choice v3d-choice--style');
+      const input = Object.assign(el('input'), { type: 'checkbox', value: d.id });
+      input.dataset.v3dChoice = 'styles';
+      const icon = el('span', 'v3d-choice__icon');
+      icon.innerHTML = DESIGN_ICONS[d.id] || '';
+      label.append(input, icon, el('span', '', d.name));
+      return label;
+    }));
+  }
   for (const [kind, list] of [['metal', METALS], ['stone', STONES]]) {
     $(`[data-v3d-select="${kind}"]`).replaceChildren(...list.map(o => Object.assign(el('option', '', `${o.name} — ${o.sub}`), { value: o.id })));
   }
@@ -62,16 +97,24 @@ function init(card) {
       return label;
     }));
   }
+  buildDesigns();
+  let builtKind = cfg.kind;
 
   /* ---------- Showing the settings ---------- */
+  const kindOf = () => find(KINDS, cfg.kind);
   const design = () => find(DESIGNS, cfg.design.type);
   const hasStone = () => (cfg.source === 'model' ? !viewer?.stats || viewer.stats.stones > 0 : design().stone);
   function render() {
+    if (builtKind !== cfg.kind) { buildDesigns(); builtKind = cfg.kind; }
+    const k = kindOf();
     $('[data-v3d-enabled]').checked = !!cfg.enabled;
     card.classList.toggle('is-off', !cfg.enabled);
+    $$('[data-v3d-kind]').forEach(r => (r.checked = r.value === cfg.kind));
     $$('[data-v3d-source]').forEach(r => (r.checked = r.value === cfg.source));
     $('[data-v3d-panel="design"]').hidden = cfg.source !== 'design';
     $('[data-v3d-panel="model"]').hidden = cfg.source !== 'model';
+    $('[data-v3d-design-label]').textContent = DESIGN_LABEL[cfg.kind];
+    $('[data-v3d-width-label]').textContent = k.width;
     $$('[data-v3d-design]').forEach(r => (r.checked = r.value === cfg.design.type));
     for (const key of ['stoneSize', 'bandWidth']) {
       $(`[data-v3d-range="${key}"]`).value = cfg.design[key];
@@ -79,15 +122,22 @@ function init(card) {
     }
     $$('[data-v3d-prongs]').forEach(r => (r.checked = Number(r.value) === cfg.design.prongs));
     $('[data-v3d-prongs-field]').hidden = cfg.source !== 'design' || !design().prongs;
+    $('[data-v3d-pair]').checked = !!cfg.design.pair;
+    $('[data-v3d-pair-field]').hidden = cfg.kind !== 'bangle';
     $$('[data-v3d-stone-field]').forEach(f => (f.hidden = !hasStone()));
     $('[data-v3d-select="metal"]').value = cfg.metal;
     $('[data-v3d-select="stone"]').value = cfg.stone;
     $$('[data-v3d-choice]').forEach(c => {
-      const kind = c.dataset.v3dChoice, first = kind === 'metals' ? cfg.metal : cfg.stone;
+      const kind = c.dataset.v3dChoice, first = kind === 'metals' ? cfg.metal : kind === 'stones' ? cfg.stone : cfg.design.type;
       c.checked = cfg[kind].includes(c.value);
       c.disabled = c.value === first; // the look shown first is always one of the choices
       c.closest('label').title = c.disabled ? 'Shown first, so always offered' : '';
     });
+    $('[data-v3d-styles-field]').hidden = cfg.source !== 'design';
+    $('[data-v3d-sizes-field]').hidden = !k.size;
+    $('[data-v3d-sizes]').checked = !!cfg.sizes && !!k.size;
+    if (k.size) $('[data-v3d-size-label]').textContent = k.size.label.toLowerCase();
+    $('[data-v3d-visitor-summary]').textContent = visitorSummary();
     const info = $('[data-v3d-model-info]');
     info.hidden = !cfg.model;
     if (cfg.model) {
@@ -95,6 +145,16 @@ function init(card) {
       $('[data-v3d-model-text]').textContent = modelText();
     }
     field.value = JSON.stringify(cfg);
+  }
+  // What a visitor sees in the 3D view, in one sentence
+  function visitorSummary() {
+    const k = kindOf(), parts = [];
+    if (cfg.metals.length > 1) parts.push(`${cfg.metals.length} metals`);
+    if (hasStone() && cfg.stones.length > 1) parts.push(`${cfg.stones.length} stones`);
+    if (cfg.source === 'design' && cfg.styles.length > 1) parts.push(`${cfg.styles.length} styles`);
+    if (cfg.sizes && k.size) parts.push(`their ${k.size.label.toLowerCase()}`);
+    const what = parts.length ? `Visitors choose ${parts.length > 1 ? parts.slice(0, -1).join(', ') + ' and ' + parts[parts.length - 1] : parts[0]}` : 'Visitors see the piece as it is, without choices';
+    return `${what}; their choice goes into the enquiry they send.`;
   }
   function modelText() {
     const s = viewer?.stats, size = modelInfo ? ` (${modelInfo.size})` : '';
@@ -133,20 +193,38 @@ function init(card) {
   }, { rootMargin: '200px' }).observe(card);
 
   /* ---------- Changes ---------- */
+  // A new kind starts on the style its name suggests (or its first), offering only that style
+  function setKind(kind) {
+    cfg.kind = kind;
+    const ids = designsOf(kind).map(d => d.id);
+    const guessed = guessType(kind, productInfo().name);
+    cfg.design = { ...cfg.design, type: guessed || ids[0], pair: false };
+    cfg.styles = [cfg.design.type];
+    cfg.sizes = !!find(KINDS, kind).size;
+    if (cfg.source === 'model' && !cfg.model) cfg.source = 'design';
+  }
   card.addEventListener('change', e => {
     const t = e.target;
+    if (!e.isTrusted) return; // programmatic resets (opening the drawer) are followed by a fresh load
     if (t.matches('[data-v3d-enabled]')) cfg.enabled = t.checked;
+    else if (t.matches('[data-v3d-kind]')) setKind(t.value);
     else if (t.matches('[data-v3d-source]')) cfg.source = t.value;
-    else if (t.matches('[data-v3d-design]')) cfg.design = { ...cfg.design, type: t.value };
-    else if (t.matches('[data-v3d-prongs]')) cfg.design = { ...cfg.design, prongs: Number(t.value) };
+    else if (t.matches('[data-v3d-design]')) {
+      const only = cfg.styles.length === 1 && cfg.styles[0] === cfg.design.type;
+      cfg.design = { ...cfg.design, type: t.value };
+      cfg.styles = designsOf(cfg.kind).map(d => d.id).filter(id => id === t.value || (!only && cfg.styles.includes(id)));
+    } else if (t.matches('[data-v3d-prongs]')) cfg.design = { ...cfg.design, prongs: Number(t.value) };
+    else if (t.matches('[data-v3d-pair]')) cfg.design = { ...cfg.design, pair: t.checked };
     else if (t.matches('[data-v3d-range]')) cfg.design = { ...cfg.design, [t.dataset.v3dRange]: Number(t.value) };
+    else if (t.matches('[data-v3d-sizes]')) { cfg.sizes = t.checked; render(); return; }
     else if (t.matches('[data-v3d-select]')) {
       const kind = t.dataset.v3dSelect;
       cfg[kind] = t.value;
       const list = `${kind}s`;
       if (!cfg[list].includes(t.value)) cfg[list] = [...cfg[list], t.value];
     } else if (t.matches('[data-v3d-choice]')) {
-      const kind = t.dataset.v3dChoice, order = (kind === 'metals' ? METALS : STONES).map(o => o.id);
+      const kind = t.dataset.v3dChoice;
+      const order = kind === 'metals' ? METALS.map(o => o.id) : kind === 'stones' ? STONES.map(o => o.id) : designsOf(cfg.kind).map(d => d.id);
       const set = new Set(cfg[kind]);
       if (t.checked) set.add(t.value); else set.delete(t.value);
       cfg[kind] = order.filter(id => set.has(id));
@@ -162,7 +240,7 @@ function init(card) {
   });
   // Sliders redraw as they move
   card.addEventListener('input', e => {
-    if (!e.target.matches('[data-v3d-range]')) return;
+    if (!e.isTrusted || !e.target.matches('[data-v3d-range]')) return;
     cfg.design = { ...cfg.design, [e.target.dataset.v3dRange]: Number(e.target.value) };
     render();
     show(false);
@@ -180,6 +258,32 @@ function init(card) {
     }
     if (e.target.closest('[data-v3d-match]')) matchPhoto();
   });
+
+  /* ---------- In the 3D jewellery drawer: a piece opened from its Edit button, or a product chosen to add ---------- */
+  function load(settings, info) {
+    product = info || null;
+    cfg = normal(settings);
+    modelInfo = null;
+    $('[data-v3d-match-note]').textContent = 'Picks the kind from the category and the style from the name, and the metal and stone from the details, using the main photo where they leave it open.';
+    render();
+    syncPhoto();
+    show(false);
+  }
+  const dialog = card.closest('dialog');
+  if (dialog) {
+    dialog.addEventListener('admin:filled', e => {
+      const d = e.detail || {};
+      const pick = dialog.querySelector('[data-v3d-pick-field]');
+      if (pick) pick.hidden = !!d.id; // a new 3D piece starts by choosing its product
+      load(parse(d.view3d), d.product || null);
+    });
+    const picker = dialog.querySelector('[data-v3d-product]');
+    if (picker) picker.addEventListener('change', () => {
+      const o = picker.selectedOptions[0];
+      if (!o || !o.value) return;
+      load({ ...parse(o.dataset.guess), enabled: true }, parse(o.dataset.product));
+    });
+  }
 
   /* ---------- Uploading a .glb model ---------- */
   const zone = $('[data-v3d-dropzone]');
@@ -214,12 +318,24 @@ function init(card) {
     modelInfo = { name: res.name, size: res.size };
     render();
     await show(true);
-    toast(res.message, res.text);
+    toast(res.message, product ? 'Save to keep it with this piece.' : res.text);
   }
 
   /* ---------- Match from photo ---------- */
+  // The product's details: from the product editor's own fields, or (in the drawer) from the piece opened
+  function productInfo() {
+    if (product) return { name: product.name || '', category: product.category || '', metal: product.metal || '', stone: product.stone || '' };
+    const value = n => form?.querySelector(`[name="${n}"]`)?.value || '';
+    return { name: value('name'), category: value('category'), metal: value('metal'), stone: value('stone') };
+  }
+  function guessType(kind, name) {
+    const words = GUESS.words?.[kind] || {}, lower = String(name || '').toLowerCase();
+    const hit = Object.keys(words).find(w => lower.includes(w));
+    return hit ? words[hit] : '';
+  }
   function mainPhoto() {
-    const first = form.querySelector('[data-gallery] input[name="gallery[]"]');
+    if (product) return product.photo ? `../${product.photo}` : '';
+    const first = form?.querySelector('[data-gallery] input[name="gallery[]"]');
     return first && first.value ? `../${first.value}` : '';
   }
   function syncPhoto() {
@@ -228,35 +344,39 @@ function init(card) {
     img.hidden = !src;
     $('[data-v3d-nophoto]').hidden = !!src;
   }
-  const gallery = form.querySelector('[data-gallery]');
+  const gallery = form?.querySelector('[data-gallery]');
   if (gallery) new MutationObserver(syncPhoto).observe(gallery, { childList: true, subtree: true, attributes: true, attributeFilter: ['value'] });
   syncPhoto();
 
-  // The ring type comes from the name, the metal and stone from the product's details; the photo settles what
-  // the details leave open (white or yellow metal for a diamond piece, the colour of a mixed or unnamed stone)
+  // The kind comes from the category, the style from the name, the metal and stone from the product's details;
+  // the photo settles what the details leave open (white or yellow metal for a diamond piece, the colour of a mixed
+  // or unnamed stone)
   async function matchPhoto() {
     const note = $('[data-v3d-match-note]');
-    const field = n => form.querySelector(`[name="${n}"]`)?.value || '';
-    const found = [];
-    const name = field('name').toLowerCase();
-    const words = [['halo', 'halo'], ['trilogy', 'trilogy'], ['three stone', 'trilogy'], ['three-stone', 'trilogy'], ['eternity', 'eternity'], ['band', 'band'], ['wedding', 'band'], ['solitaire', 'solitaire']];
-    const byName = words.find(([w]) => name.includes(w));
+    const info = productInfo(), found = [];
+    const kind = GUESS.kinds?.[info.category] || cfg.kind;
+    if (kind !== cfg.kind) {
+      setKind(kind);
+      found.push(`${find(KINDS, kind).name} (from the category)`);
+    }
+    const byName = guessType(kind, info.name);
     if (byName) {
-      cfg.design = { ...cfg.design, type: byName[1] };
-      found.push(`${find(DESIGNS, byName[1]).name} (from the name)`);
-    } else if (field('stone') === 'None') {
+      cfg.design = { ...cfg.design, type: byName };
+      found.push(`${find(DESIGNS, byName).name} (from the name)`);
+    } else if (kind === 'ring' && info.stone === 'None') {
       cfg.design = { ...cfg.design, type: 'band' };
       found.push('Plain band (no main stone in the details)');
     }
+    if (!cfg.styles.includes(cfg.design.type)) cfg.styles = designsOf(cfg.kind).map(d => d.id).filter(id => id === cfg.design.type || cfg.styles.includes(id));
     let colours = null;
     if (mainPhoto()) {
       try { colours = await readColours(mainPhoto()); } catch (err) { console.error(err); }
     }
-    const metal = { 'Rose gold': 'rose', Platinum: 'platinum', Silver: 'white' }[field('metal')];
+    const metal = { 'Rose gold': 'rose', Platinum: 'platinum', Silver: 'white' }[info.metal];
     cfg.metal = metal || colours?.metal || 'yellow';
     found.push(`${find(METALS, cfg.metal).name} (from the ${metal || !colours?.metal ? 'details' : 'photo'})`);
-    const stone = { Ruby: 'ruby', Emerald: 'emerald', Diamond: 'diamond', Polki: 'diamond', Kundan: 'diamond', Pearl: 'diamond' }[field('stone')];
-    if (stone || colours?.stone || field('stone') === 'Mixed') {
+    const stone = { Ruby: 'ruby', Emerald: 'emerald', Diamond: 'diamond', Polki: 'diamond', Kundan: 'diamond', Pearl: 'diamond' }[info.stone];
+    if (stone || colours?.stone || info.stone === 'Mixed') {
       cfg.stone = stone || colours?.stone || 'diamond';
       found.push(`${find(STONES, cfg.stone).name} (from the ${stone || !colours?.stone ? 'details' : 'photo'})`);
     }

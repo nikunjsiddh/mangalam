@@ -4,7 +4,7 @@
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
-DROP TABLE IF EXISTS enquiry_replies, enquiries, appointments, subscribers, hotspots, product_images, products,
+DROP TABLE IF EXISTS enquiry_replies, enquiries, message_templates, appointments, subscribers, hotspots, product_images, offers, products,
   categories, collections, articles, testimonials, pages, media, role_permissions, users, settings;
 
 SET FOREIGN_KEY_CHECKS = 1;
@@ -48,6 +48,7 @@ CREATE TABLE products (
   huid           VARCHAR(6)   NULL,
   image_position VARCHAR(40)  NOT NULL DEFAULT 'center',
   view3d         TEXT         NULL,                      -- the 3D view & customiser (JSON; see view3d_config() in app/lib/content.php)
+  spin           TEXT         NULL,                      -- the 360° view: its photographed frames and how it turns (JSON; see spin_config())
   is_new         TINYINT(1)   NOT NULL DEFAULT 0,
   featured_order INT          NOT NULL DEFAULT 0,        -- 0 = not featured; otherwise its place in the Signature tab
   show_price     TINYINT(1)   NOT NULL DEFAULT 1,
@@ -95,6 +96,30 @@ CREATE TABLE hotspots (
   flip        TINYINT(1)   NOT NULL DEFAULT 0,           -- card opens to the left
   sort_order  INT          NOT NULL DEFAULT 0,
   CONSTRAINT fk_hotspots_product FOREIGN KEY (product_id) REFERENCES products (id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Category offers: the Offers page (/offers.html), and the ribbon on the category's own page
+CREATE TABLE offers (
+  id              INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  category_id     INT UNSIGNED NULL,                     -- the category it is for; NULL = all jewellery
+  kicker          VARCHAR(80)  NOT NULL DEFAULT '',      -- small line above the title, e.g. "Wedding season"
+  title           VARCHAR(120) NOT NULL,                 -- *words* = gold italics
+  deal_type       ENUM('upto','flat') NOT NULL DEFAULT 'upto',  -- "Up to 25% off" or "Flat 10% off"
+  percent         TINYINT UNSIGNED NOT NULL DEFAULT 10,
+  deal_on         VARCHAR(60)  NOT NULL DEFAULT '',      -- what the discount is on ("making charges"); '' = the price
+  text            VARCHAR(400) NOT NULL DEFAULT '',
+  terms           VARCHAR(200) NOT NULL DEFAULT '',      -- small print
+  cta             VARCHAR(40)  NOT NULL DEFAULT '',      -- the button ('' = "Shop <category>")
+  images          TEXT         NULL,                     -- JSON list of photographs for the gallery; the first is the cover
+  with_products   TINYINT(1)   NOT NULL DEFAULT 1,       -- the gallery also shows the category's pieces
+  starts_on       DATE         NULL,
+  ends_on         DATE         NULL,                     -- runs to the end of this day
+  is_live         TINYINT(1)   NOT NULL DEFAULT 1,
+  sort_order      INT          NOT NULL DEFAULT 0,
+  created_at      DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at      DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  KEY idx_offers_live (is_live, sort_order),
+  CONSTRAINT fk_offers_category FOREIGN KEY (category_id) REFERENCES categories (id) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ---------- Website content ----------
@@ -168,30 +193,61 @@ CREATE TABLE settings (
 
 -- ---------- Customers ----------
 
+-- A conversation with a customer: the enquiry they sent (or the first message the team sent them), then every
+-- message either way in enquiry_replies
 CREATE TABLE enquiries (
   id          INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  token       CHAR(32)     NULL UNIQUE,                  -- the customer's private conversation page (conversation.html?t=…)
   name        VARCHAR(120) NOT NULL,
   email       VARCHAR(190) NOT NULL,
   phone       VARCHAR(40)  NOT NULL DEFAULT '',
-  source      ENUM('product','contact') NOT NULL DEFAULT 'contact',
+  source      ENUM('product','contact','email','admin') NOT NULL DEFAULT 'contact',  -- email = written straight to the mailbox; admin = started by the team
   product_id  INT UNSIGNED NULL,
   topic       VARCHAR(80)  NOT NULL DEFAULT '',
-  message     TEXT         NOT NULL,
-  status      ENUM('new','replied','closed','archived') NOT NULL DEFAULT 'new',
+  subject     VARCHAR(200) NOT NULL DEFAULT '',          -- the email subject ('' = made from the piece or the topic)
+  message     TEXT         NOT NULL,                     -- what the customer wrote ('' when the team started the conversation)
+  message_id  VARCHAR(255) NOT NULL DEFAULT '',          -- the email it arrived as (source = email)
+  status      ENUM('new','replied','closed','archived') NOT NULL DEFAULT 'new',  -- new = waiting for the team, also after the customer writes again
+  last_at     DATETIME     NULL,                         -- the latest message either way; the inbox is sorted by it
   created_at  DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at  DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   KEY idx_enquiries_status (status, created_at),
+  KEY idx_enquiries_email (email),
   CONSTRAINT fk_enquiries_product FOREIGN KEY (product_id) REFERENCES products (id) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- Every message after the first, either way and on any channel (the table's name is from when it held only replies)
 CREATE TABLE enquiry_replies (
   id          INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   enquiry_id  INT UNSIGNED NOT NULL,
+  direction   ENUM('out','in') NOT NULL DEFAULT 'out',   -- out = from the team, in = from the customer
+  channel     ENUM('email','whatsapp','website','phone','note') NOT NULL DEFAULT 'email',  -- note = seen only by the team
+  is_auto     TINYINT(1)   NOT NULL DEFAULT 0,           -- sent by the website itself (Email templates › Automatic emails)
   author      VARCHAR(120) NOT NULL,
+  subject     VARCHAR(200) NOT NULL DEFAULT '',
   message     TEXT         NOT NULL,
   emailed     TINYINT(1)   NOT NULL DEFAULT 0,
+  message_id  VARCHAR(255) NOT NULL DEFAULT '',          -- the email's Message-ID: replies are matched to it, and arrivals read only once
+  seen_at     DATETIME     NULL,                         -- the customer opened their conversation page after it
   created_at  DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  KEY idx_replies_enquiry (enquiry_id, created_at),
+  KEY idx_replies_message_id (message_id(64)),
   CONSTRAINT fk_replies_enquiry FOREIGN KEY (enquiry_id) REFERENCES enquiries (id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Email templates: the replies the team chooses from, and the emails the website sends by itself (auto_key)
+CREATE TABLE message_templates (
+  id          INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  name        VARCHAR(80)  NOT NULL,
+  auto_key    VARCHAR(40)  NULL UNIQUE,                  -- enquiry_received, appointment_received, appointment_confirmed; NULL = a reply
+  subject     VARCHAR(200) NOT NULL DEFAULT '',          -- '' = the conversation's own subject (appointment emails need one)
+  heading     VARCHAR(160) NOT NULL DEFAULT '',          -- the large line at the top of the email; *words* = gold italics
+  body        TEXT         NOT NULL,                     -- {first_name}, {product} … (TEMPLATE_FIELDS in app/lib/conversations.php)
+  button      VARCHAR(40)  NOT NULL DEFAULT '',          -- a button under the text ('' = none)
+  button_link VARCHAR(20)  NOT NULL DEFAULT 'conversation',  -- where it goes (TEMPLATE_LINKS)
+  is_on       TINYINT(1)   NOT NULL DEFAULT 1,           -- automatic emails can be switched off
+  sort_order  INT          NOT NULL DEFAULT 0,
+  updated_at  DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE appointments (

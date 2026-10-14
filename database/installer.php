@@ -1,7 +1,7 @@
 <?php
 /* Mangalam Jewellers — installation: creates the database and its tables, imports the website's existing
  * content from database/seed.json (products and their photographs, categories, collections, journal,
- * testimonials, pages, homepage, offer and settings), fills the media library from assets/images/, and
+ * testimonials, pages, homepage, offer, category offers and settings), fills the media library from assets/images/, and
  * creates the owner's account. Used by install.php (in the browser) and database/install-cli.php. */
 
 /**
@@ -72,6 +72,12 @@ function mj_install(array $opts): array
         foreach ($seed['collections'] as $col) {
             $ins('collections', ['title' => $col['title'], 'kicker' => $col['kicker'], 'image' => $col['image'], 'image_pos' => $col['pos'],
                 'rule_field' => $col['field'], 'rule_value' => $col['value'], 'on_home' => $col['onHome'], 'sort_order' => $col['sort']]);
+        }
+        foreach ($seed['offers'] ?? [] as $i => $o) {
+            $ins('offers', ['category_id' => $catIds[$o['category']] ?? null, 'kicker' => $o['kicker'], 'title' => $o['title'], 'deal_type' => $o['dealType'],
+                'percent' => $o['percent'], 'deal_on' => $o['dealOn'], 'text' => $o['text'], 'terms' => $o['terms'], 'cta' => $o['cta'],
+                'images' => json_encode($o['images'], JSON_UNESCAPED_SLASHES), 'ends_on' => $o['endsInDays'] ? date('Y-m-d', strtotime('+' . $o['endsInDays'] . ' days')) : null,
+                'sort_order' => $i + 1]);
         }
 
         // 5. Website content
@@ -153,7 +159,8 @@ function mj_install(array $opts): array
         $files = scandir(ROOT_DIR . '/' . $dir);
         sort($files, SORT_STRING);
         foreach ($files as $name) {
-            if (!is_file(ROOT_DIR . "/$dir/$name") || !preg_match('/\.(jpe?g|png|svg|webp|gif)$/i', $name) || ($filter && !$filter($name))) continue;
+            // Small copies and AVIF / WebP copies belong to their photograph; they are not library images of their own
+            if (!is_file(ROOT_DIR . "/$dir/$name") || !preg_match('/\.(jpe?g|png|svg|webp|gif)$/i', $name) || is_derived_image($name) || ($filter && !$filter($name))) continue;
             record_media("$dir/$name", $folder, $alts["$dir/$name"] ?? '');
             $media++;
         }
