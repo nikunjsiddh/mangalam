@@ -1,0 +1,24 @@
+<!doctype html>
+<meta charset="utf-8">
+<style>body{margin:0;background:#222;color:#fff;font:12px sans-serif}#g{display:grid;grid-template-columns:repeat(6,1fr);gap:2px}canvas{width:100%}</style>
+<div id="info">loading…</div>
+<div id="g"></div>
+<script>
+const v = document.createElement('video');
+v.muted = true; v.preload = 'auto';
+v.src = new URLSearchParams(location.search).get('v') || '4Z0A2958.MP4';
+const N = 24;
+v.addEventListener('loadedmetadata', async () => {
+  info.textContent = `${v.videoWidth}x${v.videoHeight} ${v.duration.toFixed(2)}s`;
+  for (let i = 0; i < N; i++) {
+    v.currentTime = (i + 0.5) * v.duration / N;
+    await new Promise(r => v.addEventListener('seeked', r, { once: true }));
+    const c = document.createElement('canvas');
+    c.width = 320; c.height = Math.round(320 * v.videoHeight / v.videoWidth);
+    c.getContext('2d').drawImage(v, 0, 0, c.width, c.height);
+    g.appendChild(c);
+  }
+  info.textContent += ' done';
+});
+v.addEventListener('error', () => info.textContent = 'error ' + (v.error && v.error.code));
+</script>

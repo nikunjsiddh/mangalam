@@ -1,0 +1,101 @@
+      <header class="ph">
+        <div>
+          <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Dashboard</a>{{icon:chevron-right}}<span aria-current="page">3D jewellery</span></nav>
+          <h1 class="ph__title">3D jewellery</h1>
+          <p class="ph__desc">Let visitors turn a piece before they enquire: a <strong>360° view</strong> of the piece itself, made from a turntable video or photos ({{spinLive}} on the website), or a <strong>3D design</strong> they can customise — metal, stone, style and size ({{v3dLive}} of {{v3dTotal}} on the website).</p>
+        </div>
+        <div class="ph__actions">
+          <button type="button" class="btn btn--outline" data-dialog-open="v3d-drawer" data-fill='{"title":"Add a 3D piece","subtitle":"Choose a product, then its kind, style and what visitors can change."}'>{{icon:box}} Add 3D piece</button>
+          <button type="button" class="btn btn--gold" data-dialog-open="spin-drawer" data-fill='{"title":"Add a 360° view","subtitle":"Choose a product, then make its frames from a turntable video or a set of photos."}'>{{icon:plus}} Add 360° view</button>
+        </div>
+      </header>
+
+      <div class="tabs" role="tablist" aria-label="3D jewellery" data-tab-hash>
+        <button type="button" role="tab" id="tab-spins" aria-controls="panel-spins" aria-selected="true">{{icon:rotate-3d}} 360° views <span class="chip__count">{{spinCount}}</span></button>
+        <button type="button" role="tab" id="tab-designs" aria-controls="panel-designs" aria-selected="false" tabindex="-1">{{icon:box}} 3D customiser <span class="chip__count">{{v3dCount}}</span></button>
+      </div>
+
+      <div role="tabpanel" id="panel-spins" aria-labelledby="tab-spins">
+        <div data-list-scope>
+          <div class="toolbar v3d-toolbar">
+            <label class="search">{{icon:search}}<span class="sr-only">Search 360° views</span><input class="input" type="search" placeholder="Search pieces…" data-list-search></label>
+            <div class="chips" role="group" aria-label="On the website">{{spinStateChips}}</div>
+          </div>
+          <div class="colls v3d-grid" data-list>{{spinCards}}
+          </div>
+          <div class="card" data-list-empty hidden>
+            <div class="empty empty--sm"><span class="empty__icon">{{icon:search}}</span><p class="empty__title">Nothing matches</p><p>Try another search, or show every piece.</p><button type="button" class="btn btn--outline btn--sm" data-list-reset>Show every piece</button></div>
+          </div>
+        </div>
+        <div class="card"{{spinEmptyHidden}}>
+          <div class="empty">
+            <span class="empty__icon">{{icon:rotate-3d}}</span>
+            <p class="empty__title">No 360° views yet</p>
+            <p>Film a piece turning on a turntable — or photograph it all the way round — and visitors can turn it themselves on its page.</p>
+            <button type="button" class="btn btn--gold" data-dialog-open="spin-drawer" data-fill='{"title":"Add a 360° view","subtitle":"Choose a product, then make its frames from a turntable video or a set of photos."}'>{{icon:plus}} Add 360° view</button>
+          </div>
+        </div>
+        <p class="hint mt-12">A piece's 360° view can also be edited in Products, under its photos. Visitors open it with “Turn 360°” on the main photograph, or the 360° thumbnail beside it.</p>
+      </div>
+
+      <div role="tabpanel" id="panel-designs" aria-labelledby="tab-designs" hidden>
+        <div data-list-scope>
+          <div class="toolbar v3d-toolbar">
+            <label class="search">{{icon:search}}<span class="sr-only">Search 3D pieces</span><input class="input" type="search" placeholder="Search pieces…" data-list-search></label>
+            <div class="chips" role="group" aria-label="Kind of piece">{{v3dKindChips}}</div>
+            <div class="chips" role="group" aria-label="On the website">{{v3dStateChips}}</div>
+          </div>
+          <div class="colls v3d-grid" data-list>{{v3dCards}}
+          </div>
+          <div class="card" data-list-empty hidden>
+            <div class="empty empty--sm"><span class="empty__icon">{{icon:search}}</span><p class="empty__title">Nothing matches</p><p>Try another kind, or clear the search.</p><button type="button" class="btn btn--outline btn--sm" data-list-reset>Show every piece</button></div>
+          </div>
+        </div>
+        <div class="card"{{v3dEmptyHidden}}>
+          <div class="empty">
+            <span class="empty__icon">{{icon:box}}</span>
+            <p class="empty__title">No 3D pieces yet</p>
+            <p>Give any product a 3D view — a ring, kangan, earrings or pendant — and choose what visitors can change.</p>
+            <button type="button" class="btn btn--gold" data-dialog-open="v3d-drawer" data-fill='{"title":"Add a 3D piece","subtitle":"Choose a product, then its kind, style and what visitors can change."}'>{{icon:plus}} Add 3D piece</button>
+          </div>
+        </div>
+        <p class="hint mt-12">Each piece's 3D view can also be edited at the foot of its product page in Products. Visitors open it with “View in 3D &amp; customise” beside the photographs.</p>
+      </div>
+
+      <dialog class="dialog dialog--drawer dialog--wide" id="spin-drawer" aria-labelledby="spin-drawer-title">
+        <form class="dialog__panel" data-save="spin.save" data-toast="360° view saved">
+          <input type="hidden" name="id" data-reset>
+          <header class="dialog__head">
+            <div><p class="dialog__eyebrow">360° view</p><h2 class="dialog__title" id="spin-drawer-title" data-fill-text="title">Edit 360° view</h2><p class="hint" data-fill-text="subtitle"></p></div>
+            <button type="button" class="icon-btn" data-dialog-close aria-label="Close">{{icon:x}}</button>
+          </header>
+          <div class="dialog__body stack">
+            <label class="field" data-spin-pick-field><span class="field__label">Product</span><select class="select" name="pick" data-spin-product required><option value="">Choose a piece without a 360° view…</option>{{spinProductOptions}}</select></label>
+{{> spin-editor}}
+          </div>
+          <footer class="dialog__foot">
+            <button type="button" class="btn btn--outline" data-dialog-close>Cancel</button>
+            <button type="submit" class="btn btn--primary">{{icon:check}} Save 360° view</button>
+          </footer>
+        </form>
+      </dialog>
+
+      <dialog class="dialog dialog--drawer dialog--wide" id="v3d-drawer" aria-labelledby="v3d-drawer-title">
+        <form class="dialog__panel" data-save="view3d.save" data-toast="3D view saved">
+          <input type="hidden" name="id" data-reset>
+          <header class="dialog__head">
+            <div><p class="dialog__eyebrow">3D jewellery</p><h2 class="dialog__title" id="v3d-drawer-title" data-fill-text="title">Edit 3D view</h2><p class="hint" data-fill-text="subtitle"></p></div>
+            <button type="button" class="icon-btn" data-dialog-close aria-label="Close">{{icon:x}}</button>
+          </header>
+          <div class="dialog__body stack">
+            <label class="field" data-v3d-pick-field><span class="field__label">Product</span><select class="select" name="pick" data-v3d-product required><option value="">Choose a piece without a 3D view…</option>{{v3dProductOptions}}</select><span class="hint">Its kind is guessed from its category and its style from its name — change either below.</span></label>
+{{> view3d-editor}}
+          </div>
+          <footer class="dialog__foot">
+            <button type="button" class="btn btn--outline" data-dialog-close>Cancel</button>
+            <button type="submit" class="btn btn--primary">{{icon:check}} Save 3D view</button>
+          </footer>
+        </form>
+      </dialog>
+      <!-- After the 3D editor's import map (a module may only load once the import map is in) -->
+      <script type="module" src="../assets/js/admin-spin.js?v={{adminSpinVersion}}"></script>

@@ -1,0 +1,65 @@
+    <section class="page-hero page-hero--offers">
+      <img class="page-hero__bg" src="{{pageBanner}}" alt="">
+      <span class="offer-hero__glow" aria-hidden="true"></span>
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb"><a href="index.html">Home</a><span class="breadcrumb__sep"></span><span aria-current="page">Offers</span></nav>
+        <h1 class="page-hero__title">{{pageHeading}}</h1>
+        <span class="ornament ornament--light" aria-hidden="true"></span>
+        <p class="page-hero__lead">{{pageLead}}</p>{{offerStats}}
+      </div>
+    </section>
+
+    <!-- Everything on this page is edited in the admin under Offers page (the offers, and Page content for the rest).
+         The galleries open in the lightbox below (assets/js/main.js).
+         The wrapper keeps the category chips stuck to the top only while the offers are on screen. -->
+    <div>
+      <div class="offer-filter"{{offerChipsHidden}}>
+        <div class="container">
+          <nav class="chips offer-filter__chips" aria-label="Offers by category">{{offerChips}}</nav>
+        </div>
+      </div>
+
+      <section class="section offers">
+        <div class="container">
+          <div class="offers__list" data-offer-list>{{offerBlocks}}
+          </div>
+          <div class="empty-state offers__empty"{{offerEmptyHidden}}>
+            <p class="empty-state__title">{{offerEmptyTitle}}</p>
+            <p>{{offerEmptyText}}</p>
+            <a class="btn btn--primary" href="jewellery.html">View all jewellery {{icon:arrow-right}}</a>
+          </div>
+        </div>
+      </section>
+    </div>
+{{offerSteps}}
+{{offerClosing}}
+
+    <!-- Offer gallery (lightbox) -->
+    <div class="modal lightbox" data-modal="lightbox" hidden>
+      <div class="modal__overlay lightbox__overlay" data-overlay data-close></div>
+      <div class="modal__panel lightbox__panel" data-panel role="dialog" aria-modal="true" aria-labelledby="lightbox-title" tabindex="-1">
+        <header class="lightbox__head">
+          <div>
+            <p class="lightbox__deal" data-lb-deal></p>
+            <h2 class="lightbox__title" id="lightbox-title" data-lb-title>Gallery</h2>
+          </div>
+          <p class="lightbox__count" aria-live="polite"><span data-lb-count>1</span> / <span data-lb-total>1</span></p>
+          <a class="btn btn--gold btn--sm lightbox__shop" href="jewellery.html" data-lb-shop>Shop the offer {{icon:arrow-right}}</a>
+          <button type="button" class="lightbox__close" data-close aria-label="Close gallery">{{icon:x}}</button>
+        </header>
+        <div class="lightbox__stage" data-lb-stage>
+          <button type="button" class="lightbox__nav lightbox__nav--prev" data-lb-step="-1" aria-label="Previous photo">{{icon:chevron-left}}</button>
+          <figure class="lightbox__figure">
+            <img class="lightbox__img" data-lb-img alt="">
+            <figcaption class="lightbox__caption">
+              <span class="lightbox__name" data-lb-caption></span>
+              <span class="lightbox__sub" data-lb-sub></span>
+              <a class="link-arrow link-arrow--light lightbox__link" href="#" data-lb-link hidden>View piece {{icon:arrow-right}}</a>
+            </figcaption>
+          </figure>
+          <button type="button" class="lightbox__nav lightbox__nav--next" data-lb-step="1" aria-label="Next photo">{{icon:chevron-right}}</button>
+        </div>
+        <div class="lightbox__thumbs" data-lb-thumbs aria-label="All photos"></div>
+      </div>
+    </div>
+    <script type="application/json" id="offer-galleries">{{offerData}}</script>

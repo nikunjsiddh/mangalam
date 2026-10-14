@@ -1,0 +1,76 @@
+      <!-- New message: a conversation the team starts (by email or WhatsApp) -->
+      <dialog class="dialog dialog--lg" id="message-dialog" aria-labelledby="message-dialog-title">
+        <form class="dialog__panel" data-save="enquiry.start" data-toast="Sent" data-composer data-vars="{{newMessageVars}}">
+          <input type="hidden" name="template" value="" data-template-id>
+          <header class="dialog__head">
+            <div><p class="dialog__eyebrow">Conversation</p><h2 class="dialog__title" id="message-dialog-title">New message</h2></div>
+            <button type="button" class="icon-btn" data-dialog-close aria-label="Close">{{icon:x}}</button>
+          </header>
+          <div class="dialog__body stack">
+            <div class="form-grid">
+              <label class="field"><span class="field__label">Customer</span><input class="input" name="name" required maxlength="120" autocomplete="off" data-var-name></label>
+              <label class="field"><span class="field__label">Email</span><input class="input" type="email" name="email" maxlength="190" autocomplete="off"></label>
+              <label class="field"><span class="field__label">Mobile <span class="field__aside">For WhatsApp</span></span><input class="input" type="tel" name="phone" maxlength="40" autocomplete="off" data-wa-phone></label>
+              <label class="field"><span class="field__label">About a piece <span class="field__aside">Optional</span></span><select class="select" name="product" data-var-product>{{productPick}}</select></label>
+            </div>
+            <div class="composer composer--dialog">
+              <div class="composer__top">
+                <div class="seg seg--sm composer__modes" role="radiogroup" aria-label="Send as">
+                  <label><input type="radio" name="channel" value="email" checked><span>{{icon:mail}}Email</span></label>
+                  <label><input type="radio" name="channel" value="whatsapp"><span>{{icon:whatsapp}}WhatsApp</span></label>
+                </div>
+                <select class="select select--sm composer__template" aria-label="Fill in from a template" data-template-pick>{{templateOptions}}</select>
+              </div>
+              <div class="composer__lines" data-for="email">
+                <label class="composer__line"><span>Subject</span><input name="subject" value="" maxlength="200" placeholder="e.g. The Rajwadi bridal set you asked about" autocomplete="off"></label>
+                <label class="composer__line"><span>Heading</span><input name="heading" value="" maxlength="160" placeholder="Optional — a large line at the top, e.g. Hello, *Priya*." autocomplete="off"></label>
+              </div>
+              <label class="sr-only" for="new-message-text">Message</label>
+              <textarea class="composer__text" id="new-message-text" name="message" rows="7" required placeholder="Write your message…"></textarea>
+              <div class="composer__foot">
+                <span class="composer__hint" data-for="email"><label class="check-inline"><input class="check" type="checkbox" name="show_product" value="1" checked> Show the piece, if one is chosen</label></span>
+                <span class="composer__hint" data-for="whatsapp" hidden>Opens WhatsApp with the message ready to send, and keeps a copy in Enquiries.</span>
+                <span class="composer__actions">
+                  <button type="button" class="btn btn--ghost btn--sm" data-for="email" data-composer-preview>{{icon:eye}}Preview</button>
+                  <button type="submit" class="btn btn--primary btn--sm" data-for="email">{{icon:send}}{{mailVerb}}</button>
+                  <button type="submit" class="btn btn--whatsapp btn--sm" data-for="whatsapp" data-whatsapp-send hidden>{{icon:whatsapp}}Open WhatsApp</button>
+                </span>
+              </div>
+            </div>
+          </div>
+        </form>
+      </dialog>
+
+      <!-- The customer's name, email and phone -->
+      <dialog class="dialog dialog--sm" id="contact-dialog" aria-labelledby="contact-dialog-title">
+        <form class="dialog__panel" data-save="enquiry.contact" data-toast="Saved">
+          <input type="hidden" name="id" data-reset>
+          <header class="dialog__head">
+            <div><p class="dialog__eyebrow">Customer</p><h2 class="dialog__title" id="contact-dialog-title">Contact details</h2></div>
+            <button type="button" class="icon-btn" data-dialog-close aria-label="Close">{{icon:x}}</button>
+          </header>
+          <div class="dialog__body stack">
+            <label class="field"><span class="field__label">Name</span><input class="input" name="name" required maxlength="120" autocomplete="off"></label>
+            <label class="field"><span class="field__label">Email</span><input class="input" type="email" name="email" maxlength="190" autocomplete="off"></label>
+            <label class="field"><span class="field__label">Mobile</span><input class="input" type="tel" name="phone" maxlength="40" autocomplete="off"><span class="hint">With the country code for numbers outside India, e.g. +44 7700 900123 — needed for WhatsApp.</span></label>
+          </div>
+          <footer class="dialog__foot">
+            <button type="button" class="btn btn--outline" data-dialog-close>Close</button>
+            <button type="submit" class="btn btn--primary">{{icon:check}} Save</button>
+          </footer>
+        </form>
+      </dialog>
+
+      <!-- The email as the customer will see it -->
+      <dialog class="dialog dialog--preview" id="preview-dialog" aria-labelledby="preview-dialog-title">
+        <div class="dialog__panel">
+          <header class="dialog__head">
+            <div><p class="dialog__eyebrow">Preview</p><h2 class="dialog__title" id="preview-dialog-title" data-preview-subject>Email</h2><p class="dialog__text" data-preview-to></p></div>
+            <div class="dialog__head-tools">
+              <div class="seg seg--sm" role="radiogroup" aria-label="Screen size"><label><input type="radio" name="preview-size" value="desktop" checked data-preview-size><span>{{icon:monitor}}</span></label><label><input type="radio" name="preview-size" value="phone" data-preview-size><span>{{icon:smartphone}}</span></label></div>
+              <button type="button" class="icon-btn" data-dialog-close aria-label="Close">{{icon:x}}</button>
+            </div>
+          </header>
+          <div class="email-frame" data-preview-frame-wrap><iframe class="email-frame__doc" title="Email preview" data-preview-frame sandbox="allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe></div>
+        </div>
+      </dialog>

@@ -8,6 +8,9 @@ Options -Indexes
   AddType image/x-icon .ico
   # 3D models for the product pages' 3D view
   AddType model/gltf-binary .glb
+  # The light copies of the photographs (below)
+  AddType image/avif .avif
+  AddType image/webp .webp
 </IfModule>
 
 <IfModule mod_rewrite.c>
@@ -16,6 +19,47 @@ Options -Indexes
   RewriteRule ^([A-Za-z0-9-]+)\.html$ index.php?route=$1 [QSA,L]
   # The catalogue, journal and testimonials for the website's scripts
   RewriteRule ^data\.js$ index.php?route=data.js [QSA,L]
+
+  # Photographs: a browser that reads AVIF (or WebP) gets the lighter copy made beside the JPEG or PNG
+  # ("ring.jpg.avif"), at the same address — so no page has to name the copies. Others get the JPEG as before.
+  RewriteCond %{HTTP_ACCEPT} image/avif
+  RewriteCond %{REQUEST_FILENAME}.avif -f
+  RewriteRule ^(assets/images/.+\.(?:jpe?g|png))$ $1.avif [T=image/avif,L]
+  RewriteCond %{HTTP_ACCEPT} image/webp
+  RewriteCond %{REQUEST_FILENAME}.webp -f
+  RewriteRule ^(assets/images/.+\.(?:jpe?g|png))$ $1.webp [T=image/webp,L]
+
+  # Style sheets and scripts asked for with ?v=<version> never change at that address
+  RewriteCond %{QUERY_STRING} (^|&)v=
+  RewriteRule \.(?:css|js)$ - [E=MJ_VERSIONED:1]
+</IfModule>
+
+<IfModule mod_headers.c>
+  # Caches must keep the AVIF, WebP and JPEG answers to the same address apart
+  <FilesMatch "\.(jpe?g|png|avif|webp)$">
+    Header append Vary Accept
+  </FilesMatch>
+  Header set Cache-Control "public, max-age=31536000, immutable" env=MJ_VERSIONED
+</IfModule>
+
+# Browsers keep photographs, icons and fonts for a month instead of asking again on every page.
+# (Uploads never overwrite a file — a new photograph gets a new name — so a kept copy is never stale.)
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/jpeg "access plus 1 month"
+  ExpiresByType image/png "access plus 1 month"
+  ExpiresByType image/avif "access plus 1 month"
+  ExpiresByType image/webp "access plus 1 month"
+  ExpiresByType image/gif "access plus 1 month"
+  ExpiresByType image/svg+xml "access plus 1 month"
+  ExpiresByType image/x-icon "access plus 1 month"
+  ExpiresByType model/gltf-binary "access plus 1 month"
+  ExpiresByType font/woff2 "access plus 1 year"
+</IfModule>
+
+# Pages, styles, scripts and logos travel compressed
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/plain application/javascript text/javascript application/json application/manifest+json image/svg+xml
 </IfModule>
 
 # Notes, seed data and raw photo deliveries are not for visitors

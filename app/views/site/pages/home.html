@@ -85,25 +85,27 @@
     </section>
 
 <!--section:featured-->
-    <!-- FEATURED PIECES -->
-    <section class="section section--pearl" aria-labelledby="feat-title">
+    <!-- SIGNATURE SHOWCASE: the handpicked pieces first, then every piece in the house; or one category -->
+    <section class="section section--pearl showcase" aria-labelledby="feat-title">
       <div class="container">
         <header class="section-head section-head--split" data-reveal>
           <div>
             <p class="eyebrow">Handpicked by our karigars</p>
             <h2 class="section-title" id="feat-title">Pieces worth <em>remembering</em></h2>
           </div>
-          <div class="tabs" role="tablist" aria-label="Featured pieces">
-            <button type="button" class="tabs__btn" role="tab" aria-selected="true" aria-controls="featured-grid" data-tab="all">Signature</button>
-            <button type="button" class="tabs__btn" role="tab" aria-selected="false" aria-controls="featured-grid" data-tab="gold" tabindex="-1">Gold</button>
-            <button type="button" class="tabs__btn" role="tab" aria-selected="false" aria-controls="featured-grid" data-tab="diamond" tabindex="-1">Diamond</button>
-            <button type="button" class="tabs__btn" role="tab" aria-selected="false" aria-controls="featured-grid" data-tab="bridal" tabindex="-1">Bridal</button>
-            <button type="button" class="tabs__btn" role="tab" aria-selected="false" aria-controls="featured-grid" data-tab="new" tabindex="-1">New in</button>
-          </div>
+          <p class="section-lead">Our signature pieces first, then every jewel in the house — {{showcaseTotal}} designs in all. Choose a category to see just those.</p>
         </header>
+        <div class="tabs tabs--rail" role="tablist" aria-label="Jewellery to show" data-reveal="fade">{{showcaseTabs}}
+        </div>
         <!-- Product cards are rendered by assets/js/main.js from data.js (the catalogue, read from the database) -->
-        <div class="product-grid" id="featured-grid" role="tabpanel" data-featured></div>
-        <div class="section-foot"><a class="btn btn--outline" href="jewellery.html">View all jewellery {{icon:arrow-right}}</a></div>
+        <div class="product-grid" id="featured-grid" role="tabpanel" aria-labelledby="showcase-tab-all" data-featured></div>
+        <div class="showcase__foot">
+          <p class="showcase__count" aria-live="polite"><span data-showcase-count>{{showcaseTotal}} designs</span><span class="showcase__bar" aria-hidden="true"><span data-showcase-bar></span></span></p>
+          <div class="showcase__actions">
+            <button type="button" class="btn btn--primary" data-showcase-more hidden>{{icon:plus}} <span data-showcase-more-label>Show more</span></button>
+            <a class="btn btn--outline" href="jewellery.html" data-showcase-all>View all jewellery {{icon:arrow-right}}</a>
+          </div>
+        </div>
       </div>
     </section>
 

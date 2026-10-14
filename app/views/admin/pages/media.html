@@ -2,9 +2,10 @@
         <div>
           <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Dashboard</a>{{icon:chevron-right}}<span aria-current="page">Media library</span></nav>
           <h1 class="ph__title">Media library</h1>
-          <p class="ph__desc">{{mediaTotal}} images, {{mediaSize}} — every photograph and logo the website uses.</p>
+          <p class="ph__desc">{{mediaTotal}} images, {{mediaSize}} — every photograph and logo the website uses.{{mediaServed}}</p>
         </div>
         <div class="ph__actions">
+          {{optimiseButton}}
           <button type="button" class="btn btn--gold" data-dialog-open="upload-dialog">{{icon:cloud-upload}} Upload</button>
         </div>
       </header>
@@ -61,7 +62,7 @@
             <label class="dropzone dropzone--lg" data-dropzone>
               <span class="dropzone__icon">{{icon:cloud-upload}}</span>
               <span class="dropzone__title">Drop images here, or <u>browse</u></span>
-              <span class="dropzone__hint">JPEG, PNG, WebP or SVG, up to 10 MB each. {{resizeNote}}</span>
+              <span class="dropzone__hint">JPEG, PNG, WebP or SVG — straight from the camera is fine. {{resizeNote}}</span>
               <input type="file" accept="image/*" multiple data-upload-into="[data-upload-list]" data-defer>
             </label>
             <ul class="gallery gallery--sm" data-upload-list></ul>

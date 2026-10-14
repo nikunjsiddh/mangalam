@@ -7,7 +7,7 @@
       </header>
 
       <form class="settings" data-save="settings.save" data-toast="Settings saved" data-dirty-watch>
-        <div class="settings__tabs" role="tablist" aria-orientation="vertical" aria-label="Settings sections">
+        <div class="settings__tabs" role="tablist" aria-orientation="vertical" aria-label="Settings sections" data-tab-hash>
           <button type="button" role="tab" id="tab-general" aria-controls="panel-general" aria-selected="true">{{icon:house}}General</button>
           <button type="button" role="tab" id="tab-contact" aria-controls="panel-contact" aria-selected="false" tabindex="-1">{{icon:map-pin}}Contact &amp; hours</button>
           <button type="button" role="tab" id="tab-social" aria-controls="panel-social" aria-selected="false" tabindex="-1">{{icon:instagram}}Social links</button>
@@ -24,6 +24,7 @@
               <label class="field"><span class="field__label">Store name</span><input class="input" name="store_name" value="{{storeName}}" required maxlength="80"></label>
               <label class="field"><span class="field__label">Founded</span><input class="input" name="founded" inputmode="numeric" value="{{founded}}" maxlength="4"><span class="hint">Used for the years-of-heritage counter on the homepage.</span></label>
               <label class="field span-2"><span class="field__label">Tagline</span><input class="input" name="tagline" value="{{tagline}}" maxlength="120"></label>
+              <label class="field span-2"><span class="field__label">Website address <span class="field__aside">For links in emails</span></span><input class="input" type="url" name="site_url" value="{{siteUrl}}" placeholder="{{siteUrlHint}}" maxlength="190"><span class="hint">The address customers open from their emails (their conversation page, the pieces). Leave empty to use the address the admin is open at; set it on the live site, e.g. https://mangalamjewellers.in/.</span></label>
               <label class="field"><span class="field__label">Currency</span><select class="select" name="currency"><option value="INR">Indian rupee (₹)</option></select></label>
               <label class="field"><span class="field__label">Time zone</span><select class="select" name="timezone"><option value="Asia/Kolkata">India (IST, UTC+5:30)</option></select></label>
               <div class="field span-2">
@@ -94,13 +95,32 @@
                 <p class="hint">Gmail: server smtp.gmail.com, TLS 587, your Gmail address, and an <a class="link" href="https://myaccount.google.com/apppasswords" target="_blank" rel="noopener">App Password</a> (needs 2-Step Verification) — not your normal password.</p>
                 <div><button type="button" class="btn btn--outline btn--sm" data-mail-test>{{icon:send}} Send a test email</button></div>
               </fieldset>
+              <fieldset class="fieldset">
+                <legend>Replies by email (IMAP)</legend>
+                {{imapStatus}}
+                <label class="switch switch--text"><input type="checkbox" name="imap_enabled"{{imapEnabled}}><span class="switch__track" aria-hidden="true"></span><span>Read customers’ replies into Enquiries</span></label>
+                <p class="hint">When a customer answers one of our emails, their reply joins the conversation in Enquiries (checked every few minutes while the admin is open, and with <em>Check for replies</em>). Nothing in the mailbox is changed — emails stay unread there.</p>
+                <div class="form-grid">
+                  <label class="field"><span class="field__label">Server</span><input class="input" name="imap_host" value="{{imapHost}}" placeholder="{{imapHostHint}}" maxlength="190" autocomplete="off" spellcheck="false"></label>
+                  <div class="form-grid">
+                    <label class="field"><span class="field__label">Port</span><input class="input" name="imap_port" value="{{imapPort}}" inputmode="numeric" maxlength="5"></label>
+                    <label class="field"><span class="field__label">Security</span><select class="select" name="imap_secure"><option value="ssl"{{imapSsl}}>SSL (993)</option><option value="tls"{{imapTls}}>TLS (143)</option><option value="none"{{imapNone}}>None (143)</option></select></label>
+                  </div>
+                  <label class="field"><span class="field__label">Username <span class="field__aside">Optional</span></span><input class="input" name="imap_user" value="{{imapUser}}" placeholder="The mail server’s username" maxlength="190" autocomplete="off" spellcheck="false"></label>
+                  <label class="field"><span class="field__label">Password <span class="field__aside">Optional</span></span><input class="input" type="password" name="imap_pass" value="" placeholder="{{imapPassHint}}" autocomplete="new-password"></label>
+                  <label class="field span-2"><span class="field__label">Folder <span class="field__aside">Optional</span></span><input class="input" name="imap_folder" value="{{imapFolder}}" placeholder="INBOX" maxlength="120" autocomplete="off" spellcheck="false"></label>
+                </div>
+                <label class="switch switch--text"><input type="checkbox" name="imap_new_threads"{{imapNewThreads}}><span class="switch__track" aria-hidden="true"></span><span>Also add new emails from customers that are not replies, as new conversations</span></label>
+                <p class="hint">Gmail: switch on IMAP in Gmail › Settings › Forwarding and POP/IMAP; server imap.gmail.com, SSL 993, and the same address and App Password as above. Empty fields take the mail server’s. Newsletters, automatic replies and our own emails are always left out.</p>
+                <div><button type="button" class="btn btn--outline btn--sm" data-mailbox-test>{{icon:refresh-cw}} Test the mailbox</button></div>
+              </fieldset>
               <div class="toggle-list">
                 <label class="switch switch--text"><input type="checkbox" name="notify_enquiry"{{notifyEnquiry}}><span class="switch__track" aria-hidden="true"></span><span>A new enquiry arrives</span></label>
                 <label class="switch switch--text"><input type="checkbox" name="notify_appointment"{{notifyAppointment}}><span class="switch__track" aria-hidden="true"></span><span>Someone asks for an appointment</span></label>
                 <label class="switch switch--text"><input type="checkbox" name="notify_subscriber"{{notifySubscriber}}><span class="switch__track" aria-hidden="true"></span><span>Someone subscribes to the newsletter</span></label>
                 <label class="switch switch--text"><input type="checkbox" name="notify_summary"{{notifySummary}}><span class="switch__track" aria-hidden="true"></span><span>A morning summary of the day's appointments (around 7 AM)</span></label>
               </div>
-              <p class="note">{{icon:info}}<span>Everything also appears in the admin — in Enquiries, Appointments, Subscribers and the bell — whether or not emails are sent.</span></p>
+              <p class="note">{{icon:info}}<span>Everything also appears in the admin — in Enquiries, Appointments, Subscribers and the bell — whether or not emails are sent. The emails customers receive by themselves (when they enquire, ask for an appointment, or it is confirmed) are in <a class="link" href="templates.html">Email templates</a>.</span></p>
             </div>
           </section>
 

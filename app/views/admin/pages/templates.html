@@ -1,0 +1,60 @@
+      <header class="ph">
+        <div>
+          <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Dashboard</a>{{icon:chevron-right}}<a href="enquiries.html">Enquiries</a>{{icon:chevron-right}}<span aria-current="page">Email templates</span></nav>
+          <h1 class="ph__title">Email templates</h1>
+          <p class="ph__desc">The words of the emails customers receive — the ones the website sends by itself, and the replies the team chooses from in Enquiries. Every email goes out in the house style shown on the right.</p>
+        </div>
+        <div class="ph__actions">
+          <a class="btn btn--primary" href="templates.html?new=1">{{icon:plus}} New reply template</a>
+        </div>
+      </header>
+
+      <div class="tpl">
+        <nav class="card tpl-list" aria-label="Templates">
+          <p class="tpl-list__group">Sent automatically</p>
+          <ul>{{autoItems}}
+          </ul>
+          <p class="tpl-list__group">Replies <span>chosen in Enquiries · drag to reorder</span></p>
+          <ul data-sortable data-sort-post="template.reorder">{{replyItems}}
+          </ul>
+          <a class="tpl-list__new" href="templates.html?new=1"{{newCurrent}}>{{icon:plus}} New reply template</a>
+        </nav>
+
+        <form class="card tpl-editor" data-save="template.save" data-toast="Template saved" data-template-editor>
+          <input type="hidden" name="id" value="{{tplId}}">
+          <header class="card__head"><div><p class="dialog__eyebrow">{{tplEyebrow}}</p><h2 class="card__title">{{tplTitle}}</h2></div></header>
+          <div class="card__body stack">
+            {{tplWhen}}
+            <label class="field"><span class="field__label">Name</span><input class="input" name="name" value="{{tplName}}" maxlength="80"{{tplNameAttrs}}></label>
+            <label class="field"><span class="field__label">Subject</span><input class="input" name="subject" value="{{tplSubject}}" maxlength="200" data-field-target><span class="hint">{{tplSubjectHint}}</span></label>
+            <label class="field"><span class="field__label">Heading <span class="field__aside">Optional</span></span><input class="input" name="heading" value="{{tplHeading}}" maxlength="160" data-field-target><span class="hint">The large line at the top. Put *stars* around words for gold italics.</span></label>
+            <label class="field"><span class="field__label">Text</span><textarea class="textarea tpl-editor__body" name="body" rows="11" maxlength="5000" required data-field-target>{{tplBody}}</textarea><span class="hint">A blank line starts a new paragraph. Web addresses become links.</span></label>
+            <div class="field">
+              <span class="field__label">Fill in for each customer</span>
+              <div class="chips chips--wrap" aria-label="Insert a field">{{fieldChips}}</div>
+              <span class="hint">Click one to put it where the cursor is — it becomes the customer’s details when the email is sent.</span>
+            </div>
+            <div class="form-grid">
+              <label class="field"><span class="field__label">Button</span><select class="select" name="button_link" data-button-link>{{tplLinkOptions}}</select></label>
+              <label class="field"><span class="field__label">Button words</span><input class="input" name="button" value="{{tplButton}}" maxlength="40" placeholder="e.g. View your conversation"></label>
+            </div>
+          </div>
+          <footer class="card__foot tpl-editor__foot">
+            {{deleteButton}}
+            <button type="button" class="btn btn--outline btn--sm" data-template-test data-params='{"id":{{tplId}}}'>{{icon:send}} Send me a test</button>
+            <button type="submit" class="btn btn--primary btn--sm">{{icon:check}} Save template</button>
+          </footer>
+        </form>
+
+        <section class="card tpl-preview" aria-label="Preview">
+          <header class="tpl-preview__head">
+            <div class="tpl-preview__mail">
+              <span class="avatar avatar--t1" aria-hidden="true">MJ</span>
+              <span><span class="cell-title">{{siteName}}</span><span class="cell-sub" data-preview-subject>{{previewSubject}}</span></span>
+            </div>
+            <div class="seg seg--sm" role="radiogroup" aria-label="Screen size"><label><input type="radio" name="tpl-size" value="desktop" checked data-preview-size><span>{{icon:monitor}}</span></label><label><input type="radio" name="tpl-size" value="phone" data-preview-size><span>{{icon:smartphone}}</span></label></div>
+          </header>
+          <div class="email-frame" data-preview-frame-wrap><iframe class="email-frame__doc" title="Email preview" data-preview-frame data-template-preview sandbox="allow-same-origin allow-popups allow-popups-to-escape-sandbox" srcdoc="{{previewDoc}}"></iframe></div>
+          <p class="tpl-preview__note">{{icon:info}} Shown for an invented customer, Priya, asking about one of your pieces. The logo and photographs travel inside every email, so customers see them even before the website has its own address.</p>
+        </section>
+      </div>

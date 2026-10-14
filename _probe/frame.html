@@ -1,0 +1,8 @@
+<!doctype html><meta charset="utf-8"><style>body{margin:0;background:#000;color:#fff;font:12px sans-serif}canvas{width:100%}</style>
+<div id="info">loading…</div><canvas id="c"></canvas>
+<script>
+const q = new URLSearchParams(location.search);
+const v = document.createElement('video'); v.muted = true; v.preload = 'auto'; v.src = q.get('v') || '4Z0A2958.MP4';
+v.addEventListener('loadedmetadata', () => { v.currentTime = Number(q.get('t') || 0); });
+v.addEventListener('seeked', () => { c.width = v.videoWidth; c.height = v.videoHeight; c.getContext('2d').drawImage(v, 0, 0); info.textContent = v.videoWidth + 'x' + v.videoHeight + ' dur ' + v.duration.toFixed(2) + ' t ' + v.currentTime.toFixed(2); }, { once: true });
+</script>

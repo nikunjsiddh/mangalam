@@ -14,6 +14,7 @@ const ADMIN_PAGES = [
     'product-edit' => ['product-form', 'products', 'Edit product', 'products.edit'],
     'categories' => ['categories', 'categories', 'Categories', 'products.edit'],
     'collections' => ['collections', 'collections', 'Collections', 'products.edit'],
+    'jewellery-3d' => ['jewellery-3d', 'jewellery-3d', '3D jewellery', 'products.edit'],
     'homepage' => ['homepage', 'homepage', 'Homepage', 'content.edit'],
     'pages' => ['pages', 'pages', 'Pages & banners', 'content.edit'],
     'journal' => ['journal', 'journal', 'Journal', 'content.edit'],
@@ -22,8 +23,10 @@ const ADMIN_PAGES = [
     'testimonials' => ['testimonials', 'testimonials', 'Testimonials', 'content.edit'],
     'media' => ['media', 'media', 'Media library', 'media.edit'],
     'enquiries' => ['enquiries', 'enquiries', 'Enquiries', 'enquiries.reply'],
+    'templates' => ['templates', 'templates', 'Email templates', 'templates.edit'],
     'appointments' => ['appointments', 'appointments', 'Appointments', 'appointments.edit'],
     'subscribers' => ['subscribers', 'subscribers', 'Subscribers', 'subscribers.export'],
+    'offers-page' => ['offers-page', 'offers-page', 'Offers page', 'offers.edit'],
     'offers' => ['offers', 'offers', 'Offers & announcements', 'offers.edit'],
     'settings' => ['settings', 'settings', 'Settings', 'settings.edit'],
     'users' => ['users', 'users', 'Users & roles', 'users.manage'],
@@ -53,6 +56,7 @@ function render_admin_page(string $route): string
         'product-edit' => page_product_form(find_product_for_edit()),
         'categories' => page_categories(),
         'collections' => page_collections(),
+        'jewellery-3d' => page_jewellery_3d(),
         'homepage' => page_homepage(),
         'pages' => page_pages(),
         'journal' => page_journal(),
@@ -61,8 +65,10 @@ function render_admin_page(string $route): string
         'testimonials' => page_testimonials(),
         'media' => page_media(),
         'enquiries' => page_enquiries(),
+        'templates' => page_templates(),
         'appointments' => page_appointments(),
         'subscribers' => page_subscribers(),
+        'offers-page' => page_offers_page(),
         'offers' => page_offers(),
         'settings' => page_settings(),
         'users' => page_users(),
@@ -137,7 +143,7 @@ function hide_forbidden_links(string $html, array $me): string
     $lines = explode("\n", $html);
     $out = [];
     foreach ($lines as $line) {
-        if (preg_match('/class="side__link" data-nav="([a-z]+)"/', $line, $m)) {
+        if (preg_match('/class="side__link" data-nav="([a-z-]+)"/', $line, $m)) {
             $route = $m[1] === 'dashboard' ? 'index' : $m[1];
             if (isset(ADMIN_PAGES[$route]) && !can(ADMIN_PAGES[$route][3], $me)) continue;
         }

@@ -78,6 +78,50 @@ function upgrade_schema(): void
 {
     // Products › 3D view & customiser
     if (!val("SHOW COLUMNS FROM products LIKE 'view3d'")) q('ALTER TABLE products ADD COLUMN view3d TEXT NULL AFTER image_position');
+    // Products › 360° view (October 2026)
+    if (!val("SHOW COLUMNS FROM products LIKE 'spin'")) q('ALTER TABLE products ADD COLUMN spin TEXT NULL AFTER view3d');
+    // Category offers and the Offers page (the table is created as database/schema.sql describes it)
+    if (!val("SHOW TABLES LIKE 'offers'")) {
+        $schema = preg_replace('/--\s.*$/m', '', (string) file_get_contents(ROOT_DIR . '/database/schema.sql'));
+        if (preg_match('/CREATE TABLE offers \(.*?\) ENGINE=[^;]+/s', $schema, $m)) db()->exec($m[0]);
+    }
+    // Conversations: messages either way and on any channel, the customer's page, email templates (October 2026)
+    if (!val("SHOW COLUMNS FROM enquiry_replies LIKE 'direction'")) {
+        q("ALTER TABLE enquiries
+            ADD COLUMN token CHAR(32) NULL UNIQUE AFTER id,
+            MODIFY source ENUM('product','contact','email','admin') NOT NULL DEFAULT 'contact',
+            ADD COLUMN subject VARCHAR(200) NOT NULL DEFAULT '' AFTER topic,
+            ADD COLUMN message_id VARCHAR(255) NOT NULL DEFAULT '' AFTER message,
+            ADD COLUMN last_at DATETIME NULL AFTER status,
+            ADD KEY idx_enquiries_email (email)");
+        q("ALTER TABLE enquiry_replies
+            ADD COLUMN direction ENUM('out','in') NOT NULL DEFAULT 'out' AFTER enquiry_id,
+            ADD COLUMN channel ENUM('email','whatsapp','website','phone','note') NOT NULL DEFAULT 'email' AFTER direction,
+            ADD COLUMN is_auto TINYINT(1) NOT NULL DEFAULT 0 AFTER channel,
+            ADD COLUMN subject VARCHAR(200) NOT NULL DEFAULT '' AFTER author,
+            ADD COLUMN message_id VARCHAR(255) NOT NULL DEFAULT '' AFTER emailed,
+            ADD COLUMN seen_at DATETIME NULL AFTER message_id,
+            ADD KEY idx_replies_enquiry (enquiry_id, created_at),
+            ADD KEY idx_replies_message_id (message_id(64))");
+        q('UPDATE enquiries e SET last_at = GREATEST(e.created_at, COALESCE((SELECT MAX(r.created_at) FROM enquiry_replies r WHERE r.enquiry_id = e.id), e.created_at))');
+    }
+    if (!val("SHOW TABLES LIKE 'message_templates'")) {
+        $schema = preg_replace('/--\s.*$/m', '', (string) file_get_contents(ROOT_DIR . '/database/schema.sql'));
+        if (preg_match('/CREATE TABLE message_templates \(.*?\) ENGINE=[^;]+/s', $schema, $m)) db()->exec($m[0]);
+        // Managers may edit the templates, as they may edit the offers
+        q("INSERT IGNORE INTO role_permissions (role, permission, allowed) VALUES ('Manager', 'templates.edit', 1)");
+    }
+    seed_templates();
+    if (!val("SELECT COUNT(*) FROM pages WHERE page_key = 'offers'")) {
+        // Its heading, introduction and banner as database/seed.json gives them for a new installation
+        $seed = json_decode((string) file_get_contents(ROOT_DIR . '/database/seed.json'), true);
+        foreach ($seed['pages'] ?? [] as $pg) {
+            if ($pg['key'] !== 'offers') continue;
+            insert('pages', ['page_key' => 'offers', 'name' => $pg['name'], 'kind' => $pg['kind'], 'heading' => $pg['heading'], 'lead' => $pg['lead'],
+                'banner' => $pg['banner'], 'seo_title' => $pg['seoTitle'], 'seo_desc' => $pg['seoDesc'],
+                'sort_order' => (int) val('SELECT COALESCE(MAX(sort_order), 0) + 1 FROM pages')]);
+        }
+    }
 }
 
 /** "?, ?, ?" for an IN (…) list */

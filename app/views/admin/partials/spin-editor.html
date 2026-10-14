@@ -1,0 +1,102 @@
+            <!-- The 360° view: used by the product editor and by Catalogue › 3D jewellery (assets/js/admin-spin.js, loaded by the page) -->
+            <section class="card spin-card" data-spin-card data-spin-version="{{spinVersion}}">
+              <header class="card__head">
+                <div><h2 class="card__title">360° view</h2><p class="card__sub">The piece itself, turning — made from a turntable video or a set of photos. Visitors drag to turn it and look closer at the work.</p></div>
+                <label class="switch"><input type="checkbox" data-spin-enabled{{spinChecked}}><span class="switch__track" aria-hidden="true"></span><span>Show on the website</span></label>
+              </header>
+              <input type="hidden" name="spin" value="{{spinValue}}" data-spin-value>
+              <div class="card__body spin-card__body">
+                <div class="spin-ed">
+                  <div class="spin-ed__preview">
+                    <div class="spin-ed__stage" data-spin-stage>
+                      <p class="spin-ed__empty" data-spin-empty>{{icon:rotate-3d}}<span>No frames yet. Make them from a turntable video or a set of photos.</span></p>
+                      <span class="v3d-compare__tag v3d-compare__tag--light">Live preview</span>
+                    </div>
+                    <div class="spin-ed__scrub" data-spin-scrub-row hidden>
+                      <input class="v3d-range" type="range" min="1" max="36" value="1" step="1" data-spin-scrub aria-label="The frame shown in the preview">
+                      <output class="v3d-out" data-spin-scrub-out></output>
+                      <button type="button" class="btn btn--ghost btn--sm" data-spin-set-start data-tip="Visitors see this frame first, and the turn starts from it">{{icon:star}} Show first</button>
+                    </div>
+                  </div>
+
+                  <div class="spin-ed__make stack">
+                    <div class="seg seg--block" role="radiogroup" aria-label="Make the frames from">
+                      <label><input type="radio" name="spin-source" value="video" data-spin-source checked><span>{{icon:film}} A turntable video</span></label>
+                      <label><input type="radio" name="spin-source" value="photos" data-spin-source><span>{{icon:images}} A set of photos</span></label>
+                    </div>
+                    <label class="dropzone" data-spin-drop="video">
+                      <span class="dropzone__icon">{{icon:film}}</span>
+                      <span class="dropzone__title">Drop the turntable video here, or <u>browse</u></span>
+                      <span class="dropzone__hint">MP4, MOV or WebM, straight from the camera or phone. It stays on this computer — only the frames taken from it are uploaded.</span>
+                      <input type="file" accept="video/mp4,video/quicktime,video/webm,video/*" data-spin-file="video">
+                    </label>
+                    <label class="dropzone" data-spin-drop="photos" hidden>
+                      <span class="dropzone__icon">{{icon:images}}</span>
+                      <span class="dropzone__title">Drop the photos here, or <u>browse</u></span>
+                      <span class="dropzone__hint">8 to 120 photos taken all the way round, in order — they are sorted by file name (IMG_0001, IMG_0002…). JPEG or PNG.</span>
+                      <input type="file" accept="image/*" multiple data-spin-file="photos">
+                    </label>
+
+                    <div class="stack spin-ed__framing" data-spin-framing hidden>
+                      <p class="note">{{icon:film}}<span><strong data-spin-source-name></strong> <span data-spin-source-meta></span></span></p>
+                      <div class="spin-ed__ends">
+                        <figure><canvas data-spin-end="from" aria-label="The first frame — drag to centre the piece"></canvas><figcaption>First frame <small>drag to centre</small></figcaption></figure>
+                        <figure><canvas data-spin-end="to" aria-label="The last frame"></canvas><figcaption>Last frame</figcaption></figure>
+                      </div>
+                      <div class="form-grid" data-spin-video-only>
+                        <label class="field"><span class="field__label">The turn starts at <output class="v3d-out" data-spin-out="from"></output></span><input class="v3d-range" type="range" min="0" max="1" step="0.01" value="0" data-spin-time="from"></label>
+                        <label class="field"><span class="field__label">…and ends at <output class="v3d-out" data-spin-out="to"></output></span><input class="v3d-range" type="range" min="0" max="1" step="0.01" value="1" data-spin-time="to"></label>
+                      </div>
+                      <p class="hint" data-spin-video-only>For a full turn, end where the piece looks as it did at the start — the two frames above should match. For part of a turn, end anywhere.</p>
+                      <div class="form-grid">
+                        <label class="field"><span class="field__label">Closer <output class="v3d-out" data-spin-out="zoom"></output></span><input class="v3d-range" type="range" min="1" max="3" step="0.05" value="1" data-spin-crop="zoom"></label>
+                        <label class="field"><span class="field__label">Brighter <output class="v3d-out" data-spin-out="light"></output></span><input class="v3d-range" type="range" min="0.7" max="1.8" step="0.05" value="1" data-spin-crop="light"></label>
+                      </div>
+                      <div class="field" data-spin-video-only>
+                        <span class="field__label" id="spin-count-label">Frames</span>
+                        <div class="seg" role="radiogroup" aria-labelledby="spin-count-label">
+                          <label><input type="radio" name="spin-count" value="24" data-spin-count><span>24</span></label>
+                          <label><input type="radio" name="spin-count" value="36" data-spin-count checked><span>36</span></label>
+                          <label><input type="radio" name="spin-count" value="48" data-spin-count><span>48</span></label>
+                          <label><input type="radio" name="spin-count" value="72" data-spin-count><span>72</span></label>
+                        </div>
+                        <span class="hint">More frames turn more smoothly but take longer to load. 36 suits most pieces.</span>
+                      </div>
+                      <div class="spin-ed__go">
+                        <button type="button" class="btn btn--primary" data-spin-make>{{icon:sparkles}} <span data-spin-make-label>Make 36 frames</span></button>
+                        <button type="button" class="btn btn--ghost btn--sm" data-spin-discard>Choose another</button>
+                      </div>
+                    </div>
+                    <div class="spin-ed__progress" data-spin-progress hidden>
+                      <span class="spin-ed__progress-bar"><span data-spin-progress-bar></span></span>
+                      <span class="hint" data-spin-progress-text role="status"></span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="field" data-spin-frames-field hidden>
+                  <span class="field__label">Frames <span class="field__aside" data-spin-count-text></span></span>
+                  <ul class="spin-ed__strip" data-spin-strip data-sortable aria-label="Frames, in turning order"></ul>
+                  <div class="spin-ed__strip-foot">
+                    <span class="hint">Drag to reorder, × to leave a frame out. ★ shows first.</span>
+                    <span class="row-actions">
+                      <button type="button" class="btn btn--ghost btn--sm" data-spin-reverse-order>{{icon:arrow-left-right}} Reverse the order</button>
+                      <button type="button" class="btn btn--ghost btn--sm is-danger" data-spin-clear>{{icon:trash-2}} Remove every frame</button>
+                    </span>
+                  </div>
+                </div>
+
+                <fieldset class="fieldset" data-spin-settings>
+                  <legend>How it turns</legend>
+                  <div class="seg seg--wrap" role="radiogroup" aria-label="How much it turns">
+                    <label><input type="radio" name="spin-loop" value="1" data-spin-loop><span>A full turn — carries on round</span></label>
+                    <label><input type="radio" name="spin-loop" value="0" data-spin-loop><span>Part of a turn — swings back</span></label>
+                  </div>
+                  <label class="switch switch--text"><input type="checkbox" data-spin-autoplay><span class="switch__track" aria-hidden="true"></span><span>Turns by itself until the visitor takes over</span></label>
+                  <label class="field" data-spin-seconds-field><span class="field__label"><span data-spin-seconds-label>One turn takes</span> <output class="v3d-out" data-spin-out="seconds"></output></span><input class="v3d-range" type="range" min="3" max="20" step="0.5" value="8" data-spin-seconds></label>
+                  <label class="switch switch--text"><input type="checkbox" data-spin-reverse><span class="switch__track" aria-hidden="true"></span><span>Turn the other way when dragged</span></label>
+                  <p class="note">{{icon:info}}<span data-spin-summary></span></p>
+                </fieldset>
+                <p class="hint spin-ed__tip">{{icon:sparkles}} <span><strong>Filming:</strong> set the piece on a turntable against a plain backdrop, the camera or phone on a stand, and record one slow, steady turn (10–20 seconds) in even light. Shoot photos the same way, one every 10° (36 in all).</span></p>
+              </div>
+            </section>

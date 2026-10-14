@@ -1,0 +1,155 @@
+      <header class="ph">
+        <div>
+          <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Dashboard</a>{{icon:chevron-right}}<span aria-current="page">Offers page</span></nav>
+          <h1 class="ph__title">Offers page</h1>
+          <p class="ph__desc">Everything on /offers.html. {{offerLive}} of {{offerTotal}} live. Each offer belongs to a category: it gets its own showcase and photo gallery on the page, and a ribbon on the category's page.</p>
+        </div>
+        <div class="ph__actions">
+          <a class="btn btn--outline" href="../offers.html" target="_blank" rel="noopener">{{icon:eye}} See the Offers page</a>
+          <button type="button" class="btn btn--gold" data-dialog-open="offer-drawer" data-fill='{"title":"New offer","dealType":"upto","percent":"10","dealOn":"making charges","withProducts":true,"isLive":true}'>{{icon:plus}} Add offer</button>
+        </div>
+      </header>
+
+      <div class="tabs" role="tablist" aria-label="Offers page" data-tab-hash>
+        <button type="button" role="tab" id="tab-offers" aria-controls="panel-offers" aria-selected="true">{{icon:tag}} Offers <span class="chip__count">{{offerCount}}</span></button>
+        <button type="button" role="tab" id="tab-content" aria-controls="panel-content" aria-selected="false" tabindex="-1">{{icon:file-text}} Page content</button>
+      </div>
+
+      <div role="tabpanel" id="panel-offers" aria-labelledby="tab-offers">
+        <p class="hint mb-12">Drag to reorder — the first offer is the feature, in wine and gold.</p>
+        <div class="colls" data-sortable data-sort-post="catoffer.reorder">{{offerCards}}
+        </div>
+        <div class="card"{{offerEmptyHidden}}>
+          <div class="empty">
+            <span class="empty__icon">{{icon:tag}}</span>
+            <p class="empty__title">No category offers yet</p>
+            <p>Add an offer for rings, bridal or any other category — with its discount, dates and photographs.</p>
+            <button type="button" class="btn btn--gold" data-dialog-open="offer-drawer" data-fill='{"title":"New offer","dealType":"upto","percent":"10","dealOn":"making charges","withProducts":true,"isLive":true}'>{{icon:plus}} Add offer</button>
+          </div>
+        </div>
+        <p class="hint mt-12">The popup offer, its side tab and the announcement bar are under <a href="offers.html">Offers &amp; announcements</a>; its button can open the Offers page.</p>
+      </div>
+
+      <form class="stack stack--lg" role="tabpanel" id="panel-content" aria-labelledby="tab-content" data-save="offerspage.save" data-toast="Offers page saved" data-dirty-watch hidden>
+        <section class="card">
+          <header class="card__head"><div><h2 class="card__title">Top of the page</h2><p class="card__sub">The banner with the page's heading, introduction and figures.</p></div></header>
+          <div class="card__body form-grid">
+            <label class="field span-2"><span class="field__label">Heading</span><input class="input" name="heading" value="{{opHeading}}" required maxlength="200"><span class="hint">{{starHint}}</span></label>
+            <label class="field span-2"><span class="field__label">Introduction <span class="field__count"></span></span><textarea class="textarea" name="lead" rows="2" maxlength="600" data-count data-count-ideal="160">{{opLead}}</textarea></label>
+            <div class="field span-2">
+              <span class="field__label">Banner photograph</span>
+              <div class="image-field image-field--banner"><img src="{{opBannerSrc}}" alt="" data-image-preview{{opBannerHidden}}><input type="hidden" name="banner" value="{{opBanner}}" data-image-value><label class="image-field__btn">{{icon:upload}} Replace<input type="file" accept="image/*" data-image-input data-upload-folder="campaign"></label></div>
+              <span class="hint">Wide, 2000 × 840 px. It sits behind the heading, darkened so the words stay readable.</span>
+            </div>
+            <label class="switch switch--text span-2"><input type="checkbox" name="stats"{{opStats}}><span class="switch__track" aria-hidden="true"></span><span>Show the figures under the introduction (offers live, highest saving, next offer to end) — counted by themselves</span></label>
+          </div>
+        </section>
+
+        <section class="card">
+          <header class="card__head"><div><h2 class="card__title">The offers</h2><p class="card__sub">How each offer's showcase looks. The offers themselves are on the Offers tab.</p></div></header>
+          <div class="card__body form-grid">
+            <label class="switch switch--text span-2"><input type="checkbox" name="chips"{{opChips}}><span class="switch__track" aria-hidden="true"></span><span>Category buttons above the offers, to show one category at a time</span></label>
+            <label class="field"><span class="field__label">First button</span><input class="input" name="chips_all" value="{{opChipsAll}}" maxlength="30" required></label>
+            <label class="field"><span class="field__label">Pieces under each offer</span><select class="select" name="pieces">{{opPiecesOptions}}</select></label>
+            <div class="toggle-list span-2">
+              <label class="switch switch--text"><input type="checkbox" name="feature"{{opFeature}}><span class="switch__track" aria-hidden="true"></span><span>Show the first offer as the feature, in wine and gold</span></label>
+              <label class="switch switch--text"><input type="checkbox" name="timer"{{opTimer}}><span class="switch__track" aria-hidden="true"></span><span>Count down the days, hours, minutes and seconds to each offer's last day</span></label>
+              <label class="switch switch--text"><input type="checkbox" name="viewing"{{opViewing}}><span class="switch__track" aria-hidden="true"></span><span>“Book a viewing” button beside each offer's own button</span></label>
+            </div>
+          </div>
+        </section>
+
+        <section class="card">
+          <header class="card__head">
+            <div><h2 class="card__title">How the offers work</h2><p class="card__sub">Up to four steps under the offers. Leave a step's title empty to leave it out.</p></div>
+            <label class="switch switch--text"><input type="checkbox" name="steps_on"{{opStepsOn}}><span class="switch__track" aria-hidden="true"></span><span>Show</span></label>
+          </header>
+          <div class="card__body stack">
+            <div class="form-grid">
+              <label class="field"><span class="field__label">Eyebrow</span><input class="input" name="steps_eyebrow" value="{{opStepsEyebrow}}" maxlength="60"></label>
+              <label class="field"><span class="field__label">Heading</span><input class="input" name="steps_title" value="{{opStepsTitle}}" maxlength="80"><span class="hint">*Stars* for gold italics.</span></label>
+            </div>
+            <ol class="op-steps">{{opStepRows}}
+            </ol>
+          </div>
+        </section>
+
+        <section class="card">
+          <header class="card__head">
+            <div><h2 class="card__title">Closing band</h2><p class="card__sub">The wine band at the foot of the page, inviting visitors to see the offers in person.</p></div>
+            <label class="switch switch--text"><input type="checkbox" name="cta_on"{{opCtaOn}}><span class="switch__track" aria-hidden="true"></span><span>Show</span></label>
+          </header>
+          <div class="card__body form-grid">
+            <label class="field span-2"><span class="field__label">Heading</span><input class="input" name="cta_title" value="{{opCtaTitle}}" maxlength="80"><span class="hint">*Stars* for gold italics.</span></label>
+            <label class="field span-2"><span class="field__label">Text</span><textarea class="textarea" name="cta_text" rows="2" maxlength="240">{{opCtaText}}</textarea></label>
+            <label class="field"><span class="field__label">Gold button <span class="field__aside">books a viewing</span></span><input class="input" name="cta_primary" value="{{opCtaPrimary}}" maxlength="40"><span class="hint">Empty: no gold button.</span></label>
+            <label class="field"><span class="field__label">Second button</span><input class="input" name="cta_secondary" value="{{opCtaSecondary}}" maxlength="40"><span class="hint">Empty: no second button.</span></label>
+            <label class="field"><span class="field__label">Second button opens</span><select class="select" name="cta_href">{{opCtaLinks}}</select></label>
+          </div>
+        </section>
+
+        <section class="card">
+          <header class="card__head"><div><h2 class="card__title">When no offer is live</h2><p class="card__sub">Shown in place of the offers between seasons.</p></div></header>
+          <div class="card__body form-grid">
+            <label class="field span-2"><span class="field__label">Heading</span><input class="input" name="empty_title" value="{{opEmptyTitle}}" maxlength="80" required></label>
+            <label class="field span-2"><span class="field__label">Text</span><textarea class="textarea" name="empty_text" rows="2" maxlength="240">{{opEmptyText}}</textarea></label>
+          </div>
+        </section>
+
+        <section class="card">
+          <header class="card__head"><div><h2 class="card__title">Search listing</h2><p class="card__sub">How the page appears in Google and when it is shared.</p></div></header>
+          <div class="card__body form-grid">
+            <label class="field span-2"><span class="field__label">Title <span class="field__count"></span></span><input class="input" name="seo_title" value="{{opSeoTitle}}" maxlength="160" data-count data-count-ideal="60"></label>
+            <label class="field span-2"><span class="field__label">Description <span class="field__count"></span></span><textarea class="textarea" name="seo_desc" rows="2" maxlength="255" data-count data-count-ideal="155">{{opSeoDesc}}</textarea></label>
+          </div>
+        </section>
+
+        <div class="savebar" data-savebar hidden>
+          <span>{{icon:info}} You have unsaved changes to the Offers page</span>
+          <div class="savebar__actions">
+            <button type="reset" class="btn btn--ghost btn--sm" data-discard>Discard</button>
+            <button type="submit" class="btn btn--gold btn--sm">{{icon:check}} Save changes</button>
+          </div>
+        </div>
+      </form>
+
+      <dialog class="dialog dialog--drawer" id="offer-drawer" aria-labelledby="offer-drawer-title">
+        <form class="dialog__panel" data-save="catoffer.save" data-toast="Offer saved">
+          <input type="hidden" name="id" data-reset>
+          <header class="dialog__head">
+            <div><p class="dialog__eyebrow">Category offer</p><h2 class="dialog__title" id="offer-drawer-title" data-fill-text="title">Edit offer</h2></div>
+            <button type="button" class="icon-btn" data-dialog-close aria-label="Close">{{icon:x}}</button>
+          </header>
+          <div class="dialog__body stack">
+            <div class="form-grid">
+              <label class="field"><span class="field__label">Category</span><select class="select" name="category"><option value="">All jewellery</option>{{offerCategoryOptions}}</select></label>
+              <label class="field"><span class="field__label">Eyebrow <span class="field__aside">optional</span></span><input class="input" name="kicker" maxlength="80" placeholder="e.g. Wedding season 2026"></label>
+              <label class="field span-2"><span class="field__label">Title</span><input class="input" name="name" required maxlength="120" placeholder="e.g. The bridal *celebration*"><span class="hint">{{starHint}}</span></label>
+              <div class="field"><span class="field__label">Discount</span><span class="input-group"><select class="select input-group__addon" name="dealType" aria-label="Kind of discount"><option value="upto">Up to</option><option value="flat">Flat</option></select><input class="input" name="percent" inputmode="numeric" maxlength="2" required aria-label="Discount in percent"><span class="input-group__addon">% off</span></span></div>
+              <label class="field"><span class="field__label">Off what? <span class="field__aside">optional</span></span><input class="input" name="dealOn" maxlength="60" placeholder="making charges"><span class="hint">Leave empty when it is off the price.</span></label>
+              <label class="field span-2"><span class="field__label">Message <span class="field__count"></span></span><textarea class="textarea" name="text" rows="3" maxlength="400" data-count data-count-ideal="180"></textarea></label>
+              <label class="field span-2"><span class="field__label">Small print <span class="field__aside">optional</span></span><input class="input" name="terms" maxlength="200" placeholder="e.g. On bridal sets above ₹ 1,50,000."></label>
+              <label class="field"><span class="field__label">Button <span class="field__aside">optional</span></span><input class="input" name="cta" maxlength="40" placeholder="Shop rings"><span class="hint">Opens the category's page.</span></label>
+              <span></span>
+              <label class="field"><span class="field__label">Starts</span><input class="input" type="date" name="start"><span class="hint">Leave empty to start now.</span></label>
+              <label class="field"><span class="field__label">Ends</span><input class="input" type="date" name="end"><span class="hint">Runs to the end of this day. Empty: no end, and no countdown.</span></label>
+            </div>
+            <fieldset class="fieldset">
+              <legend>Gallery</legend>
+              <ul class="gallery" data-sortable data-gallery data-gallery-labels="Cover" data-fill-gallery="images" data-offer-gallery></ul>
+              <label class="dropzone" data-dropzone>
+                <span class="dropzone__icon">{{icon:cloud-upload}}</span>
+                <span class="dropzone__title">Drop photos here, or <u>browse</u></span>
+                <span class="dropzone__hint">Campaign photographs for this offer. The first is the cover; drag to reorder. They upload straight away and are kept when you save.</span>
+                <input type="file" accept="image/*" multiple data-upload-into="[data-offer-gallery]" data-upload-folder="campaign" data-upload-note="Save the offer to keep them with it.">
+              </label>
+              <label class="switch switch--text"><input type="checkbox" name="withProducts"><span class="switch__track" aria-hidden="true"></span><span>Also show the category's pieces in the gallery, with their names and prices</span></label>
+            </fieldset>
+            <label class="switch switch--text"><input type="checkbox" name="isLive"><span class="switch__track" aria-hidden="true"></span><span>Live on the website (between its dates)</span></label>
+          </div>
+          <footer class="dialog__foot">
+            <button type="button" class="btn btn--outline" data-dialog-close>Cancel</button>
+            <button type="submit" class="btn btn--primary">{{icon:check}} Save offer</button>
+          </footer>
+        </form>
+      </dialog>

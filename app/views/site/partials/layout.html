@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">{{preload}}
   <title>{{title}}</title>
   <meta name="description" content="{{description}}">{{robots}}
   <meta name="author" content="Mangalam Jewellers">
@@ -21,14 +21,15 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&amp;family=Jost:wght@300;400;500;600&amp;family=Noto+Serif+Gujarati:wght@400;500&amp;display=swap">
   <link rel="stylesheet" href="assets/css/mangalam.css?v={{cssVersion}}">
-  <!-- "View in 3D" on product pages: three.js and the viewer load only when a visitor opens it -->
+  <!-- "View in 3D" and the 360° view on product pages: three.js and the viewers load only when a visitor opens them -->
   <script type="importmap">
     {
       "imports": {
         "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
         "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/",
         "mangalam/viewer3d": "./assets/js/viewer3d.js?v={{viewerVersion}}",
-        "mangalam/product3d": "./assets/js/product3d.js?v={{product3dVersion}}"
+        "mangalam/product3d": "./assets/js/product3d.js?v={{product3dVersion}}",
+        "mangalam/spin360": "./assets/js/spin360.js?v={{spinVersion}}"
       },
       "integrity": {
         "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js": "sha384-qOubuRxWZ0I7rXTjcuhcKNHKvPM7q0ztN8/82sJnxnyKS0OXTeB5FsIcysc2T9EY",

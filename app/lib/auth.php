@@ -20,6 +20,7 @@ const PERMISSIONS = [
     'offers.edit' => 'Edit the offer and announcements',
     'settings.edit' => 'Change settings',
     'users.manage' => 'Invite and remove team members',
+    'templates.edit' => 'Edit email templates',
 ];
 
 function start_session(): void

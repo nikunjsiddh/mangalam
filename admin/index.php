@@ -42,8 +42,10 @@ try {
         redirect(home_screen($me));
     }
     echo render_admin_page($route);
-    flush();
+    finish_response();
+    remember_site_url();
     maybe_send_daily_summary();
+    maybe_fetch_replies();
 } catch (Throwable $e) {
     http_response_code(500);
     error_log('Mangalam admin: ' . $e);
@@ -56,4 +58,20 @@ try {
 function safe_next(string $next): string
 {
     return preg_match('#^[a-z0-9-]+\.html(\?[^\s<>"]*)?$#i', $next) ? $next : '';
+}
+
+/** The address the website is open at, for links in emails sent from the command line (database/fetch-mail.php) */
+function remember_site_url(): void
+{
+    $url = site_url();
+    if (setting('site_url', '') === '' && setting('site_url_seen', '') !== $url) save_settings(['site_url_seen' => $url]);
+}
+
+/** Hands the page to the browser before the work that can wait (the morning summary, reading the mailbox) */
+function finish_response(): void
+{
+    if (session_status() === PHP_SESSION_ACTIVE) session_write_close();
+    if (function_exists('fastcgi_finish_request')) fastcgi_finish_request();
+    elseif (function_exists('litespeed_finish_request')) litespeed_finish_request();
+    else flush();
 }

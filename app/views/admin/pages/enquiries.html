@@ -2,26 +2,30 @@
         <div>
           <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Dashboard</a>{{icon:chevron-right}}<span aria-current="page">Enquiries</span></nav>
           <h1 class="ph__title">Enquiries</h1>
-          <p class="ph__desc">Messages from the Enquire button on product pages and from the contact form.{{mailNote}}</p>
+          <p class="ph__desc">Every conversation with customers — enquiries from product pages and the contact form, their replies by email or on their conversation page, and messages you start. Answer by email, WhatsApp or note.{{mailNote}}</p>
         </div>
         <div class="ph__actions">
+          {{checkMail}}
           <a class="btn btn--outline" href="api.php?action=export&amp;what=enquiries">{{icon:download}} Export</a>
+          <button type="button" class="btn btn--primary" data-dialog-open="message-dialog" data-fill='{}'>{{icon:square-pen}} New message</button>
         </div>
       </header>
+      {{mailboxError}}
 
-      <section class="card inbox" data-inbox>
+      <section class="card inbox" data-inbox data-poll-mail="{{pollMail}}">
         <div class="inbox__list" data-list-scope>
           <div class="inbox__controls">
-            <label class="search">{{icon:search}}<span class="sr-only">Search enquiries</span><input class="input" type="search" placeholder="Search {{enquiryTotal}} enquiries…" data-list-search></label>
+            <label class="search">{{icon:search}}<span class="sr-only">Search conversations</span><input class="input" type="search" placeholder="Search {{enquiryTotal}} conversations…" data-list-search></label>
             <div class="chips chips--tight">{{enquiryChips}}</div>
-            <select class="select select--sm" data-list-filter="source" aria-label="Where the enquiry came from"><option value="">Every source</option><option value="product">Product pages</option><option value="contact">Contact form</option></select>
+            <select class="select select--sm" data-list-filter="source" aria-label="How the conversation started"><option value="">Every source</option><option value="product">Product pages</option><option value="contact">Contact form</option><option value="email">Emails to the mailbox</option><option value="admin">Started by the team</option></select>
           </div>
           <ul class="inbox__items" data-list>{{enquiryItems}}
           </ul>
-          <div class="empty empty--sm" data-list-empty hidden><span class="empty__icon">{{icon:inbox}}</span><p class="empty__title">Nothing here</p><button type="button" class="btn btn--outline btn--sm" data-list-reset>Show every enquiry</button></div>
+          <div class="empty empty--sm" data-list-empty hidden><span class="empty__icon">{{icon:inbox}}</span><p class="empty__title">Nothing here</p><button type="button" class="btn btn--outline btn--sm" data-list-reset>Show every conversation</button></div>
         </div>
         <div class="inbox__thread">{{enquiryThreads}}
         </div>
       </section>
 
+{{> conversation-dialogs}}
 {{> appointment-dialog}}

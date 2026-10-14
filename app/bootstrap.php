@@ -12,6 +12,8 @@ require APP_DIR . '/lib/helpers.php';
 require APP_DIR . '/lib/db.php';
 require APP_DIR . '/lib/template.php';
 require APP_DIR . '/lib/content.php';
+require APP_DIR . '/lib/mail.php';
+require APP_DIR . '/lib/conversations.php';
 require APP_DIR . '/lib/auth.php';
 require APP_DIR . '/lib/images.php';
 
